@@ -1,73 +1,151 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
 <head>
-  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
-  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="简单过了一遍Verilog的语法，基本就能看懂CPU的代码了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="verilog基础">
+<meta property="og:url" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="whl&#39;s blog">
+<meta property="og:description" content="简单过了一遍Verilog的语法，基本就能看懂CPU的代码了">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/1.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/2.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/3.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/4.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/5.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/6.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/7.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/9.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/10.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/11.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/12.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/13.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/14.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/15.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/16.png">
+<meta property="article:published_time" content="2020-11-17T13:21:57.000Z">
+<meta property="article:modified_time" content="2024-03-22T15:55:27.601Z">
+<meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wuhlan3.gitee.io/2020/11/17/verilog%E5%9F%BA%E7%A1%80/1.png">
+  
+  
+  
   <title>verilog基础 - whl&#39;s blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/Wuhlan3/css/custom.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/Wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
   <script  src="/Wuhlan3/js/utils.js" ></script>
   <script  src="/Wuhlan3/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.2.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/Wuhlan3/">
+      <strong>Wuhlan3</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -84,9 +162,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/">
+              <a class="nav-link" href="/Wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                主页
+                <span>主页</span>
               </a>
             </li>
           
@@ -96,9 +174,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/archives/">
+              <a class="nav-link" href="/Wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                历史
+                <span>历史</span>
               </a>
             </li>
           
@@ -108,9 +186,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/tags/">
+              <a class="nav-link" href="/Wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -120,9 +198,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/links/">
+              <a class="nav-link" href="/Wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -132,23 +210,26 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/about/">
+              <a class="nav-link" href="/Wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -156,119 +237,110 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/Wuhlan3/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-			
-			
-			
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Wuhlan3
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-11-17 21:21" pubdate>
-        November 17, 2020 pm
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.3k 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      28
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/Wuhlan3/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="verilog基础"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-17 21:21" pubdate>
+          November 17, 2020 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">verilog基础</h1>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">verilog基础</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：a year ago
-                
-              </p>
             
-            <div class="markdown-body" id="post-body">
-              <h1>Verilog HDL基础</h1>
+              <div class="markdown-body">
+                
+                <h1>Verilog HDL基础</h1>
 <p>​	硬件描述语言HDL（Hardware Description Language）是硬件设计人员和电子自动化（EDA）工具之间的接口，其主要目的是用来编写设计文件，建立电子系统行为级的仿真模型。</p>
 <p>​	硬件描述语言利用计算机的强大功能对用HDL建模的复杂数字逻辑进行仿真，然后自动综合以生成符合要求且再电路结构上可以实现的数字逻辑网表（Netlist），根据网表和某种工艺的器件自动生成具体电路然后生成该工艺条件下这种具体电路的延时模型。仿真验证无误后用于制造ASIC芯片或写入CPLD和FPGA器件中。</p>
 <p>这种特殊结构能够：</p>
-<div class="hljs"><pre><code class="hljs angelscript"><span class="hljs-number">1.</span>描述电路的连接
-<span class="hljs-number">2.</span>描述电路的功能
-<span class="hljs-number">3.</span>在不同抽象级上描述电路
-<span class="hljs-number">4.</span>描述电路的时序
-<span class="hljs-number">5.</span>表达具有并行性</code></pre></div>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">1.描述电路的连接<br>2.描述电路的功能<br>3.在不同抽象级上描述电路<br>4.描述电路的时序<br>5.表达具有并行性<br></code></pre></td></tr></table></figure>
 <p>HDL主要有两种：Verilog 和 VHDL</p>
-<div class="hljs"><pre><code class="hljs angelscript"><span class="hljs-number">1.</span>verilog 起源于C语言，容易掌握
-<span class="hljs-number">2.</span>VHDL格式严谨
-<span class="hljs-number">3.</span>VHDL出现较晚，但标准化早。IEEE <span class="hljs-number">1706</span><span class="hljs-number">-1985</span>标准</code></pre></div>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>.verilog 起源于C语言，容易掌握<br><span class="hljs-attribute">2</span>.VHDL格式严谨<br><span class="hljs-attribute">3</span>.VHDL出现较晚，但标准化早。IEEE <span class="hljs-number">1706</span>-<span class="hljs-number">1985</span>标准<br></code></pre></td></tr></table></figure>
 <p>行为级的抽象：</p>
-<div class="hljs"><pre><code class="hljs gcode">·系统级<span class="hljs-comment">(system)</span>
-·算法级<span class="hljs-comment">(algorithm)</span>
-·寄存器传输级<span class="hljs-comment">(RTL)</span><span class="hljs-comment">(Register Transfer Level)</span>
-·逻辑门级<span class="hljs-comment">(gate)</span>
-·开关电路级<span class="hljs-comment">(switch)</span></code></pre></div>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gcode">·系统级<span class="hljs-comment">(system)</span><br>·算法级<span class="hljs-comment">(algorithm)</span><br>·寄存器传输级<span class="hljs-comment">(RTL)</span><span class="hljs-comment">(Register Transfer Level)</span><br>·逻辑门级<span class="hljs-comment">(gate)</span><br>·开关电路级<span class="hljs-comment">(switch)</span><br></code></pre></td></tr></table></figure>
 <p>对于这些，较适合使用Verilog设计；对于特大型（千万门级以上）的系统级设计，则VHDL比较合适。</p>
 <h3 id="Verilog的设计方法">Verilog的设计方法</h3>
 <ol>
 <li>自顶向下（top-down）（与模拟电路自底向上相对）</li>
 </ol>
-<p><img src="1.png" srcset="/Wuhlan3/img/loading.gif" alt="img"></p>
+<p><img src="1.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="img"></p>
 <ol start="2">
 <li>
 <p>模块设计流程：</p>
-<p><img src="2.png" srcset="/Wuhlan3/img/loading.gif" alt="img"></p>
+<p><img src="2.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="img"></p>
 </li>
 </ol>
 <p><strong>需求分析</strong></p>
@@ -293,38 +365,14 @@
 <h3 id="基础语法">基础语法</h3>
 <h4 id="多路选择器">多路选择器</h4>
 <p>（没有考虑延时问题）</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> muxtwo(out, a, b, s1);	<span class="hljs-comment">//该模块中包含这些变量</span>
-    <span class="hljs-keyword">input</span> a,b,s1;
-    <span class="hljs-keyword">output</span> out;
-    <span class="hljs-keyword">reg</span> out;
-    <span class="hljs-keyword">always</span> @(s1 <span class="hljs-keyword">or</span> a <span class="hljs-keyword">or</span> b)		<span class="hljs-comment">//当sl或a或b发生变化时，执行下列语句</span>
-    <span class="hljs-keyword">if</span> (! s1) out = a;
-    <span class="hljs-keyword">else</span> out = b;
-    <span class="hljs-keyword">endmodule</span></code></pre></div>
-<p><img src="3.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201109201401720"></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> muxtwo(out, a, b, s1);    <span class="hljs-comment">//该模块中包含这些变量</span><br>    <span class="hljs-keyword">input</span> a,b,s1;<br>    <span class="hljs-keyword">output</span> out;<br>    <span class="hljs-keyword">reg</span> out;<br>    <span class="hljs-keyword">always</span> @(s1 <span class="hljs-keyword">or</span> a <span class="hljs-keyword">or</span> b)        <span class="hljs-comment">//当sl或a或b发生变化时，执行下列语句</span><br>    <span class="hljs-keyword">if</span> (! s1) out = a;<br>    <span class="hljs-keyword">else</span> out = b;<br>    <span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<p><img src="3.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201109201401720"></p>
 <p>结构级描述（描述中含有传输延时）</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> twomux(out,a,b,s1);
-    <span class="hljs-keyword">input</span> a,b,s1;
-    <span class="hljs-keyword">output</span> out;
-    <span class="hljs-keyword">not</span> u1(ns1, s1);			<span class="hljs-comment">//ns1 非门</span>
-    <span class="hljs-keyword">and</span> #<span class="hljs-number">1</span> u2(se1a, a, ns1);	<span class="hljs-comment">//se1a se1b 与门a和b</span>
-    <span class="hljs-keyword">and</span> #<span class="hljs-number">1</span> u3(se1b, b, s1);
-    <span class="hljs-keyword">or</span>	#<span class="hljs-number">2</span> u4(out, se1a, se1b);
-<span class="hljs-keyword">endmodule</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> twomux(out,a,b,s1);<br>    <span class="hljs-keyword">input</span> a,b,s1;<br>    <span class="hljs-keyword">output</span> out;<br>    <span class="hljs-keyword">not</span> u1(ns1, s1);            <span class="hljs-comment">//ns1 非门</span><br>    <span class="hljs-keyword">and</span> #<span class="hljs-number">1</span> u2(se1a, a, ns1);    <span class="hljs-comment">//se1a se1b 与门a和b</span><br>    <span class="hljs-keyword">and</span> #<span class="hljs-number">1</span> u3(se1b, b, s1);<br>    <span class="hljs-keyword">or</span>    #<span class="hljs-number">2</span> u4(out, se1a, se1b);<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
 <h4 id="三位加法器">三位加法器</h4>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> adder(count, sum, a, b, cin);
-    <span class="hljs-keyword">input</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] a,b;<span class="hljs-comment">//分配三位</span>
-    <span class="hljs-keyword">input</span> cin;		<span class="hljs-comment">//输入进位</span>
-    <span class="hljs-keyword">output</span> cout;	<span class="hljs-comment">//输出进位</span>
-    <span class="hljs-keyword">output</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] sum;
-    <span class="hljs-keyword">assign</span> {cout, sum} = a+b+cin; 
-    <span class="hljs-keyword">endmodule</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> adder(count, sum, a, b, cin);<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] a,b;<span class="hljs-comment">//分配三位</span><br>    <span class="hljs-keyword">input</span> cin;		<span class="hljs-comment">//输入进位</span><br>    <span class="hljs-keyword">output</span> cout;	<span class="hljs-comment">//输出进位</span><br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] sum;<br>    <span class="hljs-keyword">assign</span> &#123;cout, sum&#125; = a+b+cin; <br>    <span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
 <h4 id="两位比较器">两位比较器</h4>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> compare(equal,a,b);
-    <span class="hljs-keyword">output</span> equal;
-    <span class="hljs-keyword">input</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>]a,b;
-    <span class="hljs-keyword">assign</span> equal=(a==b) ? <span class="hljs-number">1</span>:<span class="hljs-number">0</span>;
-<span class="hljs-keyword">endmodule</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> compare(equal,a,b);<br>    <span class="hljs-keyword">output</span> equal;<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>]a,b;<br>    <span class="hljs-keyword">assign</span> equal=(a==b) ? <span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
 <h2 id="三、模块">三、模块</h2>
 <p>模块分为两部分：一、描述接口；二、描述逻辑功能</p>
 <p>声明输入输出口：<code>module 模块名(口1,口2,口3,……)</code></p>
@@ -341,66 +389,49 @@
 <p>（1）<code>assign</code>声明，如<code>assign a = b &amp; c;</code></p>
 <p>（2）用实例元件，如<code>and #2 ul(q,a,b);</code>	（ul是与门的名，#2指输出延迟两个单位时间，输入a,b，输出q）</p>
 <p>（3）<code>always</code>块，如</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">posedge</span> clr);
-<span class="hljs-keyword">begin</span> 
-    <span class="hljs-keyword">if</span>(clr) q&lt;= <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(en) q&lt;=d;
-<span class="hljs-keyword">end</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">posedge</span> clr);<br><span class="hljs-keyword">begin</span> <br>    <span class="hljs-keyword">if</span>(clr) q&lt;= <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(en) q&lt;=d;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p><strong>注意：上述3种例子是同时执行的（并发），顺序不会影响功能的实现；但是在always模块内，逻辑是按照指定顺序执行</strong></p>
-<p><img src="4.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115145325925"></p>
-<p><img src="5.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115145339991"></p>
+<p><img src="4.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115145325925"></p>
+<p><img src="5.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115145339991"></p>
 <h4 id="数据类型及其常量和变量">数据类型及其常量和变量</h4>
-<p><img src="6.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115145641460"></p>
-<p><img src="7.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115145742133"></p>
-<p><img src="9.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115145844734"></p>
-<p><img src="10.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115145903038"></p>
+<p><img src="6.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115145641460"></p>
+<p><img src="7.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115145742133"></p>
+<p><img src="9.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115145844734"></p>
+<p><img src="10.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115145903038"></p>
 <h5 id="变量：">变量：</h5>
 <ol>
 <li>
 <p>wire型</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> a;			<span class="hljs-comment">//定义一个1位wire数据</span>
-<span class="hljs-keyword">wire</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]b;		<span class="hljs-comment">//定义一个8位wire数据</span>
-<span class="hljs-keyword">wire</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]c,d;	<span class="hljs-comment">//定义两个4位wire数据</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> a;            <span class="hljs-comment">//定义一个1位wire数据</span><br><span class="hljs-keyword">wire</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]b;        <span class="hljs-comment">//定义一个8位wire数据</span><br><span class="hljs-keyword">wire</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]c,d;    <span class="hljs-comment">//定义两个4位wire数据</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>reg型</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> rega;			<span class="hljs-comment">//定义一个1位reg数据</span>
-<span class="hljs-keyword">reg</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]regb;		<span class="hljs-comment">//定义一个8位reg数据</span>
-<span class="hljs-keyword">reg</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]regc,regd;	<span class="hljs-comment">//定义两个4位reg数据</span></code></pre></div>
-<p><img src="11.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115150754701"></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> rega;            <span class="hljs-comment">//定义一个1位reg数据</span><br><span class="hljs-keyword">reg</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]regb;        <span class="hljs-comment">//定义一个8位reg数据</span><br><span class="hljs-keyword">reg</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]regc,regd;    <span class="hljs-comment">//定义两个4位reg数据</span><br></code></pre></td></tr></table></figure>
+<p><img src="11.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115150754701"></p>
 </li>
 <li>
 <p>memory型</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>] mema[<span class="hljs-number">255</span>,<span class="hljs-number">0</span>];	<span class="hljs-comment">//一个名为mema的存储器，有256个8位的寄存器</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>] mema[<span class="hljs-number">255</span>,<span class="hljs-number">0</span>];    <span class="hljs-comment">//一个名为mema的存储器，有256个8位的寄存器</span><br></code></pre></td></tr></table></figure>
 <p>区别：</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] rega;	<span class="hljs-comment">//一个n位寄存器</span>
-<span class="hljs-keyword">reg</span> mema [n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>];	<span class="hljs-comment">//一个n个1位寄存器构成的存储器</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] rega;    <span class="hljs-comment">//一个n位寄存器</span><br><span class="hljs-keyword">reg</span> mema [n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>];    <span class="hljs-comment">//一个n个1位寄存器构成的存储器</span><br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="四、运算符">四、运算符</h2>
-<p><img src="12.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115151500409"></p>
+<p><img src="12.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115151500409"></p>
 <h4 id="Verilog特殊运算符">Verilog特殊运算符</h4>
 <ol>
 <li><code>===</code>和<code>!==</code></li>
 </ol>
-<p><img src="13.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115204158446"></p>
+<p><img src="13.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115204158446"></p>
 <ol start="2">
 <li>
 <p>位拼接运算符</p>
-<div class="hljs"><pre><code class="hljs verilog">{a,b[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>],w,<span class="hljs-number">3'b101</span>}
-等于：{a,b[<span class="hljs-number">3</span>],b[<span class="hljs-number">2</span>],b[<span class="hljs-number">1</span>],b[<span class="hljs-number">0</span>],w,<span class="hljs-number">1'b1</span>,<span class="hljs-number">1'b0</span>,<span class="hljs-number">1'b1</span>}
-
-{<span class="hljs-number">4</span>{w}}		<span class="hljs-comment">//等同于{w,w,w,w}</span>
-{b,<span class="hljs-number">3</span>{a,b}}	<span class="hljs-comment">//可嵌套，等同于{b,a,b,a,b,a,b}</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog">&#123;a,b[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>],w,<span class="hljs-number">3&#x27;b101</span>&#125;<br>等于：&#123;a,b[<span class="hljs-number">3</span>],b[<span class="hljs-number">2</span>],b[<span class="hljs-number">1</span>],b[<span class="hljs-number">0</span>],w,<span class="hljs-number">1&#x27;b1</span>,<span class="hljs-number">1&#x27;b0</span>,<span class="hljs-number">1&#x27;b1</span>&#125;<br><br>&#123;<span class="hljs-number">4</span>&#123;w&#125;&#125;        <span class="hljs-comment">//等同于&#123;w,w,w,w&#125;</span><br>&#123;b,<span class="hljs-number">3</span>&#123;a,b&#125;&#125;    <span class="hljs-comment">//可嵌套，等同于&#123;b,a,b,a,b,a,b&#125;</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>缩减运算符</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] B;
-<span class="hljs-keyword">reg</span> C;
-    C = &amp;B;
-<span class="hljs-comment">//相当于</span>
-    C = ((B[<span class="hljs-number">0</span>]&amp;B[<span class="hljs-number">1</span>])&amp;B[<span class="hljs-number">2</span>])&amp;[<span class="hljs-number">3</span>]</code></pre></div>
-<p><img src="14.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115205211934"></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] B;<br><span class="hljs-keyword">reg</span> C;<br>    C = &amp;B;<br><span class="hljs-comment">//相当于</span><br>    C = ((B[<span class="hljs-number">0</span>]&amp;B[<span class="hljs-number">1</span>])&amp;B[<span class="hljs-number">2</span>])&amp;[<span class="hljs-number">3</span>]<br></code></pre></td></tr></table></figure>
+<p><img src="14.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115205211934"></p>
 </li>
 </ol>
 <h4 id="赋值语句">赋值语句</h4>
@@ -420,48 +451,24 @@
 </ol>
 <p>简单理解</p>
 <p>​	1.非阻塞赋值：</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk)
-    <span class="hljs-keyword">begin</span> 
-        b &lt;= a;
-        c &lt;= b;
-    <span class="hljs-keyword">end</span></code></pre></div>
-<p><img src="15.png" srcset="/Wuhlan3/img/loading.gif" alt=""></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk)<br>    <span class="hljs-keyword">begin</span> <br>        b &lt;= a;<br>        c &lt;= b;<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p><img src="15.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt=""></p>
 <ol start="2">
 <li>阻塞赋值：</li>
 </ol>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk)
-    <span class="hljs-keyword">begin</span> 
-        b = a;
-        c = b;
-    <span class="hljs-keyword">end</span></code></pre></div>
-<p><img src="16.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20201115211628565"></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk)<br>    <span class="hljs-keyword">begin</span> <br>        b = a;<br>        c = b;<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p><img src="16.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20201115211628565"></p>
 <h4 id="块语句">块语句</h4>
 <ol>
 <li>
 <p>顺序块</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span>
-    语句<span class="hljs-number">1</span>；
-    语句<span class="hljs-number">2</span>；
-    ……
-<span class="hljs-keyword">end</span></code></pre></div>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span>:块名
-    语句<span class="hljs-number">1</span>；
-    语句<span class="hljs-number">2</span>；
-    ……
-<span class="hljs-keyword">end</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span><br>    语句<span class="hljs-number">1</span>；<br>    语句<span class="hljs-number">2</span>；<br>    ……<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span>:块名<br>    语句<span class="hljs-number">1</span>；<br>    语句<span class="hljs-number">2</span>；<br>    ……<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>并行块</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span>
-    语句<span class="hljs-number">1</span>：
-    语句<span class="hljs-number">2</span>：
-    ……
-<span class="hljs-keyword">join</span></code></pre></div>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span>:块名
-    语句<span class="hljs-number">1</span>：
-    语句<span class="hljs-number">2</span>：
-    ……
-<span class="hljs-keyword">join</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span><br>    语句<span class="hljs-number">1</span>：<br>    语句<span class="hljs-number">2</span>：<br>    ……<br><span class="hljs-keyword">join</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span>:块名<br>    语句<span class="hljs-number">1</span>：<br>    语句<span class="hljs-number">2</span>：<br>    ……<br><span class="hljs-keyword">join</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>起始时间和结束时间</p>
@@ -476,77 +483,94 @@
 </li>
 <li>
 <p>case：</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] rega;
-<span class="hljs-keyword">reg</span>[<span class="hljs-number">9</span>:<span class="hljs-number">0</span>]  result;
-<span class="hljs-keyword">case</span>(rega)
-    <span class="hljs-number">16'd0</span>: result = <span class="hljs-number">10'b0111_1111_11</span>
-    <span class="hljs-number">16'd1</span>: result = <span class="hljs-number">10'b1011_1111_11</span>
-    <span class="hljs-number">16'd2</span>: result = <span class="hljs-number">10'b1101_1111_11</span>
-    <span class="hljs-number">16'd3</span>: result = <span class="hljs-number">10'b1110_1111_11</span>
-    <span class="hljs-number">16'd4</span>: result = <span class="hljs-number">10'b1111_0111_11</span>
-    <span class="hljs-number">16'd5</span>: result = <span class="hljs-number">10'b1111_1111_11</span>
-    <span class="hljs-number">16'd6</span>: result = <span class="hljs-number">10'b1111_1111_11</span>
-    <span class="hljs-number">16'd7</span>: result = <span class="hljs-number">10'b1111_1111_11</span>
-    <span class="hljs-number">16'd8</span>: result = <span class="hljs-number">10'b1111_1111_11</span>
-    <span class="hljs-number">16'd9</span>: result = <span class="hljs-number">10'b1111_1111_11</span>
-    <span class="hljs-keyword">default</span>: result = <span class="hljs-number">10'bx</span>
-<span class="hljs-keyword">endcase</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] rega;<br><span class="hljs-keyword">reg</span>[<span class="hljs-number">9</span>:<span class="hljs-number">0</span>]  result;<br><span class="hljs-keyword">case</span>(rega)<br>    <span class="hljs-number">16&#x27;d0</span>: result = <span class="hljs-number">10&#x27;b0111_1111_11</span><br>    <span class="hljs-number">16&#x27;d1</span>: result = <span class="hljs-number">10&#x27;b1011_1111_11</span><br>    <span class="hljs-number">16&#x27;d2</span>: result = <span class="hljs-number">10&#x27;b1101_1111_11</span><br>    <span class="hljs-number">16&#x27;d3</span>: result = <span class="hljs-number">10&#x27;b1110_1111_11</span><br>    <span class="hljs-number">16&#x27;d4</span>: result = <span class="hljs-number">10&#x27;b1111_0111_11</span><br>    <span class="hljs-number">16&#x27;d5</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d6</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d7</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d8</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d9</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-keyword">default</span>: result = <span class="hljs-number">10&#x27;bx</span><br><span class="hljs-keyword">endcase</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>forever（多用于产生周期性波形）</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">forever</span> 语句；
-或：
-<span class="hljs-keyword">forever</span>
-    <span class="hljs-keyword">begin</span>
-        多条语句
-    <span class="hljs-keyword">end</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">forever</span> 语句；<br>或：<br><span class="hljs-keyword">forever</span><br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>repeat（后常接常量表达式）</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">repeat</span>(表达式) 语句；
-或：
-<span class="hljs-keyword">repeat</span>（表达式）
-    <span class="hljs-keyword">begin</span>
-        多条语句
-    <span class="hljs-keyword">end</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">repeat</span>(表达式) 语句；<br>或：<br><span class="hljs-keyword">repeat</span>（表达式）<br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>while</p>
-<div class="hljs"><pre><code class="hljs verilog"><span class="hljs-keyword">while</span>(表达式) 语句；
-或：
-<span class="hljs-keyword">while</span>（表达式）
-    <span class="hljs-keyword">begin</span>
-        多条语句
-    <span class="hljs-keyword">end</span></code></pre></div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">while</span>(表达式) 语句；<br>或：<br><span class="hljs-keyword">while</span>（表达式）<br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>for 没啥好说的</p>
 </li>
 </ol>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/Wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" class="print-no-link">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>verilog基础</div>
+      <div>https://wuhlan3.gitee.io/2020/11/17/verilog基础/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Wuhlan3</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 17, 2020</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
               
               
-                <div class="post-prevnext row">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3/2020/12/05/%E8%B4%BA%E6%96%B0%E9%83%8E%C2%B7%E8%AF%BB%E5%8F%B2/">
+                      <a href="/Wuhlan3/2020/12/05/%E8%B4%BA%E6%96%B0%E9%83%8E%C2%B7%E8%AF%BB%E5%8F%B2/" title="贺新郎·读史">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">贺新郎·读史</span>
                         <span class="visible-mobile">Previous</span>
@@ -556,7 +580,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3/2020/10/29/%E5%8F%AF%E6%80%9C%E7%9A%84%E5%B0%8F%E7%8C%AA/">
+                      <a href="/Wuhlan3/2020/10/29/%E5%8F%AF%E6%80%9C%E7%9A%84%E5%B0%8F%E7%8C%AA/" title="可怜的小猪">
                         <span class="hidden-mobile">可怜的小猪</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -568,68 +592,69 @@
             </div>
 
             
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
-          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
-          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
-          path: window.location.pathname,
-          avatar: "hide",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    }
-    waitElementVisible('vcomments', loadValine);
-  </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </article>
-            
           </article>
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div id="tocbot"></div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -642,286 +667,199 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-
-  
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
-    });
-  }
-</script>
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
     
-  <div class="statistics">
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
     
     
 
-    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/events.js" ></script>
+<script  src="/Wuhlan3/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
+        typing(text);
       
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
+    })(window, document);
+  </script>
 
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3/js/debouncer.js" ></script>
-<script  src="/Wuhlan3/js/main.js" ></script>
-
-<!-- Plugins -->
 
 
   
-    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+    <script  src="/Wuhlan3/js/img-lazyload.js" ></script>
   
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
 
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
         }
       }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/Wuhlan3/2020/11/17/verilog%E5%9F%BA%E7%A1%80/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
-    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
-    var server_url = ''
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/Wuhlan3/js/leancloud.js" ></script>
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
 
 
 
@@ -931,132 +869,15 @@
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    function typing(id, title){
-        var typed = new Typed('#' + id, {
-            strings: [
-              '  ',
-              title + "&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    }
-    
-        typing("subtitle", "verilog基础")
-    
-  </script>
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/Wuhlan3/js/local-search.js" ></script>
-  <script>
-    var path = "/Wuhlan3/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/Wuhlan3/js/boot.js" ></script>
 
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 <script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

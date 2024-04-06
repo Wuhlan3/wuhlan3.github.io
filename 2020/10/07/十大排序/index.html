@@ -1,73 +1,144 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
 <head>
-  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
-  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="十大排序的经典重现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十大排序">
+<meta property="og:url" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="whl&#39;s blog">
+<meta property="og:description" content="十大排序的经典重现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/sort.png">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/bubbleSort.gif">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/selectionSort.gif">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/insertionSort.gif">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/shellsort.jpg">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/mergeSort.gif">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/quickSort.gif">
+<meta property="og:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/heapSort.gif">
+<meta property="article:published_time" content="2020-10-07T11:49:59.000Z">
+<meta property="article:modified_time" content="2024-03-22T15:55:27.651Z">
+<meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wuhlan3.gitee.io/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/sort.png">
+  
+  
+  
   <title>十大排序 - whl&#39;s blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/Wuhlan3/css/custom.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/Wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
   <script  src="/Wuhlan3/js/utils.js" ></script>
   <script  src="/Wuhlan3/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.2.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/Wuhlan3/">
+      <strong>Wuhlan3</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -84,9 +155,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/">
+              <a class="nav-link" href="/Wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                主页
+                <span>主页</span>
               </a>
             </li>
           
@@ -96,9 +167,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/archives/">
+              <a class="nav-link" href="/Wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                历史
+                <span>历史</span>
               </a>
             </li>
           
@@ -108,9 +179,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/tags/">
+              <a class="nav-link" href="/Wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -120,9 +191,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/links/">
+              <a class="nav-link" href="/Wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -132,23 +203,26 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/about/">
+              <a class="nav-link" href="/Wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -156,294 +230,125 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/Wuhlan3/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-			
-			
-			
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Wuhlan3
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-07 19:49" pubdate>
-        October 7, 2020 pm
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.1k 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      19
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/Wuhlan3/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="十大排序"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-10-07 19:49" pubdate>
+          October 7, 2020 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">十大排序</h1>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">十大排序</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：a year ago
-                
-              </p>
             
-            <div class="markdown-body" id="post-body">
-              <h2 id="十大排序算法">十大排序算法</h2>
+              <div class="markdown-body">
+                
+                <h2 id="十大排序算法">十大排序算法</h2>
 <p><strong>经典图镇楼</strong></p>
-<p><img src="sort.png" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
+<p><img src="sort.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
 <p>在STL中，是以函数sort实现的</p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(iterator begin, iterator end)</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(iterator begin, iterator end, comparator cmp)</span></span>;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(iterator begin, iterator end)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(iterator begin, iterator end, comparator cmp)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>迭代器必须支持随机访问。sort算法并不能保证相等的项保持他们原有的顺序。（若这很重要，可以使用<code>stable_sort</code>）这里一般使用的是快速排序。</p>
 <h3 id="冒泡排序">冒泡排序</h3>
-<p><img src="bubbleSort.gif" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-comment">//整数或浮点数皆可使用,若使用类(class)或结构体(struct)时必须重载大于(&gt;)运算符</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bubble_sort</span><span class="hljs-params">(T arr[], <span class="hljs-keyword">int</span> len)</span> </span>{
-        <span class="hljs-keyword">int</span> i, j;
-        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++)
-                <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; j &lt; len - <span class="hljs-number">1</span> - i; j++)
-                        <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>])
-                                swap(arr[j], arr[j + <span class="hljs-number">1</span>]);
-}</code></pre></div>
+<p><img src="bubbleSort.gif" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-comment">//整数或浮点数皆可使用,若使用类(class)或结构体(struct)时必须重载大于(&gt;)运算符</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">bubble_sort</span><span class="hljs-params">(T arr[], <span class="hljs-type">int</span> len)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i, j;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++)<br>                <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; j &lt; len - <span class="hljs-number">1</span> - i; j++)<br>                        <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>])<br>                                <span class="hljs-built_in">swap</span>(arr[j], arr[j + <span class="hljs-number">1</span>]);<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="选择排序">选择排序</h3>
-<p><img src="selectionSort.gif" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-comment">//整数或浮点数皆可使用,若使用类(class)或结构体(struct)时必须重载大于(&gt;)运算符</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">selection_sort</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;T&gt;&amp; arr)</span> </span>{
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.size() - <span class="hljs-number">1</span>; i++) {
-                <span class="hljs-keyword">int</span> min = i;
-                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; arr.size(); j++)
-                        <span class="hljs-keyword">if</span> (arr[j] &lt; arr[min])
-                                min = j;
-                <span class="hljs-built_in">std</span>::swap(arr[i], arr[min]);
-        }
-}</code></pre></div>
+<p><img src="selectionSort.gif" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-comment">//整数或浮点数皆可使用,若使用类(class)或结构体(struct)时必须重载大于(&gt;)运算符</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">selection_sort</span><span class="hljs-params">(std::vector&lt;T&gt;&amp; arr)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>; i++) &#123;<br>                <span class="hljs-type">int</span> min = i;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i + <span class="hljs-number">1</span>; j &lt; arr.<span class="hljs-built_in">size</span>(); j++)<br>                        <span class="hljs-keyword">if</span> (arr[j] &lt; arr[min])<br>                                min = j;<br>                std::<span class="hljs-built_in">swap</span>(arr[i], arr[min]);<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id=""></h3>
 <h3 id="插入排序">插入排序</h3>
-<p><img src="insertionSort.gif" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] <span class="hljs-built_in">array</span>)</span></span>
-<span class="hljs-function"></span>{
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt; <span class="hljs-built_in">array</span>.length;i++)
-    {
-        <span class="hljs-keyword">int</span> temp = <span class="hljs-built_in">array</span>[i];
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>;j &gt;= <span class="hljs-number">0</span>;j--)
-        {
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">array</span>[j] &gt; temp)
-            {
-                <span class="hljs-built_in">array</span>[j + <span class="hljs-number">1</span>] = <span class="hljs-built_in">array</span>[j];
-                <span class="hljs-built_in">array</span>[j] = temp;
-            }
-            <span class="hljs-keyword">else</span>
-                <span class="hljs-keyword">break</span>;
-        }
-    }
-}</code></pre></div>
+<p><img src="insertionSort.gif" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] array)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt; array.length;i++)<br>    &#123;<br>        <span class="hljs-type">int</span> temp = array[i];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = i - <span class="hljs-number">1</span>;j &gt;= <span class="hljs-number">0</span>;j--)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(array[j] &gt; temp)<br>            &#123;<br>                array[j + <span class="hljs-number">1</span>] = array[j];<br>                array[j] = temp;<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="-2"></h3>
 <h3 id="希尔排序">希尔排序</h3>
-<p><img src="shellsort.jpg" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shell_sort</span><span class="hljs-params">(T <span class="hljs-built_in">array</span>[], <span class="hljs-keyword">int</span> length)</span> </span>{
-    <span class="hljs-keyword">int</span> h = <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">while</span> (h &lt; length / <span class="hljs-number">3</span>) {
-        h = <span class="hljs-number">3</span> * h + <span class="hljs-number">1</span>;
-    }
-    <span class="hljs-keyword">while</span> (h &gt;= <span class="hljs-number">1</span>) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h; i &lt; length; i++) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &gt;= h &amp;&amp; <span class="hljs-built_in">array</span>[j] &lt; <span class="hljs-built_in">array</span>[j - h]; j -= h) {
-                <span class="hljs-built_in">std</span>::swap(<span class="hljs-built_in">array</span>[j], <span class="hljs-built_in">array</span>[j - h]);
-            }
-        }
-        h = h / <span class="hljs-number">3</span>;
-    }
-}</code></pre></div>
+<p><img src="shellsort.jpg" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">shell_sort</span><span class="hljs-params">(T array[], <span class="hljs-type">int</span> length)</span> </span>&#123;<br>    <span class="hljs-type">int</span> h = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (h &lt; length / <span class="hljs-number">3</span>) &#123;<br>        h = <span class="hljs-number">3</span> * h + <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">while</span> (h &gt;= <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = h; i &lt; length; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i; j &gt;= h &amp;&amp; array[j] &lt; array[j - h]; j -= h) &#123;<br>                std::<span class="hljs-built_in">swap</span>(array[j], array[j - h]);<br>            &#125;<br>        &#125;<br>        h = h / <span class="hljs-number">3</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="-3"></h3>
 <h3 id="归并排序">归并排序</h3>
-<p><img src="mergeSort.gif" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt; 
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">merge_sort</span><span class="hljs-params">(T arr[], <span class="hljs-keyword">int</span> len)</span> </span>{
-    T *a = arr;
-    T *b = <span class="hljs-keyword">new</span> T[len];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> seg = <span class="hljs-number">1</span>; seg &lt; len; seg += seg) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>; start &lt; len; start += seg + seg) {
-            <span class="hljs-keyword">int</span> low = start, mid = min(start + seg, len), high = min(start + seg + seg, len);
-            <span class="hljs-keyword">int</span> k = low;
-            <span class="hljs-keyword">int</span> start1 = low, end1 = mid;
-            <span class="hljs-keyword">int</span> start2 = mid, end2 = high;
-            <span class="hljs-keyword">while</span> (start1 &lt; end1 &amp;&amp; start2 &lt; end2)
-                b[k++] = a[start1] &lt; a[start2] ? a[start1++] : a[start2++];
-            <span class="hljs-keyword">while</span> (start1 &lt; end1)
-                b[k++] = a[start1++];
-            <span class="hljs-keyword">while</span> (start2 &lt; end2)
-                b[k++] = a[start2++];
-        }
-        T *temp = a;
-        a = b;
-        b = temp;
-    }
-    <span class="hljs-keyword">if</span> (a != arr) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++)
-            b[i] = a[i];
-        b = a;
-    }
-    <span class="hljs-keyword">delete</span>[] b;
-}</code></pre></div>
+<p><img src="mergeSort.gif" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt; </span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge_sort</span><span class="hljs-params">(T arr[], <span class="hljs-type">int</span> len)</span> </span>&#123;<br>    T *a = arr;<br>    T *b = <span class="hljs-keyword">new</span> T[len];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> seg = <span class="hljs-number">1</span>; seg &lt; len; seg += seg) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> start = <span class="hljs-number">0</span>; start &lt; len; start += seg + seg) &#123;<br>            <span class="hljs-type">int</span> low = start, mid = <span class="hljs-built_in">min</span>(start + seg, len), high = <span class="hljs-built_in">min</span>(start + seg + seg, len);<br>            <span class="hljs-type">int</span> k = low;<br>            <span class="hljs-type">int</span> start1 = low, end1 = mid;<br>            <span class="hljs-type">int</span> start2 = mid, end2 = high;<br>            <span class="hljs-keyword">while</span> (start1 &lt; end1 &amp;&amp; start2 &lt; end2)<br>                b[k++] = a[start1] &lt; a[start2] ? a[start1++] : a[start2++];<br>            <span class="hljs-keyword">while</span> (start1 &lt; end1)<br>                b[k++] = a[start1++];<br>            <span class="hljs-keyword">while</span> (start2 &lt; end2)<br>                b[k++] = a[start2++];<br>        &#125;<br>        T *temp = a;<br>        a = b;<br>        b = temp;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (a != arr) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++)<br>            b[i] = a[i];<br>        b = a;<br>    &#125;<br>    <span class="hljs-keyword">delete</span>[] b;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="-4"></h3>
 <h3 id="快速排序">快速排序</h3>
-<p><img src="quickSort.gif" srcset="/Wuhlan3/img/loading.gif" alt="image-festival"></p>
+<p><img src="quickSort.gif" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-festival"></p>
 <p><strong>迭代法</strong></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// 参考：http://www.dutor.net/index.php/2011/04/recursive-iterative-quick-sort/</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Range</span> {</span>
-    <span class="hljs-keyword">int</span> start, end;
-    Range(<span class="hljs-keyword">int</span> s = <span class="hljs-number">0</span>, <span class="hljs-keyword">int</span> e = <span class="hljs-number">0</span>) {
-        start = s, end = e;
-    }
-};
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; 
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">quick_sort</span><span class="hljs-params">(T arr[], <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> len)</span> </span>{
-    <span class="hljs-keyword">if</span> (len &lt;= <span class="hljs-number">0</span>)
-        <span class="hljs-keyword">return</span>; 
-    Range r[len];
-    <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>;
-    r[p++] = Range(<span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);
-    <span class="hljs-keyword">while</span> (p) {
-        Range range = r[--p];
-        <span class="hljs-keyword">if</span> (range.start &gt;= range.end)
-            <span class="hljs-keyword">continue</span>;
-        T mid = arr[range.end];
-        <span class="hljs-keyword">int</span> left = range.start, right = range.end - <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">while</span> (left &lt; right) {
-            <span class="hljs-keyword">while</span> (arr[left] &lt; mid &amp;&amp; left &lt; right) left++;
-            <span class="hljs-keyword">while</span> (arr[right] &gt;= mid &amp;&amp; left &lt; right) right--;
-            <span class="hljs-built_in">std</span>::swap(arr[left], arr[right]);
-        }
-        <span class="hljs-keyword">if</span> (arr[left] &gt;= arr[range.end])
-            <span class="hljs-built_in">std</span>::swap(arr[left], arr[range.end]);
-        <span class="hljs-keyword">else</span>
-            left++;
-        r[p++] = Range(range.start, left - <span class="hljs-number">1</span>);
-        r[p++] = Range(left + <span class="hljs-number">1</span>, range.end);
-    }
-}</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 参考：http://www.dutor.net/index.php/2011/04/recursive-iterative-quick-sort/</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Range</span> &#123;<br>    <span class="hljs-type">int</span> start, end;<br>    <span class="hljs-built_in">Range</span>(<span class="hljs-type">int</span> s = <span class="hljs-number">0</span>, <span class="hljs-type">int</span> e = <span class="hljs-number">0</span>) &#123;<br>        start = s, end = e;<br>    &#125;<br>&#125;;<br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quick_sort</span><span class="hljs-params">(T arr[], <span class="hljs-type">const</span> <span class="hljs-type">int</span> len)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (len &lt;= <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span>; <br>    Range r[len];<br>    <span class="hljs-type">int</span> p = <span class="hljs-number">0</span>;<br>    r[p++] = <span class="hljs-built_in">Range</span>(<span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">while</span> (p) &#123;<br>        Range range = r[--p];<br>        <span class="hljs-keyword">if</span> (range.start &gt;= range.end)<br>            <span class="hljs-keyword">continue</span>;<br>        T mid = arr[range.end];<br>        <span class="hljs-type">int</span> left = range.start, right = range.end - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br>            <span class="hljs-keyword">while</span> (arr[left] &lt; mid &amp;&amp; left &lt; right) left++;<br>            <span class="hljs-keyword">while</span> (arr[right] &gt;= mid &amp;&amp; left &lt; right) right--;<br>            std::<span class="hljs-built_in">swap</span>(arr[left], arr[right]);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (arr[left] &gt;= arr[range.end])<br>            std::<span class="hljs-built_in">swap</span>(arr[left], arr[range.end]);<br>        <span class="hljs-keyword">else</span><br>            left++;<br>        r[p++] = <span class="hljs-built_in">Range</span>(range.start, left - <span class="hljs-number">1</span>);<br>        r[p++] = <span class="hljs-built_in">Range</span>(left + <span class="hljs-number">1</span>, range.end);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>递归法</strong></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">quick_sort_recursive</span><span class="hljs-params">(T arr[], <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>{
-    <span class="hljs-keyword">if</span> (start &gt;= end)
-        <span class="hljs-keyword">return</span>;
-    T mid = arr[end];
-    <span class="hljs-keyword">int</span> left = start, right = end - <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">while</span> (left &lt; right) { <span class="hljs-comment">//在整个范围内搜寻比枢纽元值小或大的元素，然后将左侧元素与右侧元素交换</span>
-        <span class="hljs-keyword">while</span> (arr[left] &lt; mid &amp;&amp; left &lt; right) <span class="hljs-comment">//试图在左侧找到一个比枢纽元更大的元素</span>
-            left++;
-        <span class="hljs-keyword">while</span> (arr[right] &gt;= mid &amp;&amp; left &lt; right) <span class="hljs-comment">//试图在右侧找到一个比枢纽元更小的元素</span>
-            right--;
-        <span class="hljs-built_in">std</span>::swap(arr[left], arr[right]); <span class="hljs-comment">//交换元素</span>
-    }
-    <span class="hljs-keyword">if</span> (arr[left] &gt;= arr[end])
-        <span class="hljs-built_in">std</span>::swap(arr[left], arr[end]);
-    <span class="hljs-keyword">else</span>
-        left++;
-    quick_sort_recursive(arr, start, left - <span class="hljs-number">1</span>);
-    quick_sort_recursive(arr, left + <span class="hljs-number">1</span>, end);
-}
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; 
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">quick_sort</span><span class="hljs-params">(T arr[], <span class="hljs-keyword">int</span> len)</span> </span>{
-    quick_sort_recursive(arr, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);
-}</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quick_sort_recursive</span><span class="hljs-params">(T arr[], <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (start &gt;= end)<br>        <span class="hljs-keyword">return</span>;<br>    T mid = arr[end];<br>    <span class="hljs-type">int</span> left = start, right = end - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (left &lt; right) &#123; <span class="hljs-comment">//在整个范围内搜寻比枢纽元值小或大的元素，然后将左侧元素与右侧元素交换</span><br>        <span class="hljs-keyword">while</span> (arr[left] &lt; mid &amp;&amp; left &lt; right) <span class="hljs-comment">//试图在左侧找到一个比枢纽元更大的元素</span><br>            left++;<br>        <span class="hljs-keyword">while</span> (arr[right] &gt;= mid &amp;&amp; left &lt; right) <span class="hljs-comment">//试图在右侧找到一个比枢纽元更小的元素</span><br>            right--;<br>        std::<span class="hljs-built_in">swap</span>(arr[left], arr[right]); <span class="hljs-comment">//交换元素</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> (arr[left] &gt;= arr[end])<br>        std::<span class="hljs-built_in">swap</span>(arr[left], arr[end]);<br>    <span class="hljs-keyword">else</span><br>        left++;<br>    <span class="hljs-built_in">quick_sort_recursive</span>(arr, start, left - <span class="hljs-number">1</span>);<br>    <span class="hljs-built_in">quick_sort_recursive</span>(arr, left + <span class="hljs-number">1</span>, end);<br>&#125;<br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quick_sort</span><span class="hljs-params">(T arr[], <span class="hljs-type">int</span> len)</span> </span>&#123;<br>    <span class="hljs-built_in">quick_sort_recursive</span>(arr, <span class="hljs-number">0</span>, len - <span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="堆排序">堆排序</h3>
-<p><img src="heapSort.gif" srcset="/Wuhlan3/img/loading.gif" alt="heapSort"></p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-comment">//堆调整</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">max_heapify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[], <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>{
-   
-    <span class="hljs-keyword">int</span> dad = start;
-    <span class="hljs-keyword">int</span> son = dad * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">while</span> (son &lt;= end) { <span class="hljs-comment">// 要求子节点在范围内</span>
-        <span class="hljs-keyword">if</span> (son + <span class="hljs-number">1</span> &lt;= end &amp;&amp; arr[son] &lt; arr[son + <span class="hljs-number">1</span>]) <span class="hljs-comment">// 判断是否有另一个更大的子节点</span>
-            son++;
-        <span class="hljs-keyword">if</span> (arr[dad] &gt; arr[son]) <span class="hljs-comment">// 如果父节点最大，则不需要交换</span>
-            <span class="hljs-keyword">return</span>;
-        <span class="hljs-keyword">else</span> { <span class="hljs-comment">// 交换父子位置后，进行子孙的比较</span>
-            swap(arr[dad], arr[son]);
-            dad = son;
-            son = son * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;
-        }
-    }
-}
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">heap_sort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[], <span class="hljs-keyword">int</span> len)</span> </span>{
-    <span class="hljs-comment">//初始化，使初始数组变成大顶堆，时间复杂度为nlogn</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)
-        max_heapify(arr, i, len - <span class="hljs-number">1</span>);
-    <span class="hljs-comment">//将堆顶放到最后，然后再调节为大顶堆，复杂度也为nlogn</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; i--) {
-        swap(arr[<span class="hljs-number">0</span>], arr[i]);
-        max_heapify(arr, <span class="hljs-number">0</span>, i - <span class="hljs-number">1</span>);
-    }
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">int</span> arr[] = { <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>, <span class="hljs-number">4</span>, <span class="hljs-number">7</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">7</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span> };
-    <span class="hljs-keyword">int</span> len = (<span class="hljs-keyword">int</span>) <span class="hljs-keyword">sizeof</span>(arr) / <span class="hljs-keyword">sizeof</span>(*arr);
-    heap_sort(arr, len);
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++)
-        <span class="hljs-built_in">cout</span> &lt;&lt; arr[i] &lt;&lt; <span class="hljs-string">' '</span>;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}</code></pre></div>
+<p><img src="heapSort.gif" srcset="/Wuhlan3/img/loading.gif" lazyload alt="heapSort"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-comment">//堆调整</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">max_heapify</span><span class="hljs-params">(<span class="hljs-type">int</span> arr[], <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> </span>&#123;<br>   <br>    <span class="hljs-type">int</span> dad = start;<br>    <span class="hljs-type">int</span> son = dad * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (son &lt;= end) &#123; <span class="hljs-comment">// 要求子节点在范围内</span><br>        <span class="hljs-keyword">if</span> (son + <span class="hljs-number">1</span> &lt;= end &amp;&amp; arr[son] &lt; arr[son + <span class="hljs-number">1</span>]) <span class="hljs-comment">// 判断是否有另一个更大的子节点</span><br>            son++;<br>        <span class="hljs-keyword">if</span> (arr[dad] &gt; arr[son]) <span class="hljs-comment">// 如果父节点最大，则不需要交换</span><br>            <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 交换父子位置后，进行子孙的比较</span><br>            <span class="hljs-built_in">swap</span>(arr[dad], arr[son]);<br>            dad = son;<br>            son = son * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">heap_sort</span><span class="hljs-params">(<span class="hljs-type">int</span> arr[], <span class="hljs-type">int</span> len)</span> </span>&#123;<br>    <span class="hljs-comment">//初始化，使初始数组变成大顶堆，时间复杂度为nlogn</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = len / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)<br>        <span class="hljs-built_in">max_heapify</span>(arr, i, len - <span class="hljs-number">1</span>);<br>    <span class="hljs-comment">//将堆顶放到最后，然后再调节为大顶堆，复杂度也为nlogn</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = len - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; i--) &#123;<br>        <span class="hljs-built_in">swap</span>(arr[<span class="hljs-number">0</span>], arr[i]);<br>        <span class="hljs-built_in">max_heapify</span>(arr, <span class="hljs-number">0</span>, i - <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> arr[] = &#123; <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>, <span class="hljs-number">4</span>, <span class="hljs-number">7</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">7</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span> &#125;;<br>    <span class="hljs-type">int</span> len = (<span class="hljs-type">int</span>) <span class="hljs-built_in">sizeof</span>(arr) / <span class="hljs-built_in">sizeof</span>(*arr);<br>    <span class="hljs-built_in">heap_sort</span>(arr, len);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++)<br>        cout &lt;&lt; arr[i] &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;<br>    cout &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="计数排序">计数排序</h3>
 <p>未完待续……</p>
 <h3 id="桶排序">桶排序</h3>
@@ -452,29 +357,75 @@
 <p>[1]https://www.runoob.com/w3cnote/ten-sorting-algorithm.html</p>
 <p>[2]https://zhuanlan.zhihu.com/p/61488756</p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/Wuhlan3/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="print-no-link">#数据结构与算法</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>十大排序</div>
+      <div>https://wuhlan3.gitee.io/2020/10/07/十大排序/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Wuhlan3</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 7, 2020</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
               
               
-                <div class="post-prevnext row">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3/2020/10/16/MIPS/">
+                      <a href="/Wuhlan3/2020/10/16/MIPS/" title="MIPS">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">MIPS</span>
                         <span class="visible-mobile">Previous</span>
@@ -484,7 +435,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3/2020/10/06/BFS%E2%80%94%E2%80%94%E6%89%93%E5%BC%80%E8%BD%AC%E7%9B%98%E9%94%81/">
+                      <a href="/Wuhlan3/2020/10/06/BFS%E2%80%94%E2%80%94%E6%89%93%E5%BC%80%E8%BD%AC%E7%9B%98%E9%94%81/" title="BFS——打开转盘锁">
                         <span class="hidden-mobile">BFS——打开转盘锁</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -496,68 +447,69 @@
             </div>
 
             
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
-          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
-          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
-          path: window.location.pathname,
-          avatar: "hide",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    }
-    waitElementVisible('vcomments', loadValine);
-  </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </article>
-            
           </article>
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div id="tocbot"></div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -570,286 +522,199 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-
-  
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
-    });
-  }
-</script>
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
     
-  <div class="statistics">
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
     
     
 
-    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/events.js" ></script>
+<script  src="/Wuhlan3/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
+        typing(text);
       
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
+    })(window, document);
+  </script>
 
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3/js/debouncer.js" ></script>
-<script  src="/Wuhlan3/js/main.js" ></script>
-
-<!-- Plugins -->
 
 
   
-    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+    <script  src="/Wuhlan3/js/img-lazyload.js" ></script>
   
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
 
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
         }
       }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/Wuhlan3/2020/10/07/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
-    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
-    var server_url = ''
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/Wuhlan3/js/leancloud.js" ></script>
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
 
 
 
@@ -859,132 +724,15 @@
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    function typing(id, title){
-        var typed = new Typed('#' + id, {
-            strings: [
-              '  ',
-              title + "&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    }
-    
-        typing("subtitle", "十大排序")
-    
-  </script>
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/Wuhlan3/js/local-search.js" ></script>
-  <script>
-    var path = "/Wuhlan3/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/Wuhlan3/js/boot.js" ></script>
 
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 <script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

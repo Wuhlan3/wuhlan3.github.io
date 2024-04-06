@@ -1,73 +1,137 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
 <head>
-  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
-  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="暑假简单学一些语句，不涉及原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL基础">
+<meta property="og:url" content="https://wuhlan3.gitee.io/2021/08/12/MySQL%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/index.html">
+<meta property="og:site_name" content="whl&#39;s blog">
+<meta property="og:description" content="暑假简单学一些语句，不涉及原理">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mysql.jpg">
+<meta property="article:published_time" content="2021-08-12T07:24:52.000Z">
+<meta property="article:modified_time" content="2024-03-22T15:55:27.463Z">
+<meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mysql.jpg">
+  
+  
+  
   <title>MySQL基础 - whl&#39;s blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/Wuhlan3/css/custom.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/Wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
   <script  src="/Wuhlan3/js/utils.js" ></script>
   <script  src="/Wuhlan3/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.2.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/Wuhlan3/">
+      <strong>Wuhlan3</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -84,9 +148,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/">
+              <a class="nav-link" href="/Wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                主页
+                <span>主页</span>
               </a>
             </li>
           
@@ -96,9 +160,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/archives/">
+              <a class="nav-link" href="/Wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                历史
+                <span>历史</span>
               </a>
             </li>
           
@@ -108,9 +172,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/tags/">
+              <a class="nav-link" href="/Wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -120,9 +184,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/links/">
+              <a class="nav-link" href="/Wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -132,23 +196,26 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/about/">
+              <a class="nav-link" href="/Wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -156,95 +223,98 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mysql.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-			
-			
-			
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Wuhlan3
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-12 15:24" pubdate>
-        August 12, 2021 pm
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3k 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      46
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mysql.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MySQL基础"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-12 15:24" pubdate>
+          August 12, 2021 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">MySQL基础</h1>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MySQL基础</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：6 months ago
-                
-              </p>
             
-            <div class="markdown-body" id="post-body">
-              <p>[toc]</p>
-<h2 id="学习历程"><a href="#学习历程" class="headerlink" title="学习历程"></a>学习历程</h2><p>[1] 通过b站视频简单过了一遍。<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx411X7BD?p=1">动力节点-MySQL基础入门</a></p>
+              <div class="markdown-body">
+                
+                <p>[toc]</p>
+<h2 id="学习历程">学习历程</h2>
+<p>[1] 通过b站视频简单过了一遍。<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx411X7BD?p=1">动力节点-MySQL基础入门</a></p>
 <p>[2] 学习很多人推荐的书《MySQL必知必会》</p>
 <p>[3] 学校课程，搞懂原理</p>
-<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><ol>
+<h2 id="术语">术语</h2>
+<ol>
 <li>DB：DB（英文全称data base，数据库）是依照某种数据模型组织起来并存放二级存储器中的数据集合。</li>
 <li>DBMS：数据库管理系统(Database Management System)是一种操纵和管理数据库的大型软件，用于建立、使用和维护数据库。包括Oracle、MySQL等等软件。</li>
 <li>SQL：<em>SQL</em> 是用于访问和处理数据库的标准的计算机语言。</li>
@@ -260,129 +330,45 @@
 <li>TCL（事务控制语言）：commit提交事务，rollback回滚事务</li>
 <li>DCL（数据控制语言）：grant授权，revoke撤销权限</li>
 </ol>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><div class="hljs"><pre><code class="hljs mysql">mysql&gt; show databases;	#查看有哪些数据库
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-4 rows in set (0.00 sec)
-mysql&gt; create database hello_world;	#创建属于我们自己的数据库
-mysql&gt; use hello_world;	#使用hello_world中的数据
-mysql&gt; show tables; #查看的当前使用的数据库中有哪些表
-mysql&gt; source 路径名/文件.sql	#初始化
-mysql&gt; source C:\Users\Administrator\Desktop\first.sql
-mysql&gt; show tables;
-+-----------------+
-| Tables_in_first |
-+-----------------+
-| dept            |				(部门)
-| emp             |				(员工)
-| salgrade        |				(工资等级)
-+-----------------+
-3 rows in set (0.00 sec)</code></pre></div>
+<h2 id="初始化">初始化</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; show databases;    #查看有哪些数据库<br>+--------------------+<br>| Database           |<br>+--------------------+<br>| information_schema |<br>| mysql              |<br>| performance_schema |<br>| sys                |<br>+--------------------+<br>4 rows in set (0.00 sec)<br>mysql&gt; create database hello_world;    #创建属于我们自己的数据库<br>mysql&gt; use hello_world;    #使用hello_world中的数据<br>mysql&gt; show tables; #查看的当前使用的数据库中有哪些表<br>mysql&gt; source 路径名/文件.sql    #初始化<br>mysql&gt; source C:\Users\Administrator\Desktop\first.sql<br>mysql&gt; show tables;<br>+-----------------+<br>| Tables_in_first |<br>+-----------------+<br>| dept            |                (部门)<br>| emp             |                (员工)<br>| salgrade        |                (工资等级)<br>+-----------------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <p>当一个扩展名为.sql文件，其中还编写了大量的sql语句，我们称这样的文件为sql脚本</p>
 <p>当sql文件太大时，可能会无法打开文件，直接使用source命令初始化</p>
 <p>最最重要的！！！删库跑路：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; drop database first;</code></pre></div>
-<h2 id="查看表的结构"><a href="#查看表的结构" class="headerlink" title="查看表的结构"></a>查看表的结构</h2><p>desc——description 查看表的结构</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; desc dept;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| DEPTNO | int(2)      | NO   | PRI | NULL    |       |
-| DNAME  | varchar(14) | YES  |     | NULL    |       |
-| LOC    | varchar(13) | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-3 rows in set (0.01 sec)</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; drop database first;<br></code></pre></td></tr></table></figure>
+<h2 id="查看表的结构">查看表的结构</h2>
+<p>desc——description 查看表的结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; desc dept;<br>+--------+-------------+------+-----+---------+-------+<br>| Field  | Type        | Null | Key | Default | Extra |<br>+--------+-------------+------+-----+---------+-------+<br>| DEPTNO | int(2)      | NO   | PRI | NULL    |       |<br>| DNAME  | varchar(14) | YES  |     | NULL    |       |<br>| LOC    | varchar(13) | YES  |     | NULL    |       |<br>+--------+-------------+------+-----+---------+-------+<br>3 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <p>比如上述的表结构中，包含了部门编号（DEPTNO）、部门名称（DNAME）、（LOC）部门地理位置</p>
-<h2 id="查看表中的数据"><a href="#查看表中的数据" class="headerlink" title="查看表中的数据"></a>查看表中的数据</h2><p>语句：select * from dept</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from dept;
-+--------+------------+----------+
-| DEPTNO | DNAME      | LOC      |
-+--------+------------+----------+
-|     10 | ACCOUNTING | NEW YORK |
-|     20 | RESEARCH   | DALLAS   |
-|     30 | SALES      | CHICAGO  |
-|     40 | OPERATIONS | BOSTON   |
-+--------+------------+----------+
-4 rows in set (0.01 sec)</code></pre></div>
+<h2 id="查看表中的数据">查看表中的数据</h2>
+<p>语句：select * from dept</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from dept;<br>+--------+------------+----------+<br>| DEPTNO | DNAME      | LOC      |<br>+--------+------------+----------+<br>|     10 | ACCOUNTING | NEW YORK |<br>|     20 | RESEARCH   | DALLAS   |<br>|     30 | SALES      | CHICAGO  |<br>|     40 | OPERATIONS | BOSTON   |<br>+--------+------------+----------+<br>4 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>一个很重要的点是，学习的时候要区分<strong>sql语句</strong>和<strong>命令</strong></p><ul><li><p>任何一条sql语句都要以’;’结尾</p></li><li><p>sql语句不区分<strong>大小写</strong></p></li></ul>
+            <p>一个很重要的点是，学习的时候要区分<strong>sql语句</strong>和<strong>命令</strong></p><ul><li><p>任何一条sql语句都要以’;'结尾</p></li><li><p>sql语句不区分<strong>大小写</strong></p></li></ul>
           </div>
-<h2 id="简单的DQL语句"><a href="#简单的DQL语句" class="headerlink" title="简单的DQL语句"></a>简单的DQL语句</h2><p>语句：select 字段名1,字段名2,字段名3… from 表名;</p>
+<h2 id="简单的DQL语句">简单的DQL语句</h2>
+<p>语句：select 字段名1,字段名2,字段名3… from 表名;</p>
 <div class="note note-success">
             <p>字段名也就是列名鸭！</p>
           </div>
-<h3 id="小练习一：查询员工的年薪"><a href="#小练习一：查询员工的年薪" class="headerlink" title="小练习一：查询员工的年薪"></a>小练习一：查询员工的年薪</h3><div class="hljs"><pre><code class="hljs c++">mysql&gt; select ENAME,SAL*<span class="hljs-number">12</span> from emp;
-+--------+----------+
-| ENAME  | SAL*<span class="hljs-number">12</span>   |
-+--------+----------+
-| SMITH  |  <span class="hljs-number">9600.00</span> |
-| ALLEN  | <span class="hljs-number">19200.00</span> |
-| WARD   | <span class="hljs-number">15000.00</span> |
-| JONES  | <span class="hljs-number">35700.00</span> |
-| MARTIN | <span class="hljs-number">15000.00</span> |
-| BLAKE  | <span class="hljs-number">34200.00</span> |
-| CLARK  | <span class="hljs-number">29400.00</span> |
-| SCOTT  | <span class="hljs-number">36000.00</span> |
-| KING   | <span class="hljs-number">60000.00</span> |
-| TURNER | <span class="hljs-number">18000.00</span> |
-| ADAMS  | <span class="hljs-number">13200.00</span> |
-| JAMES  | <span class="hljs-number">11400.00</span> |
-| FORD   | <span class="hljs-number">36000.00</span> |
-| MILLER | <span class="hljs-number">15600.00</span> |
-+--------+----------+
-<span class="hljs-number">14</span> <span class="hljs-function">rows in <span class="hljs-title">set</span> <span class="hljs-params">(<span class="hljs-number">0.01</span> sec)</span></span></code></pre></div>
+<h3 id="小练习一：查询员工的年薪">小练习一：查询员工的年薪</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++">mysql&gt; select ENAME,SAL*<span class="hljs-number">12</span> from emp;<br>+--------+----------+<br>| ENAME  | SAL*<span class="hljs-number">12</span>   |<br>+--------+----------+<br>| SMITH  |  <span class="hljs-number">9600.00</span> |<br>| ALLEN  | <span class="hljs-number">19200.00</span> |<br>| WARD   | <span class="hljs-number">15000.00</span> |<br>| JONES  | <span class="hljs-number">35700.00</span> |<br>| MARTIN | <span class="hljs-number">15000.00</span> |<br>| BLAKE  | <span class="hljs-number">34200.00</span> |<br>| CLARK  | <span class="hljs-number">29400.00</span> |<br>| SCOTT  | <span class="hljs-number">36000.00</span> |<br>| KING   | <span class="hljs-number">60000.00</span> |<br>| TURNER | <span class="hljs-number">18000.00</span> |<br>| ADAMS  | <span class="hljs-number">13200.00</span> |<br>| JAMES  | <span class="hljs-number">11400.00</span> |<br>| FORD   | <span class="hljs-number">36000.00</span> |<br>| MILLER | <span class="hljs-number">15600.00</span> |<br>+--------+----------+<br><span class="hljs-number">14</span> <span class="hljs-function">rows in <span class="hljs-title">set</span> <span class="hljs-params">(<span class="hljs-number">0.01</span> sec)</span></span><br></code></pre></td></tr></table></figure>
 <p>说明：可以对字段直接进行运算喔！</p>
-<h3 id="小练习二：对SAL-12字段重命名"><a href="#小练习二：对SAL-12字段重命名" class="headerlink" title="小练习二：对SAL*12字段重命名"></a>小练习二：对SAL*12字段重命名</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select ENAME,SAL*12 as 年薪 from emp;
-+--------+----------+
-| ENAME  | 年薪     |
-+--------+----------+
-| SMITH  |  9600.00 |
-| ALLEN  | 19200.00 |
-| WARD   | 15000.00 |
-| JONES  | 35700.00 |
-| MARTIN | 15000.00 |
-| BLAKE  | 34200.00 |
-| CLARK  | 29400.00 |
-| SCOTT  | 36000.00 |
-| KING   | 60000.00 |
-| TURNER | 18000.00 |
-| ADAMS  | 13200.00 |
-| JAMES  | 11400.00 |
-| FORD   | 36000.00 |
-| MILLER | 15600.00 |
-+--------+----------+
-14 rows in set (0.00 sec)</code></pre></div>
+<h3 id="小练习二：对SAL-12字段重命名">小练习二：对SAL*12字段重命名</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ENAME,SAL*12 as 年薪 from emp;<br>+--------+----------+<br>| ENAME  | 年薪     |<br>+--------+----------+<br>| SMITH  |  9600.00 |<br>| ALLEN  | 19200.00 |<br>| WARD   | 15000.00 |<br>| JONES  | 35700.00 |<br>| MARTIN | 15000.00 |<br>| BLAKE  | 34200.00 |<br>| CLARK  | 29400.00 |<br>| SCOTT  | 36000.00 |<br>| KING   | 60000.00 |<br>| TURNER | 18000.00 |<br>| ADAMS  | 13200.00 |<br>| JAMES  | 11400.00 |<br>| FORD   | 36000.00 |<br>| MILLER | 15600.00 |<br>+--------+----------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <p>中文有以下三种写法，版本不同可能兼容性不同：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select ENAME,SAL*12 as 年薪 from emp;
-mysql&gt; select ENAME,SAL*12 as '年薪' from emp;
-mysql&gt; select ENAME,SAL*12 as "年薪" from emp;</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ENAME,SAL*12 as 年薪 from emp;<br>mysql&gt; select ENAME,SAL*12 as &#x27;年薪&#x27; from emp;<br>mysql&gt; select ENAME,SAL*12 as &quot;年薪&quot; from emp;<br></code></pre></td></tr></table></figure>
 <p>标准的sql语句提供给字符串的是单引号，双引号尽量少用</p>
-<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><p>语法格式：</p>
-<div class="hljs"><pre><code class="hljs mysql">select
-    字段,字段...
-from
-    表名
-where
-    条件</code></pre></div>
+<h2 id="条件查询">条件查询</h2>
+<p>语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select<br>    字段,字段...<br>from<br>    表名<br>where<br>    条件<br></code></pre></td></tr></table></figure>
 <p>实例：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp where sal = 800;
-+-------+-------+-------+------+------------+--------+------+--------+
-| EMPNO | ENAME | JOB   | MGR  | HIREDATE   | SAL    | COMM | DEPTNO |
-+-------+-------+-------+------+------------+--------+------+--------+
-|  7369 | SMITH | CLERK | 7902 | 1980-12-17 | 800.00 | NULL |     20 |
-+-------+-------+-------+------+------------+--------+------+--------+
-1 row in set (0.01 sec)</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where sal = 800;<br>+-------+-------+-------+------+------------+--------+------+--------+<br>| EMPNO | ENAME | JOB   | MGR  | HIREDATE   | SAL    | COMM | DEPTNO |<br>+-------+-------+-------+------+------------+--------+------+--------+<br>|  7369 | SMITH | CLERK | 7902 | 1980-12-17 | 800.00 | NULL |     20 |<br>+-------+-------+-------+------+------------+--------+------+--------+<br>1 row in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>注意，是<code>=</code>不是<code>==</code>喔！</p>
           </div>
-<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>比较结果为真，则返回 1，为假则返回 0，比较结果不确定则返回 NULL。</p>
-<div class="table-container">
+<h3 id="比较运算符">比较运算符</h3>
+<p>比较结果为真，则返回 1，为假则返回 0，比较结果不确定则返回 NULL。</p>
 <table>
 <thead>
 <tr>
@@ -465,209 +451,77 @@ where
 <tr>
 <td style="text-align:left">IS NOT NULL</td>
 <td style="text-align:left">不为空</td>
+<td style="text-align:left"></td>
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="小练习一：找到薪资在1000-3000的员工"><a href="#小练习一：找到薪资在1000-3000的员工" class="headerlink" title="小练习一：找到薪资在1000~3000的员工"></a>小练习一：找到薪资在1000~3000的员工</h3><p>两种写法：</p>
-<div class="hljs"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal &gt;= <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> sal &lt;= <span class="hljs-number">3000</span>;
-mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal <span class="hljs-keyword">between</span> <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> <span class="hljs-number">3000</span>;</code></pre></div>
+<h3 id="小练习一：找到薪资在1000-3000的员工">小练习一：找到薪资在1000~3000的员工</h3>
+<p>两种写法：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal &gt;= <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> sal &lt;= <span class="hljs-number">3000</span>;<br>mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal <span class="hljs-keyword">between</span> <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> <span class="hljs-number">3000</span>;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>between除了用在数字外，还可以用于字符串</p>
           </div>
-<h3 id="小练习二：找到没有津贴的员工"><a href="#小练习二：找到没有津贴的员工" class="headerlink" title="小练习二：找到没有津贴的员工"></a>小练习二：找到没有津贴的员工</h3><p>注意这个表中0.00和null都是没有津贴的员工：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp where comm is NULL or comm = 0;
-+-------+--------+-----------+------+------------+---------+------+--------+
-| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
-+-------+--------+-----------+------+------------+---------+------+--------+
-|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 | NULL |     20 |
-|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
-|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
-|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |
-|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |
-|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
-|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
-|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 | NULL |     20 |
-|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 | NULL |     30 |
-|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
-|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 | NULL |     10 |
-+-------+--------+-----------+------+------------+---------+------+--------+
-11 rows in set (0.00 sec)</code></pre></div>
-<h3 id="小练习三：寻找薪资为1000或3000的员工"><a href="#小练习三：寻找薪资为1000或3000的员工" class="headerlink" title="小练习三：寻找薪资为1000或3000的员工"></a>小练习三：寻找薪资为1000或3000的员工</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp where SAL in(1000,3000);
-+-------+-------+---------+------+------------+---------+------+--------+
-| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
-+-------+-------+---------+------+------------+---------+------+--------+
-|  7788 | SCOTT | ANALYST | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |
-|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
-+-------+-------+---------+------+------------+---------+------+--------+
-2 rows in set (0.00 sec)</code></pre></div>
+<h3 id="小练习二：找到没有津贴的员工">小练习二：找到没有津贴的员工</h3>
+<p>注意这个表中0.00和null都是没有津贴的员工：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where comm is NULL or comm = 0;<br>+-------+--------+-----------+------+------------+---------+------+--------+<br>| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |<br>+-------+--------+-----------+------+------------+---------+------+--------+<br>|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 | NULL |     20 |<br>|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |<br>|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |<br>|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |<br>|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |<br>|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |<br>|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |<br>|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 | NULL |     20 |<br>|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 | NULL |     30 |<br>|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |<br>|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 | NULL |     10 |<br>+-------+--------+-----------+------+------------+---------+------+--------+<br>11 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h3 id="小练习三：寻找薪资为1000或3000的员工">小练习三：寻找薪资为1000或3000的员工</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where SAL in(1000,3000);<br>+-------+-------+---------+------+------------+---------+------+--------+<br>| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>|  7788 | SCOTT | ANALYST | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |<br>|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>in的用法如上。需要注意的是，这里不是区间，而是1000或3000</p>
           </div>
-<h3 id="小练习四：寻找名字中含有O的员工"><a href="#小练习四：寻找名字中含有O的员工" class="headerlink" title="小练习四：寻找名字中含有O的员工"></a>小练习四：寻找名字中含有O的员工</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp where ENAME like '%O%';
-+-------+-------+---------+------+------------+---------+------+--------+
-| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
-+-------+-------+---------+------+------------+---------+------+--------+
-|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
-|  7788 | SCOTT | ANALYST | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |
-|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
-+-------+-------+---------+------+------------+---------+------+--------+
-3 rows in set (0.00 sec)</code></pre></div>
-<h3 id="小练习五：寻找名字中第二个字母为A的员工"><a href="#小练习五：寻找名字中第二个字母为A的员工" class="headerlink" title="小练习五：寻找名字中第二个字母为A的员工"></a>小练习五：寻找名字中第二个字母为A的员工</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp where ENAME like '_A%';
-+-------+--------+----------+------+------------+---------+---------+--------+
-| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
-+-------+--------+----------+------+------------+---------+---------+--------+
-|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
-|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
-|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
-+-------+--------+----------+------+------------+---------+---------+--------+
-3 rows in set (0.00 sec)</code></pre></div>
+<h3 id="小练习四：寻找名字中含有O的员工">小练习四：寻找名字中含有O的员工</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where ENAME like &#x27;%O%&#x27;;<br>+-------+-------+---------+------+------------+---------+------+--------+<br>| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |<br>|  7788 | SCOTT | ANALYST | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |<br>|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h3 id="小练习五：寻找名字中第二个字母为A的员工">小练习五：寻找名字中第二个字母为A的员工</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where ENAME like &#x27;_A%&#x27;;<br>+-------+--------+----------+------+------------+---------+---------+--------+<br>| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |<br>+-------+--------+----------+------+------------+---------+---------+--------+<br>|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |<br>|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |<br>|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |<br>+-------+--------+----------+------+------------+---------+---------+--------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>like指<strong>模糊查询</strong></p><p>关键是’_’是表示任意一个字符；’%’表示任意多个字符</p><p>若要寻找名字中含有下划线的记录，则使用’\‘作为<strong>转义符</strong></p>
+            <p>like指<strong>模糊查询</strong></p><p>关键是’_‘是表示任意一个字符；’%'表示任意多个字符</p><p>若要寻找名字中含有下划线的记录，则使用’\'作为<strong>转义符</strong></p>
           </div>
-<h2 id="数据排序"><a href="#数据排序" class="headerlink" title="数据排序"></a>数据排序</h2><h3 id="小练习一：以名字顺序来查询"><a href="#小练习一：以名字顺序来查询" class="headerlink" title="小练习一：以名字顺序来查询"></a>小练习一：以名字顺序来查询</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp order by Ename;
-+-------+--------+-----------+------+------------+---------+---------+--------+
-| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
-+-------+--------+-----------+------+------------+---------+---------+--------+
-|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL |     20 |
-|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
-|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
-|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
-|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
-|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
-|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
-|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
-|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
-|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
-|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL |     20 |
-|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
-|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
-|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
-+-------+--------+-----------+------+------------+---------+---------+--------+
-14 rows in set (0.02 sec)</code></pre></div>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp order by ename asc;	//升序，默认
-mysql&gt; select * from emp order by ename desc;   //降序</code></pre></div>
+<h2 id="数据排序">数据排序</h2>
+<h3 id="小练习一：以名字顺序来查询">小练习一：以名字顺序来查询</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp order by Ename;<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL |     20 |<br>|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |<br>|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |<br>|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |<br>|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |<br>|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |<br>|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |<br>|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |<br>|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |<br>|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |<br>|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL |     20 |<br>|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |<br>|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |<br>|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>14 rows in set (0.02 sec)<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp order by ename asc;    //升序，默认<br>mysql&gt; select * from emp order by ename desc;   //降序<br></code></pre></td></tr></table></figure>
 <p>根据选出来的第二列进行排序：（但是要尽量少用！！！）</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select ename,job from emp order by 2;
-+--------+-----------+
-| ename  | job       |
-+--------+-----------+
-| SCOTT  | ANALYST   |
-| FORD   | ANALYST   |
-| SMITH  | CLERK     |
-| ADAMS  | CLERK     |
-| JAMES  | CLERK     |
-| MILLER | CLERK     |
-| JONES  | MANAGER   |
-| BLAKE  | MANAGER   |
-| CLARK  | MANAGER   |
-| KING   | PRESIDENT |
-| ALLEN  | SALESMAN  |
-| WARD   | SALESMAN  |
-| MARTIN | SALESMAN  |
-| TURNER | SALESMAN  |
-+--------+-----------+
-14 rows in set (0.00 sec)</code></pre></div>
-<h3 id="小练习二：工资降序，工资相同时名字升序"><a href="#小练习二：工资降序，工资相同时名字升序" class="headerlink" title="小练习二：工资降序，工资相同时名字升序"></a>小练习二：工资降序，工资相同时名字升序</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select * from emp order by sal desc, ename asc;
-+-------+--------+-----------+------+------------+---------+---------+--------+
-| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
-+-------+--------+-----------+------+------------+---------+---------+--------+
-|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
-|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
-|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL |     20 |
-|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
-|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
-|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
-|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
-|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
-|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
-|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
-|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
-|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL |     20 |
-|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
-|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
-+-------+--------+-----------+------+------------+---------+---------+--------+
-14 rows in set (0.00 sec)</code></pre></div>
-<h2 id="分组-聚合函数"><a href="#分组-聚合函数" class="headerlink" title="分组/聚合函数"></a>分组/聚合函数</h2><p>又称为多行处理函数。总共有5个。自动忽略NULL。</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select sum(sal) from emp;
-mysql&gt; select max(sal) from emp;
-mysql&gt; select min(sal) from emp;
-mysql&gt; select avg(sal) from emp;
-mysql&gt; select count(*) from emp;</code></pre></div>
-<h3 id="小练习一，计算算上津贴的年薪"><a href="#小练习一，计算算上津贴的年薪" class="headerlink" title="小练习一，计算算上津贴的年薪"></a>小练习一，计算算上津贴的年薪</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select ENAME,(sal+ifnull(comm,0))*12 as 年薪 from emp;
-+--------+----------+
-| ENAME  | 年薪     |
-+--------+----------+
-| SMITH  |  9600.00 |
-| ALLEN  | 22800.00 |
-| WARD   | 21000.00 |
-| JONES  | 35700.00 |
-| MARTIN | 31800.00 |
-| BLAKE  | 34200.00 |
-| CLARK  | 29400.00 |
-| SCOTT  | 36000.00 |
-| KING   | 60000.00 |
-| TURNER | 18000.00 |
-| ADAMS  | 13200.00 |
-| JAMES  | 11400.00 |
-| FORD   | 36000.00 |
-| MILLER | 15600.00 |
-+--------+----------+
-14 rows in set (0.00 sec)</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ename,job from emp order by 2;<br>+--------+-----------+<br>| ename  | job       |<br>+--------+-----------+<br>| SCOTT  | ANALYST   |<br>| FORD   | ANALYST   |<br>| SMITH  | CLERK     |<br>| ADAMS  | CLERK     |<br>| JAMES  | CLERK     |<br>| MILLER | CLERK     |<br>| JONES  | MANAGER   |<br>| BLAKE  | MANAGER   |<br>| CLARK  | MANAGER   |<br>| KING   | PRESIDENT |<br>| ALLEN  | SALESMAN  |<br>| WARD   | SALESMAN  |<br>| MARTIN | SALESMAN  |<br>| TURNER | SALESMAN  |<br>+--------+-----------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h3 id="小练习二：工资降序，工资相同时名字升序">小练习二：工资降序，工资相同时名字升序</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp order by sal desc, ename asc;<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |<br>|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |<br>|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL |     20 |<br>|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |<br>|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |<br>|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |<br>|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |<br>|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |<br>|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |<br>|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |<br>|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |<br>|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL |     20 |<br>|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |<br>|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h2 id="分组-聚合函数">分组/聚合函数</h2>
+<p>又称为多行处理函数。总共有5个。自动忽略NULL。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select sum(sal) from emp;<br>mysql&gt; select max(sal) from emp;<br>mysql&gt; select min(sal) from emp;<br>mysql&gt; select avg(sal) from emp;<br>mysql&gt; select count(*) from emp;<br></code></pre></td></tr></table></figure>
+<h3 id="小练习一，计算算上津贴的年薪">小练习一，计算算上津贴的年薪</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ENAME,(sal+ifnull(comm,0))*12 as 年薪 from emp;<br>+--------+----------+<br>| ENAME  | 年薪     |<br>+--------+----------+<br>| SMITH  |  9600.00 |<br>| ALLEN  | 22800.00 |<br>| WARD   | 21000.00 |<br>| JONES  | 35700.00 |<br>| MARTIN | 31800.00 |<br>| BLAKE  | 34200.00 |<br>| CLARK  | 29400.00 |<br>| SCOTT  | 36000.00 |<br>| KING   | 60000.00 |<br>| TURNER | 18000.00 |<br>| ADAMS  | 13200.00 |<br>| JAMES  | 11400.00 |<br>| FORD   | 36000.00 |<br>| MILLER | 15600.00 |<br>+--------+----------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>注意：对于NULL值可以使用<code>ifnull()</code>处理</p>
           </div>
-<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h2><p>分组函数一般在group by后执行。没有进行group by的话，整个表自成一组。</p>
-<h3 id="练习一：找出每个工作岗位的最高薪资"><a href="#练习一：找出每个工作岗位的最高薪资" class="headerlink" title="练习一：找出每个工作岗位的最高薪资"></a>练习一：找出每个工作岗位的最高薪资</h3><div class="hljs"><pre><code class="hljs mysql">mysql&gt; select job,max(sal) from emp group by job;
-+-----------+----------+
-| job       | max(sal) |
-+-----------+----------+
-| ANALYST   |  3000.00 |
-| CLERK     |  1300.00 |
-| MANAGER   |  2975.00 |
-| PRESIDENT |  5000.00 |
-| SALESMAN  |  1600.00 |
-+-----------+----------+
-5 rows in set (0.00 sec)</code></pre></div>
-<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><div class="hljs"><pre><code class="hljs mysql">select			5
-...
-from			1
-...
-where			2
-...
-group by		3
-...
-having			4
-...
-order by		6
-...</code></pre></div>
+<h2 id="分组查询">分组查询</h2>
+<p>分组函数一般在group by后执行。没有进行group by的话，整个表自成一组。</p>
+<h3 id="练习一：找出每个工作岗位的最高薪资">练习一：找出每个工作岗位的最高薪资</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select job,max(sal) from emp group by job;<br>+-----------+----------+<br>| job       | max(sal) |<br>+-----------+----------+<br>| ANALYST   |  3000.00 |<br>| CLERK     |  1300.00 |<br>| MANAGER   |  2975.00 |<br>| PRESIDENT |  5000.00 |<br>| SALESMAN  |  1600.00 |<br>+-----------+----------+<br>5 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h2 id="执行顺序">执行顺序</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select            5<br>...<br>from            1<br>...<br>where            2<br>...<br>group by        3<br>...<br>having            4<br>...<br>order by        6<br>...<br></code></pre></td></tr></table></figure>
 <p>所以，不可以在where里面使用分组函数，如下<strong>错误示例</strong></p>
 <p>寻找大于平均工资的所有员工：</p>
-<div class="hljs"><pre><code class="hljs mysql">select ename,sal from emp where sal &gt; avg(sal);	//XXXXXXXXXXXXXXXXXX</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select ename,sal from emp where sal &gt; avg(sal);    //XXXXXXXXXXXXXXXXXX<br></code></pre></td></tr></table></figure>
 <p>那要怎么写呢？使用子查询：</p>
-<div class="hljs"><pre><code class="hljs mysql">select ename,sal from emp where sal &gt; (select avg(sal) from emp);</code></pre></div>
-<h2 id="having"><a href="#having" class="headerlink" title="having"></a>having</h2><p>找出每个部门薪资最高的，且大于2500：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select deptno,max(sal) from emp group by deptno having max(sal) &gt; 2900;
-mysql&gt; select deptno,max(sal) from emp where sal &gt; 2900 group by deptno;//效率较高</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select ename,sal from emp where sal &gt; (select avg(sal) from emp);<br></code></pre></td></tr></table></figure>
+<h2 id="having">having</h2>
+<p>找出每个部门薪资最高的，且大于2500：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select deptno,max(sal) from emp group by deptno having max(sal) &gt; 2900;<br>mysql&gt; select deptno,max(sal) from emp where sal &gt; 2900 group by deptno;//效率较高<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>由于where先执行筛选，所以第二条效率更高</p>
           </div>
 <p>当然如果是求平均值且均值大于2000，则只能使用having：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select deptno,avg(sal) from emp group by deptno having avg(sal) &gt; 2000;</code></pre></div>
-<h2 id="去除重复记录"><a href="#去除重复记录" class="headerlink" title="去除重复记录"></a>去除重复记录</h2><p>使用distinct关键字：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select distinct job from emp;</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select deptno,avg(sal) from emp group by deptno having avg(sal) &gt; 2000;<br></code></pre></td></tr></table></figure>
+<h2 id="去除重复记录">去除重复记录</h2>
+<p>使用distinct关键字：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select distinct job from emp;<br></code></pre></td></tr></table></figure>
 <p>练习一：统计不同的工作数量：</p>
-<div class="hljs"><pre><code class="hljs mysql">mysql&gt; select count(distinct job) from emp;
-+---------------------+
-| count(distinct job) |
-+---------------------+
-|                   5 |
-+---------------------+
-1 row in set (0.01 sec)</code></pre></div>
-<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><p>连接查询的分类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select count(distinct job) from emp;<br>+---------------------+<br>| count(distinct job) |<br>+---------------------+<br>|                   5 |<br>+---------------------+<br>1 row in set (0.01 sec)<br></code></pre></td></tr></table></figure>
+<h1>连接查询</h1>
+<p>连接查询的分类：</p>
 <p>SQL92</p>
 <p>SQL99</p>
-<p>连接方式的划分，包括：<br>内连接：</p>
+<p>连接方式的划分，包括：<br>
+内连接：</p>
 <ul>
 <li>等值连接</li>
 <li>非等值连接</li>
@@ -679,171 +533,178 @@ mysql&gt; select deptno,max(sal) from emp where sal &gt; 2900 group by deptno;//
 <li>右外连接</li>
 </ul>
 <p>全连接</p>
-<h2 id="笛卡尔积现象（懂了）"><a href="#笛卡尔积现象（懂了）" class="headerlink" title="笛卡尔积现象（懂了）"></a>笛卡尔积现象（懂了）</h2><h2 id="等值连接（懂了）"><a href="#等值连接（懂了）" class="headerlink" title="等值连接（懂了）"></a>等值连接（懂了）</h2><p>关于join和on，使得结构更加清晰</p>
-<h2 id="非等值连接"><a href="#非等值连接" class="headerlink" title="非等值连接"></a>非等值连接</h2><div class="hljs"><pre><code class="hljs mysql">select 
-    e.ename , e.sal , s.grade 
-from 
-    emp e 
-join 
-    salgrade s 
-on 
-    e.sal between s.losal and s.hisal;</code></pre></div>
-<h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><p>inner join和on</p>
+<h2 id="笛卡尔积现象（懂了）">笛卡尔积现象（懂了）</h2>
+<h2 id="等值连接（懂了）">等值连接（懂了）</h2>
+<p>关于join和on，使得结构更加清晰</p>
+<h2 id="非等值连接">非等值连接</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select <br>    e.ename , e.sal , s.grade <br>from <br>    emp e <br>join <br>    salgrade s <br>on <br>    e.sal between s.losal and s.hisal;<br></code></pre></td></tr></table></figure>
+<h2 id="自连接">自连接</h2>
+<p>inner join和on</p>
 <p>一张表看成两张表</p>
-<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><p>内连接和外连接的区别：</p>
+<h2 id="外连接">外连接</h2>
+<p>内连接和外连接的区别：</p>
 <ul>
 <li>内连接的两张表是平等的</li>
 <li>外连接中有主副之分。A表中的数据必须查出来，B表中的数据捎带着查出来</li>
 </ul>
 <p>自连接：</p>
-<div class="hljs"><pre><code class="hljs mysql">select
-    a.ename, b.ename
-from
-    emp a
-inner join
-    emp b
-on
-    a.MGR = b.empno;</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select<br>    a.ename, b.ename<br>from<br>    emp a<br>inner join<br>    emp b<br>on<br>    a.MGR = b.empno;<br></code></pre></td></tr></table></figure>
 <p>左连接：</p>
-<div class="hljs"><pre><code class="hljs mysql">select
-    a.ename, b.ename
-from
-    emp a
-left join
-    emp b
-on
-    a.MGR = b.empno;</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select<br>    a.ename, b.ename<br>from<br>    emp a<br>left join<br>    emp b<br>on<br>    a.MGR = b.empno;<br></code></pre></td></tr></table></figure>
 <p>右连接：</p>
-<div class="hljs"><pre><code class="hljs mysql">select 
-    d.*
-from
-    dept d
-left join 
-    emp e
-on 
-    e.deptno = d.deptno
-where
-    e.empno is null;</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select <br>    d.*<br>from<br>    dept d<br>left join <br>    emp e<br>on <br>    e.deptno = d.deptno<br>where<br>    e.empno is null;<br></code></pre></td></tr></table></figure>
 <p>查找员工的部门名称、工资等级、和上级领导</p>
-<div class="hljs"><pre><code class="hljs mysql">select 
-    e.ename as "员工",d.dname,s.grade,e1.ename as "领导"
-from 
-    emp e
-join
-    dept d
-on
-    e.deptno = d.deptno
-join 
-    salgrade s
-on
-    e.sal between s.losal and s.hisal
-left join
-    emp e1
-on
-    e.mgr = e1.empno;</code></pre></div>
-<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><ul>
-<li><p>where后面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select <br>    e.ename as &quot;员工&quot;,d.dname,s.grade,e1.ename as &quot;领导&quot;<br>from <br>    emp e<br>join<br>    dept d<br>on<br>    e.deptno = d.deptno<br>join <br>    salgrade s<br>on<br>    e.sal between s.losal and s.hisal<br>left join<br>    emp e1<br>on<br>    e.mgr = e1.empno;<br></code></pre></td></tr></table></figure>
+<h2 id="子查询">子查询</h2>
+<ul>
+<li>
+<p>where后面</p>
 </li>
-<li><p>from后面</p>
-<div class="hljs"><pre><code class="hljs mysql">select
-t.*, s.grade
-from
-(select deptno,avg(sal) as avgsal from emp group by deptno) t
-join
-salgrade s
-on
-t.avgsal between s.losal and s.hisal;</code></pre></div>
+<li>
+<p>from后面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select<br>t.*, s.grade<br>from<br>(select deptno,avg(sal) as avgsal from emp group by deptno) t<br>join<br>salgrade s<br>on<br>t.avgsal between s.losal and s.hisal;<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>select后面</p>
+<li>
+<p>select后面</p>
 </li>
 </ul>
-<h2 id="union"><a href="#union" class="headerlink" title="union"></a>union</h2><p>将两个表拼接在一起。可以相关也可以不相关。</p>
-<h2 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h2><p>mysql中特有的。用于分页查询</p>
-<div class="hljs"><pre><code class="hljs angelscript">limit desc <span class="hljs-number">0</span>,<span class="hljs-number">5</span></code></pre></div>
-<h2 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h2>
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/mysql/">mysql</a>
-                    
-                  </div>
+<h2 id="union">union</h2>
+<p>将两个表拼接在一起。可以相关也可以不相关。</p>
+<h2 id="limit">limit</h2>
+<p>mysql中特有的。用于分页查询</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">limit</span> desc <span class="hljs-number">0</span>,<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+<h2 id="创建表">创建表</h2>
+
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/Wuhlan3/tags/mysql/" class="print-no-link">#mysql</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MySQL基础</div>
+      <div>https://wuhlan3.gitee.io/2021/08/12/MySQL学习之路/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Wuhlan3</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 12, 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
               
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
               
             </div>
 
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
-          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
-          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
-          path: window.location.pathname,
-          avatar: "hide",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    }
-    waitElementVisible('vcomments', loadValine);
-  </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </article>
             
           </article>
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div id="tocbot"></div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -856,286 +717,199 @@ t.avgsal between s.losal and s.hisal;</code></pre></div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-
-  
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
-    });
-  }
-</script>
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
     
-  <div class="statistics">
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
     
     
 
-    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/events.js" ></script>
+<script  src="/Wuhlan3/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
+        typing(text);
       
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
+    })(window, document);
+  </script>
 
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3/js/debouncer.js" ></script>
-<script  src="/Wuhlan3/js/main.js" ></script>
-
-<!-- Plugins -->
 
 
   
-    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+    <script  src="/Wuhlan3/js/img-lazyload.js" ></script>
   
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
 
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
         }
       }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/Wuhlan3/2021/08/12/MySQL%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
-    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
-    var server_url = ''
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/Wuhlan3/js/leancloud.js" ></script>
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
 
 
 
@@ -1145,132 +919,15 @@ t.avgsal between s.losal and s.hisal;</code></pre></div>
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    function typing(id, title){
-        var typed = new Typed('#' + id, {
-            strings: [
-              '  ',
-              title + "&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    }
-    
-        typing("subtitle", "MySQL基础")
-    
-  </script>
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/Wuhlan3/js/local-search.js" ></script>
-  <script>
-    var path = "/Wuhlan3/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/Wuhlan3/js/boot.js" ></script>
 
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 <script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

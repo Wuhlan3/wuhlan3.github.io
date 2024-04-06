@@ -1,73 +1,135 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
 <head>
-  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
-  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是单例模式？C++如何实现单例模式？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="https://wuhlan3.gitee.io/2022/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="whl&#39;s blog">
+<meta property="og:description" content="什么是单例模式？C++如何实现单例模式？">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-14T07:32:35.000Z">
+<meta property="article:modified_time" content="2024-03-22T15:55:27.806Z">
+<meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
   <title>单例模式 - whl&#39;s blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/Wuhlan3/css/custom.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/Wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
   <script  src="/Wuhlan3/js/utils.js" ></script>
   <script  src="/Wuhlan3/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.2.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/Wuhlan3/">
+      <strong>Wuhlan3</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -84,9 +146,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/">
+              <a class="nav-link" href="/Wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                主页
+                <span>主页</span>
               </a>
             </li>
           
@@ -96,9 +158,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/archives/">
+              <a class="nav-link" href="/Wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                历史
+                <span>历史</span>
               </a>
             </li>
           
@@ -108,9 +170,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/tags/">
+              <a class="nav-link" href="/Wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -120,9 +182,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/links/">
+              <a class="nav-link" href="/Wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -132,23 +194,26 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/about/">
+              <a class="nav-link" href="/Wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -156,218 +221,199 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/Wuhlan3/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-			
-			
-			
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Wuhlan3
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-14 15:32" pubdate>
-        April 14, 2022 pm
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      924 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      10
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/Wuhlan3/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="单例模式"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-14 15:32" pubdate>
+          April 14, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          929 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">单例模式</h1>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">单例模式</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：a month ago
-                
-              </p>
             
-            <div class="markdown-body" id="post-body">
-              <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="什么是单例模式？"><a href="#什么是单例模式？" class="headerlink" title="什么是单例模式？"></a>什么是单例模式？</h2><p>单例模式是指整个系统生命周期内，保证一个类只能产生一个实例，确保该类的唯一性。</p>
+              <div class="markdown-body">
+                
+                <h1>单例模式</h1>
+<h2 id="什么是单例模式？">什么是单例模式？</h2>
+<p>单例模式是指整个系统生命周期内，保证一个类只能产生一个实例，确保该类的唯一性。</p>
 <blockquote>
 <p>例如，Windows 中只能打开一个任务管理器，这样可以避免因打开多个任务管理器窗口而造成内存资源的浪费，或出现各个窗口显示内容的不一致等错误。</p>
 <p>在计算机系统中，还有 Windows 的回收站、操作系统中的文件系统、多线程中的线程池、显卡的驱动程序对象、打印机的后台处理服务、应用程序的日志对象、数据库的连接池、网站的计数器、Web 应用的配置对象、应用程序中的对话框、系统中的缓存等常常被设计成单例。</p>
 </blockquote>
-<h2 id="单例模式有什么特点呢？"><a href="#单例模式有什么特点呢？" class="headerlink" title="单例模式有什么特点呢？"></a>单例模式有什么特点呢？</h2><p>构造函数和析构函数为私有类型，目的是禁止外部构造和析构。</p>
+<h2 id="单例模式有什么特点呢？">单例模式有什么特点呢？</h2>
+<p>构造函数和析构函数为私有类型，目的是禁止外部构造和析构。</p>
 <ul>
 <li>构造函数和析构函数为私有类型，目的是禁止外部构造和析构。</li>
 <li>拷贝构造函数和赋值构造函数是私有类型，目的是禁止外部拷贝和赋值，确保实例的唯一性。</li>
 <li>类中有一个获取实例的静态方法，可以全局访问。</li>
 </ul>
-<h2 id="C-单例模式的三种实现"><a href="#C-单例模式的三种实现" class="headerlink" title="C++单例模式的三种实现"></a>C++单例模式的三种实现</h2><h3 id="1-普通懒汉式单例（线程不安全）"><a href="#1-普通懒汉式单例（线程不安全）" class="headerlink" title="1.普通懒汉式单例（线程不安全）"></a>1.普通懒汉式单例（线程不安全）</h3><p>懒汉式：单例实例在第一次被使用时才进行初始化。</p>
+<h2 id="C-单例模式的三种实现">C++单例模式的三种实现</h2>
+<h3 id="1-普通懒汉式单例（线程不安全）">1.普通懒汉式单例（线程不安全）</h3>
+<p>懒汉式：单例实例在第一次被使用时才进行初始化。</p>
 <p>第一次使用实例对象时，创建对象。进程启动无负载。多个单例实例启动顺序自由控制。</p>
-<div class="hljs"><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span></span>
-<span class="hljs-class">{</span>
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">static</span> Singleton* s_instance;
-<span class="hljs-keyword">private</span>:
-    Singleton() {};
-    ~Singleton() {};
-    Singleton(<span class="hljs-keyword">const</span> Singleton&amp;);
-    Singleton&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Singleton&amp;);
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>
-<span class="hljs-function">    </span>{
-        <span class="hljs-keyword">if</span>(s_instance == <span class="hljs-literal">nullptr</span>) 
-            s_instance = <span class="hljs-keyword">new</span> Singleton();
-        <span class="hljs-keyword">return</span> s_instance;
-    }
-    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteInstance</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>{
-        <span class="hljs-keyword">if</span> (s_instance)
-        {
-            <span class="hljs-keyword">delete</span> s_instance;
-            s_instance = <span class="hljs-literal">nullptr</span>;
-        }
-    }
-};
-
-Singleton* Singleton::s_instance = <span class="hljs-literal">nullptr</span>;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">static</span> Singleton* s_instance;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">Singleton</span>() &#123;&#125;;<br>    ~<span class="hljs-built_in">Singleton</span>() &#123;&#125;;<br>    <span class="hljs-built_in">Singleton</span>(<span class="hljs-type">const</span> Singleton&amp;);<br>    Singleton&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> Singleton&amp;);<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(s_instance == <span class="hljs-literal">nullptr</span>) <br>            s_instance = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Singleton</span>();<br>        <span class="hljs-keyword">return</span> s_instance;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">deleteInstance</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (s_instance)<br>        &#123;<br>            <span class="hljs-keyword">delete</span> s_instance;<br>            s_instance = <span class="hljs-literal">nullptr</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br><br>Singleton* Singleton::s_instance = <span class="hljs-literal">nullptr</span>;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>补充一下，类中static函数的作用：</p>
-<p>在类里的函数前加static，则这个函数就与对象无关了，这个类产生的所有对象共用这一个静态成员函数，<br>静态成员函数可以在尚未创建任何对象时就被调用，他只可以操作类中的静态数据成员。</p>
+<p>在类里的函数前加static，则这个函数就与对象无关了，这个类产生的所有对象共用这一个静态成员函数，<br>
+静态成员函数可以在尚未创建任何对象时就被调用，他只可以操作类中的静态数据成员。</p>
 </blockquote>
-<h3 id="2-加锁的懒汉式单例（双检锁）"><a href="#2-加锁的懒汉式单例（双检锁）" class="headerlink" title="2.加锁的懒汉式单例（双检锁）"></a>2.加锁的懒汉式单例（双检锁）</h3><p>双检锁，既保证了效率又保证了安全。</p>
+<h3 id="2-加锁的懒汉式单例（双检锁）">2.加锁的懒汉式单例（双检锁）</h3>
+<p>双检锁，既保证了效率又保证了安全。</p>
 <p>为什么要双检锁呢？假设有两个线程同时调用<code>getInstance()</code>，那么很有可能两个线程都通过了第一个判空，之后两个线程在争抢锁。这个时候里面就需要再次判空。外层的判空，是为了减少争抢锁排队的情况；内层的判空，是为了确保只new一个实例（重复new会导致内存泄漏，且违背单例模式）。</p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;mutex&gt;</span></span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span></span>
-<span class="hljs-class">{</span>
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">static</span> Singleton* s_instance;
-    <span class="hljs-keyword">static</span> <span class="hljs-built_in">std</span>::mutex s_mutex;
-
-<span class="hljs-keyword">private</span>:
-    Singleton() {};
-    ~Singleton() {};
-    Singleton(<span class="hljs-keyword">const</span> Singleton&amp;) = <span class="hljs-keyword">delete</span>;
-    Singleton&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Singleton&amp;) = <span class="hljs-keyword">delete</span>;
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">//双检锁，第一次调用时，实例化</span>
-    <span class="hljs-function"><span class="hljs-keyword">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>
-<span class="hljs-function">    </span>{
-        <span class="hljs-keyword">if</span>(s_instance == <span class="hljs-literal">nullptr</span>){
-            <span class="hljs-function"><span class="hljs-built_in">std</span>::unique_lock&lt;<span class="hljs-built_in">std</span>::mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(s_mutex)</span></span>;
-            <span class="hljs-keyword">if</span>(s_instance == <span class="hljs-literal">nullptr</span>){
-                s_instance = <span class="hljs-keyword">new</span> Singleton();
-            }
-        } 
-        <span class="hljs-keyword">return</span> s_instance;
-    }
-    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteInstance</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>{
-        <span class="hljs-function"><span class="hljs-built_in">std</span>::unique_lock&lt;<span class="hljs-built_in">std</span>::mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(s_mutex)</span></span>;
-        <span class="hljs-keyword">if</span> (s_instance)
-        {
-            <span class="hljs-keyword">delete</span> s_instance;
-            s_instance = <span class="hljs-literal">nullptr</span>;
-        }
-    }
-};
-
-<span class="hljs-built_in">std</span>::mutex Singleton::s_mutex;
-Singleton* Singleton::s_instance = <span class="hljs-literal">nullptr</span>;</code></pre></div>
-<h3 id="3-饿汉模式"><a href="#3-饿汉模式" class="headerlink" title="3.饿汉模式"></a>3.饿汉模式</h3><p>程序启动时就创建一个唯一的实例对象。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;mutex&gt;</span></span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">static</span> Singleton* s_instance;<br>    <span class="hljs-type">static</span> std::mutex s_mutex;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">Singleton</span>() &#123;&#125;;<br>    ~<span class="hljs-built_in">Singleton</span>() &#123;&#125;;<br>    <span class="hljs-built_in">Singleton</span>(<span class="hljs-type">const</span> Singleton&amp;) = <span class="hljs-keyword">delete</span>;<br>    Singleton&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> Singleton&amp;) = <span class="hljs-keyword">delete</span>;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">//双检锁，第一次调用时，实例化</span><br>    <span class="hljs-function"><span class="hljs-type">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span>(s_instance == <span class="hljs-literal">nullptr</span>)&#123;<br>            <span class="hljs-function">std::unique_lock&lt;std::mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(s_mutex)</span></span>;<br>            <span class="hljs-keyword">if</span>(s_instance == <span class="hljs-literal">nullptr</span>)&#123;<br>                s_instance = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Singleton</span>();<br>            &#125;<br>        &#125; <br>        <span class="hljs-keyword">return</span> s_instance;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">deleteInstance</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-function">std::unique_lock&lt;std::mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(s_mutex)</span></span>;<br>        <span class="hljs-keyword">if</span> (s_instance)<br>        &#123;<br>            <span class="hljs-keyword">delete</span> s_instance;<br>            s_instance = <span class="hljs-literal">nullptr</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br><br>std::mutex Singleton::s_mutex;<br>Singleton* Singleton::s_instance = <span class="hljs-literal">nullptr</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="3-饿汉模式">3.饿汉模式</h3>
+<p>程序启动时就创建一个唯一的实例对象。</p>
 <p>可能会导致进程启动慢，且如果有多个单例类对象实例启动顺序不确定。</p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span></span>
-<span class="hljs-class">{</span>
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>{
-        <span class="hljs-keyword">return</span> &amp;s_instance;
-    }
-<span class="hljs-keyword">private</span>:
-    Singleton(){};
-    Singleton(Singleton <span class="hljs-keyword">const</span>&amp;) = <span class="hljs-keyword">delete</span>;
-    Singleton&amp; <span class="hljs-keyword">operator</span>=(Singleton <span class="hljs-keyword">const</span>&amp;) = <span class="hljs-keyword">delete</span>;
-    <span class="hljs-keyword">static</span> Singleton s_instance;
-};
-Singleton Singleton::s_instance; <span class="hljs-comment">// 在程序入口之前就完成单例对象的初始化</span></code></pre></div>
-<h3 id="单例模式是否会被破坏？"><a href="#单例模式是否会被破坏？" class="headerlink" title="单例模式是否会被破坏？"></a>单例模式是否会被破坏？</h3><ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> &amp;s_instance;<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">Singleton</span>()&#123;&#125;;<br>    <span class="hljs-built_in">Singleton</span>(Singleton <span class="hljs-type">const</span>&amp;) = <span class="hljs-keyword">delete</span>;<br>    Singleton&amp; <span class="hljs-keyword">operator</span>=(Singleton <span class="hljs-type">const</span>&amp;) = <span class="hljs-keyword">delete</span>;<br>    <span class="hljs-type">static</span> Singleton s_instance;<br>&#125;;<br>Singleton Singleton::s_instance; <span class="hljs-comment">// 在程序入口之前就完成单例对象的初始化</span><br></code></pre></td></tr></table></figure>
+<h3 id="单例模式是否会被破坏？">单例模式是否会被破坏？</h3>
+<ul>
 <li>反射（虽然C++没有这个机制，但可以了解一下）</li>
 <li>序列化（反序列化的过程中可能再创一个对象）</li>
 <li>克隆</li>
 </ul>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/C-C/">C/C++</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/Wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>单例模式</div>
+      <div>https://wuhlan3.gitee.io/2022/04/14/设计模式：单例模式/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Wuhlan3</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 14, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
               
               
-                <div class="post-prevnext row">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3/2022/04/15/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E4%BD%8D%E8%BF%90%E7%AE%97/">
+                      <a href="/Wuhlan3/2022/04/15/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E4%BD%8D%E8%BF%90%E7%AE%97/" title="一文解决位运算">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">一文解决位运算</span>
                         <span class="visible-mobile">Previous</span>
@@ -377,7 +423,7 @@ Singleton Singleton::s_instance; <span class="hljs-comment">// 在程序入口�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3/2022/04/10/%E6%97%A5%E8%AE%B0/">
+                      <a href="/Wuhlan3/2022/04/10/%E6%97%A5%E8%AE%B0/" title="【加密】2022旧章">
                         <span class="hidden-mobile">【加密】2022旧章</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -389,68 +435,69 @@ Singleton Singleton::s_instance; <span class="hljs-comment">// 在程序入口�
             </div>
 
             
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
-          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
-          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
-          path: window.location.pathname,
-          avatar: "hide",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    }
-    waitElementVisible('vcomments', loadValine);
-  </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </article>
-            
           </article>
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div id="tocbot"></div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -463,286 +510,199 @@ Singleton Singleton::s_instance; <span class="hljs-comment">// 在程序入口�
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-
-  
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
-    });
-  }
-</script>
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
     
-  <div class="statistics">
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
     
     
 
-    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/events.js" ></script>
+<script  src="/Wuhlan3/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
+        typing(text);
       
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
+    })(window, document);
+  </script>
 
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3/js/debouncer.js" ></script>
-<script  src="/Wuhlan3/js/main.js" ></script>
-
-<!-- Plugins -->
 
 
   
-    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+    <script  src="/Wuhlan3/js/img-lazyload.js" ></script>
   
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
 
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
         }
       }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/Wuhlan3/2022/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
-    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
-    var server_url = ''
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/Wuhlan3/js/leancloud.js" ></script>
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
 
 
 
@@ -752,132 +712,15 @@ Singleton Singleton::s_instance; <span class="hljs-comment">// 在程序入口�
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    function typing(id, title){
-        var typed = new Typed('#' + id, {
-            strings: [
-              '  ',
-              title + "&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    }
-    
-        typing("subtitle", "单例模式")
-    
-  </script>
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/Wuhlan3/js/local-search.js" ></script>
-  <script>
-    var path = "/Wuhlan3/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/Wuhlan3/js/boot.js" ></script>
 
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 <script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

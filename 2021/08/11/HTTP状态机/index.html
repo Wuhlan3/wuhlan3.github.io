@@ -1,73 +1,141 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
 <head>
-  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
-  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="《Linux高性能服务器》游双著——学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP状态机">
+<meta property="og:url" content="https://wuhlan3.gitee.io/2021/08/11/HTTP%E7%8A%B6%E6%80%81%E6%9C%BA/index.html">
+<meta property="og:site_name" content="whl&#39;s blog">
+<meta property="og:description" content="《Linux高性能服务器》游双著——学习笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/linuxweb.jpg">
+<meta property="article:published_time" content="2021-08-11T08:59:13.000Z">
+<meta property="article:modified_time" content="2024-03-22T15:55:27.389Z">
+<meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/linuxweb.jpg">
+  
+  
+  
   <title>HTTP状态机 - whl&#39;s blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/Wuhlan3/css/custom.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/Wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
   <script  src="/Wuhlan3/js/utils.js" ></script>
   <script  src="/Wuhlan3/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.2.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/Wuhlan3/">
+      <strong>Wuhlan3</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -84,9 +152,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/">
+              <a class="nav-link" href="/Wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                主页
+                <span>主页</span>
               </a>
             </li>
           
@@ -96,9 +164,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/archives/">
+              <a class="nav-link" href="/Wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                历史
+                <span>历史</span>
               </a>
             </li>
           
@@ -108,9 +176,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/tags/">
+              <a class="nav-link" href="/Wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -120,9 +188,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/links/">
+              <a class="nav-link" href="/Wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -132,23 +200,26 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/about/">
+              <a class="nav-link" href="/Wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -156,457 +227,231 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/linuxweb.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-			
-			
-			
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Wuhlan3
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-11 16:59" pubdate>
-        August 11, 2021 pm
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.5k 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      21
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/linuxweb.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HTTP状态机"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-11 16:59" pubdate>
+          August 11, 2021 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">HTTP状态机</h1>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">HTTP状态机</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：6 months ago
-                
-              </p>
             
-            <div class="markdown-body" id="post-body">
-              <div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/socket.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;netinet/in.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;arpa/inet.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;assert.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;errno.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span>
-
-<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BUFFER_SIZE 4096<span class="hljs-comment">/*读缓冲区大小*/</span></span>
-<span class="hljs-comment">/*主状态机的两种可能状态，分别表示：当前正在分析请求行，当前正在分析头部字段*/</span>
-<span class="hljs-keyword">enum</span> CHECK_STATE { CHECK_STATE_REQUESTLINE = <span class="hljs-number">0</span>, CHECK_STATE_HEADER, CHECK_STATE_CONTENT };
-<span class="hljs-comment">/*从状态机的三种可能状态，即行的读取状态，分别表示：读取到一个完整的行、行出错和行数据尚且不完整*/</span>
-<span class="hljs-keyword">enum</span> LINE_STATUS { LINE_OK = <span class="hljs-number">0</span>, LINE_BAD, LINE_OPEN };
-<span class="hljs-comment">/*服务器处理HTTP请求的结果：NO_REQUEST表示请求不完整，需要继续读取客户数据；GET_REQUEST表示获得了一个完整的客户请求；</span>
-<span class="hljs-comment">BAD_REQUEST表示客户请求 有语法错误；FORBIDDEN_REQUEST表示客户对资源没有足够的访问权限；INTERNAL_ERROR表示服务器内部错误；</span>
-<span class="hljs-comment">CLOSED_CONNECTION表示客户端已经关闭连接了*/</span>
-<span class="hljs-keyword">enum</span> HTTP_CODE { NO_REQUEST, GET_REQUEST, BAD_REQUEST, FORBIDDEN_REQUEST, INTERNAL_ERROR, CLOSED_CONNECTION };
-<span class="hljs-comment">/*为了简化问题，我们没有给客户端发送一个完整的HTTP应答报文，而只是根据服务器的处理结果发送如下成功或失败信息*/</span>
-<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* szret[] = { <span class="hljs-string">"I get a correct result\n"</span>, <span class="hljs-string">"Something wrong\n"</span> };
-<span class="hljs-comment">/*从状态机，用于解析出一行内容*/</span>
-<span class="hljs-function">LINE_STATUS <span class="hljs-title">parse_line</span><span class="hljs-params">( <span class="hljs-keyword">char</span>* buffer, <span class="hljs-keyword">int</span>&amp; checked_index, <span class="hljs-keyword">int</span>&amp; read_index )</span></span>
-<span class="hljs-function"></span>{
-    <span class="hljs-keyword">char</span> temp;
-    <span class="hljs-comment">/*checked_index指向buffer（应用程序的读缓冲区）中当前正在分析的字节，read_index指向buffer中客户数据的尾部的下一字节。</span>
-<span class="hljs-comment">    buffer中第0～ checked_index字节都已分析完毕，第checked_index～(read_index-1)字节由下面的循环挨个分析*/</span>
-    <span class="hljs-keyword">for</span> ( ; checked_index &lt; read_index; ++checked_index )
-    {
-        <span class="hljs-comment">/*获得当前要分析的字节*/</span>
-        temp = buffer[ checked_index ];
-        <span class="hljs-comment">/*如果当前的字节是“\r”，即回车符，则说明可能读取到一个完整的行*/</span>
-        <span class="hljs-keyword">if</span> ( temp == <span class="hljs-string">'\r'</span> )
-        {
-            <span class="hljs-comment">/*如果“\r”字符碰巧是目前buffer中的最后一个已经被读入的客户数据，那么这次分析没有读取到一个完整的行，</span>
-<span class="hljs-comment">            返回LINE_OPEN以表示还需要继续读取客户数据才能 进一步分析*/</span>
-            <span class="hljs-keyword">if</span> ( ( checked_index + <span class="hljs-number">1</span> ) == read_index )
-            {
-                <span class="hljs-keyword">return</span> LINE_OPEN;
-            }
-            <span class="hljs-comment">/*如果下一个字符是“\n”，则说明我们成功读取到一个完整的行*/</span>
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( buffer[ checked_index + <span class="hljs-number">1</span> ] == <span class="hljs-string">'\n'</span> )
-            {
-                buffer[ checked_index++ ] = <span class="hljs-string">'\0'</span>;
-                buffer[ checked_index++ ] = <span class="hljs-string">'\0'</span>;
-                <span class="hljs-keyword">return</span> LINE_OK;
-            }
-            <span class="hljs-comment">/*否则的话，说明客户发送的HTTP请求存在语法问题*/</span>
-            <span class="hljs-keyword">return</span> LINE_BAD;
-        }
-        <span class="hljs-comment">/*如果当前的字节是“\n”，即换行符，则也说明可能读取到一个完整的行*/</span>
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( temp == <span class="hljs-string">'\n'</span> )
-        {
-            <span class="hljs-keyword">if</span>( ( checked_index &gt; <span class="hljs-number">1</span> ) &amp;&amp;  buffer[ checked_index - <span class="hljs-number">1</span> ] == <span class="hljs-string">'\r'</span> )
-            {
-                buffer[ checked_index<span class="hljs-number">-1</span> ] = <span class="hljs-string">'\0'</span>;
-                buffer[ checked_index++ ] = <span class="hljs-string">'\0'</span>;
-                <span class="hljs-keyword">return</span> LINE_OK;
-            }
-            <span class="hljs-keyword">return</span> LINE_BAD;
-        }
-    }
-    <span class="hljs-comment">/*如果所有内容都分析完毕也没遇到“\r”字符，则返回LINE_OPEN，表示还需要继续读取客户数据才能进一步分析*/</span>
-    <span class="hljs-keyword">return</span> LINE_OPEN;
-}
-<span class="hljs-comment">/*分析请求行*/</span>
-<span class="hljs-function">HTTP_CODE <span class="hljs-title">parse_requestline</span><span class="hljs-params">( <span class="hljs-keyword">char</span>* szTemp, CHECK_STATE&amp; checkstate )</span></span>
-<span class="hljs-function"></span>{
-    <span class="hljs-comment">/*如果请求行中没有空白字符或“\t”字符，则HTTP请求必有问题*/</span>
-    <span class="hljs-keyword">char</span>* szURL = <span class="hljs-built_in">strpbrk</span>( szTemp, <span class="hljs-string">" \t"</span> );
-    <span class="hljs-keyword">if</span> ( ! szURL )
-    {
-        <span class="hljs-keyword">return</span> BAD_REQUEST;
-    }
-    *szURL++ = <span class="hljs-string">'\0'</span>;
-
-    <span class="hljs-keyword">char</span>* szMethod = szTemp;
-    <span class="hljs-keyword">if</span> ( strcasecmp( szMethod, <span class="hljs-string">"GET"</span> ) == <span class="hljs-number">0</span> )<span class="hljs-comment">/*仅支持GET方法*/</span>
-    {
-        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"The request method is GET\n"</span> );
-    }
-    <span class="hljs-keyword">else</span>
-    {
-        <span class="hljs-keyword">return</span> BAD_REQUEST;
-    }
-
-    szURL += <span class="hljs-built_in">strspn</span>( szURL, <span class="hljs-string">" \t"</span> );
-    <span class="hljs-keyword">char</span>* szVersion = <span class="hljs-built_in">strpbrk</span>( szURL, <span class="hljs-string">" \t"</span> );
-    <span class="hljs-keyword">if</span> ( ! szVersion )
-    {
-        <span class="hljs-keyword">return</span> BAD_REQUEST;
-    }
-    *szVersion++ = <span class="hljs-string">'\0'</span>;
-    szVersion += <span class="hljs-built_in">strspn</span>( szVersion, <span class="hljs-string">" \t"</span> );
-    <span class="hljs-comment">/*仅支持HTTP/1.1*/</span>
-    <span class="hljs-keyword">if</span> ( strcasecmp( szVersion, <span class="hljs-string">"HTTP/1.1"</span> ) != <span class="hljs-number">0</span> )
-    {
-        <span class="hljs-keyword">return</span> BAD_REQUEST;
-    }
-    <span class="hljs-comment">/*检查URL是否合法*/</span>
-    <span class="hljs-keyword">if</span> ( strncasecmp( szURL, <span class="hljs-string">"http://"</span>, <span class="hljs-number">7</span> ) == <span class="hljs-number">0</span> )
-    {
-        szURL += <span class="hljs-number">7</span>;
-        szURL = <span class="hljs-built_in">strchr</span>( szURL, <span class="hljs-string">'/'</span> );
-    }
-
-    <span class="hljs-keyword">if</span> ( ! szURL || szURL[ <span class="hljs-number">0</span> ] != <span class="hljs-string">'/'</span> )
-    {
-        <span class="hljs-keyword">return</span> BAD_REQUEST;
-    }
-
-    <span class="hljs-comment">//URLDecode( szURL );</span>
-    <span class="hljs-built_in">printf</span>( <span class="hljs-string">"The request URL is: %s\n"</span>, szURL );
-    <span class="hljs-comment">/*HTTP请求行处理完毕，状态转移到头部字段的分析*/</span>
-    checkstate = CHECK_STATE_HEADER;
-    <span class="hljs-keyword">return</span> NO_REQUEST;
-}
-<span class="hljs-comment">/*分析头部字段*/</span>
-<span class="hljs-function">HTTP_CODE <span class="hljs-title">parse_headers</span><span class="hljs-params">( <span class="hljs-keyword">char</span>* szTemp )</span></span>
-<span class="hljs-function"></span>{
-    <span class="hljs-comment">/*遇到一个空行，说明我们得到了一个正确的HTTP请求*/</span>
-    <span class="hljs-keyword">if</span> ( szTemp[ <span class="hljs-number">0</span> ] == <span class="hljs-string">'\0'</span> )
-    {
-        <span class="hljs-keyword">return</span> GET_REQUEST;
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( strncasecmp( szTemp, <span class="hljs-string">"Host:"</span>, <span class="hljs-number">5</span> ) == <span class="hljs-number">0</span> )<span class="hljs-comment">/*处理“HOST”头部字段*/</span>
-    {
-        szTemp += <span class="hljs-number">5</span>;
-        szTemp += <span class="hljs-built_in">strspn</span>( szTemp, <span class="hljs-string">" \t"</span> );
-        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"the request host is: %s\n"</span>, szTemp );
-    }
-    <span class="hljs-keyword">else</span><span class="hljs-comment">/*其他头部字段都不处理*/</span>
-    {
-        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"I can not handle this header\n"</span> );
-    }
-
-    <span class="hljs-keyword">return</span> NO_REQUEST;
-}
-<span class="hljs-comment">/*分析HTTP请求的入口函数*/</span>
-<span class="hljs-function">HTTP_CODE <span class="hljs-title">parse_content</span><span class="hljs-params">( <span class="hljs-keyword">char</span>* buffer, <span class="hljs-keyword">int</span>&amp; checked_index, CHECK_STATE&amp; checkstate, <span class="hljs-keyword">int</span>&amp; read_index, <span class="hljs-keyword">int</span>&amp; start_line )</span></span>
-<span class="hljs-function"></span>{
-    LINE_STATUS linestatus = LINE_OK;<span class="hljs-comment">/*记录当前行的读取状态*/</span>
-    HTTP_CODE retcode = NO_REQUEST;<span class="hljs-comment">/*记录HTTP请求的处理结果*/</span>
-    <span class="hljs-comment">/*主状态机，用于从buffer中取出所有完整的行*/</span>
-    <span class="hljs-keyword">while</span>( ( linestatus = parse_line( buffer, checked_index, read_index ) ) == LINE_OK )
-    {
-        <span class="hljs-keyword">char</span>* szTemp = buffer + start_line;<span class="hljs-comment">/*start_line是行在buffer中的起始位置*/</span>
-        start_line = checked_index;<span class="hljs-comment">/*记录下一行的起始位置*/</span>
-        <span class="hljs-comment">/*checkstate记录主状态机当前的状态*/</span>
-        <span class="hljs-keyword">switch</span> ( checkstate )
-        {
-            <span class="hljs-keyword">case</span> CHECK_STATE_REQUESTLINE:<span class="hljs-comment">/*第一个状态，分析请求行*/</span>
-            {
-                retcode = parse_requestline( szTemp, checkstate );
-                <span class="hljs-keyword">if</span> ( retcode == BAD_REQUEST )
-                {
-                    <span class="hljs-keyword">return</span> BAD_REQUEST;
-                }
-                <span class="hljs-keyword">break</span>;
-            }
-            <span class="hljs-keyword">case</span> CHECK_STATE_HEADER:<span class="hljs-comment">/*第二个状态，分析头部字段*/</span>
-            {
-                retcode = parse_headers( szTemp );
-                <span class="hljs-keyword">if</span> ( retcode == BAD_REQUEST )
-                {
-                    <span class="hljs-keyword">return</span> BAD_REQUEST;
-                }
-                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( retcode == GET_REQUEST )
-                {
-                    <span class="hljs-keyword">return</span> GET_REQUEST;
-                }
-                <span class="hljs-keyword">break</span>;
-            }
-            <span class="hljs-keyword">default</span>:
-            {
-                <span class="hljs-keyword">return</span> INTERNAL_ERROR;
-            }
-        }
-    }
-    <span class="hljs-comment">/*若没有读取到一个完整的行，则表示还需要继续读取客户数据才能进一步分析*/</span>
-    <span class="hljs-keyword">if</span>( linestatus == LINE_OPEN )
-    {
-        <span class="hljs-keyword">return</span> NO_REQUEST;
-    }
-    <span class="hljs-keyword">else</span>
-    {
-        <span class="hljs-keyword">return</span> BAD_REQUEST;
-    }
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>* argv[] )</span></span>
-<span class="hljs-function"></span>{
-    <span class="hljs-comment">//常规</span>
-    <span class="hljs-comment">//******************************************************************************************************************</span>
-    <span class="hljs-keyword">if</span>( argc &lt;= <span class="hljs-number">2</span> )
-    {
-        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"usage: %s ip_address port_number\n"</span>, basename( argv[<span class="hljs-number">0</span>] ) );
-        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    }
-    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* ip = argv[<span class="hljs-number">1</span>];
-    <span class="hljs-keyword">int</span> port = atoi( argv[<span class="hljs-number">2</span>] );
-    
-    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">address</span>;</span>
-    bzero( &amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
-    address.sin_family = AF_INET;
-    inet_pton( AF_INET, ip, &amp;address.sin_addr );
-    address.sin_port = htons( port );
-    
-    <span class="hljs-keyword">int</span> listenfd = socket( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );
-    assert( listenfd &gt;= <span class="hljs-number">0</span> );
-    
-    <span class="hljs-keyword">int</span> ret = bind( listenfd, ( struct sockaddr* )&amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
-    assert( ret != <span class="hljs-number">-1</span> );
-    
-    ret = listen( listenfd, <span class="hljs-number">5</span> );
-    assert( ret != <span class="hljs-number">-1</span> );
-    
-    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">client_address</span>;</span>
-    <span class="hljs-keyword">socklen_t</span> client_addrlength = <span class="hljs-keyword">sizeof</span>( client_address );
-    <span class="hljs-keyword">int</span> fd = accept( listenfd, ( struct sockaddr* )&amp;client_address, &amp;client_addrlength );
-    <span class="hljs-comment">//常规，直接看下面的</span>
-    <span class="hljs-comment">//******************************************************************************************************************</span>
-    <span class="hljs-keyword">if</span>( fd &lt; <span class="hljs-number">0</span> )
-    {
-        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"errno is: %d\n"</span>, errno );
-    }
-    <span class="hljs-keyword">else</span>
-    {
-        <span class="hljs-keyword">char</span> buffer[ BUFFER_SIZE ];<span class="hljs-comment">/*读缓冲区*/</span>
-        <span class="hljs-built_in">memset</span>( buffer, <span class="hljs-string">'\0'</span>, BUFFER_SIZE );
-        <span class="hljs-keyword">int</span> data_read = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> read_index = <span class="hljs-number">0</span>;<span class="hljs-comment">/*当前已经读取了多少字节的客户数据*/</span>
-        <span class="hljs-keyword">int</span> checked_index = <span class="hljs-number">0</span>;<span class="hljs-comment">/*当前已经分析完了多少字节的客户数据*/</span>
-        <span class="hljs-keyword">int</span> start_line = <span class="hljs-number">0</span>;<span class="hljs-comment">/*行在buffer中的起始位置*/</span>
-        <span class="hljs-comment">/*设置主状态机的初始状态*/</span>
-        CHECK_STATE checkstate = CHECK_STATE_REQUESTLINE;
-        <span class="hljs-keyword">while</span>( <span class="hljs-number">1</span> )<span class="hljs-comment">/*循环读取客户数据并分析之*/</span>
-        {
-            data_read = recv( fd, buffer + read_index, BUFFER_SIZE - read_index, <span class="hljs-number">0</span> );
-            <span class="hljs-keyword">if</span> ( data_read == <span class="hljs-number">-1</span> )
-            {
-                <span class="hljs-built_in">printf</span>( <span class="hljs-string">"reading failed\n"</span> );
-                <span class="hljs-keyword">break</span>;
-            }
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( data_read == <span class="hljs-number">0</span> )
-            {
-                <span class="hljs-built_in">printf</span>( <span class="hljs-string">"remote client has closed the connection\n"</span> );
-                <span class="hljs-keyword">break</span>;
-            }
-    
-            read_index += data_read;
-            <span class="hljs-comment">/*分析目前已经获得的所有客户数据*/</span>
-            HTTP_CODE result = parse_content( buffer, checked_index, checkstate, read_index, start_line );
-            <span class="hljs-keyword">if</span>( result == NO_REQUEST )<span class="hljs-comment">/*尚未得到一个完整的HTTP请求*/</span>
-            {
-                <span class="hljs-keyword">continue</span>;
-            }
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( result == GET_REQUEST )<span class="hljs-comment">/*得到一个完整的、正确的HTTP请求*/</span>
-            {
-                send( fd, szret[<span class="hljs-number">0</span>], <span class="hljs-built_in">strlen</span>( szret[<span class="hljs-number">0</span>] ), <span class="hljs-number">0</span> );<span class="hljs-comment">//发送成功的消息</span>
-                <span class="hljs-keyword">break</span>;
-            }
-            <span class="hljs-keyword">else</span><span class="hljs-comment">/*其他情况表示发生错误*/</span>
-            {
-                send( fd, szret[<span class="hljs-number">1</span>], <span class="hljs-built_in">strlen</span>( szret[<span class="hljs-number">1</span>] ), <span class="hljs-number">0</span> );<span class="hljs-comment">//发送失败的消息</span>
-                <span class="hljs-keyword">break</span>;
-            }
-        }
-        close( fd );
-    }
-    
-    close( listenfd );
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}</code></pre></div>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
+              <div class="markdown-body">
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/linux/">linux</a>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/C-C/">C/C++</a>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/Web/">Web</a>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-                    
-                  </div>
+                <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/in.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;assert.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> BUFFER_SIZE 4096<span class="hljs-comment">/*读缓冲区大小*/</span></span><br><span class="hljs-comment">/*主状态机的两种可能状态，分别表示：当前正在分析请求行，当前正在分析头部字段*/</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">CHECK_STATE</span> &#123; CHECK_STATE_REQUESTLINE = <span class="hljs-number">0</span>, CHECK_STATE_HEADER, CHECK_STATE_CONTENT &#125;;<br><span class="hljs-comment">/*从状态机的三种可能状态，即行的读取状态，分别表示：读取到一个完整的行、行出错和行数据尚且不完整*/</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">LINE_STATUS</span> &#123; LINE_OK = <span class="hljs-number">0</span>, LINE_BAD, LINE_OPEN &#125;;<br><span class="hljs-comment">/*服务器处理HTTP请求的结果：NO_REQUEST表示请求不完整，需要继续读取客户数据；GET_REQUEST表示获得了一个完整的客户请求；</span><br><span class="hljs-comment">BAD_REQUEST表示客户请求 有语法错误；FORBIDDEN_REQUEST表示客户对资源没有足够的访问权限；INTERNAL_ERROR表示服务器内部错误；</span><br><span class="hljs-comment">CLOSED_CONNECTION表示客户端已经关闭连接了*/</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">HTTP_CODE</span> &#123; NO_REQUEST, GET_REQUEST, BAD_REQUEST, FORBIDDEN_REQUEST, INTERNAL_ERROR, CLOSED_CONNECTION &#125;;<br><span class="hljs-comment">/*为了简化问题，我们没有给客户端发送一个完整的HTTP应答报文，而只是根据服务器的处理结果发送如下成功或失败信息*/</span><br><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">char</span>* szret[] = &#123; <span class="hljs-string">&quot;I get a correct result\n&quot;</span>, <span class="hljs-string">&quot;Something wrong\n&quot;</span> &#125;;<br><span class="hljs-comment">/*从状态机，用于解析出一行内容*/</span><br><span class="hljs-function">LINE_STATUS <span class="hljs-title">parse_line</span><span class="hljs-params">( <span class="hljs-type">char</span>* buffer, <span class="hljs-type">int</span>&amp; checked_index, <span class="hljs-type">int</span>&amp; read_index )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">char</span> temp;<br>    <span class="hljs-comment">/*checked_index指向buffer（应用程序的读缓冲区）中当前正在分析的字节，read_index指向buffer中客户数据的尾部的下一字节。</span><br><span class="hljs-comment">    buffer中第0～ checked_index字节都已分析完毕，第checked_index～(read_index-1)字节由下面的循环挨个分析*/</span><br>    <span class="hljs-keyword">for</span> ( ; checked_index &lt; read_index; ++checked_index )<br>    &#123;<br>        <span class="hljs-comment">/*获得当前要分析的字节*/</span><br>        temp = buffer[ checked_index ];<br>        <span class="hljs-comment">/*如果当前的字节是“\r”，即回车符，则说明可能读取到一个完整的行*/</span><br>        <span class="hljs-keyword">if</span> ( temp == <span class="hljs-string">&#x27;\r&#x27;</span> )<br>        &#123;<br>            <span class="hljs-comment">/*如果“\r”字符碰巧是目前buffer中的最后一个已经被读入的客户数据，那么这次分析没有读取到一个完整的行，</span><br><span class="hljs-comment">            返回LINE_OPEN以表示还需要继续读取客户数据才能 进一步分析*/</span><br>            <span class="hljs-keyword">if</span> ( ( checked_index + <span class="hljs-number">1</span> ) == read_index )<br>            &#123;<br>                <span class="hljs-keyword">return</span> LINE_OPEN;<br>            &#125;<br>            <span class="hljs-comment">/*如果下一个字符是“\n”，则说明我们成功读取到一个完整的行*/</span><br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( buffer[ checked_index + <span class="hljs-number">1</span> ] == <span class="hljs-string">&#x27;\n&#x27;</span> )<br>            &#123;<br>                buffer[ checked_index++ ] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>                buffer[ checked_index++ ] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>                <span class="hljs-keyword">return</span> LINE_OK;<br>            &#125;<br>            <span class="hljs-comment">/*否则的话，说明客户发送的HTTP请求存在语法问题*/</span><br>            <span class="hljs-keyword">return</span> LINE_BAD;<br>        &#125;<br>        <span class="hljs-comment">/*如果当前的字节是“\n”，即换行符，则也说明可能读取到一个完整的行*/</span><br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( temp == <span class="hljs-string">&#x27;\n&#x27;</span> )<br>        &#123;<br>            <span class="hljs-keyword">if</span>( ( checked_index &gt; <span class="hljs-number">1</span> ) &amp;&amp;  buffer[ checked_index - <span class="hljs-number">1</span> ] == <span class="hljs-string">&#x27;\r&#x27;</span> )<br>            &#123;<br>                buffer[ checked_index<span class="hljs-number">-1</span> ] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>                buffer[ checked_index++ ] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>                <span class="hljs-keyword">return</span> LINE_OK;<br>            &#125;<br>            <span class="hljs-keyword">return</span> LINE_BAD;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">/*如果所有内容都分析完毕也没遇到“\r”字符，则返回LINE_OPEN，表示还需要继续读取客户数据才能进一步分析*/</span><br>    <span class="hljs-keyword">return</span> LINE_OPEN;<br>&#125;<br><span class="hljs-comment">/*分析请求行*/</span><br><span class="hljs-function">HTTP_CODE <span class="hljs-title">parse_requestline</span><span class="hljs-params">( <span class="hljs-type">char</span>* szTemp, CHECK_STATE&amp; checkstate )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">/*如果请求行中没有空白字符或“\t”字符，则HTTP请求必有问题*/</span><br>    <span class="hljs-type">char</span>* szURL = <span class="hljs-built_in">strpbrk</span>( szTemp, <span class="hljs-string">&quot; \t&quot;</span> );<br>    <span class="hljs-keyword">if</span> ( ! szURL )<br>    &#123;<br>        <span class="hljs-keyword">return</span> BAD_REQUEST;<br>    &#125;<br>    *szURL++ = <span class="hljs-string">&#x27;\0&#x27;</span>;<br><br>    <span class="hljs-type">char</span>* szMethod = szTemp;<br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strcasecmp</span>( szMethod, <span class="hljs-string">&quot;GET&quot;</span> ) == <span class="hljs-number">0</span> )<span class="hljs-comment">/*仅支持GET方法*/</span><br>    &#123;<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;The request method is GET\n&quot;</span> );<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> BAD_REQUEST;<br>    &#125;<br><br>    szURL += <span class="hljs-built_in">strspn</span>( szURL, <span class="hljs-string">&quot; \t&quot;</span> );<br>    <span class="hljs-type">char</span>* szVersion = <span class="hljs-built_in">strpbrk</span>( szURL, <span class="hljs-string">&quot; \t&quot;</span> );<br>    <span class="hljs-keyword">if</span> ( ! szVersion )<br>    &#123;<br>        <span class="hljs-keyword">return</span> BAD_REQUEST;<br>    &#125;<br>    *szVersion++ = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>    szVersion += <span class="hljs-built_in">strspn</span>( szVersion, <span class="hljs-string">&quot; \t&quot;</span> );<br>    <span class="hljs-comment">/*仅支持HTTP/1.1*/</span><br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strcasecmp</span>( szVersion, <span class="hljs-string">&quot;HTTP/1.1&quot;</span> ) != <span class="hljs-number">0</span> )<br>    &#123;<br>        <span class="hljs-keyword">return</span> BAD_REQUEST;<br>    &#125;<br>    <span class="hljs-comment">/*检查URL是否合法*/</span><br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strncasecmp</span>( szURL, <span class="hljs-string">&quot;http://&quot;</span>, <span class="hljs-number">7</span> ) == <span class="hljs-number">0</span> )<br>    &#123;<br>        szURL += <span class="hljs-number">7</span>;<br>        szURL = <span class="hljs-built_in">strchr</span>( szURL, <span class="hljs-string">&#x27;/&#x27;</span> );<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> ( ! szURL || szURL[ <span class="hljs-number">0</span> ] != <span class="hljs-string">&#x27;/&#x27;</span> )<br>    &#123;<br>        <span class="hljs-keyword">return</span> BAD_REQUEST;<br>    &#125;<br><br>    <span class="hljs-comment">//URLDecode( szURL );</span><br>    <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;The request URL is: %s\n&quot;</span>, szURL );<br>    <span class="hljs-comment">/*HTTP请求行处理完毕，状态转移到头部字段的分析*/</span><br>    checkstate = CHECK_STATE_HEADER;<br>    <span class="hljs-keyword">return</span> NO_REQUEST;<br>&#125;<br><span class="hljs-comment">/*分析头部字段*/</span><br><span class="hljs-function">HTTP_CODE <span class="hljs-title">parse_headers</span><span class="hljs-params">( <span class="hljs-type">char</span>* szTemp )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">/*遇到一个空行，说明我们得到了一个正确的HTTP请求*/</span><br>    <span class="hljs-keyword">if</span> ( szTemp[ <span class="hljs-number">0</span> ] == <span class="hljs-string">&#x27;\0&#x27;</span> )<br>    &#123;<br>        <span class="hljs-keyword">return</span> GET_REQUEST;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strncasecmp</span>( szTemp, <span class="hljs-string">&quot;Host:&quot;</span>, <span class="hljs-number">5</span> ) == <span class="hljs-number">0</span> )<span class="hljs-comment">/*处理“HOST”头部字段*/</span><br>    &#123;<br>        szTemp += <span class="hljs-number">5</span>;<br>        szTemp += <span class="hljs-built_in">strspn</span>( szTemp, <span class="hljs-string">&quot; \t&quot;</span> );<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;the request host is: %s\n&quot;</span>, szTemp );<br>    &#125;<br>    <span class="hljs-keyword">else</span><span class="hljs-comment">/*其他头部字段都不处理*/</span><br>    &#123;<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;I can not handle this header\n&quot;</span> );<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> NO_REQUEST;<br>&#125;<br><span class="hljs-comment">/*分析HTTP请求的入口函数*/</span><br><span class="hljs-function">HTTP_CODE <span class="hljs-title">parse_content</span><span class="hljs-params">( <span class="hljs-type">char</span>* buffer, <span class="hljs-type">int</span>&amp; checked_index, CHECK_STATE&amp; checkstate, <span class="hljs-type">int</span>&amp; read_index, <span class="hljs-type">int</span>&amp; start_line )</span></span><br><span class="hljs-function"></span>&#123;<br>    LINE_STATUS linestatus = LINE_OK;<span class="hljs-comment">/*记录当前行的读取状态*/</span><br>    HTTP_CODE retcode = NO_REQUEST;<span class="hljs-comment">/*记录HTTP请求的处理结果*/</span><br>    <span class="hljs-comment">/*主状态机，用于从buffer中取出所有完整的行*/</span><br>    <span class="hljs-keyword">while</span>( ( linestatus = <span class="hljs-built_in">parse_line</span>( buffer, checked_index, read_index ) ) == LINE_OK )<br>    &#123;<br>        <span class="hljs-type">char</span>* szTemp = buffer + start_line;<span class="hljs-comment">/*start_line是行在buffer中的起始位置*/</span><br>        start_line = checked_index;<span class="hljs-comment">/*记录下一行的起始位置*/</span><br>        <span class="hljs-comment">/*checkstate记录主状态机当前的状态*/</span><br>        <span class="hljs-keyword">switch</span> ( checkstate )<br>        &#123;<br>            <span class="hljs-keyword">case</span> CHECK_STATE_REQUESTLINE:<span class="hljs-comment">/*第一个状态，分析请求行*/</span><br>            &#123;<br>                retcode = <span class="hljs-built_in">parse_requestline</span>( szTemp, checkstate );<br>                <span class="hljs-keyword">if</span> ( retcode == BAD_REQUEST )<br>                &#123;<br>                    <span class="hljs-keyword">return</span> BAD_REQUEST;<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">case</span> CHECK_STATE_HEADER:<span class="hljs-comment">/*第二个状态，分析头部字段*/</span><br>            &#123;<br>                retcode = <span class="hljs-built_in">parse_headers</span>( szTemp );<br>                <span class="hljs-keyword">if</span> ( retcode == BAD_REQUEST )<br>                &#123;<br>                    <span class="hljs-keyword">return</span> BAD_REQUEST;<br>                &#125;<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( retcode == GET_REQUEST )<br>                &#123;<br>                    <span class="hljs-keyword">return</span> GET_REQUEST;<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">default</span>:<br>            &#123;<br>                <span class="hljs-keyword">return</span> INTERNAL_ERROR;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">/*若没有读取到一个完整的行，则表示还需要继续读取客户数据才能进一步分析*/</span><br>    <span class="hljs-keyword">if</span>( linestatus == LINE_OPEN )<br>    &#123;<br>        <span class="hljs-keyword">return</span> NO_REQUEST;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> BAD_REQUEST;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[] )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">//常规</span><br>    <span class="hljs-comment">//******************************************************************************************************************</span><br>    <span class="hljs-keyword">if</span>( argc &lt;= <span class="hljs-number">2</span> )<br>    &#123;<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;usage: %s ip_address port_number\n&quot;</span>, <span class="hljs-built_in">basename</span>( argv[<span class="hljs-number">0</span>] ) );<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span>* ip = argv[<span class="hljs-number">1</span>];<br>    <span class="hljs-type">int</span> port = <span class="hljs-built_in">atoi</span>( argv[<span class="hljs-number">2</span>] );<br>    <br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> address;<br>    <span class="hljs-built_in">bzero</span>( &amp;address, <span class="hljs-built_in">sizeof</span>( address ) );<br>    address.sin_family = AF_INET;<br>    <span class="hljs-built_in">inet_pton</span>( AF_INET, ip, &amp;address.sin_addr );<br>    address.sin_port = <span class="hljs-built_in">htons</span>( port );<br>    <br>    <span class="hljs-type">int</span> listenfd = <span class="hljs-built_in">socket</span>( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );<br>    <span class="hljs-built_in">assert</span>( listenfd &gt;= <span class="hljs-number">0</span> );<br>    <br>    <span class="hljs-type">int</span> ret = <span class="hljs-built_in">bind</span>( listenfd, ( <span class="hljs-keyword">struct</span> sockaddr* )&amp;address, <span class="hljs-built_in">sizeof</span>( address ) );<br>    <span class="hljs-built_in">assert</span>( ret != <span class="hljs-number">-1</span> );<br>    <br>    ret = <span class="hljs-built_in">listen</span>( listenfd, <span class="hljs-number">5</span> );<br>    <span class="hljs-built_in">assert</span>( ret != <span class="hljs-number">-1</span> );<br>    <br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> client_address;<br>    <span class="hljs-type">socklen_t</span> client_addrlength = <span class="hljs-built_in">sizeof</span>( client_address );<br>    <span class="hljs-type">int</span> fd = <span class="hljs-built_in">accept</span>( listenfd, ( <span class="hljs-keyword">struct</span> sockaddr* )&amp;client_address, &amp;client_addrlength );<br>    <span class="hljs-comment">//常规，直接看下面的</span><br>    <span class="hljs-comment">//******************************************************************************************************************</span><br>    <span class="hljs-keyword">if</span>( fd &lt; <span class="hljs-number">0</span> )<br>    &#123;<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;errno is: %d\n&quot;</span>, errno );<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-type">char</span> buffer[ BUFFER_SIZE ];<span class="hljs-comment">/*读缓冲区*/</span><br>        <span class="hljs-built_in">memset</span>( buffer, <span class="hljs-string">&#x27;\0&#x27;</span>, BUFFER_SIZE );<br>        <span class="hljs-type">int</span> data_read = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> read_index = <span class="hljs-number">0</span>;<span class="hljs-comment">/*当前已经读取了多少字节的客户数据*/</span><br>        <span class="hljs-type">int</span> checked_index = <span class="hljs-number">0</span>;<span class="hljs-comment">/*当前已经分析完了多少字节的客户数据*/</span><br>        <span class="hljs-type">int</span> start_line = <span class="hljs-number">0</span>;<span class="hljs-comment">/*行在buffer中的起始位置*/</span><br>        <span class="hljs-comment">/*设置主状态机的初始状态*/</span><br>        CHECK_STATE checkstate = CHECK_STATE_REQUESTLINE;<br>        <span class="hljs-keyword">while</span>( <span class="hljs-number">1</span> )<span class="hljs-comment">/*循环读取客户数据并分析之*/</span><br>        &#123;<br>            data_read = <span class="hljs-built_in">recv</span>( fd, buffer + read_index, BUFFER_SIZE - read_index, <span class="hljs-number">0</span> );<br>            <span class="hljs-keyword">if</span> ( data_read == <span class="hljs-number">-1</span> )<br>            &#123;<br>                <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;reading failed\n&quot;</span> );<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( data_read == <span class="hljs-number">0</span> )<br>            &#123;<br>                <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;remote client has closed the connection\n&quot;</span> );<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>    <br>            read_index += data_read;<br>            <span class="hljs-comment">/*分析目前已经获得的所有客户数据*/</span><br>            HTTP_CODE result = <span class="hljs-built_in">parse_content</span>( buffer, checked_index, checkstate, read_index, start_line );<br>            <span class="hljs-keyword">if</span>( result == NO_REQUEST )<span class="hljs-comment">/*尚未得到一个完整的HTTP请求*/</span><br>            &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( result == GET_REQUEST )<span class="hljs-comment">/*得到一个完整的、正确的HTTP请求*/</span><br>            &#123;<br>                <span class="hljs-built_in">send</span>( fd, szret[<span class="hljs-number">0</span>], <span class="hljs-built_in">strlen</span>( szret[<span class="hljs-number">0</span>] ), <span class="hljs-number">0</span> );<span class="hljs-comment">//发送成功的消息</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span><span class="hljs-comment">/*其他情况表示发生错误*/</span><br>            &#123;<br>                <span class="hljs-built_in">send</span>( fd, szret[<span class="hljs-number">1</span>], <span class="hljs-built_in">strlen</span>( szret[<span class="hljs-number">1</span>] ), <span class="hljs-number">0</span> );<span class="hljs-comment">//发送失败的消息</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-built_in">close</span>( fd );<br>    &#125;<br>    <br>    <span class="hljs-built_in">close</span>( listenfd );<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/Wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
+      
+        <a href="/Wuhlan3/tags/linux/" class="print-no-link">#linux</a>
+      
+        <a href="/Wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/Wuhlan3/tags/Web/" class="print-no-link">#Web</a>
+      
+        <a href="/Wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>HTTP状态机</div>
+      <div>https://wuhlan3.gitee.io/2021/08/11/HTTP状态机/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Wuhlan3</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 11, 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
               
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
               
             </div>
 
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
-          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
-          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
-          path: window.location.pathname,
-          avatar: "hide",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    }
-    waitElementVisible('vcomments', loadValine);
-  </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </article>
             
           </article>
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div id="tocbot"></div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -619,286 +464,199 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-
-  
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
-    });
-  }
-</script>
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
     
-  <div class="statistics">
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
     
     
 
-    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/events.js" ></script>
+<script  src="/Wuhlan3/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
+        typing(text);
       
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
+    })(window, document);
+  </script>
 
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3/js/debouncer.js" ></script>
-<script  src="/Wuhlan3/js/main.js" ></script>
-
-<!-- Plugins -->
 
 
   
-    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+    <script  src="/Wuhlan3/js/img-lazyload.js" ></script>
   
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
 
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
         }
       }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/Wuhlan3/2021/08/11/HTTP%E7%8A%B6%E6%80%81%E6%9C%BA/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
-    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
-    var server_url = ''
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/Wuhlan3/js/leancloud.js" ></script>
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
 
 
 
@@ -908,132 +666,15 @@
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    function typing(id, title){
-        var typed = new Typed('#' + id, {
-            strings: [
-              '  ',
-              title + "&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    }
-    
-        typing("subtitle", "HTTP状态机")
-    
-  </script>
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/Wuhlan3/js/local-search.js" ></script>
-  <script>
-    var path = "/Wuhlan3/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/Wuhlan3/js/boot.js" ></script>
 
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 <script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

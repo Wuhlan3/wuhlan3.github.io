@@ -1,73 +1,137 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
 <head>
-  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
-  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="选修超算，并行程序设计中的MPI的学习。（用于期末复习啦）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MPI分布式内存编程">
+<meta property="og:url" content="https://wuhlan3.gitee.io/2021/07/10/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="whl&#39;s blog">
+<meta property="og:description" content="选修超算，并行程序设计中的MPI的学习。（用于期末复习啦）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mpi.jpg">
+<meta property="article:published_time" content="2021-07-10T02:08:59.000Z">
+<meta property="article:modified_time" content="2024-03-22T15:55:27.452Z">
+<meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="超算">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mpi.jpg">
+  
+  
+  
   <title>MPI分布式内存编程 - whl&#39;s blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/Wuhlan3/css/custom.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/Wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
   <script  src="/Wuhlan3/js/utils.js" ></script>
   <script  src="/Wuhlan3/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.2.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/Wuhlan3/">
+      <strong>Wuhlan3</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -84,9 +148,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/">
+              <a class="nav-link" href="/Wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                主页
+                <span>主页</span>
               </a>
             </li>
           
@@ -96,9 +160,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/archives/">
+              <a class="nav-link" href="/Wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                历史
+                <span>历史</span>
               </a>
             </li>
           
@@ -108,9 +172,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/tags/">
+              <a class="nav-link" href="/Wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -120,9 +184,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/links/">
+              <a class="nav-link" href="/Wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -132,23 +196,26 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3/about/">
+              <a class="nav-link" href="/Wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -156,350 +223,275 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mpi.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-			
-			
-			
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Wuhlan3
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-10 10:08" pubdate>
-        July 10, 2021 am
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.1k 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      25
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/mpi.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MPI分布式内存编程"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-07-10 10:08" pubdate>
+          July 10, 2021 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">MPI分布式内存编程</h1>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MPI分布式内存编程</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：6 months ago
-                
-              </p>
             
-            <div class="markdown-body" id="post-body">
-              <h2 id="从Hello-world开始"><a href="#从Hello-world开始" class="headerlink" title="从Hello,world开始"></a>从Hello,world开始</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;mpi.h&gt;</span></span>
-
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MAX_STRING = <span class="hljs-number">100</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>
-<span class="hljs-function"></span>{
-   <span class="hljs-keyword">char</span> greeting[MAX_STRING]; 
-   <span class="hljs-keyword">int</span>  comm_sz;        <span class="hljs-comment">//进程的数量</span>
-   <span class="hljs-keyword">int</span>  my_rank;        <span class="hljs-comment">//进程的编号</span>
-
-   MPI_Init(<span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);	<span class="hljs-comment">//MPI_Init(int* argc_p, char*** argv_p); argc_p和argv_p是指向参数argc和argv的指针</span>
-   MPI_Comm_size(MPI_COMM_WORLD, &amp;comm_sz);		<span class="hljs-comment">//第一个参数是通信子，是MPI为通信子定义的特殊类型</span>
-   MPI_Comm_rank(MPI_COMM_WORLD, &amp;my_rank);
-
-   <span class="hljs-keyword">if</span>(my_rank != <span class="hljs-number">0</span>)
-   {
-        <span class="hljs-built_in">sprintf</span>(greeting, <span class="hljs-string">"Greetings from process %d of %d!"</span>, my_rank, comm_sz);
-        MPI_Send(greeting, <span class="hljs-built_in">strlen</span>(greeting)+<span class="hljs-number">1</span>, MPI_CHAR, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, MPI_COMM_WORLD); 
-   }
-   <span class="hljs-keyword">else</span>
-   {
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Greetings from process %d of %d!\n"</span>, my_rank, comm_sz);
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q=<span class="hljs-number">1</span>; q&lt;comm_sz; q++)
-        {
-             MPI_Recv(greeting, MAX_STRING, MPI_CHAR, q, <span class="hljs-number">0</span>,   MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-             <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s\n"</span>, greeting);
-        }    
-   }
-
-   MPI_Finalize();		<span class="hljs-comment">//MPI使用完毕时，可以进行释放</span>
-   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}</code></pre></div>
-<h3 id="编译与运行方法"><a href="#编译与运行方法" class="headerlink" title="编译与运行方法"></a>编译与运行方法</h3><div class="hljs"><pre><code class="hljs cmd">编译：
-$ mpicc -g -Wall -o 执行文件名 C文件名
-$ mpicc -g -Wall -o main main.c
-运行：
-$ mpiexec -n 线程数 ./执行文件名
-$ mpiexec -n <span class="hljs-number">4</span> ./main</code></pre></div>
-<p>简单回顾一下上面出现的函数：<br><code>MPI_Init()</code>、<code>MPI_Finalize()</code>、<code>MPI_Comm_size()</code>、<code>MPI_Comm_rank()</code>、<code>MPI_Send()</code>、<code>MPI_Recv()</code></p>
+              <div class="markdown-body">
+                
+                <h2 id="从Hello-world开始">从Hello,world开始</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;mpi.h&gt;</span></span><br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> MAX_STRING = <span class="hljs-number">100</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>   <span class="hljs-type">char</span> greeting[MAX_STRING]; <br>   <span class="hljs-type">int</span>  comm_sz;        <span class="hljs-comment">//进程的数量</span><br>   <span class="hljs-type">int</span>  my_rank;        <span class="hljs-comment">//进程的编号</span><br><br>   MPI_Init(<span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);    <span class="hljs-comment">//MPI_Init(int* argc_p, char*** argv_p); argc_p和argv_p是指向参数argc和argv的指针</span><br>   MPI_Comm_size(MPI_COMM_WORLD, &amp;comm_sz);        <span class="hljs-comment">//第一个参数是通信子，是MPI为通信子定义的特殊类型</span><br>   MPI_Comm_rank(MPI_COMM_WORLD, &amp;my_rank);<br><br>   <span class="hljs-keyword">if</span>(my_rank != <span class="hljs-number">0</span>)<br>   &#123;<br>        <span class="hljs-built_in">sprintf</span>(greeting, <span class="hljs-string">&quot;Greetings from process %d of %d!&quot;</span>, my_rank, comm_sz);<br>        MPI_Send(greeting, <span class="hljs-built_in">strlen</span>(greeting)+<span class="hljs-number">1</span>, MPI_CHAR, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, MPI_COMM_WORLD); <br>   &#125;<br>   <span class="hljs-keyword">else</span><br>   &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Greetings from process %d of %d!\n&quot;</span>, my_rank, comm_sz);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> q=<span class="hljs-number">1</span>; q&lt;comm_sz; q++)<br>        &#123;<br>             MPI_Recv(greeting, MAX_STRING, MPI_CHAR, q, <span class="hljs-number">0</span>,   MPI_COMM_WORLD, MPI_STATUS_IGNORE);<br>             <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, greeting);<br>        &#125;    <br>   &#125;<br><br>   MPI_Finalize();        <span class="hljs-comment">//MPI使用完毕时，可以进行释放</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="编译与运行方法">编译与运行方法</h3>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cmd">编译：<br>$ mpicc -g -Wall -o 执行文件名 C文件名<br>$ mpicc -g -Wall -o main main.c<br>运行：<br>$ mpiexec -n 线程数 ./执行文件名<br>$ mpiexec -n <span class="hljs-number">4</span> ./main<br></code></pre></td></tr></table></figure>
+<p>简单回顾一下上面出现的函数：<br>
+<code>MPI_Init()</code>、<code>MPI_Finalize()</code>、<code>MPI_Comm_size()</code>、<code>MPI_Comm_rank()</code>、<code>MPI_Send()</code>、<code>MPI_Recv()</code></p>
 <div class="note note-success">
             <p><strong>通信子</strong>指的是一组可以互相发送消息的进程集合</p><p>注意：<code>MPI_COMM_WORLD</code>是<code>MPI_Comm</code>类型的变量，即MPI通信子（communicator），不需要额外定义。或者可以理解为一个通信域，你的进程都在这个域里面，里面包含了进程数和进程号等信息。</p><p>此外，通信子里面的<code>comm_sz</code>表示进程的数量，<code>my_rank</code>表示进程号，是以指针的形式传递</p>
           </div>
 <p><strong>通信</strong>相关的函数：</p>
 <p><code>MPI_Send()</code>、<code>MPI_Recv()</code></p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Send</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			msg_buf_p,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>   			msg_size,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	msg_type,		<span class="hljs-comment">//前三个参数定义了消息的内容</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				dest,			<span class="hljs-comment">//目的进程号</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				tag,			<span class="hljs-comment">//小标签，用于区分看上去完全一样的消息</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		communicator)</span></span>;  <span class="hljs-comment">//通信子</span></code></pre></div>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Recv</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			msg_buf_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				buf_size,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	buf_type,		<span class="hljs-comment">//前三个参数定义了接收消息的内容</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				source,			<span class="hljs-comment">//消息来自哪个进程</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span> 			tag,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		communicator,	<span class="hljs-comment">//后三个参数用来识别消息</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Status*		status_p)</span></span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span></code></pre></div>
-<p><img src="image-20210323225734248.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210323225734248" style="zoom:50%;"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Send</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			msg_buf_p,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>   			msg_size,		</span><br><span class="hljs-params">    MPI_Datatype	msg_type,		<span class="hljs-comment">//前三个参数定义了消息的内容</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dest,			<span class="hljs-comment">//目的进程号</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				tag,			<span class="hljs-comment">//小标签，用于区分看上去完全一样的消息</span></span><br><span class="hljs-params">    MPI_Comm		communicator)</span>;  <span class="hljs-comment">//通信子</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Recv</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			msg_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				buf_size,</span><br><span class="hljs-params">    MPI_Datatype	buf_type,		<span class="hljs-comment">//前三个参数定义了接收消息的内容</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				source,			<span class="hljs-comment">//消息来自哪个进程</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			tag,</span><br><span class="hljs-params">    MPI_Comm		communicator,	<span class="hljs-comment">//后三个参数用来识别消息</span></span><br><span class="hljs-params">    MPI_Status*		status_p)</span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span><br></code></pre></td></tr></table></figure>
+<img src="image-20210323225734248.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20210323225734248" style="zoom:50%;" />
 <p>特殊常量：<code>MPI_ANY_TAG</code>，可以将它传给<code>MPI_Recv</code>的参数tag。称为<strong>通配符</strong>（wildcard）。可以使一个进程接收多条来自另一个进程的有着不同标签的消息。</p>
-<h3 id="关于发送和接收消息的过程"><a href="#关于发送和接收消息的过程" class="headerlink" title="关于发送和接收消息的过程"></a>关于发送和接收消息的过程</h3><p>MPI_Send有两种可能：缓冲与阻塞</p>
+<h3 id="关于发送和接收消息的过程">关于发送和接收消息的过程</h3>
+<p>MPI_Send有两种可能：缓冲与阻塞</p>
 <ul>
 <li>缓冲：即消息会存放在一个发送缓冲区中，而MPI_Send函数立即返回</li>
 <li>阻塞：即系统将发生阻塞，一直等待，直到开始发送消息</li>
 </ul>
-<p>出现哪一种情况一般取决于默认的消息<strong>截止大小</strong>（”cutoff” message size）。如果消息的大小小于截止大小，则它会被缓冲；如果消息的大小大于截止大小，函数将会被阻塞</p>
+<p>出现哪一种情况一般取决于默认的消息<strong>截止大小</strong>（“cutoff” message size）。如果消息的大小小于截止大小，则它会被缓冲；如果消息的大小大于截止大小，函数将会被阻塞</p>
 <p>MPI_Recv则只有一种可能——阻塞。只有当收到一条匹配消息的时候，才会返回。</p>
-<h3 id="MPI消息的特性"><a href="#MPI消息的特性" class="headerlink" title="MPI消息的特性"></a>MPI消息的特性</h3><p><strong>不可超越性</strong>（nonovertaking），即一个q进程发送两条消息给r进程，这两条消息一定是按顺序的。</p>
+<h3 id="MPI消息的特性">MPI消息的特性</h3>
+<p><strong>不可超越性</strong>（nonovertaking），即一个q进程发送两条消息给r进程，这两条消息一定是按顺序的。</p>
 <p>而多个进程发送消息则会出现<strong>异步性</strong></p>
-<h2 id="集合通信"><a href="#集合通信" class="headerlink" title="集合通信"></a>集合通信</h2><p>集合通信相关函数：<code>MPI_Reduce()</code></p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Reduce</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			input_data_p,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>*			output_data_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				count,				<span class="hljs-comment">//若count大于1，则MPI_Reduce函数可以应用到数组上，对向量进行运算</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	datatype,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Op			<span class="hljs-keyword">operator</span>,			<span class="hljs-comment">//关键参数，类型是MPI_Op，有多个预定义值</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				dest_process,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_comm		comm)</span></span>;</code></pre></div>
-<p><img src="image-20210323225622760.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210323225622760"></p>
-<h3 id="关于集合通信"><a href="#关于集合通信" class="headerlink" title="关于集合通信"></a>关于集合通信</h3><p>一般情况下，count设置为1，用于一个变量的集体运算，如：</p>
-<div class="hljs"><pre><code class="hljs c">MPI_Reduce(&amp;local_int, &amp;total_int, <span class="hljs-number">1</span> ,MPI_DOUBLE, MPI_SUM, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
+<h2 id="集合通信">集合通信</h2>
+<p>集合通信相关函数：<code>MPI_Reduce()</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Reduce</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			input_data_p,		</span><br><span class="hljs-params">    <span class="hljs-type">void</span>*			output_data_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				count,				<span class="hljs-comment">//若count大于1，则MPI_Reduce函数可以应用到数组上，对向量进行运算</span></span><br><span class="hljs-params">    MPI_Datatype	datatype,</span><br><span class="hljs-params">    MPI_Op			operator,			<span class="hljs-comment">//关键参数，类型是MPI_Op，有多个预定义值</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dest_process,</span><br><span class="hljs-params">    MPI_comm		comm)</span>;<br></code></pre></td></tr></table></figure>
+<p><img src="image-20210323225622760.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20210323225622760"></p>
+<h3 id="关于集合通信">关于集合通信</h3>
+<p>一般情况下，count设置为1，用于一个变量的集体运算，如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">MPI_Reduce(&amp;local_int, &amp;total_int, <span class="hljs-number">1</span> ,MPI_DOUBLE, MPI_SUM, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
 <p>如果设置count&gt;1，则是对一个向量的运算，如：</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">double</span> local_x[N], sum[N];
-
-MPI_Reduce(local_x, sum, N, MPI_DOUBLE, MPI_SUM, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
-<h3 id="集合通信的特点"><a href="#集合通信的特点" class="headerlink" title="集合通信的特点"></a>集合通信的特点</h3><ol>
-<li>通信子中的所有进程必须调用相同的集合通信函数</li>
-<li>每个进程传递给MPI集合通信函数的参数必须是“相容的”。比如，dest_process的值应该是相同的</li>
-<li>参数<code>output_data_p</code>虽然只作用在目的进程中，但是其他进程也需要写上这个参数，会被置为NULL</li>
-<li><p>集合通信不使用标签，只通过通信子和调用的顺序进行匹配。具体可看书本p69。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> local_x[N], sum[N];<br><br>MPI_Reduce(local_x, sum, N, MPI_DOUBLE, MPI_SUM, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
+<h3 id="集合通信的特点">集合通信的特点</h3>
+<ol>
+<li>
+<p>通信子中的所有进程必须调用相同的集合通信函数</p>
 </li>
-<li><p>禁止使input_data_p和output_data_p使用同一个缓冲区，这将会不可预测。</p>
+<li>
+<p>每个进程传递给MPI集合通信函数的参数必须是“相容的”。比如，dest_process的值应该是相同的</p>
+</li>
+<li>
+<p>参数<code>output_data_p</code>虽然只作用在目的进程中，但是其他进程也需要写上这个参数，会被置为NULL</p>
+</li>
+<li>
+<p>集合通信不使用标签，只通过通信子和调用的顺序进行匹配。具体可看书本p69。</p>
+</li>
+<li>
+<p>禁止使input_data_p和output_data_p使用同一个缓冲区，这将会不可预测。</p>
 </li>
 </ol>
-<h3 id="蝶形结构"><a href="#蝶形结构" class="headerlink" title="蝶形结构"></a>蝶形结构</h3><div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_AllReduce</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			input_data_p,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>*			output_data_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				count,				<span class="hljs-comment">//若count大于1，则MPI_Reduce函数可以应用到数组上，对向量进行运算</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	datatype,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Op			<span class="hljs-keyword">operator</span>,			<span class="hljs-comment">//关键参数，类型是MPI_Op，有多个预定义值</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_comm		comm)</span></span>;</code></pre></div>
+<h3 id="蝶形结构">蝶形结构</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_AllReduce</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			input_data_p,		</span><br><span class="hljs-params">    <span class="hljs-type">void</span>*			output_data_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				count,				<span class="hljs-comment">//若count大于1，则MPI_Reduce函数可以应用到数组上，对向量进行运算</span></span><br><span class="hljs-params">    MPI_Datatype	datatype,</span><br><span class="hljs-params">    MPI_Op			operator,			<span class="hljs-comment">//关键参数，类型是MPI_Op，有多个预定义值</span></span><br><span class="hljs-params">    MPI_comm		comm)</span>;<br></code></pre></td></tr></table></figure>
 <p>它的基本参数与reduce一致，唯一的不同是没有dest_process，这是因为它是将结果发布给所有的进程。是reduce的一个相反的过程</p>
 <p><strong>蝶形结构</strong>：即进行全局运算之后，将结构发送给所有的进程</p>
-<h3 id="广播函数"><a href="#广播函数" class="headerlink" title="广播函数"></a>广播函数</h3><div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Bcast</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			data_p,		<span class="hljs-comment">//广播进程发送的数据，接收进程接收的数据</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span> 			count,		<span class="hljs-comment">//数组的大小</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	datatype,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span> 			source_proc,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		comm)</span></span>;</code></pre></div>
-<h3 id="数据分发"><a href="#数据分发" class="headerlink" title="数据分发"></a>数据分发</h3><p>划分的方式：</p>
+<h3 id="广播函数">广播函数</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Bcast</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			data_p,		<span class="hljs-comment">//广播进程发送的数据，接收进程接收的数据</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			count,		<span class="hljs-comment">//数组的大小</span></span><br><span class="hljs-params">    MPI_Datatype	datatype,</span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			source_proc,</span><br><span class="hljs-params">    MPI_Comm		comm)</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="数据分发">数据分发</h3>
+<p>划分的方式：</p>
 <ol>
 <li>块划分</li>
 <li>循环划分</li>
 <li>块-循环划分</li>
 </ol>
 <p><strong>散射</strong>：用于0号进程读入整个向量，但只将分量发送给需要分量的其他进程：</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Scatter</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			send_buf_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	send_type,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			recv_buf_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	recv_type,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				src_proc,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		comm)</span></span>;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Scatter</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			send_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span></span><br><span class="hljs-params">    MPI_Datatype	send_type,</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			recv_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span></span><br><span class="hljs-params">    MPI_Datatype	recv_type,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				src_proc,</span><br><span class="hljs-params">    MPI_Comm		comm)</span>;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>MPI_Scatter只适用于<strong>块划分法</strong></p><p>需要注意的是，发送的向量大小不是send_buf_p的大小，而是和recv_count一样的，真正发送出去的大小</p>
           </div>
 <p><strong>聚集</strong>：将向量的所有分量都收集到0号进程上，然后0号进程再进行输出</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Gather</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			send_buf_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	send_type,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			recv_buf_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span></span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	recv_type,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				dst_proc,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		comm)</span></span>;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Gather</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			send_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span></span><br><span class="hljs-params">    MPI_Datatype	send_type,</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			recv_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span></span><br><span class="hljs-params">    MPI_Datatype	recv_type,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dst_proc,</span><br><span class="hljs-params">    MPI_Comm		comm)</span>;<br></code></pre></td></tr></table></figure>
 <p>MPI_Gather同样只适用于<strong>块划分法</strong>，基本结构与MPI_Scatter类似</p>
 <p><strong>全局聚集</strong>：将向量的所有分量都收集后，再分发到所有的进程上</p>
-<div class="hljs"><pre><code class="hljs objectivec"><span class="hljs-keyword">int</span> <span class="hljs-built_in">MPI_AllGather</span>(
-    <span class="hljs-keyword">void</span>* 			send_buf_p,
-    <span class="hljs-keyword">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span>
-    <span class="hljs-built_in">MPI_Datatype</span>	send_type,
-    <span class="hljs-keyword">void</span>* 			recv_buf_p,
-    <span class="hljs-keyword">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span>
-    <span class="hljs-built_in">MPI_Datatype</span>	recv_type,
-    <span class="hljs-built_in">MPI_Comm</span>		comm);</code></pre></div>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-type">int</span> <span class="hljs-built_in">MPI_AllGather</span>(<br>    <span class="hljs-type">void</span>* 			send_buf_p,<br>    <span class="hljs-type">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span><br>    <span class="hljs-built_in">MPI_Datatype</span>	send_type,<br>    <span class="hljs-type">void</span>* 			recv_buf_p,<br>    <span class="hljs-type">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span><br>    <span class="hljs-built_in">MPI_Datatype</span>	recv_type,<br>    <span class="hljs-built_in">MPI_Comm</span>		comm);<br></code></pre></td></tr></table></figure>
 <p>好图，总结一下：</p>
-<table><tbody><tr>
-    <td><img src="image-20210710185133518.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210710185133518" style="zoom:67%;"></td>
-<td><img src="image-20210710185200310.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210710185200310" style="zoom: 67%;"></td>
+<table><tr>
+    <td><img src="image-20210710185133518.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20210710185133518" style="zoom:67%;" /></td>
+<td><img src="image-20210710185200310.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20210710185200310" style="zoom: 67%;" /></td>
     </tr>
     <tr>
-    <td><img src="image-20210710185248694.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210710185248694" style="zoom:67%;"></td>
-<td><img src="image-20210710185101011.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210710185101011" style="zoom: 67%;"></td>
+    <td><img src="image-20210710185248694.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20210710185248694" style="zoom:67%;" /></td>
+<td><img src="image-20210710185101011.png" srcset="/Wuhlan3/img/loading.gif" lazyload alt="image-20210710185101011" style="zoom: 67%;" /></td>
     </tr>
-</tbody></table>
-
-<h2 id="派生数据类型"><a href="#派生数据类型" class="headerlink" title="派生数据类型"></a>派生数据类型</h2><p>由于发送消息耗费的时间巨大，我们要尽可能地减少消息的发送。具体有三种方法：</p>
+</table>
+<h2 id="派生数据类型">派生数据类型</h2>
+<p>由于发送消息耗费的时间巨大，我们要尽可能地减少消息的发送。具体有三种方法：</p>
 <ol>
 <li>通信函数中的count参数</li>
 <li>派生数据类型</li>
 <li>MPI_Pack/Unpack函数</li>
 </ol>
-<div class="hljs"><pre><code class="hljs c">MPI_Type_create_struct(
-    <span class="hljs-keyword">int</span>				count,<span class="hljs-comment">//元素的数量</span>
-    <span class="hljs-keyword">int</span>				array_of_blocklengths[],<span class="hljs-comment">//每种元素的长度</span>
-    MPI_Aint		array_of_displacements[],<span class="hljs-comment">//每种元素的地址,距离消息起始位的地址</span>
-    MPI_Datatype	array_of_types[],
-    MPI_Datatype*	new_type_p		<span class="hljs-comment">//输出的新的类型</span>
-);</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">MPI_Type_create_struct(<br>    <span class="hljs-type">int</span>				count,<span class="hljs-comment">//元素的数量</span><br>    <span class="hljs-type">int</span>				array_of_blocklengths[],<span class="hljs-comment">//每种元素的长度</span><br>    MPI_Aint		array_of_displacements[],<span class="hljs-comment">//每种元素的地址,距离消息起始位的地址</span><br>    MPI_Datatype	array_of_types[],<br>    MPI_Datatype*	new_type_p		<span class="hljs-comment">//输出的新的类型</span><br>);<br></code></pre></td></tr></table></figure>
 <p>如何获取地址呢？</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Get_address</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>*		location_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Aint*	address_p)</span></span>;</code></pre></div>
-<h2 id="计时"><a href="#计时" class="headerlink" title="计时"></a>计时</h2><p>MPI自带一个函数：</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">double</span> start,finish;
-
-start = MPI.Wtime();
-<span class="hljs-comment">/*串行代码*/</span>
-finish = MPI_Wtime();
-<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%e"</span>,finish-start);</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Get_address</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>*		location_p,</span><br><span class="hljs-params">    MPI_Aint*	address_p)</span>;<br></code></pre></td></tr></table></figure>
+<h2 id="计时">计时</h2>
+<p>MPI自带一个函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> start,finish;<br><br>start = MPI.Wtime();<br><span class="hljs-comment">/*串行代码*/</span><br>finish = MPI_Wtime();<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%e&quot;</span>,finish-start);<br></code></pre></td></tr></table></figure>
 <p>也可以使用timer库函数，他们两个返回的都是墙上时钟时间：</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"timer.h"</span></span>
-<span class="hljs-keyword">double</span> start,finish;
-
-GET_TIME(start);
-<span class="hljs-comment">/*串行代码*/</span>
-GET_TIME(finish);
-<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%e"</span>,finish-start);</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;timer.h&quot;</span></span><br><span class="hljs-type">double</span> start,finish;<br><br>GET_TIME(start);<br><span class="hljs-comment">/*串行代码*/</span><br>GET_TIME(finish);<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%e&quot;</span>,finish-start);<br></code></pre></td></tr></table></figure>
 <p>当然，上述的两种写法，一般用于串行代码的计时。回想第二章所学，计时需要先同步，并记录每个进程最大值，最终获取并行部分代码运行的总时间。</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">double</span> local_start, local_finish, local_elapsed, elapsed;
-<span class="hljs-comment">/*进程的一些初始化*/</span>
-MPI_Barrier(comm);
-local_start = MPI_Wtime();
-<span class="hljs-comment">/*需要计时的代码*/</span>
-local_finish = MPI_Wtime();
-local_elapsed = local_finish - local_start;
-MPI_Reduce(&amp;local_elapsed, &amp;elapsed, <span class="hljs-number">1</span>, MPI_DOUBLE, MPI_MAX, <span class="hljs-number">0</span> , comm);	<span class="hljs-comment">//获取进程时间的最大值</span>
-<span class="hljs-keyword">if</span>(my_rank == <span class="hljs-number">0</span>)
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Elapsed time = %e seconds\n"</span>, elapsed);</code></pre></div>
-<h2 id="交换奇偶排序"><a href="#交换奇偶排序" class="headerlink" title="交换奇偶排序"></a>交换奇偶排序</h2><p>是冒泡排序的一种扩展。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> local_start, local_finish, local_elapsed, elapsed;<br><span class="hljs-comment">/*进程的一些初始化*/</span><br>MPI_Barrier(comm);<br>local_start = MPI_Wtime();<br><span class="hljs-comment">/*需要计时的代码*/</span><br>local_finish = MPI_Wtime();<br>local_elapsed = local_finish - local_start;<br>MPI_Reduce(&amp;local_elapsed, &amp;elapsed, <span class="hljs-number">1</span>, MPI_DOUBLE, MPI_MAX, <span class="hljs-number">0</span> , comm);    <span class="hljs-comment">//获取进程时间的最大值</span><br><span class="hljs-keyword">if</span>(my_rank == <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Elapsed time = %e seconds\n&quot;</span>, elapsed);<br></code></pre></td></tr></table></figure>
+<h2 id="交换奇偶排序">交换奇偶排序</h2>
+<p>是冒泡排序的一种扩展。</p>
 <p><strong>定理</strong>：设A是一个拥有n个键值的列表，作为就交换排序算法的输入，那么经过n个阶段后，A能够排好序。</p>
 <p><strong>定理</strong>：如果p个进程运行并行奇偶交换排序算法，则p个阶段后，输入列表排序完毕。</p>
 <p>重点，再看看书本P86~88</p>
-<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>回忆之前的，MPI_Send有两种不同的方式来实现：缓冲和阻塞。假设所有的进程都进入阻塞状态，就会导致没有进程使用MPI_Recv，进入<strong>死锁</strong>状态。</p>
+<h3 id="安全性">安全性</h3>
+<p>回忆之前的，MPI_Send有两种不同的方式来实现：缓冲和阻塞。假设所有的进程都进入阻塞状态，就会导致没有进程使用MPI_Recv，进入<strong>死锁</strong>状态。</p>
 <p>幸好，MPI提供了一个函数，它会执行一次阻塞的消息发送函数和一次消息接收函数</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Sendrecv</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			send_buf_p,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>   			send_size,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	send_type,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				dest,			</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				send_tag,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			recv_buf_p,</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				recv_size,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	recv_type,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				source,			</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span> 			recv_tag,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		communicator,	</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Status*		status_p)</span></span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span></code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Sendrecv</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			send_buf_p,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>   			send_size,		</span><br><span class="hljs-params">    MPI_Datatype	send_type,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dest,			</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				send_tag,		</span><br><span class="hljs-params">    </span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			recv_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				recv_size,</span><br><span class="hljs-params">    MPI_Datatype	recv_type,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				source,			</span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			recv_tag,</span><br><span class="hljs-params">    MPI_Comm		communicator,	</span><br><span class="hljs-params">    MPI_Status*		status_p)</span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span><br></code></pre></td></tr></table></figure>
 <p>如果接收缓冲区和发送缓冲区是一样的话，还有另一个函数：</p>
-<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MPI_Sendrecv</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">void</span>* 			msg_buf_p,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>   			msg_size,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Datatype	msg_type,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				dest,			</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				send_tag,		</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span>				source,			</span></span>
-<span class="hljs-function"><span class="hljs-params">	<span class="hljs-keyword">int</span> 			recv_tag,</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Comm		communicator,	</span></span>
-<span class="hljs-function"><span class="hljs-params">	MPI_Status*		status_p)</span></span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span></code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Sendrecv</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			msg_buf_p,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>   			msg_size,		</span><br><span class="hljs-params">    MPI_Datatype	msg_type,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dest,			</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				send_tag,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				source,			</span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			recv_tag,</span><br><span class="hljs-params">    MPI_Comm		communicator,	</span><br><span class="hljs-params">    MPI_Status*		status_p)</span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span><br></code></pre></td></tr></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%B6%85%E7%AE%97/">超算</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/Wuhlan3/tags/%E8%B6%85%E7%AE%97/" class="print-no-link">#超算</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MPI分布式内存编程</div>
+      <div>https://wuhlan3.gitee.io/2021/07/10/MPI分布式内存编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Wuhlan3</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 10, 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
               
               
-                <div class="post-prevnext row">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3/2021/07/10/%E3%80%8A%E5%B9%B6%E8%A1%8C%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AF%BC%E8%AE%BA%E3%80%8B/">
+                      <a href="/Wuhlan3/2021/07/10/%E3%80%8A%E5%B9%B6%E8%A1%8C%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AF%BC%E8%AE%BA%E3%80%8B/" title="《并行程序设计导论》">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">《并行程序设计导论》</span>
                         <span class="visible-mobile">Previous</span>
@@ -509,7 +501,7 @@ MPI_Reduce(&amp;local_elapsed, &amp;elapsed, <span class="hljs-number">1</span>,
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3/2021/07/09/OpenMP%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">
+                      <a href="/Wuhlan3/2021/07/09/OpenMP%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/" title="OpenMP共享内存编程">
                         <span class="hidden-mobile">OpenMP共享内存编程</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -521,68 +513,69 @@ MPI_Reduce(&amp;local_elapsed, &amp;elapsed, <span class="hljs-number">1</span>,
             </div>
 
             
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
-          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
-          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
-          path: window.location.pathname,
-          avatar: "hide",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    }
-    waitElementVisible('vcomments', loadValine);
-  </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </article>
-            
           </article>
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
-  <div id="tocbot"></div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -595,286 +588,199 @@ MPI_Reduce(&amp;local_elapsed, &amp;elapsed, <span class="hljs-number">1</span>,
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-
-  
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
-    });
-  }
-</script>
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
     
-  <div class="statistics">
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
     
     
 
-    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/events.js" ></script>
+<script  src="/Wuhlan3/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
+        typing(text);
       
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
+    })(window, document);
+  </script>
 
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3/js/debouncer.js" ></script>
-<script  src="/Wuhlan3/js/main.js" ></script>
-
-<!-- Plugins -->
 
 
   
-    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+    <script  src="/Wuhlan3/js/img-lazyload.js" ></script>
   
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
 
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
         }
       }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/Wuhlan3/2021/07/10/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
-    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
-    var server_url = ''
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/Wuhlan3/js/leancloud.js" ></script>
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
 
 
 
@@ -884,132 +790,15 @@ MPI_Reduce(&amp;local_elapsed, &amp;elapsed, <span class="hljs-number">1</span>,
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    function typing(id, title){
-        var typed = new Typed('#' + id, {
-            strings: [
-              '  ',
-              title + "&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    }
-    
-        typing("subtitle", "MPI分布式内存编程")
-    
-  </script>
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/Wuhlan3/js/local-search.js" ></script>
-  <script>
-    var path = "/Wuhlan3/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/Wuhlan3/js/boot.js" ></script>
 
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 <script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>
