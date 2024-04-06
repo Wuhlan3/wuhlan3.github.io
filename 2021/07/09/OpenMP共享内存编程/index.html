@@ -1,0 +1,938 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>OpenMP共享内存编程 - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/ompnew.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-09 08:55" pubdate>
+        July 9, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">OpenMP共享内存编程</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：6 months ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="从hello，world开始"><a href="#从hello，world开始" class="headerlink" title="从hello，world开始"></a>从hello，world开始</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;omp.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Hello</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>* argv[])</span></span>{
+    <span class="hljs-keyword">int</span> thread_count = strtol(argv[<span class="hljs-number">1</span>],<span class="hljs-literal">NULL</span>,<span class="hljs-number">10</span>);		<span class="hljs-comment">//10表示十进制</span>
+    
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp parallel num_threads(thread_count);</span>
+    Hello();
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Hello</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>{
+    <span class="hljs-keyword">int</span> my_rank = omp_get_thread_num();		<span class="hljs-comment">//获取线程号</span>
+    <span class="hljs-keyword">int</span> thread_count = omp_get_num_threads();	<span class="hljs-comment">//获取线程总数</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Hello from thread %d of %d\n"</span>, my_rank, thread_count);
+}</code></pre></div>
+<p>使用parallel是用来表明之后的<strong>结构化代码块</strong>（<strong>基本块</strong>）应该被多个线程并行执行。</p>
+<p>后面跟着的叫做<strong>子句</strong>，比如<code>num_threads</code>是用来指定执行后代码块的线程数的</p>
+<p>执行并行块的线程集合称为<strong>线程组</strong>，原始的线程称为<strong>主线程</strong>，额外的线程称为<strong>从线程</strong></p>
+<p>存在一个<strong>隐式路障</strong>，完成代码块的线程将等待线程组中所有的其他线程完成代码块。</p>
+<h2 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp critical</span>
+    global_result += my_result;</code></pre></div>
+<p>对后面的代码进行互斥访问</p>
+<h2 id="归约"><a href="#归约" class="headerlink" title="归约"></a>归约</h2><p><strong>共享作用域</strong>：一个能够被线程组中的所有线程访问的变量拥有共享作用域</p>
+<p><strong>私有作用域</strong>：一个只能被单个线程访问的变量拥有私有作用域</p>
+<div class="hljs"><pre><code class="hljs c">global_result = <span class="hljs-number">0.0</span>;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp parallel num_threads(thread_count)</span>
+{
+    <span class="hljs-keyword">double</span> my_result = <span class="hljs-number">0.0</span>;
+    my_result += Local_trap(<span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b, <span class="hljs-keyword">int</span> n);
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp crtical</span>
+    global_result += my_result;
+}</code></pre></div>
+<p>上述代码可以使用<strong>归约子句</strong>来简化成如下形式：</p>
+<div class="hljs"><pre><code class="hljs c">global_result = <span class="hljs-number">0.0</span>;
+<span class="hljs-meta"># <span class="hljs-meta-keyword">pragma</span> omp parallel num_threads(thread_count) \ </span>
+    reduction(+: global_result)
+global_result += Local_trap(<span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b, <span class="hljs-keyword">int</span> n);</code></pre></div>
+<p>代码明确了global_result是一个<strong>归约变量</strong>，加号表示<strong>归约操作符</strong>是加法。</p>
+<div class="note note-success">
+            <p>注意一下：根据不同的归约操作符，私有变量会初始化为不同的值。</p><p>加法：一般初始化为0；乘法：一般初始化为1</p>
+          </div>
+<h2 id="for指令"><a href="#for指令" class="headerlink" title="for指令"></a>for指令</h2><div class="hljs"><pre><code class="hljs c">h = (b-a)/n;
+approx = (f(a)+f(b))/<span class="hljs-number">2.0</span>;
+<span class="hljs-meta"># <span class="hljs-meta-keyword">pragma</span> omp parallel for num_threads(thread_count)\</span>
+    reduction(+: approx)	
+<span class="hljs-keyword">for</span>(i = <span class="hljs-number">1</span>; i &lt;= n<span class="hljs-number">-1</span>; i++)
+    approx+= f(a+i*h);
+approx = h*approx;</code></pre></div>
+<p>reduction子句的使用在这里是必要的</p>
+<p>此外，parallel指令中，所有变量的<strong>缺省作用域</strong>是<strong>共享</strong>的。但是for指令中的循环变量的<strong>缺省作用域</strong>是<strong>私有</strong>的</p>
+<p>来一张图！！！《可并行化的for语句的合法表达式》</p>
+<h3 id="数据依赖性"><a href="#数据依赖性" class="headerlink" title="数据依赖性"></a>数据依赖性</h3><p>一般情况下，上述不能并行的for语句，编译器是会直接报错的。但是有更加隐匿的问题——数据依赖性。</p>
+<ul>
+<li>OpenMP编译器不会检查parallel for指令并行化的循环所包含的依赖关系，需要程序员自己来识别</li>
+<li>一个或更多个迭代结果依赖于其他迭代的循环，一般不能被正确并行化</li>
+</ul>
+<p>以斐波那契数列为例：</p>
+<ul>
+<li>fib[6]和fib[5]计算间的依赖关系称为 <strong>数据依赖</strong></li>
+<li>由于fibo[5]的值在一个迭代中计算，其结果在之后的迭代中使用，所以也称为 <strong>循环依赖</strong></li>
+</ul>
+<div class="note note-success">
+            <p>考点：判断有无数据依赖性！！！</p>
+          </div>
+<h2 id="关于作用域"><a href="#关于作用域" class="headerlink" title="关于作用域"></a>关于作用域</h2><p>与其让OpenMP决定每个变量的作用域，还不如让程序员明确块中每个变量的作用域。</p>
+<h3 id="default子句"><a href="#default子句" class="headerlink" title="default子句"></a>default子句</h3><p>使用了default（none）子句之后，编译器要求我们明确在块中和在块外声明的所有变量的作用域！</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">double</span> sum = <span class="hljs-number">0.0</span>;
+<span class="hljs-meta"># <span class="hljs-meta-keyword">pragma</span> omp parallel for num_threads(thread_count)\</span>
+    <span class="hljs-keyword">default</span>(none) reduction(+:sum) <span class="hljs-keyword">private</span>(k,factor)\
+    shared(n)
+<span class="hljs-keyword">for</span>(k = <span class="hljs-number">0</span>; k &lt; n; k ++){
+    <span class="hljs-keyword">if</span>(k % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
+        factor = <span class="hljs-number">1.0</span>;
+    <span class="hljs-keyword">else</span> 
+        factor = <span class="hljs-number">-1.0</span>;
+    sum += factor/(<span class="hljs-number">2</span>*k+<span class="hljs-number">1</span>);
+}</code></pre></div>
+<h2 id="奇偶排序"><a href="#奇偶排序" class="headerlink" title="奇偶排序"></a>奇偶排序</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp parallel num_threads(thread_count)\</span>
+    <span class="hljs-keyword">default</span>(none) shared(a,n) <span class="hljs-keyword">private</span>(i, tmp, phase)
+<span class="hljs-keyword">for</span>(phase = <span class="hljs-number">0</span>; phase &lt; n ; phase++){
+    <span class="hljs-keyword">if</span>(phase % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
+        <span class="hljs-meta"># <span class="hljs-meta-keyword">pragma</span> omp for</span>
+        <span class="hljs-keyword">for</span>(i = <span class="hljs-number">1</span>; i &lt; n; i += <span class="hljs-number">2</span>){
+            <span class="hljs-keyword">if</span>(a[i<span class="hljs-number">-1</span>]&gt;a[i]){
+                tmp = a[i<span class="hljs-number">-1</span>];
+                a[i<span class="hljs-number">-1</span>] = a[i];
+                a[i] = tmp;
+            }
+        }
+        <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp for</span>
+        <span class="hljs-keyword">for</span>(i = <span class="hljs-number">1</span>; i &lt; n<span class="hljs-number">-1</span>; i += <span class="hljs-number">2</span>){
+            <span class="hljs-keyword">if</span>(a[i]&gt;a[i+<span class="hljs-number">1</span>]){
+                tmp = a[i];
+                a[i] = a[i+<span class="hljs-number">1</span>];
+                a[i+<span class="hljs-number">1</span>] = tmp;
+            }
+        }		
+}</code></pre></div>
+<p>这里的特点就是，只创建了一次线程，在这之后使用已有的线程组来并行化for循环，节省了开销。</p>
+<h2 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h2><p>调度子句为如下形式：</p>
+<div class="hljs"><pre><code class="hljs c">schedule(&lt;type&gt; [,&lt;chunksize&gt;])</code></pre></div>
+<p>type有以下几种类型：</p>
+<ul>
+<li>static：迭代能够在循环执行前分配给线程</li>
+<li>dynamic：当线程完成它当前的迭代集合时，它能从运行时系统中请求更多（开销大于static）</li>
+<li>guided：编译器和运行时系统决定调度方式（开销最大）</li>
+<li>runtime：调度在运行时决定</li>
+</ul>
+<p>其中runtime允许在运行时确定调度类型，因此实际调度策略只有前面三种。</p>
+<p>一般OpenMP实现的缺省调度为：</p>
+<div class="hljs"><pre><code class="hljs c">schedule (<span class="hljs-keyword">static</span>, total_iterations/thread_count)</code></pre></div>
+<p><img src="image-20210711103038725.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210711103038725" style="zoom: 80%;"></p>
+<h2 id="路障"><a href="#路障" class="headerlink" title="路障"></a>路障</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta"># <span class="hljs-meta-keyword">pragma</span> omp barrier</span></code></pre></div>
+<h2 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta"># <span class="hljs-meta-keyword">pragma</span> omp atomic</span>
+x &lt;op&gt;= &lt;expression&gt;</code></pre></div>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><ul>
+<li>简单锁：简单锁在被释放前，只能获得一次</li>
+<li>嵌套锁：嵌套锁在被释放前，可以被同一个线程获得多次</li>
+</ul>
+<p>简单锁的函数定义：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">omp_init_lock</span><span class="hljs-params">(<span class="hljs-keyword">omp_lock_t</span>* lock_P)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">omp_set_lock</span><span class="hljs-params">(<span class="hljs-keyword">omp_lock_t</span>* lock_p)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">omp_unset_lock</span><span class="hljs-params">(<span class="hljs-keyword">omp_lock_t</span>* lock_p)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">omp_destroy_lock</span><span class="hljs-params">(<span class="hljs-keyword">omp_lock_t</span>* lock_p)</span></span>;</code></pre></div>
+<h3 id="critical、atomic、lock的区别："><a href="#critical、atomic、lock的区别：" class="headerlink" title="critical、atomic、lock的区别："></a>critical、atomic、lock的区别：</h3><ol>
+<li>critical易使用，一般情况下都可以考虑</li>
+<li>atomic可能会把两个变量不一样的语句也强制进行互斥，比如说<code>x++</code>和<code>y++</code>，需要注意</li>
+<li>锁机制适用于需要互斥的是某个数据结构而不是代码块的情况。</li>
+</ol>
+<p>互斥需要非常谨慎：</p>
+<ul>
+<li><p>对同一个临界区，不能混合使用不同的互斥技术</p>
+</li>
+<li><p>互斥不能保证公平性，可能会有一个线程一直被阻塞</p>
+</li>
+<li><p>嵌套互斥可能会产生意想不到的结果：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-comment">//该程序会进入死锁状态</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp critical</span>
+    y = f(x)l
+    ...
+    
+<span class="hljs-keyword">double</span> f(<span class="hljs-keyword">double</span> x){
+    # pragma omp critical
+    z = g(x);
+}</code></pre></div>
+<p>解决方法，是命名临界区：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-comment">//命名临界区</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> omp critical(one)</span>
+    y = f(x)l
+    ...
+    
+<span class="hljs-keyword">double</span> f(<span class="hljs-keyword">double</span> x){
+    # pragma omp critical(two)
+    z = g(x);
+}</code></pre></div>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%B6%85%E7%AE%97/">超算</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/07/10/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MPI分布式内存编程</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/06/20/Pthreads%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">
+                        <span class="hidden-mobile">Pthreads共享内存编程</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/07/09/OpenMP%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "OpenMP共享内存编程")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

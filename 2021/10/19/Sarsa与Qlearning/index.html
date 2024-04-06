@@ -1,0 +1,889 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>Sarsa与Qlearning - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/Wuhlan3/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-19 20:31" pubdate>
+        October 19, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Sarsa与Qlearning</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：a year ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h1>强化学习与博弈论 作业三</h1>
+<h2 id="一、实验要求">一、实验要求</h2>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211019193145943.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20211019193145943" style="zoom:67%;">
+<ul>
+<li>基于 Cliff Walk 例子实现 Sarsa 、 Q learning 算法</li>
+<li>提交一份文档包含算法实现核心思路、实验结果图等说明，不超过 4 页</li>
+</ul>
+<h2 id="二、实验原理">二、实验原理</h2>
+<h3 id="Q-Learning">Q-Learning</h3>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20211019145953715.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20211019145953715"></p>
+<p>首先要任意地初始化Q表（关于状态s和动作a的表）用以表示潜在的奖励。通常来说，只要全设为0就可以了。</p>
+<p>每一次迭代，首先初始化当前状态。我们使用<strong>Epsilon greedy策略</strong>来选择一种行为（比如，在<strong>epsilon</strong>为0.9的时候，有90% 的情况我们会按照 Q 表的最优值选择一种行为, 10% 的概率随机地选择行为） 。</p>
+<p>接着，我们要来更新Q表。要怎么更新呢？对于当前所作出的行为A，我们可以根据Q表查出它当前的潜在奖励——$Q(S,A)$，接着，我们可以根据下一个状态$S’$来预测出可能得到的奖励加上这次实实在在得到的奖励$R$。就可以得到现实与估计之间的差距$R+\gamma max_a Q(S’,a) - Q(S,A)$，其中$\gamma$为<strong>衰减值</strong>。我们将其乘以一个<strong>学习率</strong>$\alpha$。最后就可以得到更新后的$Q(S,A) \leftarrow Q(S,A) + \alpha[R + \gamma max_a Q(S’,a)-Q(S,A)]$</p>
+<p>接着，我们就可以进入下一个状态$S’$，直到S为终点时，结束迭代。</p>
+<h3 id="Sarsa">Sarsa</h3>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20211019145407378.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20211019145407378"></p>
+<p>Sarsa的整体过程与Q-Learning是类似的，不同的地方就在于：</p>
+<p>Q-Learning说到不一定做到，是off-line learning，在学习的过程中当前状态使用了Epsilon greedy policy，但是获取下一个状态的时候却使用的是greedy policy。</p>
+<p>而Sarsa则说到做到，是on-line learning，在学习的过程中当前状态使用了Epsilon greedy policy，在获取下一个状态的时候却使用的也是Epsilon greedy policy。</p>
+<h2 id="三、代码实现">三、代码实现</h2>
+<h3 id="1-前期准备">1.前期准备</h3>
+<p>1.<strong>R表</strong>：记录了某个行为到达悬崖上的奖励为-100，其他地区的奖励为-1</p>
+<div class="hljs"><pre><code class="hljs apache"><span class="hljs-attribute">R</span> = np.zeros((ROW, COL, <span class="hljs-number">4</span>))
+<span class="hljs-attribute">R</span>[:, :, :] = -<span class="hljs-number">1</span>.<span class="hljs-number">0</span>
+<span class="hljs-attribute">R</span>[ROW-<span class="hljs-number">2</span>, <span class="hljs-number">1</span>:<span class="hljs-number">11</span>, <span class="hljs-number">3</span>] = -<span class="hljs-number">100</span>.<span class="hljs-number">0</span>
+<span class="hljs-attribute">R</span>[ROW-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>] = -<span class="hljs-number">100</span>.<span class="hljs-number">0</span></code></pre></div>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20211019184615013.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20211019184615013"></p>
+<p>2.<strong>行为-状态转移表A</strong>：记录了状态$S_1$经过某个行为A后到达状态$S_2$</p>
+<div class="hljs"><pre><code class="hljs python">A = []
+<span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,ROW):
+    A.append([])
+    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, COL):
+        S = dict()
+        <span class="hljs-comment">#往左</span>
+        S[<span class="hljs-number">0</span>] = [r, max(<span class="hljs-number">0</span>, c<span class="hljs-number">-1</span>)]
+        <span class="hljs-comment">#往上</span>
+        S[<span class="hljs-number">1</span>] = [max(<span class="hljs-number">0</span>,r<span class="hljs-number">-1</span>), c]
+        <span class="hljs-comment">#往右</span>
+        S[<span class="hljs-number">2</span>] = [r, min(COL<span class="hljs-number">-1</span>,c+<span class="hljs-number">1</span>)]
+        <span class="hljs-comment">#往下</span>
+        <span class="hljs-keyword">if</span> c &gt;= <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> c &lt;= COL<span class="hljs-number">-2</span> <span class="hljs-keyword">and</span> r == <span class="hljs-number">2</span>:
+            S[<span class="hljs-number">3</span>] = [<span class="hljs-number">3</span>,<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">else</span>:
+            S[<span class="hljs-number">3</span>] = [min(ROW<span class="hljs-number">-1</span>, r + <span class="hljs-number">1</span>), c]
+        A[<span class="hljs-number">-1</span>].append(S)
+A[ROW<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>][<span class="hljs-number">2</span>] = [ROW<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>]</code></pre></div>
+<p>3.<strong>移动方向M表</strong>：0,1,2,3与左上右下一一对应</p>
+<div class="hljs"><pre><code class="hljs python">M = [<span class="hljs-string">'L'</span>,<span class="hljs-string">'U'</span>,<span class="hljs-string">'R'</span>,<span class="hljs-string">'D'</span>]</code></pre></div>
+<h3 id="2-Q-Learning">2.Q-Learning</h3>
+<p>相关函数GreedyPolicy，跟据Q表来获取最大的预测回报。</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GreedyPolicy</span>(<span class="hljs-params">x,y,q</span>):</span>
+    max_q = q[x][y][<span class="hljs-number">0</span>]
+    max_a = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">4</span>):
+        <span class="hljs-keyword">if</span> q[x][y][i] &gt;= max_q:
+            max_q = q[x][y][i]
+            max_a = i
+    a = max_a
+    <span class="hljs-keyword">return</span> a</code></pre></div>
+<p>在GreedyPolicy的基础上，写出EpsilonGreedyPolicy：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">EpsilonGreedyPolicy</span>(<span class="hljs-params">x,y,q,epsilon</span>):</span>
+    <span class="hljs-comment">#random.random()获取[0,1]之间的随机实数。</span>
+    <span class="hljs-keyword">if</span> random.random() &lt; epsilon:
+        t = random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">3</span>)
+        a = t
+    <span class="hljs-keyword">else</span>:
+        max_q = q[x][y][<span class="hljs-number">0</span>]
+        max_a = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">4</span>):
+            <span class="hljs-keyword">if</span> q[x][y][i] &gt;= max_q:
+                max_q = q[x][y][i]
+                max_a = i
+        a = max_a
+    <span class="hljs-keyword">return</span> a</code></pre></div>
+<p>核心代码：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">qLearning</span>(<span class="hljs-params">q</span>):</span>
+    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> range(TIMES):
+        <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> range(<span class="hljs-number">500</span>):
+            x = ROW<span class="hljs-number">-1</span>
+            y = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+                <span class="hljs-keyword">if</span> x == ROW<span class="hljs-number">-1</span> <span class="hljs-keyword">and</span> y == COL<span class="hljs-number">-1</span>:
+                    <span class="hljs-keyword">break</span>
+                a = EpsilonGreedyPolicy(x,y,q,EPSILON)
+                [next_x,next_y] = A[x][y][a]
+                reward = R[x][y][a]
+                next_a = GreedyPolicy(next_x,next_y,q)
+                <span class="hljs-comment">#核心公式</span>
+                q[x][y][a] += ALPHA*(reward + GAMMA*q[next_x][next_y][next_a]-q[x][y][a]) 
+                x = next_x
+                y = next_y</code></pre></div>
+<h3 id="3-Sarsa">3.Sarsa</h3>
+<p>核心代码：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sarsa</span>(<span class="hljs-params">q</span>):</span>
+    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> range(TIMES):
+        <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> range(<span class="hljs-number">500</span>):
+            x = ROW<span class="hljs-number">-1</span>
+            y = <span class="hljs-number">0</span>
+            a = EpsilonGreedyPolicy(x,y,q,EPSILON)
+            <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+                <span class="hljs-keyword">if</span> x == ROW<span class="hljs-number">-1</span> <span class="hljs-keyword">and</span> y==COL<span class="hljs-number">-1</span>:
+                    <span class="hljs-keyword">break</span>
+                [next_x,next_y] = A[x][y][a]
+                reward = R[x][y][a]
+                next_a = EpsilonGreedyPolicy(next_x,next_y,q,EPSILON)
+                <span class="hljs-comment">#核心公式</span>
+                q[x][y][a] += ALPHA*(reward + GAMMA*q[next_x][next_y][next_a]-q[x][y][a])
+                x = next_x
+                y = next_y
+                a = next_a</code></pre></div>
+<h3 id="4-Optimal-policy">4.Optimal policy</h3>
+<p>打印出结果，在每一个状态中选择reward最高的一个action：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">OptimalPolicy</span>(<span class="hljs-params">q</span>):</span>
+    <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> range(ROW):
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> range(COL):
+            <span class="hljs-comment">#使用*来表示悬崖</span>
+            <span class="hljs-keyword">if</span> r == ROW<span class="hljs-number">-1</span> <span class="hljs-keyword">and</span> <span class="hljs-number">1</span> &lt;= c &lt;= COL<span class="hljs-number">-2</span>:
+                print(<span class="hljs-string">"  *  "</span>,end = <span class="hljs-string">""</span>)
+                <span class="hljs-keyword">continue</span>
+            a = GreedyPolicy(r,c,q)
+            print(<span class="hljs-string">" "</span>,M[a],<span class="hljs-string">" "</span>,end = <span class="hljs-string">""</span>)
+        print(<span class="hljs-string">""</span>)</code></pre></div>
+<h2 id="四、实验结果">四、实验结果</h2>
+<p>打印Optimal policy如下，其中*表示悬崖。字母表示在该状态下选择的最优策略。我将从起点开始的所有状态标为黄色。</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211019201830917.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20211019201830917" style="zoom:67%;">
+<p>学习过程中每一次episode的reward如图所示，与老师ppt上的图类似，结果正确。</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211019201229784.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20211019201229784" style="zoom: 33%;">
+<p>总结，Sarsa更偏向于安全的路径；Q-learning会更加冒险、更加“勇敢”，走出来的是最优的路径。</p>
+<h2 id="五、参考资料">五、参考资料</h2>
+<p>[1] 课堂ppt</p>
+<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24860793">https://zhuanlan.zhihu.com/p/24860793</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24808797">https://zhuanlan.zhihu.com/p/24808797</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://github.com/jassiay/CliffWalking">https://github.com/jassiay/CliffWalking</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/10/19/Sarsa%E4%B8%8EQlearning/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "Sarsa与Qlearning")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

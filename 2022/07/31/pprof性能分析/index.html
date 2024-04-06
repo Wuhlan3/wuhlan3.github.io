@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>pprof性能分析 - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/Wuhlan3/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-31 21:53" pubdate>
+        July 31, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">pprof性能分析</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：6 months ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h1>pprof 性能分析</h1>
+<p>benchmark(基准测试) 可以度量某个函数或方法的性能，也就是说，如果我们知道性能的瓶颈点在哪里，benchmark 是一个非常好的方式。但是面对一个未知的程序，如何去分析这个程序的性能，并找到瓶颈点呢？</p>
+<p>pprof 就是用来解决这个问题的。pprof 包含两部分：</p>
+<ul>
+<li>编译到程序中的 <code>runtime/pprof</code> 包</li>
+<li>性能剖析工具 <code>go tool pprof</code></li>
+</ul>
+<p>windows本地查看腾讯云云服务器上的pprof测试结果，只需远程安装：</p>
+<div class="hljs"><pre><code class="hljs bash">sudo yum install graphviz</code></pre></div>
+<h2 id="一、CPU性能分析">一、CPU性能分析</h2>
+<p>启动 CPU 分析时，运行时(runtime) 将每隔 10ms 中断一次（为什么是10ms呢？后面会提到），记录此时正在运行的协程(goroutines) 的堆栈信息。启动 CPU 分析时，运行时(runtime) 将每隔 10ms 中断一次，记录此时正在运行的协程(goroutines) 的堆栈信息。程序运行结束后，可以分析记录的数据找到最热代码路径(hottest code paths)。</p>
+<blockquote>
+<p>编译器热路径是编译器中的代码执行路径，大部分执行时间都花在了这些路径上，并且可能会非常频繁地执行这些路径。</p>
+</blockquote>
+<p>一个函数在性能分析过程中出现的次数越多，说明执行该函数的代码路径(code path)花费的时间占总运行时间的比重越大。</p>
+<h3 id="具体实现方式">具体实现方式</h3>
+<p>在main函数之前添加这两句，可以将性能数据输出到cpu.pprof</p>
+<div class="hljs"><pre><code class="hljs go">f, _ := os.OpenFile(<span class="hljs-string">"cpu.pprof"</span>, os.O_CREATE|os.O_RDWR, <span class="hljs-number">0644</span>)
+<span class="hljs-keyword">defer</span> f.Close()
+pprof.StartCPUProfile(f)	<span class="hljs-comment">//源码中提到：当频率大于500Hz，可能会影响本身的效率，而经过测试，最适合的频率是100Hz，不会影响且会提供有价值的数据。</span>
+<span class="hljs-keyword">defer</span> pprof.StopCPUProfile()</code></pre></div>
+<p>对数据及进行分析：</p>
+<div class="hljs"><pre><code class="hljs routeros">$ go<span class="hljs-built_in"> tool </span>pprof <span class="hljs-attribute">-http</span>=127.0.0.1:6060 cpu.pprof</code></pre></div>
+<p>之后会自动打开浏览器，如下，可以通过不同的方式查看结果：</p>
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731201857858.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20220731201857858" style="zoom:50%;">
+<p>也可以直接通过命令行来分析：</p>
+<div class="hljs"><pre><code class="hljs routeros">[root@VM-16-2-centos pprof-test]# go<span class="hljs-built_in"> tool </span>pprof cpu.pprof
+File: main
+Type: cpu
+Time: Jul 31, 2022 at 3:58pm (CST)
+Duration: 17.34s, Total samples = 17.25s (99.46%)
+Entering interactive mode (type <span class="hljs-string">"help"</span> <span class="hljs-keyword">for</span> commands, <span class="hljs-string">"o"</span> <span class="hljs-keyword">for</span> options)
+(pprof) top
+Showing nodes<span class="hljs-built_in"> accounting </span><span class="hljs-keyword">for</span> 17.18s, 99.59% of 17.25s total
+Dropped 17 nodes (cum &lt;= 0.09s)
+      flat  flat%   sum%        cum   cum%
+    17.18s 99.59% 99.59%     17.21s 99.77%  main.bubbleSort (inline)
+         0     0% 99.59%     17.22s 99.83%  main.main
+         0     0% 99.59%     17.22s 99.83%  runtime.main
+(pprof) top -cum
+Showing nodes<span class="hljs-built_in"> accounting </span><span class="hljs-keyword">for</span> 17.18s, 99.59% of 17.25s total
+Dropped 17 nodes (cum &lt;= 0.09s)
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%     17.22s 99.83%  main.main
+         0     0%     0%     17.22s 99.83%  runtime.main
+    17.18s 99.59% 99.59%     17.21s 99.77%  main.bubbleSort (inline)
+(pprof) help
+  Commands:
+    callgrind        Outputs a graph <span class="hljs-keyword">in</span> callgrind format
+    comments         Output all<span class="hljs-built_in"> profile </span>comments
+    disasm           Output assembly listings annotated with samples
+    dot              Outputs a graph <span class="hljs-keyword">in</span> DOT format
+    eog              Visualize graph through eog
+    evince           Visualize graph through evince
+    gif              Outputs a graph image <span class="hljs-keyword">in</span> GIF format
+    gv               Visualize graph through gv
+    kcachegrind      Visualize report <span class="hljs-keyword">in</span> KCachegrind
+    list             Output annotated source <span class="hljs-keyword">for</span> functions matching regexp
+    pdf              Outputs a graph <span class="hljs-keyword">in</span> PDF format
+    peek             Output callers/callees of functions matching regexp
+    png              Outputs a graph image <span class="hljs-keyword">in</span> PNG format
+    proto            Outputs the<span class="hljs-built_in"> profile </span><span class="hljs-keyword">in</span> compressed protobuf format
+    ps               Outputs a graph <span class="hljs-keyword">in</span> PS format
+   <span class="hljs-built_in"> raw </span>             Outputs a text representation of the<span class="hljs-built_in"> raw </span>profile
+    svg              Outputs a graph <span class="hljs-keyword">in</span> SVG format
+    tags             Outputs all tags <span class="hljs-keyword">in</span> the profile
+    text             Outputs top entries <span class="hljs-keyword">in</span> text form
+    top              Outputs top entries <span class="hljs-keyword">in</span> text form
+    topproto         Outputs top entries <span class="hljs-keyword">in</span> compressed protobuf format
+    traces           Outputs all<span class="hljs-built_in"> profile </span>samples <span class="hljs-keyword">in</span> text form
+    tree             Outputs a text rendering of call graph
+    web              Visualize graph through web browser
+    weblist          Display annotated source <span class="hljs-keyword">in</span> a web browser
+    o/options        List options <span class="hljs-keyword">and</span> their current values
+    q/quit/exit/^D   Exit pprof</code></pre></div>
+<h2 id="二、内存分析">二、内存分析</h2>
+<p>内存性能分析(Memory profiling) 记录堆内存分配时的堆栈信息，忽略栈内存分配信息。</p>
+<p>内存性能分析启用时，默认每1000次采样1次，这个比例是可以调整的。因为内存性能分析是基于采样的，因此基于内存分析数据来判断程序所有的内存使用情况是很困难的。</p>
+<h3 id="具体实现方式-2">具体实现方式</h3>
+<p>需要导入<code>"github.com/pkg/profile"</code>然后在main函数之前添加：</p>
+<div class="hljs"><pre><code class="hljs css"><span class="hljs-selector-tag">defer</span> <span class="hljs-selector-tag">profile</span><span class="hljs-selector-class">.Start</span>(<span class="hljs-selector-tag">profile</span><span class="hljs-selector-class">.MemProfile</span>, <span class="hljs-selector-tag">profile</span><span class="hljs-selector-class">.MemProfileRate</span>(1))<span class="hljs-selector-class">.Stop</span>()</code></pre></div>
+<p>对数据及进行分析：</p>
+<div class="hljs"><pre><code class="hljs routeros">go<span class="hljs-built_in"> tool </span>pprof <span class="hljs-attribute">-http</span>=127.0.0.1:6060 /tmp/profile2738765321/mem.pprof</code></pre></div>
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731204427226.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20220731204427226" style="zoom: 50%;">
+<h2 id="三、针对web程序">三、针对web程序</h2>
+<p>针对一直运行的后台服务，比如 web 应用或者分布式应用，我们可以使用 net/http/pprof 库，它能够在应用提供 HTTP 服务时进行分析。</p>
+<p>pprof 采集后台服务，如果使用了默认的 <code>http.DefaultServeMux</code>，通常是代码直接使用<code> http.ListenAndServe(“0.0.0.0:8000”, nil)</code>，这种情况则比较简单，只需要导入包即可。</p>
+<div class="hljs"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> (
+    _ <span class="hljs-string">"net/http/pprof"</span>
+)</code></pre></div>
+<p>注意该包利用下划线"_"导入，意味着我们只需要该包运行其init()函数即可，如此该包将自动完成信息采集并保存在内存中。</p>
+<p>如果你使用自定义的 ServerMux复用器，则需要手动注册一些路由规则：</p>
+<div class="hljs"><pre><code class="hljs go">r.HandleFunc(<span class="hljs-string">"/debug/pprof/"</span>, pprof.Index)
+r.HandleFunc(<span class="hljs-string">"/debug/pprof/heap"</span>, pprof.Index)
+r.HandleFunc(<span class="hljs-string">"/debug/pprof/cmdline"</span>, pprof.Cmdline)
+r.HandleFunc(<span class="hljs-string">"/debug/pprof/profile"</span>, pprof.Profile)
+r.HandleFunc(<span class="hljs-string">"/debug/pprof/symbol"</span>, pprof.Symbol)
+r.HandleFunc(<span class="hljs-string">"/debug/pprof/trace"</span>, pprof.Trace)</code></pre></div>
+<p>这些路径分别表示：</p>
+<ul>
+<li>/debug/pprof/profile：访问这个链接会自动进行 CPU profiling，持续 30s，并生成一个文件供下载，可以通过带参数?=seconds=60进行60秒的数据采集。</li>
+<li>/debug/pprof/block：Goroutine阻塞事件的记录。默认每发生一次阻塞事件时取样一次。</li>
+<li>/debug/pprof/goroutines：活跃Goroutine的信息的记录。仅在获取时取样一次。</li>
+<li>/debug/pprof/heap： 堆内存分配情况的记录。默认每分配512K字节时取样一次。</li>
+<li>/debug/pprof/mutex: 查看争用互斥锁的持有者。</li>
+<li>/debug/pprof/threadcreate: 系统线程创建情况的记录。 仅在获取时取样一次。</li>
+</ul>
+<h3 id="在Gin框架中使用pprof">在Gin框架中使用pprof</h3>
+<p>可以导入包<code>go get github.com/gin-contrib/pprof</code>，之后就可以看到一些新的接口生成：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222053015.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20220731222053015"></p>
+<p>profile文件保存在/root/pprof/pprof.api.samples.cpu.001.pb.gz，之后直接使用上述的分析方式即可在windows界面打开：</p>
+<div class="hljs"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>VM<span class="hljs-number">-16</span><span class="hljs-number">-2</span>-centos api]# go tool pprof -http=<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6060</span> /root/pprof/pprof.api.samples.cpu<span class="hljs-number">.001</span>.pb.gz
+Serving web UI on http:<span class="hljs-comment">//127.0.0.1:6060</span></code></pre></div>
+<blockquote>
+<p>关于火焰图的基本理解方法：</p>
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222622729.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20220731222622729" style="zoom:67%;">
+</blockquote>
+<h2 id="参考资料">参考资料</h2>
+<p>[1] <a target="_blank" rel="noopener" href="https://geektutu.com/post/hpg-pprof.html">https://geektutu.com/post/hpg-pprof.html</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/289818">https://bbs.huaweicloud.com/blogs/289818</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://bytedancecampus1.feishu.cn/docs/doccn4F3nKRdd9Uq7RGl6JPPFWg#">https://bytedancecampus1.feishu.cn/docs/doccn4F3nKRdd9Uq7RGl6JPPFWg#</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="http://liumurong.org/2019/12/gin_pprof/">http://liumurong.org/2019/12/gin_pprof/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/Go/">Go</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E6%B5%8B%E8%AF%95/">测试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2022/08/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微服务与RPC问题汇总</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2022/05/14/goproxy/">
+                        <span class="hidden-mobile">Go语言基础-Proxy实现</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2022/07/31/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "pprof性能分析")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

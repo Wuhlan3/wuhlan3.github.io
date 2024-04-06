@@ -1,0 +1,1272 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>实验5：实现系统调用 - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/Wuhlan3/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-16 20:37" pubdate>
+        May 16, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      54
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">实验5：实现系统调用</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 years ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h1>实验5：实现系统调用</h1>
+<h3 id="实验目的">实验目的</h3>
+<p>1、 学习掌握PC系统的软中断指令</p>
+<p>2、掌握操作系统内核对用户提供服务的系统调用程序设计方法</p>
+<p>3、掌握C语言的库设计方法</p>
+<p>4、掌握用户程序请求系统服务的方法</p>
+<h3 id="实验要求">实验要求</h3>
+<p>1、了解PC系统的软中断指令的原理</p>
+<p>2、掌握x86汇编语言软中断的响应处理编程方法</p>
+<p>3、扩展实验四的的内核程序，增加输入输出服务的系统调用。</p>
+<p>4、C语言的库设计，实现<code>putch()</code>、<code>getch()</code>、<code>printf()</code>等基本输入输出库过程。</p>
+<p>5、编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</p>
+<h3 id="实验内容">实验内容</h3>
+<p>(1) 修改实验4的内核代码，先编写save()和restart()两个汇编过程，分别用于中断处理的现场保护和现场恢复，内核定义一个保护现场的数据结构，以后，处理程序的开头都调用save()保存中断现场，处理完后都用restart()恢复中断现场。</p>
+<p>(2) 内核增加int 20h、int 21h和int 22h软中断的处理程序，其中，int 20h用于用户程序结束是返回内核准备接受命令的状态；int 21h用于系统调用，并实现3-5个简单系统调用功能；int22h功能未定，先实现为屏幕某处显示INT22H。</p>
+<p>(3) 保留无敌风火轮显示，取消触碰键盘显示OUCH!这样功能。</p>
+<p>(4) 进行C语言的库设计，实现putch()、getch()、gets()、puts()、printf()、scanf()等基本输入输出库过程，汇编产生libs.obj。</p>
+<p>(5) 利用自己设计的C库libs.obj，编写一个使用这些库函数的C语言用户程序，再编译，再与libs.obj一起链接，产生COM程序。增加内核命令执行这个程序：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+   	<span class="hljs-keyword">char</span> ch,str[<span class="hljs-number">80</span>];
+   	<span class="hljs-keyword">int</span> a;
+   	getch(&amp;ch);
+   	gets(str);
+   	scnf(“a=%d”,&amp;a);
+  	putch(ch);
+  	<span class="hljs-built_in">puts</span>(str);
+   	printint(“ch=%c, a=%d, str=%s”, ch, a, str);
+}</code></pre></div>
+<p>(6) 编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</p>
+<p><img src="new.png" srcset="/Wuhlan3/img/loading.gif" alt="new"></p>
+<h3 id="实验环境">实验环境</h3>
+<h5 id="1-系统与虚拟机">1.系统与虚拟机</h5>
+<ul>
+<li>Windows 10 - x64 18363.1139</li>
+<li>VMware Workstation 16 Player：用于跑ubuntu虚拟机</li>
+<li>Ubuntu 20.04.2 LTS</li>
+<li>VirtualBox-6.1.18-142142-Win：用于运行.img文件</li>
+<li>DOSBox DOS Emulator 0,74,0,0：用于tcc和tasm编译，并且运行.com文件</li>
+</ul>
+<h5 id="2-windows上的相关软件、编译器等">2.windows上的相关软件、编译器等</h5>
+<ul>
+<li>NASM version 2.10.07 compiled on Jan  2 2013</li>
+<li>TCC.EXE：用于16位C语言编程</li>
+<li>TLINK.EXE：用于C语言与汇编语言链接</li>
+<li>TASM.EXE：用于.asm文件的汇编</li>
+</ul>
+<h5 id="3-Ubuntu上的相关软件、编译器等">3.Ubuntu上的相关软件、编译器等</h5>
+<ul>
+<li>NASM version 2.14.02</li>
+<li>makefile：GNU Make 4.2.1</li>
+</ul>
+<h3 id="实验基本架构">实验基本架构</h3>
+<p><img src="1.png" srcset="/Wuhlan3/img/loading.gif" alt="Wuhlan OS"></p>
+<h3 id="实验过程">实验过程</h3>
+<h4 id="1-根据例程，写出保护现场与恢复现场">1.根据例程，写出保护现场与恢复现场</h4>
+<p>在C程序中定义了一个结构体，包含了汇编中的14个寄存器，用于存储原来的状态，结构体如下：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cpuRegisters</span>{</span>
+    <span class="hljs-keyword">int</span> ax;		<span class="hljs-comment">/*0*/</span>
+    <span class="hljs-keyword">int</span> bx;
+    <span class="hljs-keyword">int</span> cx;
+    <span class="hljs-keyword">int</span> dx;
+    <span class="hljs-keyword">int</span> di;
+    <span class="hljs-keyword">int</span> bp;
+    <span class="hljs-keyword">int</span> es;
+    <span class="hljs-keyword">int</span> ds;		<span class="hljs-comment">/*14*/</span>
+    <span class="hljs-keyword">int</span> si;		<span class="hljs-comment">/*16*/</span>
+    <span class="hljs-keyword">int</span> ss;		<span class="hljs-comment">/*18*/</span>
+    <span class="hljs-keyword">int</span> sp;		<span class="hljs-comment">/*20*/</span>
+    <span class="hljs-keyword">int</span> ip;		<span class="hljs-comment">/*22*/</span>
+    <span class="hljs-keyword">int</span> cs;		<span class="hljs-comment">/*24*/</span>
+    <span class="hljs-keyword">int</span> flags;	<span class="hljs-comment">/*26*/</span>
+};
+</code></pre></div>
+<p>老师给出了<code>Minix</code>中的<code>save</code>和<code>restart</code>过程，我们可以先看懂该程序，再写出自己的<code>_save</code>和<code>_restart</code>。我们必须要明确刚调用save的时候栈里有什么东西，包括标志寄存器flag，代码段cs，中断代码pc，和save 的返回地址。我们发现结构体中的前7个寄存器一般来说是比较容易处理的（不会对当前执行的代码造成其他意想不到的影响），且可以在save执行过程中作为中介保存一下。</p>
+<p>仿照老师所给的代码，使用结构体保存中断现场，且在执行save之后，ss,sp,ds,cs,ip几个寄存器会变为内核态的。详情可以看下面代码的注释部分，对于栈的变化进行详细的讲述：</p>
+<div class="hljs"><pre><code class="hljs asm">;保护中断现场，此时栈顶/flags/cs/int ip/save ip*********************
+_save proc near		
+    push ds				;/flags/cs/ip/ip/ds
+    push cs			
+    pop ds				;ds=cs
+    
+    push si				;/flags/cs/ip/ip/ds/si
+    
+    lea si,_cpuReg			;此时si是结构体的地址
+    pop word ptr [si+16]	;si存入结构体,/flags/cs/ip/ip/ds
+    pop word ptr [si+14]	;ds存入结构体,/flags/cs/ip/ip
+    
+    lea si,save_ip			;这个ip指的是save的返回地址
+    pop word ptr [si]		;ip存入ret_temp中,/flags/cs/ip
+    
+    lea si,_cpuReg
+    pop word ptr [si+22]	;ip存入结构体，/flags/cs
+    pop word ptr [si+24]	;cs存入结构体，/flags
+    pop word ptr [si+26]	;flags存入结构体，/，栈为空
+    
+    mov [si+18],ss			;ss存入结构体
+    mov [si+20],sp			;sp存入结构体
+    
+    mov si,ds		
+    mov ss,si		;将栈修改为内核栈
+    
+    lea si,_cpuReg
+    mov sp,si		;使栈指针指向结构体
+    add sp,14		;sp指向ds
+    
+    push es			;将剩余的寄存器存入结构体
+    push bp
+    push di
+    push dx
+    push cx
+    push bx
+    push ax
+    
+    lea si,kernelsp	
+    mov sp,[si]
+    ;此时ss,sp,ds,cs,ip都是内核的
+    
+    lea si,save_ip	;通过保存的save_iP进行返回
+    mov ax,[si]
+    jmp ax
+_save endp
+;********************************************************</code></pre></div>
+<p>由于save的时候，最后才存储那7个寄存器，在恢复的时候，可以先恢复。由于我们使用si来进行寻址，所以先把恢复的si寄存器存入一个临时变量中，最后再进行恢复。比较需要注意的是栈的变化，首先把结构体作为栈，后来恢复了原来的栈，要对结构体进行手动寻址方式。</p>
+<p>详情可以看下面代码的注释部分，对于栈的变化进行详细的讲述：</p>
+<div class="hljs"><pre><code class="hljs asm">;恢复中断现场********************************************************
+_restart proc near	
+    lea si,kernelsp		
+    mov [si],sp			
+    lea sp,_cpuReg				;将栈指针指向结构体，对前7个寄存器进行出栈
+    pop ax
+    pop bx
+    pop cx
+    pop dx
+    pop di
+    pop bp
+    pop es
+                                ;结构体中/flags/cs/ip/sp/ss/si/ds
+    lea si,ds_temp				;使用一个临时变量存储ds,/flags/cs/ip/sp/ss/si
+    pop word ptr [si]			;结构体中/flags/cs/ip/sp/ss/si
+    lea si,si_temp				;使用一个临时变量存储si
+    pop word ptr [si]			;结构体中/flags/cs/ip/sp/ss
+    
+    lea si,bx_temp				;保护一下bx
+    mov [si],bx
+
+    pop bx						;结构体中/flags/cs/ip/sp
+    mov ss,bx					;bx为原来的栈地址
+    mov bx,sp					
+    mov sp,[bx]					;bx此时是结构体中sp的地址，恢复栈的sp
+    
+    add bx,2					;使bx指向ip				
+    
+    push word ptr [bx+4]		;原来的栈中：/flags
+    push word ptr [bx+2]		;原来的栈中：/flags/cs
+    push word ptr [bx]			;原来的栈中：/flags/cs/ip
+    
+    push ax						;原来的栈中：/flags/cs/ip/ax
+    push word ptr [si]			;原来的栈中：/flags/cs/ip/ax/bx
+    lea si,ds_temp				
+    mov ax,[si]
+    lea si,si_temp
+    mov bx,[si]
+    mov ds,ax					;恢复ds
+    mov si,bx					;恢复si
+    
+    pop bx						;原来的栈中：/flags/cs/ip/ax
+    pop ax						;原来的栈中：/flags/cs/ip
+    
+    iret
+    
+_restart endp
+;********************************************************</code></pre></div>
+<p>这样，save、restart就已经写好了，我们要寻找一些方法来检验是否正确。使用方法</p>
+<div class="hljs"><pre><code class="hljs asm">call _save
+call do_INT_XXh
+jmp _restart</code></pre></div>
+<p>可以在<code>Timer</code>的前后使用，程序照常进行。</p>
+<p>还可以在<code>OUCH OUCH！</code>的前后使用，程序如常，说明save、restart是成功的。</p>
+<h4 id="2-增加INT-20软中断程序">2.增加INT 20软中断程序</h4>
+<blockquote>
+<p>int 20h用于用户程序结束是返回内核准备接受命令的状态</p>
+</blockquote>
+<p>INT20h的内容主要是与jump过程相互配合的，提供新的跳转到用户程序并且返回的方法。与之前的区别在于保护了内核栈，提供了新的用户栈。在jump里把用户程序的ss=cs，sp准备好，并且将其压入用户栈中。具体代码如下：</p>
+<div class="hljs"><pre><code class="hljs asm">public _jump
+_jump proc near;两个参数,要跳到的cs:ip
+    ;保护现场***********************************************
+    push bp
+    mov bp,sp		;先获取当前的栈指针，方便寻址，/jumpdest_ip/jumpdest_cs/ip/bp
+    push ax
+    push bx
+    push cx
+    push dx
+    push di
+    push es
+    push ds
+    push si
+    pushf
+
+    mov bx,[bp+4]		;获取参数cs
+    mov ax,[bp+6]		;获取参数ip
+    
+    mov es,bx
+    lea si,PSPBegin
+    mov di,0
+    lea cx,PSPEnd
+    sub cx,si
+    rep movsb
+    
+    lea si,kernelsp
+    mov [si],sp
+
+    mov ss,bx
+    mov sp,0
+    
+    xor cx,cx
+    push cx
+
+    push bx				;要跳转的cs
+    push ax				;要跳转的ip
+    retf				;retf用栈中数据同时改CS,IP,远转移远返回指令。当它执行时，处理器先从栈中弹出
+    					;一个字到IP，再弹出一个字到CS。retf  -&gt;  pop ip   pop cs
+PSPBegin:
+    int 20h
+PSPEnd:nop</code></pre></div>
+<p>INT20h，前半部分是对中断的载入，与其他中断的载入方式一致，不必赘述。从用户程序返回到内核的方法，恢复内核栈，再恢复寄存器最后直接返回即可</p>
+<div class="hljs"><pre><code class="hljs asm">public _loadINT_20h
+_loadINT_20h proc near		;载入中断，基本固定化的格式了，不必赘述
+    push ax				
+    push es
+    CLI
+    xor ax,ax
+    mov es,ax
+    lea ax,INT20H
+    mov [es:80h],ax
+    mov ax,cs
+    mov [es:82h],ax
+    mov es,ax
+    STI
+
+    pop es
+    pop ax
+
+    ret
+
+INT20H:
+    mov ax,cs				
+    mov ds,ax				;ds = cs
+    mov ss,ax				;ss = ss
+ 	lea si,kernelsp			
+    mov sp,[si]				;恢复栈指针
+    popf					;因为在调用jump过程后，push了很多寄存器，所以需要返回前需要pop
+    pop si
+    pop ds
+    pop es
+    pop di
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    pop bp
+    ret
+_loadINT_20h endp</code></pre></div>
+<h4 id="3-增加INT-21软中断程序">3.增加INT 21软中断程序</h4>
+<p>基本结构如下：</p>
+<ul>
+<li>载入int 21h（与其他中断的载入方式类似，偏移量存放在地址84h，代码段地址存放在86h的位置）</li>
+<li>执行int 21h</li>
+<li>三个功能号，分别是：输出一个字符、获取键盘输入的字符（这个并不是完整的getchar）、返回内核（与int 20h一致）。</li>
+</ul>
+<div class="hljs"><pre><code class="hljs asm">;INT 21h****************************************************
+INT_21h:
+    call _save
+    call do_INT_21h
+    jmp _restart
+do_INT_21h:
+    lea si, _cpuReg
+    mov ax, [si]					;此时si的地址就是ax
+    
+    cmp	ah, 01h
+    jz INT_21h_1h
+    
+    cmp ah, 02h
+    jz INT_21h_2h
+    
+    cmp ah, 4ch
+    jz INT_21h_3h
+_21h_end:	
+    ret
+;***********************************************************</code></pre></div>
+<p>1h：获取键盘输入的字符</p>
+<div class="hljs"><pre><code class="hljs asm">INT_21h_1h proc near
+    mov ax,cs
+    mov ds,ax
+    mov ah,0
+    int 16h;
+    
+    ;此时al已经得到了输入的字符，接着我们把ah清零，并修改cpureg中的ax
+    xor ah,ah
+    lea si,_cpuReg	
+    mov [si],ax
+    jmp _21h_end
+INT_21h_1h endp</code></pre></div>
+<p>2h：输出一个字符</p>
+<div class="hljs"><pre><code class="hljs asm">INT_21h_2h proc near
+    mov ax,cs
+    mov es,ax
+    
+    mov bh,0
+    mov ah,3
+    int 10h;
+    lea bp,_cpuReg		
+    add bp,6			
+    mov ax,1301h
+    mov bx,0007h
+    mov cx,1
+    int 10h
+    jmp _21h_end
+    
+INT_21h_2h endp</code></pre></div>
+<p>3h：返回内核</p>
+<div class="hljs"><pre><code class="hljs asm">INT_21h_3h proc near
+    mov ax,cs
+    mov ds,ax
+    mov ah,0
+    int 16h
+    xor ah,ah
+    lea si,_cpuReg
+    mov [si],ax
+    jmp _21h_end
+INT_21h_3h endp</code></pre></div>
+<h4 id="4-增加INT-22软中断程序">4.增加INT 22软中断程序</h4>
+<p>由于<code>save</code>和<code>restart</code>已经准备好了，所以我们可以很轻松地写出INT 22h</p>
+<p>加载22h中断，偏移量存放在地址88h，代码段地址存放在8ah的位置</p>
+<p>Int22h中断处理程序(屏幕某处显示INT22H):int22h功能未定，先实现为屏幕某处显示INT22H。</p>
+<div class="hljs"><pre><code class="hljs asm">;22号中断***************************************************
+INT_22h:
+    call _save
+    call do_INT_22h
+    jmp _restart
+
+do_INT_22h:
+    mov ax, cs
+    mov ds, ax
+    mov ax,0b800h
+    mov es,ax
+    
+    mov cx, 6 					;字符串长度,用于循环计数
+    lea si, INT22H_str			;获取字符串地址
+    
+    mov bx,(12*80+40)*2			;打印于屏幕中心
+    mov ah,07h
+loop_int_22:
+    mov al,[si]
+    mov es:[bx], ax
+    inc bx
+    inc bx
+    inc si
+    loop loop_int_22			;loop结合cx可以使循环写的很舒服
+    ret	
+INT22H_str db "INT 22H"
+;***********************************************************</code></pre></div>
+<p>使用一个用户程序来调用int 22h</p>
+<div class="hljs"><pre><code class="hljs asm">org 8c00h
+start:
+    int 22h
+    ret</code></pre></div>
+<h4 id="5-完善C函数库">5.完善C函数库</h4>
+<p>事实上，在之前的实验中我已经写了一个类似的库，这一次实验的主要是实现printf和scanf.</p>
+<p>printf和scanf都是参数变长的函数。我对此完全没有概念，只好求助于搜索引擎。</p>
+<p>关键的操作在于取str指针的地址，通过+偏移量的方式，寻址得到后面的参数。</p>
+<p>如：<code>itos((int)*(&amp;str+off))</code>可以获得%d对应的数字，并将其转换为字符串</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printf</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *str, ...)</span></span>{
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">int</span> off = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; str[i] != <span class="hljs-number">0</span>; i++){
+        <span class="hljs-keyword">if</span> (str[i] != <span class="hljs-string">'%'</span>){
+            putch(str[i]);
+        }
+        <span class="hljs-keyword">else</span>{
+            i++;
+            <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">'d'</span>)
+                <span class="hljs-built_in">puts</span>(itos((<span class="hljs-keyword">int</span>)*(&amp;str + off)));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">'c'</span>)
+                putch((<span class="hljs-keyword">char</span>)*(&amp;str + off));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">'s'</span>)
+                <span class="hljs-built_in">puts</span>((<span class="hljs-keyword">char</span> *)*(&amp;str + off));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">continue</span>;
+            off += <span class="hljs-number">1</span>;
+        }
+    }
+}</code></pre></div>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scanf</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *str, ...)</span></span>{
+    <span class="hljs-keyword">int</span> off = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; str[i] != <span class="hljs-number">0</span>; i++){
+        <span class="hljs-keyword">if</span> (str[i] == <span class="hljs-string">'%'</span>){
+            i++;
+            <span class="hljs-keyword">switch</span> (str[i]){
+            <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">'d'</span>){
+                gets(num);
+                *((<span class="hljs-keyword">int</span> *)(*(&amp;str + off))) = stoi();
+            }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">'c'</span>)
+                getch((<span class="hljs-keyword">char</span> *)*(&amp;str + off));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">'s'</span>)
+                gets((<span class="hljs-keyword">char</span> *)*(&amp;str + off));
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">continue</span>;
+            }
+            off += <span class="hljs-number">1</span>;
+        }
+    }
+}</code></pre></div>
+<h4 id="6-将所有文件进行编译，并写入软盘">6.将所有文件进行编译，并写入软盘</h4>
+<p>我们再来看看实验的要求：</p>
+<blockquote>
+<p>(5) 利用自己设计的C库libs.obj，编写一个使用这些库函数的C语言用户程序，再编译，再与libs.obj一起链接，产生COM程序。增加内核命令执行这个程序。</p>
+</blockquote>
+<p>此次生成的.com程序涉及到四个代码文件，对于C函数库，经过网上搜索发现不能使用<code>.h</code>作为文件名，而应该直接使用<code>.c</code>。之后使用批处理提高生产效率（其中，后四段命令是新添加的）：</p>
+<div class="hljs"><pre><code class="hljs bat"><span class="hljs-built_in">del</span> *.obj
+<span class="hljs-built_in">del</span> *.com
+tcc -mt -c -omain.obj main.c &gt; ccmsg.txt
+tasm monitor.asm monitor.obj &gt; amsg.txt
+tlink /<span class="hljs-number">3</span> /t monitor.obj main.obj, monitor.com,,
+tcc -mt -c -otest.obj test.c &gt; test.txt
+tcc -mt -c -ostdio.obj stdio.c &gt; stdio.txt
+tasm loadtest.asm loadtest.obj &gt; loadtest.txt
+tasm lib.asm lib.obj &gt; lib.txt
+tlink /<span class="hljs-number">3</span> /t loadtest.obj lib.obj stdio.obj test.obj, loadtest.com,,</code></pre></div>
+<p>本次实验引入了两个新的用户程序：</p>
+<ul>
+<li>
+<p>test_int_22.bin，是用于测试中断向量22h的，加载到磁头号1，6号扇区的位置</p>
+</li>
+<li>
+<p>LOADTEST.COM是用于测试中断向量21h的，加载到磁头号1，7号扇区的位置</p>
+</li>
+</ul>
+<div class="hljs"><pre><code class="hljs makefile">BIN = loader.bin startOS.bin 19335209_A.bin 19335209_B.bin 19335209_C.bin 19335209_D.bin test_int_22.bin
+IMG = wuhlan.img
+<span class="hljs-section">all: clear <span class="hljs-variable">$(BIN)</span> <span class="hljs-variable">$(IMG)</span></span>
+<span class="hljs-section">clear:</span>
+    rm -f <span class="hljs-variable">$(BIN)</span> <span class="hljs-variable">$(IMG)</span>
+<span class="hljs-section">%.bin: %.asm</span>
+    nasm -fbin <span class="hljs-variable">$&lt;</span> -o <span class="hljs-variable">$@</span>
+<span class="hljs-section">%.img:</span>
+    /sbin/mkfs.msdos -C <span class="hljs-variable">$@</span> 1440
+    dd if=loader.bin of=<span class="hljs-variable">$@</span> conv=notrunc
+    dd if=MONITOR.COM of=<span class="hljs-variable">$@</span> seek=1 conv=notrunc
+    dd if=19335209_A.bin of=<span class="hljs-variable">$@</span> seek=18 conv=notrunc
+    dd if=19335209_B.bin of=<span class="hljs-variable">$@</span> seek=19 conv=notrunc
+    dd if=19335209_C.bin of=<span class="hljs-variable">$@</span> seek=20 conv=notrunc
+    dd if=19335209_D.bin of=<span class="hljs-variable">$@</span> seek=21 conv=notrunc
+    dd if=startOS.bin of=<span class="hljs-variable">$@</span> seek=22 conv=notrunc
+    dd if=test_int_22.bin of=<span class="hljs-variable">$@</span> seek=23 conv=notrunc
+    dd if=LOADTEST.COM of=<span class="hljs-variable">$@</span> seek=24 conv=notrunc</code></pre></div>
+<h3 id="实验结果">实验结果</h3>
+<p>开机动画正常运作</p>
+<img src="2.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210515224730500" style="zoom: 67%;">
+<p>可以注意到，右下角的风火轮可以正常转动，同时新增加两个用户程序，分别用于测试int21和int22</p>
+<img src="3.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210515224550534" style="zoom: 67%;">
+<p>int22可以正常显示</p>
+<img src="4.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210515225137314" style="zoom:67%;">
+<p>int21执行如下</p>
+<img src="5.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210515230025451" style="zoom:67%;">
+<h3 id="问题与解决方式">问题与解决方式</h3>
+<ol>
+<li>
+<p>终于解决了，之前实验中C语言字符串无法显示的问题【捂脸】，经过老师的轻轻一点拨，原来就是我在载入监控程序的时候，没有控制好载入扇区的数量。如下，对<code>al</code>的值进行修改即可。😊</p>
+<div class="hljs"><pre><code class="hljs asm">mov ax,cs                ;段地址 ; 存放数据的内存基地址
+mov es,ax                ;设置段地址（不能直接mov es,段地址）
+mov bx, OS_offset   
+mov ah,2                 ;功能号
+mov al,10                 ;扇区数，内核占用扇区数  注意：不止加载了一个扇区
+mov dl,0                 ;驱动器号 ; 软盘为0，硬盘和U盘为80H
+mov dh,0                 ;磁头号 ; 起始编号为0
+mov ch,0                 ;柱面号 ; 起始编号为0
+mov cl,2                 ;存放内核的起始扇区号 ; 起始编号为1
+int 13H 				 ;调用读磁盘BIOS的13h功能
+jmp 0a00h:100h</code></pre></div>
+</li>
+<li>
+<p>在dosbox编译的时候出现神奇错误：</p>
+<p><code>Fatal: Command line: Can't locate file: load_stdio_test.asm</code></p>
+<p>解决方法是，将文件名改短😓</p>
+</li>
+<li>
+<p>在编译<code>int 21h</code>测试程序的时候，出现调用.com程序失败的问题。原来是.com程序超过了512kb，在载入内存的时候需要多载入几个扇区。这个问题也卡了好久，以后一定要注意😡</p>
+</li>
+</ol>
+<h3 id="实验总结">实验总结</h3>
+<p>本次实验看起来内容不多，但是真正做起来，是有非常多细节需要处理的。</p>
+<p>第一个难关就是<code>save</code>和<code>restart</code>的设计。 它起到保护中断现场的作用，可以使得多出来的在后续的实验中大概会起到非常重要的作用。看起来只不过是push和pop的简单问题，但是事实上，很多的寄存器（如ss,sp等）是会影响当前指令的正常执行的，常常需要额外的变量存储，并且需要对栈的过程、对函数调用中的栈的调用过程非常清晰。通过对上网查阅资料，我对汇编语言中所有的寄存器的特点有了更深刻的理解。</p>
+<p>接下来一个难关，是用户程序常常遇到调用失败的问题。很多时候是自己加载的扇区数，磁头号，扇区号不正确导致的。也出现了用户栈与内核栈并不对应导致错误。希望在后续的实验中能够避免。</p>
+<p>希望下次实验能够顺顺利利！！！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/06/01/%E5%AE%9E%E9%AA%8C6%EF%BC%9A%E4%BA%8C%E6%80%81%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%86%85%E6%A0%B8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实验6：二态进程模型内核</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/">
+                        <span class="hidden-mobile">实验4：具有中断处理的内核</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/05/16/%E5%AE%9E%E9%AA%8C5%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "实验5：实现系统调用")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

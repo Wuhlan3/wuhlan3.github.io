@@ -1,0 +1,1002 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>HPClab2 - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/hpclab2.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-30 15:06" pubdate>
+        September 30, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">HPClab2</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：6 months ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="高性能计算-lab2"><a href="#高性能计算-lab2" class="headerlink" title="高性能计算 lab2"></a>高性能计算 lab2</h1><p>！！！</p>
+<p>源代码可以参考这个仓库喔<a target="_blank" rel="noopener" href="https://gitee.com/Wuhlan3/hpc">https://gitee.com/Wuhlan3/hpc</a></p>
+<p>！！！</p>
+<h2 id="一、基于MPI点对点通信的矩阵乘法"><a href="#一、基于MPI点对点通信的矩阵乘法" class="headerlink" title="一、基于MPI点对点通信的矩阵乘法"></a>一、基于MPI点对点通信的矩阵乘法</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>我们可以将矩阵B分配给所有的进程，并将矩阵A进行划分，将每一部分分配给对应的进程。在每个进程完成自己那一部分的计算之后，汇总到主进程，组合成最终目标矩阵C。</p>
+<p>其中涉及到的主要的MPI函数包括：</p>
+<ul>
+<li>初始化、获取进程数目与当前进程号</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Init(<span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);
+MPI_Comm_size(MPI_COMM_WORLD, &amp;comm_sz);	
+MPI_Comm_rank(MPI_COMM_WORLD, &amp;my_rank);</code></pre></div>
+<ul>
+<li>路障函数，用于同步</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Barrier(MPI_COMM_WORLD);</code></pre></div>
+<ul>
+<li>点对点通信函数</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Send(&amp;A[i*row_range][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, i, i, MPI_COMM_WORLD); 
+
+MPI_Recv(&amp;buf_A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, <span class="hljs-number">0</span>, my_rank,   MPI_COMM_WORLD, MPI_STATUS_IGNORE);</code></pre></div>
+<ul>
+<li>MPI获取时间的函数</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">double</span> start, end;
+MPI_Barrier(MPI_COMM_WORLD); 
+start = MPI_Wtime();
+end = MPI_Wtime();</code></pre></div>
+<ul>
+<li>MPI的释放</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Finalize();</code></pre></div>
+<p><strong>详情可以参考文件中的源码<code>mpi_matrix_mul1.cpp</code></strong></p>
+<h3 id="编译与运行"><a href="#编译与运行" class="headerlink" title="编译与运行"></a>编译与运行</h3><div class="hljs"><pre><code class="hljs shell">mpicxx -g -Wall -o m1 mpi_matrix_mul1.cpp
+mpiexec -oversubscribe  -n 4 ./m1</code></pre></div>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>核数\矩阵大小</th>
+<th>512</th>
+<th>1024</th>
+<th>1536</th>
+<th>2048</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.810431</td>
+<td>11.400184</td>
+<td>54.643829</td>
+<td>166.500494</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.503364</td>
+<td>5.933909</td>
+<td>27.939495</td>
+<td>83.671942</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.608522</td>
+<td>6.119340</td>
+<td>28.566730</td>
+<td>85.674031</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.675070</td>
+<td>6.000397</td>
+<td>27.530209</td>
+<td>87.848682</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109281529906.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210928152819031"></p>
+<h2 id="二、基于MPI集合通信的矩阵乘法"><a href="#二、基于MPI集合通信的矩阵乘法" class="headerlink" title="二、基于MPI集合通信的矩阵乘法"></a>二、基于MPI集合通信的矩阵乘法</h2><h3 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h3><p>基本流程同一类似。只不过改用集合通信函数，可以更加方便地进行进程间的通信，而不需要使用for循环、关注进程的编号等等。集合通信函数可以自行划分内存块。感觉用到类型派生的函数的话反而变得更加麻烦，所以在另一个文件中使用了一下，权当练习练习，可以查看文件<code>mpi_matrix_mul3.cpp</code>。</p>
+<p>其中涉及到的主要的MPI函数包括：</p>
+<ul>
+<li>广播函数，用于将B矩阵发给所有进程</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Bcast(&amp;B[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], n*k, MPI_DOUBLE, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
+<ul>
+<li>散射函数，将A矩阵划分，发给对应的进程</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Scatter(&amp;A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, &amp;buf_A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
+<ul>
+<li>聚集函数，收集所有计算好的C矩阵，组合成完整的C矩阵</li>
+</ul>
+<div class="hljs"><pre><code class="hljs c++">MPI_Gather(&amp;buf_C[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], C_size, MPI_DOUBLE, &amp;C[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], C_size, MPI_DOUBLE, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
+<p><strong>详情可以参考文件中的源码<code>mpi_matrix_mul2.cpp</code></strong></p>
+<h3 id="编译与运行-1"><a href="#编译与运行-1" class="headerlink" title="编译与运行"></a>编译与运行</h3><div class="hljs"><pre><code class="hljs shell">mpicxx -g -Wall -o m1 mpi_matrix_mul2.cpp
+mpiexec -oversubscribe  -n 4 ./m2</code></pre></div>
+<h3 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>核数\矩阵大小</th>
+<th>512</th>
+<th>1024</th>
+<th>1536</th>
+<th>2048</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.914887</td>
+<td>15.457199</td>
+<td>89.563702</td>
+<td>232.458000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.555392</td>
+<td>9.096576</td>
+<td>51.484947</td>
+<td>134.997501</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.502040</td>
+<td>9.375724</td>
+<td>51.218516</td>
+<td>149.110322</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.617615</td>
+<td>11.616788</td>
+<td>51.633731</td>
+<td>140.564852</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109281529243.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210928152915051"></p>
+<h3 id="两种通信方式的比较"><a href="#两种通信方式的比较" class="headerlink" title="两种通信方式的比较"></a>两种通信方式的比较</h3><p>可以很明显地看到，集合通信方式比点对点通信方式慢上许多，集合通信的运行时长多了接近一倍。这貌似与预先设想的不太一样。具体原因可能在于，在进行点对点通信的时候，我也对矩阵进行了手动的平均划分，而集合通信的过程很可能需要函数内部进行自己判断如何平均划分。所以虽然集合通信写起来更加方便，但性能比不上点对点的通信方式。</p>
+<h2 id="三、定义自己的MPI类型"><a href="#三、定义自己的MPI类型" class="headerlink" title="三、定义自己的MPI类型"></a>三、定义自己的MPI类型</h2><h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><ol>
+<li><p>定义一个结构体</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span></span>
+<span class="hljs-class">{</span>
+    <span class="hljs-keyword">double</span> A[SIZE][SIZE];
+    <span class="hljs-keyword">double</span> B[SIZE][SIZE];
+} AandB;</code></pre></div>
+</li>
+<li><p>使用MPI_Type_create_struct函数</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> count = <span class="hljs-number">2</span>;<span class="hljs-comment">//块数</span>
+    <span class="hljs-keyword">int</span> blocklengths[count] = {m * n, n * k};<span class="hljs-comment">//每个块的长度</span>
+    MPI_Aint offsets[count];<span class="hljs-comment">//块偏移量</span>
+    MPI_Get_address(aandb.A, &amp;offsets[<span class="hljs-number">0</span>]);
+    MPI_Get_address(aandb.B, &amp;offsets[<span class="hljs-number">1</span>]);
+    offsets[<span class="hljs-number">1</span>] = offsets[<span class="hljs-number">1</span>] - offsets[<span class="hljs-number">0</span>];
+    offsets[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+    MPI_Datatype types[count] = {MPI_DOUBLE, MPI_DOUBLE};<span class="hljs-comment">//块类型</span>
+    MPI_Datatype aandbtype;<span class="hljs-comment">//自定义MPI类型</span>
+    MPI_Type_create_struct(count, blocklengths, offsets, types, &amp;aandbtype);<span class="hljs-comment">//创造属于自己的类型</span>
+    MPI_Type_commit(&amp;aandbtype);<span class="hljs-comment">//提交，使得该类型可以被使用</span></code></pre></div>
+</li>
+<li><p>在集合通信中的使用。发送给所有进程</p>
+<div class="hljs"><pre><code class="hljs c++">MPI_Bcast(&amp;aandb, <span class="hljs-number">1</span>, aandbtype, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
+</li>
+</ol>
+<p><strong>详情可以参考文件中的源码<code>mpi_matrix_mul3.cpp</code></strong></p>
+<h3 id="编译与运行-2"><a href="#编译与运行-2" class="headerlink" title="编译与运行"></a>编译与运行</h3><p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301551742.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210930143230675" style="zoom:80%;box-shadow:none"></p>
+<p>结果正确。</p>
+<h2 id="四、改造Lab1成矩阵乘法库函数"><a href="#四、改造Lab1成矩阵乘法库函数" class="headerlink" title="四、改造Lab1成矩阵乘法库函数"></a>四、改造Lab1成矩阵乘法库函数</h2><h3 id="动态链接库"><a href="#动态链接库" class="headerlink" title="动态链接库"></a>动态链接库</h3><p>动态链接库提供了<strong>Lab1</strong>中三种矩阵的乘法函数：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> MATRIXMUL_H__</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MATRIXMUL_H__</span>
+<span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Strassen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> N, <span class="hljs-keyword">double</span>** MatrixA, <span class="hljs-keyword">double</span>** MatrixB, <span class="hljs-keyword">double</span>** MatrixC)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">void</span> <span class="hljs-title">based_on_software_mul</span><span class="hljs-params">(<span class="hljs-keyword">double</span>** A, <span class="hljs-keyword">double</span> ** B, <span class="hljs-keyword">double</span> ** C, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> k)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">void</span> <span class="hljs-title">general_mul</span><span class="hljs-params">(<span class="hljs-keyword">double</span>** A, <span class="hljs-keyword">double</span> ** B, <span class="hljs-keyword">double</span> ** C, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> k)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cout_matrix</span><span class="hljs-params">(<span class="hljs-keyword">double</span> ** C, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cin_matrix</span><span class="hljs-params">(<span class="hljs-keyword">double</span> ** A, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span></span>;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></code></pre></div>
+<h3 id="逐步编译与链接"><a href="#逐步编译与链接" class="headerlink" title="逐步编译与链接"></a>逐步编译与链接</h3><div class="hljs"><pre><code class="hljs shell">g++ -c -fPIC matrixmul.cpp
+g++ -shared -o libmatrixmul.so matrixmul.o
+g++ -L/home/wuhlan3/Desktop/mpi -o main main.cpp -lmatrixmul
+export LD_LIBRARY_PATH=/home/wuhlan3/Desktop/mpi/libmatrixmul:$LD_LIBRARY_PATH
+./main</code></pre></div>
+<h3 id="makefile文件"><a href="#makefile文件" class="headerlink" title="makefile文件"></a>makefile文件</h3><div class="hljs"><pre><code class="hljs makefile"><span class="hljs-comment">#######################</span>
+<span class="hljs-comment"># Makefile</span>
+<span class="hljs-comment">#######################</span>
+
+<span class="hljs-comment"># compile and lib parameter</span>
+CC      := g++
+LIBS    := 
+LDFLAGS := 
+DEFINES :=
+INCLUDE := -I/home/wuhlan3/Desktop/mpi/matrixmul.h
+CFLAGS  := 
+CXXFLAGS:= 
+
+<span class="hljs-comment"># link parameter</span>
+LIB := libmatrixmul.so
+
+<span class="hljs-comment">#link</span>
+<span class="hljs-variable">$(LIB)</span>:matrixmul.o
+    <span class="hljs-variable">$(CC)</span> -shared -o -fPIC -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$^</span>
+
+<span class="hljs-comment">#compile</span>
+<span class="hljs-section">matrixmul.o:matrixmul.cpp</span>
+    <span class="hljs-variable">$(CC)</span> -c -fPIC <span class="hljs-variable">$^</span> -o <span class="hljs-variable">$@</span> 
+
+<span class="hljs-comment"># clean</span>
+<span class="hljs-section">clean:</span>
+    rm -fr *.o</code></pre></div>
+<p>使用后生成<code>.so</code>文件：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301552957.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210928142657323" style="zoom:80%;box-shadow:none"></p>
+<p>编译main文件可以正常运行：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301551113.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210928142817059" style="zoom:80%;box-shadow:none"></p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="1-内存不足"><a href="#1-内存不足" class="headerlink" title="1.内存不足"></a>1.内存不足</h3><p>对于点对点通信，一开始我使用的是一维数组存储矩阵的方式，我想着一维数组寻址会更加方便，使用<code>MPI_Send()</code>和<code>MPI_Recv()</code>函数时也会更加方便。小于512的矩阵还是能够正常计算的，但是当大小足够大时就会出现报错了。这是因为<code>double A[1024*1024]</code>这样的数组很可能已经超过了数组的上限（其中double是8字节的）。 只好改成二维数组的方式来存储。但是静态分配内存还是会出现segment fault的错误。最终只能使用动态分配内存。</p>
+<p>此外，我还发现在mpi中使用malloc很容易出现错误，实在搞不明白具体原因。在经过大半天的调试后仍然失败。最后使用c++中的new和delete组合，就成功了。</p>
+<h3 id="2-编译遇到的问题"><a href="#2-编译遇到的问题" class="headerlink" title="2.编译遇到的问题"></a>2.编译遇到的问题</h3><p>在linux上编译可能需要添加oversubscribe</p>
+<h3 id="3-二维矩阵在集合通信函数中的使用"><a href="#3-二维矩阵在集合通信函数中的使用" class="headerlink" title="3.二维矩阵在集合通信函数中的使用"></a>3.二维矩阵在集合通信函数中的使用</h3><div class="hljs"><pre><code class="hljs c++">MPI_Scatter(&amp;A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, &amp;buf_A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, <span class="hljs-number">0</span>, MPI_COMM_WORLD);</code></pre></div>
+<p>比如说，假设A矩阵有8行，有4个进程。那么这种写法，是能够将其中的每两行分配个对应的进程的。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%B6%85%E7%AE%97/">超算</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/linux/">linux</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/C-C/">C/C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/10/08/Go%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Go学习之路</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/09/27/%E6%83%8A%E6%95%A3%E6%A5%BC%E5%A4%B4%E9%A3%9E%E9%9B%AA/">
+                        <span class="hidden-mobile">惊散楼头飞雪</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/09/30/HPClab2/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "HPClab2")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

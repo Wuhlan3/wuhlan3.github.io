@@ -1,0 +1,1052 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>Linux基础 - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/Wuhlan3/img/linux.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-27 16:59" pubdate>
+        July 27, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux基础</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：a year ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h1>Linux</h1>
+<h4 id="一些名词：">一些名词：</h4>
+<ul>
+<li>
+<p>Unix：</p>
+</li>
+<li>
+<p>Minix：</p>
+</li>
+<li>
+<p>GNU：GNU是"GNU’s Not Unix"的递归缩写</p>
+<p>GNU几个重要的软件：</p>
+<ul>
+<li>Emacs</li>
+<li>GNU C（GCC）</li>
+<li>GNU C Library （glibc）</li>
+<li>Bash shell</li>
+</ul>
+</li>
+<li>
+<p>FSF：自由软件基金会（FSF, Free Software Foundation）</p>
+</li>
+<li>
+<p>GPL：通用公共许可证（General Public License, GPL）</p>
+</li>
+<li>
+<p>LGPL：(GNU Lesser General Public License) <em>LGPL</em>是GPL的一个为主要为类库使用设计的开源协议。</p>
+</li>
+<li>
+<p>Open source：</p>
+</li>
+<li>
+<p>POSIX：可携式操作系统接口（Portable Operating System Interface）的缩写，重点在 规范核心与应用程序之间的接口</p>
+</li>
+<li>
+<p>Linux distribution：（Kernel + Softwares + Tools + 可完整安装程序）</p>
+</li>
+<li>
+<p>问：发展Linux distributions的公司那么多，是否每一个都不相同呢？</p>
+<p>答：这就不需要担心了，因为每个Linux distributions使用的kernel都是http://www.kernel.org所释出的，而他们所选择的软件，几乎都是目前很知名的软件，重复性相当的高， 例如网页服务器的Apache，电子邮件服务器的Postfix/sendmail，文件服务器的Samba等等。</p>
+</li>
+<li>
+<p>distributions的分类：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RPM软件管理</th>
+<th><strong>DPKG</strong> 软件管理</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商业公司</td>
+<td>RHEL (Red Hat 公司) SuSE (Micro Focus)</td>
+<td>Ubuntu (CanonicalLtd.)</td>
+<td></td>
+</tr>
+<tr>
+<td>社群单位</td>
+<td>Fedora CentOS OpenSuSE</td>
+<td>Debian B2D</td>
+<td>Gentoo</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>X Window System：X Window即X Window图形用户接口，是一种计算机软件系统和网络协议，提供了一个基础的图形用户界面（GUI）和丰富的输入设备能力联网计算机。</p>
+</li>
+</ul>
+<h2 id="文件权限">文件权限</h2>
+<h3 id="查看权限">查看权限</h3>
+<ul>
+<li>user（用户）</li>
+<li>group（群组）</li>
+<li>others（其他）</li>
+<li>root（万能的神）</li>
+</ul>
+<p>root的相关信息记录在<code>/etc/passwd</code>这个文件内。</p>
+<p>个人的密码则是记录 在<code>/etc/shadow</code>这个文件内。</p>
+<p>Linux所有的群组名称都记录在<code>/etc/group</code>内</p>
+<p>这三个文件 可以说是Linux系统里面帐号、密码、群组信息的集中地。</p>
+<p>使用<code>ls -al</code>可以查看文件的权限信息：</p>
+<div class="hljs"><pre><code class="hljs cmd">/*类型与权限(permission) 连结数 文件拥有者 文件所属群组 文件大小 最后修改时间 文件名*/
+wuhlan3@wuhlan3-VMware-Virtual-Platform:~/桌面$ sudo ls -al
+[sudo] wuhlan3 的密码：
+总用量 <span class="hljs-number">3768</span>
+drwxr-xr-x  <span class="hljs-number">3</span> wuhlan3 wuhlan3    <span class="hljs-number">4096</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">15</span>:<span class="hljs-number">20</span>  .
+drwx------ <span class="hljs-number">22</span> wuhlan3 wuhlan3    <span class="hljs-number">4096</span> <span class="hljs-number">7</span>月  <span class="hljs-number">27</span> <span class="hljs-number">11</span>:<span class="hljs-number">08</span>  ..
+-rw-rw-r--  <span class="hljs-number">1</span> wuhlan3 wuhlan3 <span class="hljs-number">3240860</span> <span class="hljs-number">7</span>月  <span class="hljs-number">23</span> <span class="hljs-number">16</span>:<span class="hljs-number">28</span>  <span class="hljs-number">666</span>.mp4
+drwx------ <span class="hljs-number">16</span> wuhlan3 wuhlan3    <span class="hljs-number">4096</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">11</span>:<span class="hljs-number">18</span>  ffmpeg-<span class="hljs-number">3</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>
+-rw-rw-r--  <span class="hljs-number">1</span> wuhlan3 wuhlan3  <span class="hljs-number">226961</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">10</span>:<span class="hljs-number">39</span>  index.html
+-rw-rw-r--  <span class="hljs-number">1</span> wuhlan3 wuhlan3  <span class="hljs-number">368871</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">13</span>:<span class="hljs-number">58</span>  output.mp4
+lrwxrwxrwx  <span class="hljs-number">1</span> wuhlan3 wuhlan3      <span class="hljs-number">37</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">15</span>:<span class="hljs-number">20</span> ' qtcreator' -&gt; /opt/Qt/Tools/QtCreator/bin/qtcreator</code></pre></div>
+<ol>
+<li>
+<p>第一栏：<strong>类型与权限</strong>，总共有十个字符，第一个字符表示目录、文件或链接文件等：</p>
+<ul>
+<li>
+<p>当为[ d ]则是<strong>目录</strong>，例如上表文件名为“.config”的那一行；</p>
+</li>
+<li>
+<p>当为[ - ]则是<strong>文件</strong>，例如上表文件名为“initial-setup-ks.cfg”那一行；</p>
+</li>
+<li>
+<p>若是[ l ]则表示为<strong>链接文件</strong>（link file）；</p>
+</li>
+<li>
+<p>若是[ b ]则表示为设备文件里面的可供<strong>储存</strong>的周边<strong>设备</strong>（可随机存取设备）；</p>
+</li>
+<li>
+<p>若是[ c ]则表示为设备文件里面的<strong>序列埠</strong>(bu)/<strong>串行端口</strong>设备，例如键盘、鼠标（一次性读取设 备）。</p>
+</li>
+</ul>
+<p>接下来的字符均为“rwx” 的三个参数的组合。其中，[ r ]代表<strong>可读</strong>、[ w ]代表<strong>可写</strong>、[ x ]代表<strong>可执行</strong>。</p>
+<p>第一组为user，第二组为group，第三组为others</p>
+</li>
+<li>
+<p>第二栏：表示有多少文件名链接到此节点（<strong>i-node</strong>）</p>
+</li>
+<li>
+<p>第三栏：表示这个文件（或目录）的“拥有者帐号”</p>
+</li>
+<li>
+<p>第四栏：表示这个文件的所属群组</p>
+</li>
+<li>
+<p>第五栏：为这个文件的容量大小，默认单位为Bytes</p>
+</li>
+<li>
+<p>第六栏：为这个文件的创建日期或者是最近的修改日期</p>
+</li>
+<li>
+<p>第七栏：为这个文件的文件名</p>
+</li>
+</ol>
+<h3 id="修改权限">修改权限</h3>
+<div class="hljs"><pre><code class="hljs shell">chgrp ：改变文件所属群组
+chown ：改变文件拥有者
+chmod ：改变文件的权限, SUID, SGID, SBIT等等的特性    change file mode bits</code></pre></div>
+<p>由于权限是三个三个一组的，所以我们可以用二进制再转为十进制表示：<code>&gt; r:4 &gt; w:2 &gt; x:1 </code></p>
+<div class="hljs"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> chmod [-R] xyz 文件或目录</span>
+<span class="hljs-meta">#</span><span class="bash">其中-R用来表示对该目录下的所有文件进行递归地修改权限（Recursive）</span>
+<span class="hljs-meta">#</span><span class="bash">xyz 写做777时，全部权限开启</span></code></pre></div>
+<h4 id="权限对于文件和文件夹的意义：">权限对于文件和文件夹的意义：</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>内容</th>
+<th>r</th>
+<th>w</th>
+<th>x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件</td>
+<td>详细数据</td>
+<td>读取文件内容</td>
+<td>修改文件内容</td>
+<td>执行文件内容</td>
+</tr>
+<tr>
+<td>文件夹（目录）</td>
+<td>文件名</td>
+<td>读取文件名</td>
+<td>修改文件名</td>
+<td>进入该目录(cd)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="文件类型：">文件类型：</h4>
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>细分</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正规文件（regular file ）</td>
+<td>纯文本文件（ASCII）</td>
+<td>[ - ]</td>
+</tr>
+<tr>
+<td></td>
+<td>二进制档（binary）</td>
+<td>[ - ]</td>
+</tr>
+<tr>
+<td></td>
+<td>数据格式文件（data）</td>
+<td>[ - ]</td>
+</tr>
+<tr>
+<td>目录（directory）</td>
+<td></td>
+<td>[ d ]</td>
+</tr>
+<tr>
+<td>链接文件（link）</td>
+<td></td>
+<td>[ l ]</td>
+</tr>
+<tr>
+<td>设备与设备文件（device）</td>
+<td>区块（block）设备文件</td>
+<td>[ b ]</td>
+</tr>
+<tr>
+<td></td>
+<td>字符（character）设备文件</td>
+<td>[ c ]</td>
+</tr>
+<tr>
+<td>数据接口文件（sockets）</td>
+<td></td>
+<td>[ s ]</td>
+</tr>
+<tr>
+<td>数据输送档（FIFO, pipe）</td>
+<td></td>
+<td>[ p ]</td>
+</tr>
+</tbody>
+</table>
+<div class="note note-success">
+            <p>Linux的文件是没有所谓的“扩展名”的，一个Linux文件能不能被执行，与他的第一栏的十个属性有关，与文件名根本一点关系都没有。具有“可执行的权限”以及“具有可执行的程序码”是两回事！</p>
+          </div>
+<h3 id="目录配置">目录配置</h3>
+<p>FHS：Filesystem Hierarchy Standard 。FHS的重点在于规范每个特定的目录下应该要 放置什么样的数据而已。主要分为四种交互作用的形态：shareable, unshareable, static, variable</p>
+<p>事实上，FHS针对目录树架构仅定义出三层目录下面应该放置什么数据而已，分别是下面这 三个目录的定义：</p>
+<ul>
+<li>
+<p>/       （root, 根目录）：与开机系统有关；</p>
+</li>
+<li>
+<p>/usr （unix software resource）：与软件安装/执行有关；</p>
+</li>
+<li>
+<p>/var （variable）：与系统运行过程有关。</p>
+</li>
+</ul>
+<img src="image-20210728103045651.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210728103045651" style="zoom:100%;">
+<p>详情可回顾《鸟哥的linux私房菜 第四版》p282</p>
+<h4 id="绝对路径与相对路径">绝对路径与相对路径</h4>
+<p>绝对路径：由根目录<code>/</code>开始写起的文件名或目录名称， 例如 <code>/home/dmtsai/.bashrc</code>；</p>
+<p>相对路径：相对于目前路径的文件名写法。 例如 <code>./home/dmtsai</code> 或 <code>../../home/dmtsai/ </code>等 等。反正开头不是 / 就属于相对路径的写法</p>
+<h2 id="目录">目录</h2>
+<h4 id="特殊的目录">特殊的目录</h4>
+<div class="hljs"><pre><code class="hljs asciidoc"><span class="hljs-bullet">. 			</span>代表此层目录 
+<span class="hljs-bullet">.. 			</span>代表上一层目录 
+<span class="hljs-bullet">- 			</span>代表前一个工作目录 
+~ 			代表“目前使用者身份”所在的主文件夹 
+~account 	代表 account 这个使用者的主文件夹（account是个帐号名称）</code></pre></div>
+<h4 id="处理目录">处理目录</h4>
+<div class="hljs"><pre><code class="hljs stata"><span class="hljs-keyword">cd</span>：变换目录
+<span class="hljs-keyword">pwd</span>：显示目前的目录
+<span class="hljs-keyword">mkdir</span>：创建一个新的目录
+<span class="hljs-keyword">rmdir</span>：删除一个空的目录</code></pre></div>
+<h4 id="环境变量PATH">环境变量PATH</h4>
+<p>如下，可以显示当前的所有路径。（PATH 前面加的 $ 表示后面接的是变量，所以会显示出目前的 PATH）</p>
+<div class="hljs"><pre><code class="hljs cmd">wuhlan3@wuhlan3-VMware-Virtual-Platform:~/桌面$ <span class="hljs-built_in">echo</span> $<span class="hljs-built_in">PATH</span>
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games</code></pre></div>
+<p>环境变量配置：</p>
+<div class="hljs"><pre><code class="hljs cmd">$ <span class="hljs-built_in">PATH</span>="${<span class="hljs-built_in">PATH</span>}:路径名"</code></pre></div>
+<h2 id="参考资料">参考资料</h2>
+<p>[1]《鸟哥的linux私房菜 第四版》</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/linux/">linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/08/04/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%88%AA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UNIX网络编程导航</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Wuhlan3/2021/07/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                        <span class="hidden-mobile">并查集</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/07/27/Linux%E5%9F%BA%E7%A1%80/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "Linux基础")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

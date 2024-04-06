@@ -1,0 +1,1059 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>UNIX网络编程（五） - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/Wuhlan3/img/unix.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-03 09:14" pubdate>
+        August 3, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">UNIX网络编程（五）</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 years ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="echo服务器">echo服务器</h2>
+<h3 id="服务器代码">服务器代码</h3>
+<p>服务器开启后，处于LISTEN状态，阻塞在accept调用。（可以使用netstat查看状态）</p>
+<p>fork一个进程后，服务器主进程又阻塞在ACCEPT进程。而派生的子进程阻塞在read调用，等待客户端发送数据过来。</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"unp.h"</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">str_echo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sockfd)</span></span>{
+    <span class="hljs-keyword">ssize_t</span> n;
+    <span class="hljs-keyword">char</span> buf[MAXLINE];
+again:
+    <span class="hljs-keyword">while</span>( (n = read(sockfd, buf, MAXLINE)) &gt; <span class="hljs-number">0</span>){	<span class="hljs-comment">//根据字符串大小判断</span>
+        Fputs(buf,<span class="hljs-built_in">stdout</span>);		
+        Writen(sockfd, buf, n);<span class="hljs-comment">//send</span>
+    }
+    <span class="hljs-comment">//信号中断，没有写成功任何数据    </span>
+    <span class="hljs-keyword">if</span>(n &lt; <span class="hljs-number">0</span> &amp;&amp; errno == EINTR)
+        <span class="hljs-keyword">goto</span> again;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(n &lt; <span class="hljs-number">0</span>)
+        err_sys(<span class="hljs-string">"str_echo:read error"</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span>{
+    <span class="hljs-keyword">int</span> listenfd, connfd;
+    <span class="hljs-keyword">pid_t</span> childpid;
+    <span class="hljs-keyword">socklen_t</span> clilen;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">cliaddr</span>, <span class="hljs-title">servaddr</span>;</span>
+    listenfd = Socket(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    bzero(&amp;servaddr, <span class="hljs-keyword">sizeof</span>(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = htons(INADDR_ANY);
+    servaddr.sin_port = htons(SERV_PORT);
+    
+    Bind(listenfd, (SA *)&amp;servaddr, <span class="hljs-keyword">sizeof</span>(servaddr));
+    Listen(listenfd, LISTENQ);
+    <span class="hljs-keyword">for</span>(; ; ){
+        clilen = <span class="hljs-keyword">sizeof</span>(cliaddr);
+        connfd = Accept(listenfd, (SA *)&amp;cliaddr, &amp;clilen);
+        <span class="hljs-keyword">if</span>( (childpid = Fork()) == <span class="hljs-number">0</span>){
+            Close(listenfd);
+            str_echo(connfd);
+            <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+        }
+        Close(connfd);
+    }
+}</code></pre></div>
+<h3 id="客户端代码">客户端代码</h3>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"unp.h"</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">str_cli</span><span class="hljs-params">(FILE *fp, <span class="hljs-keyword">int</span> sockfd)</span></span>{
+    <span class="hljs-keyword">char</span> sendline[MAXLINE], recvline[MAXLINE];
+    <span class="hljs-keyword">while</span>(Fgets(sendline, MAXLINE, fp)!=<span class="hljs-literal">NULL</span>){
+        Writen(sockfd, sendline, <span class="hljs-built_in">strlen</span>(sendline));
+        <span class="hljs-keyword">if</span>(Readline(sockfd, recvline, MAXLINE) == <span class="hljs-number">0</span>)
+            err_quit(<span class="hljs-string">"str_cli:server terminated prematurely"</span>);
+            Fputs(recvline, <span class="hljs-built_in">stdout</span>);
+    }
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span>{
+    <span class="hljs-keyword">int</span> sockfd;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">servaddr</span>;</span>
+    <span class="hljs-keyword">if</span>(argc != <span class="hljs-number">2</span>)
+        err_quit(<span class="hljs-string">"usage: tcpcli &lt;IPaddress&gt;"</span>);
+    sockfd = Socket(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+    bzero(&amp;servaddr, <span class="hljs-keyword">sizeof</span>(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(SERV_PORT);
+    Inet_pton(AF_INET, argv[<span class="hljs-number">1</span>], &amp;servaddr.sin_addr);
+
+    Connect(sockfd, (SA*)&amp;servaddr, <span class="hljs-keyword">sizeof</span>(servaddr));
+
+    str_cli(<span class="hljs-built_in">stdin</span>,sockfd);
+    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+}</code></pre></div>
+<h2 id="查看socket状态">查看socket状态</h2>
+<h3 id="启动服务器时的状态：">启动服务器时的状态：</h3>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ ./server &amp;
+[1] 8433
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ netstat -a
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State          
+tcp        0      0 0.0.0.0:9877            0.0.0.0:*               LISTEN</code></pre></div>
+<p>可以看到，有一个套接字处于LISTEN状态，它有通配的本地IP地址，本地端口为9877。netstat中的“*”表示一个为0的IP地址（INADDR_ANY）或为0的端口号。</p>
+<p>所以上面的也可以写成：</p>
+<div class="hljs"><pre><code class="hljs shell">tcp        0      *:9877            		*:*               	    LISTEN</code></pre></div>
+<h3 id="启动客户端后的状态：">启动客户端后的状态：</h3>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ netstat -a
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:9877            0.0.0.0:*               LISTEN   
+tcp        0      0 localhost:42692         localhost:9877          ESTABLISHED
+tcp        0      0 localhost:9877          localhost:42692         ESTABLISHED</code></pre></div>
+<p>可以看到，建立了连接进入ESTABLISHED状态。</p>
+<h3 id="关闭客户端的状态：">关闭客户端的状态：</h3>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ netstat -a &amp; grep 9877
+[1] 8690
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:9877            0.0.0.0:*               LISTEN 
+tcp        0      0 localhost:42704         localhost:9877          TIME_WAIT</code></pre></div>
+<p>这个时候服务子进程处于TIME_WAIT状态。父进程处于LISTEN状态。</p>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ sudo ps -t pts/1 -o pid,ppid,tty,stat,args,wchan
+    PID    PPID TT       STAT COMMAND                     WCHAN
+   5542    4552 pts/1    Ss   bash                        do_wait
+   8842    5542 pts/1    S    ./server                    inet_csk_accept
+   8844    8842 pts/1    Z    [server] &lt;defunct&gt;          -</code></pre></div>
+<p>使用ps命令可以看到，子进程的状态为“Z”，即僵死状态。这是因为子进程终止的时候，发送了一个SIGCHLD信号给父进程，但是这个信号是默认忽略的，所以父进程并没有处理掉子进程。这可能会导致子进程过多占用较多内存。</p>
+<h2 id="关于如何用命令杀死进程">关于如何用命令杀死进程</h2>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ ./server &amp;
+[1] 8181
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ sudo ps aux
+<span class="hljs-meta">#</span><span class="bash">用于显示所有正在运行的进程</span>
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ sudo ps -le
+<span class="hljs-meta">#</span><span class="bash">按照优先级显示所有正在运行的进程</span>
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ sudo kill -9 8181
+<span class="hljs-meta">#</span><span class="bash">杀死pid为8181的进程</span></code></pre></div>
+<h2 id="POSIX信号处理">POSIX信号处理</h2>
+<p><strong>信号</strong>（signal）就是告知某个进程发生了某个事件的通知；信号通常是<strong>异步</strong>发生的，也就是说接受信号的进程不知道信号的准确发生时刻；信号可以由（1）一个进程发给另一个进程；（2）内核发给某个进程</p>
+<p>每个信号都有一个与之关联的<strong>处置</strong>，即收到特定信号时的处理方法；可以通过调用<strong>sigaction</strong>函数来设定一个信号的处置：</p>
+<p><img src="1249281-20190411173750561-1353468742.png" srcset="/Wuhlan3/img/loading.gif" alt="img"></p>
+<p>（POSIX明确规定了调用sigaction时的语义定义，因此我们自定义signal并调用sigaction，以所期望的POSIX语义提供一个简单的接口）</p>
+<p><strong>处置</strong>方法有三种：</p>
+<p>（1）提供一个函数，只要有特定信号发生它就被调用，这样的函数称为<strong>信号处理函数</strong>，这种行为称为捕获信号；有两个信号SIGKILL和SIGSTOP不能被捕获；信号处理函数由信号值这个<strong>单一的整数参数</strong>来调用，且<strong>没有返回值</strong>，其函数原型如下：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">handler</span><span class="hljs-params">(<span class="hljs-keyword">int</span> signo)</span></span>;</code></pre></div>
+<p>（2）可以把某个信号的处置方法设定为SIG_IGN来忽略它；SIDKILL和SIDSTOP这两个信号不能被忽略；</p>
+<p>（3）可以把某个信号的处置方法设定为SIG_DEF来启用它的默认处置；有个别信号的默认处置为忽略，如SIGCHLD和SIGURG</p>
+<p>在<code>unp.h</code>中实现的signal函数：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;signal.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sigfunc</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
+
+<span class="hljs-function">Sigfunc *<span class="hljs-title">signal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> signo, Sigfunc *func)</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sigaction</span> <span class="hljs-title">act</span>, <span class="hljs-title">oact</span>;</span>
+
+    act.sa_handler = func;  <span class="hljs-comment">/* 设置处置方法 */</span>
+    sigemptyset(&amp;act.sa_mask); <span class="hljs-comment">/* 把sa_mask置为空集，在信号处理期间不阻塞额外的信号 */</span>
+    act.sa_flags = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span> (signo != SIGALRM) { <span class="hljs-comment">/* 在POSIX兼容的平台上，SIGALRM是在定时器终止时发送给进程的信号 */</span>
+    　　act.sa_flags |= SA_RESTART; 
+    }
+    <span class="hljs-keyword">if</span> (sigaction(signo, &amp;act, &amp;oact) &lt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> SIG_ERR;
+    }
+    <span class="hljs-keyword">return</span> (oact.sa_handler);
+}</code></pre></div>
+<h2 id="解决问题一">解决问题一</h2>
+<ol>
+<li>
+<p>在listen调用的后面添加：</p>
+<div class="hljs"><pre><code class="hljs c++">Signal(SIGCHLD, sig_chld);</code></pre></div>
+</li>
+<li>
+<p>添加<code>sig_chld</code>函数：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sig_chld</span><span class="hljs-params">(<span class="hljs-keyword">int</span> signo)</span></span>{
+    <span class="hljs-keyword">pid_t</span> pid;
+    <span class="hljs-keyword">int</span>   stat;
+    pid = wait(&amp;stat);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"child %d terminated\n"</span>,pid);
+    <span class="hljs-keyword">return</span>;
+}</code></pre></div>
+</li>
+</ol>
+<p>经检验，没有子进程处于<strong>僵死</strong>状态了！</p>
+<h2 id="解决问题二">解决问题二</h2>
+<p>假设同一个客户端进程和服务器进程建立多个连接。且同时终止这多个连接：</p>
+<p><img src="image-20210803134155543.png" srcset="/Wuhlan3/img/loading.gif" alt="image-20210803134155543"></p>
+<p>此时，建立的一个信号处理函数并在其中调用的wait不足以防止僵死进程的出现。原因：5个信号都在信号处理函数执行之前产生，而信号处理函数只执行了一次，<mark><strong>因为Unix信号一般是不排队的</strong></mark>。</p>
+<p>所以我们将wait替换成waitpid：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"unp.h"</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sig_chld</span><span class="hljs-params">(<span class="hljs-keyword">int</span> signo)</span></span>{
+    <span class="hljs-keyword">pid_t</span> pid;
+    <span class="hljs-keyword">int</span>	  stat;
+    <span class="hljs-comment">//第一个参数为pid，用于指明想等待的进程ID，值-1表示等待第一个终止的子进程</span>
+    <span class="hljs-comment">//WNOHANG告知内核在没有已终止子进程时，不要阻塞。</span>
+    <span class="hljs-comment">//成功时返回进程ID，出错返回0或-1</span>
+    <span class="hljs-keyword">while</span>( (pid = waitpid(<span class="hljs-number">-1</span>,&amp;stat, WNOHANG)) &gt; <span class="hljs-number">0</span>)
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"child %d terminated\n"</span>, pid);
+    <span class="hljs-keyword">return</span>;
+}</code></pre></div>
+<div class="note note-success">
+            <ul><li>wait会令调用者阻塞直至某个进程终止</li><li>waitpid则可以通过设置一个选项来设置为非阻塞。而且等待的时参数中的pid指定的进程。当然也可以设为-1</li></ul>
+          </div>
+<p>改进版的echo服务器解决了网络编程时可能遇到的三种情况：</p>
+<ol>
+<li>当fork子进程时，必须捕获SIGCHLD信号；</li>
+<li>当捕获信号时，必须处理被中断的系统调用</li>
+<li>SIGCHLD的信号处理函数必须正确编写，应使用waitpid函数以免留下僵死进程</li>
+</ol>
+<h2 id="解决问题三">解决问题三</h2>
+<p>假设开启服务器与客户端之后，使用kill命令杀死服务器的子进程，会出现如下过程：</p>
+<ol>
+<li>
+<p>kill执行后，服务器子进程的所有<strong>描述符</strong>都将关闭，并发送一个FIN给客户端。客户端会返回一个ACK给服务器。这是四次握手关闭连接的前半部分。</p>
+</li>
+<li>
+<p><strong>SIGCHLD信号</strong>会发送给服务器主进程，对僵死状态的子进程进行正确处理。</p>
+</li>
+<li>
+<p>但是，客户端这个时候阻塞在fgets函数上。</p>
+</li>
+<li>
+<p>使用netstat查看，此时关闭连接已经完成一半。</p>
+</li>
+<li>
+<p>客户端再写下一个文本，由于服务器的连接套接字已经关闭了，所以它会发送一个RST。（注意，是要键入文本之后，才会进行读入描述符，进行下一步操作）。</p>
+</li>
+<li>
+<p>由于客户端阻塞在fgets上，发现不了RST。由于接收终止符EOF，所以客户端会提示<code>"str_cli:server terminated prematurely"</code>服务器过早终止的报错</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">if</span>(Readline(sockfd, recvline, MAXLINE) == <span class="hljs-number">0</span>)
+    err_quit(<span class="hljs-string">"str_cli:server terminated prematurely"</span>);</code></pre></div>
+</li>
+</ol>
+<h3 id="服务器终端：">服务器终端：</h3>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ ./server &amp;
+[1] 11257
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ hello
+
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ netstat -a | grep 9877
+tcp        0      0 0.0.0.0:9877            0.0.0.0:*               LISTEN     
+tcp        0      0 localhost:42992         localhost:9877          ESTABLISHED
+tcp        1      0 localhost:42708         localhost:9877          CLOSE_WAIT 
+tcp        0      0 localhost:9877          localhost:42992         ESTABLISHED
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ sudo ps -t pts/1 -o pid,ppid,tty,stat,args,wchan
+    PID    PPID TT       STAT COMMAND                     WCHAN
+   5542    4552 pts/1    Ss   bash                        do_wait
+  11257    5542 pts/1    S    ./server                    inet_csk_accept
+  11259   11257 pts/1    S    ./server                    wait_woken
+  11263    5542 pts/1    S+   sudo ps -t pts/1 -o pid,ppi poll_schedule_timeout.
+  11264   11263 pts/1    R+   ps -t pts/1 -o pid,ppid,tty -
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ kill -9 11259
+child 11259 terminated
+wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ netstat -a | grep 9877
+tcp        0      0 0.0.0.0:9877            0.0.0.0:*               LISTEN     
+tcp        1      0 localhost:42992         localhost:9877          CLOSE_WAIT 
+tcp        1      0 localhost:42708         localhost:9877          CLOSE_WAIT 
+tcp        0      0 localhost:9877          localhost:42992         FIN_WAIT2</code></pre></div>
+<h3 id="客户端的终端：">客户端的终端：</h3>
+<div class="hljs"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ ./client 127.0.0.1
+hello
+hello
+hello
+str_cli:server terminated prematurely</code></pre></div>
+<div class="note note-success">
+            <p>归根结底，这里的问题在于FIN到达客户端套接字的时候，客户端正阻塞在fgets上，不能够及时处理。客户端实际上在应对两个操作符——套接字和用户输入。它不应该单纯地阻塞一个特定源的输入上，而应该同时阻塞在这任意源的输入上。所以这就引入了两个函数select 和 poll。在<u><a href="">UNIX网络编程（六）</a></u>会提到。</p>
+          </div>
+<h2 id="解决问题四">解决问题四</h2>
+<ol>
+<li>假设服务器和客户端正常启动。</li>
+<li>主机崩溃后（不是操作员执行关机），已有的网络连接不再发出任何东西。</li>
+<li>此时客户端写入一行文字，使用writen写入内核，再由客户TCP作为一个分节发出。之后客户端阻塞在readline，等待服务器的echo回射。</li>
+<li>使用tcpdump就会发现，TCP在持续重传数据分节，试图从服务器上收到一个ACK。</li>
+<li>是由readline返回错误的：
+<ul>
+<li>如果服务器没有对分节做出响应，则报错<strong>ETIMEDOUT</strong>；</li>
+<li>如果中间路由器知道服务器不可达，则路由器会返回“destination unreachable”目的地不可达，报错为<strong>EHOSTUNREACH</strong>或<strong>ENETUNREACH</strong></li>
+</ul>
+</li>
+</ol>
+<div class="note note-success">
+            <p>该问题在于，我们想要知道主机是否崩溃，只能通过客户端多次重传分节的方式来检验。想要解决这个问题，可以看<u><a href="">UNIX网络编程（七）</a></u>提到的<strong>SO_KEEPALIVE</strong>套接字选项</p>
+          </div>
+<h2 id="服务器关机后的重启">服务器关机后的重启</h2>
+<ol>
+<li>假设服务器和客户端正常启动。</li>
+<li>主机崩溃后，立即重启</li>
+<li>客户端此时发送一行文本给服务器</li>
+<li>由于服务器丢失了所有的连接信息，所以服务器会返回一个RST给客户端</li>
+<li>客户端此时阻塞在readline上，收到RST后，返回ECONNECTRST报错。</li>
+</ol>
+<p>如果想要客户端不发送数据也要知道服务器是否发生崩溃，则可以采用<u><a href="">UNIX网络编程（七）</a></u>提到的<strong>SO_KEEPALIVE</strong>套接字选项或客户/服务器心搏函数。</p>
+<h2 id="服务器主机关机">服务器主机关机</h2>
+<p>这里考虑的是服务器操作员<strong>手动关机</strong>会发生什么。</p>
+<p>Unix系统关机时，init进程会给所有进程发送一个SIGTERM信号（可被捕获），等待一段5~20秒的时间后，给仍在运行的程序发送给一个SIGKILL（不可被捕获）。这样做，留出的一小段时间是给运行进程自己来清除与终止的。如果没有捕获SIGTERM信号来终止，最后就会被SIGKILL终止。</p>
+<p>当服务器子进程终止时，它的所有描述符都关闭，接着就回到<strong>问题三</strong>啦！</p>
+<h2 id="解决问题五">解决问题五</h2>
+<p>交换数值数据的时候可能会引发一些问题。</p>
+<h3 id="问题：">问题：</h3>
+<ol>
+<li>大端序与小端序。服务器与客户端使用不同的方式来存储二进制数</li>
+<li>32位系统和64位系统中的short、int、long，它们的大小不能保证</li>
+<li>不同实现对结构打包的方式存在差异。</li>
+</ol>
+<h3 id="解决办法：">解决办法：</h3>
+<ol>
+<li>使用文本来传输</li>
+<li>显式定义：大端序小端序、位数。这种方式常常用于<strong>RPC远程过程调用</strong>中。</li>
+</ol>
+<h2 id="小结">小结</h2>
+<ol>
+<li>我们首先实现了一个简陋的echo服务器，在其中发现很多问题</li>
+<li>问题一：僵死子进程</li>
+<li>问题二：Unix信号不排队</li>
+<li>问题三：服务器进程终止时，客户进程没有被告知</li>
+<li>问题四：服务器主机崩溃时，要等到客户向服务器发送数据才能检测出来</li>
+<li>问题五：交换文本行时问题不大，但若是交换数值数据将引发一组新的问题。</li>
+</ol>
+<p>以上是这一部分需要解决的问题！</p>
+<h2 id="参考资料">参考资料</h2>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/soldierback/p/10690783.html">https://www.cnblogs.com/soldierback/p/10690783.html</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/soldierback/p/10690783.html">https://www.cnblogs.com/yusenwu/category/701521.html</a></p>
+<p>[3] 《UNIX网络编程 卷1 套接字联网API》</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/linux/">linux</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/C-C/">C/C++</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/08/03/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%94%EF%BC%89/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "UNIX网络编程（五）")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>

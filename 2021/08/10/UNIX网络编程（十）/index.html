@@ -1,0 +1,1080 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta name="baidu-site-verification" content="code-FX4L05whJB" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3/img/myfavicon.png">
+  <link rel="icon" type="image/png" href="/Wuhlan3/img/myfavicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Wuhlan3">
+  <meta name="keywords" content="">
+  <title>UNIX网络编程（十） - whl&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/Wuhlan3/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/vs2015.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/Wuhlan3/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/Wuhlan3/css/custom.css">
+
+
+
+  <script  src="/Wuhlan3/js/utils.js" ></script>
+  <script  src="/Wuhlan3/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/Wuhlan3/">&nbsp;<strong>Wuhlan3</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                历史
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Wuhlan3/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/Wuhlan3/img/unix.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+			
+			
+			
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Wuhlan3
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-10 14:03" pubdate>
+        August 10, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">UNIX网络编程（十）</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 years ago
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="高级I-O函数">高级I/O函数</h2>
+<p>大致可分为三类：</p>
+<ol>
+<li>创建文件描述符的函数：pipe、dup/dup2</li>
+<li>用于读写数据的函数：readv/writev、sendfile、mmap/munmap、splice和tee</li>
+<li>用于控制I/O行为和属性的函数：fcntl函数</li>
+</ol>
+<h2 id="pipe">pipe</h2>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜unistd.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pipe</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd[<span class="hljs-number">2</span>])</span></span>;	<span class="hljs-comment">//fd中的两个参数（文件描述符），分别是管道的两端。</span></code></pre></div>
+<p>自Linux 2.6.11内核起，管道容量的大小默认是65536字节。我们可以使用fcntl函数来修改管道容量。</p>
+<div class="note note-success">
+            <p><strong>注意</strong>：pipe并不是双向的。fd[0]只能用于从管道读出数据，fd[1]则只能用于往管道写入数据。</p><p>如果需要就应该使用两个管道</p>
+          </div>
+<h2 id="dup和dup2">dup和dup2</h2>
+<p>有时我们希望把标准输入重定向到一个文件，或者把标准输出重定向到一个网络连接（比如CGI编 程）。这时候用到dup和dup2，或者可以说它们是用来复制文件描述符的：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜unistd.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">dup</span><span class="hljs-params">(<span class="hljs-keyword">int</span> file_descriptor)</span></span>; 
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">dup2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> file_descriptor_one,<span class="hljs-keyword">int</span> file_descriptor_two)</span></span>;<span class="hljs-comment">//返回值不小于file_descriptor_two的整数值。dup返回的文件描述符总是取系统当前可用的最小整数值。</span></code></pre></div>
+<h3 id="实例：使用dup实现CGI服务器">实例：使用dup实现CGI服务器</h3>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;netinet/in.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;assert.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>* argv[] )</span></span>
+<span class="hljs-function"></span>{
+    <span class="hljs-keyword">if</span>( argc &lt;= <span class="hljs-number">2</span> )
+    {
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"usage: %s ip_address port_number\n"</span>, basename( argv[<span class="hljs-number">0</span>] ) );
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* ip = argv[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">int</span> port = atoi( argv[<span class="hljs-number">2</span>] );
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">address</span>;</span>
+    bzero( &amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
+    address.sin_family = AF_INET;
+    inet_pton( AF_INET, ip, &amp;address.sin_addr );	<span class="hljs-comment">//点分十进制转换为二进制</span>
+    address.sin_port = htons( port );	<span class="hljs-comment">//小端序变为大端序</span>
+
+    <span class="hljs-keyword">int</span> sock = socket( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );
+    assert( sock &gt;= <span class="hljs-number">0</span> );
+
+    <span class="hljs-keyword">int</span> ret = bind( sock, ( struct sockaddr* )&amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
+    assert( ret != <span class="hljs-number">-1</span> );
+
+    ret = listen( sock, <span class="hljs-number">5</span> );
+    assert( ret != <span class="hljs-number">-1</span> );
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">client</span>;</span>
+    <span class="hljs-keyword">socklen_t</span> client_addrlength = <span class="hljs-keyword">sizeof</span>( client );
+    <span class="hljs-keyword">int</span> connfd = accept( sock, ( struct sockaddr* )&amp;client, &amp;client_addrlength );
+    <span class="hljs-keyword">if</span> ( connfd &lt; <span class="hljs-number">0</span> )
+    {
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"errno is: %d\n"</span>, errno );
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        close( STDOUT_FILENO );	<span class="hljs-comment">//关闭标准输出文件描述符STDOUT_FILENO</span>
+        dup( connfd );			<span class="hljs-comment">//复制socket文件描述符；因为dup总是返回系统中最小的可用文件描述符，所以它的返回值实际上是1，即之前关闭 的标准输出文件描述符的值。</span>
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"abcd\n"</span> );
+        close( connfd );
+    }
+
+    close( sock );
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<div class="note note-success">
+            <p><strong>CGI服务器的基本工作原理</strong></p><p>我们先关闭标准输出文件描述符STDOUT_FILENO（其值是1），然后复制socket文 件描述符connfd。因为dup总是返回系统中最小的可用文件描述符，所以它的返回值实际上是1，即之前关闭 的标准输出文件描述符的值。这样一来，<strong>服务器输出到标准输出的内容（这里是“abcd”）就会直接发送到与 客户连接对应的socket上</strong>，因此printf调用的输出将被客户端获得（而不是显示在服务器程序的终端上）。</p>
+          </div>
+<h2 id="readv和writev函数">readv和writev函数</h2>
+<p>简单概括即：<strong>分散读</strong>与<strong>集中写</strong></p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜sys/uio.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">ssize_t</span> <span class="hljs-title">readv</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd,<span class="hljs-keyword">const</span> struct iovec*<span class="hljs-built_in">vector</span>,<span class="hljs-keyword">int</span> count)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">ssize_t</span> <span class="hljs-title">writev</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd,<span class="hljs-keyword">const</span> struct iovec*<span class="hljs-built_in">vector</span>,<span class="hljs-keyword">int</span> count)</span></span>;
+<span class="hljs-comment">//vector参数的类型是iovec结构数组。我们在第5章讨论过结构体 iovec，该结构体描述一块内存区。</span></code></pre></div>
+<h3 id="实例：Web服务器上的集中写">实例：Web服务器上的集中写</h3>
+<p>当Web服务器解析完一个<strong>HTTP请求</strong>后，如果客户具有读的权限，那么它就需要发送一个<strong>HTTP应答</strong>。（这个HTTP应答包含<strong>1个状态行</strong>、<strong>多个头部字段</strong>、<strong>1个空行和文档的内容</strong>。）其中前三个内容存放在一个内存中，而文档内容一般存放在另一个内存中。</p>
+<h4 id="核心代码：">核心代码：</h4>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">/*利用writev将header_buf和file_buf的内容一并写出*/</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">iovec</span> <span class="hljs-title">iv</span>[2];</span>
+iv[ <span class="hljs-number">0</span> ].iov_base = header_buf;
+iv[ <span class="hljs-number">0</span> ].iov_len = <span class="hljs-built_in">strlen</span>( header_buf );
+iv[ <span class="hljs-number">1</span> ].iov_base = file_buf;
+iv[ <span class="hljs-number">1</span> ].iov_len = file_stat.st_size;
+ret = writev( connfd, iv, <span class="hljs-number">2</span> );</code></pre></div>
+<h4 id="完整实现：">完整实现：</h4>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">//头文件省略</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BUFFER_SIZE 1024</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* status_line[<span class="hljs-number">2</span>] = { <span class="hljs-string">"200 OK"</span>, <span class="hljs-string">"500 Internal server error"</span> };
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>* argv[] )</span></span>
+<span class="hljs-function"></span>{
+    <span class="hljs-keyword">if</span>( argc &lt;= <span class="hljs-number">3</span> )
+    {
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"usage: %s ip_address port_number filename\n"</span>, basename( argv[<span class="hljs-number">0</span>] ) );
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* ip = argv[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">int</span> port = atoi( argv[<span class="hljs-number">2</span>] );
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* file_name = argv[<span class="hljs-number">3</span>];
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">address</span>;</span>
+    bzero( &amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
+    address.sin_family = AF_INET;
+    inet_pton( AF_INET, ip, &amp;address.sin_addr );
+    address.sin_port = htons( port );
+
+    <span class="hljs-keyword">int</span> sock = socket( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );
+    assert( sock &gt;= <span class="hljs-number">0</span> );
+
+    <span class="hljs-keyword">int</span> ret = bind( sock, ( struct sockaddr* )&amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
+    assert( ret != <span class="hljs-number">-1</span> );
+
+    ret = listen( sock, <span class="hljs-number">5</span> );
+    assert( ret != <span class="hljs-number">-1</span> );
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">client</span>;</span>
+    <span class="hljs-keyword">socklen_t</span> client_addrlength = <span class="hljs-keyword">sizeof</span>( client );
+    <span class="hljs-keyword">int</span> connfd = accept( sock, ( struct sockaddr* )&amp;client, &amp;client_addrlength );
+    <span class="hljs-keyword">if</span> ( connfd &lt; <span class="hljs-number">0</span> )
+    {
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"errno is: %d\n"</span>, errno );
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        <span class="hljs-keyword">char</span> header_buf[ BUFFER_SIZE ];<span class="hljs-comment">/*用于保存HTTP应答的状态行、头部字段和一个空行的缓存区*/</span>
+        <span class="hljs-built_in">memset</span>( header_buf, <span class="hljs-string">'\0'</span>, BUFFER_SIZE );
+        <span class="hljs-keyword">char</span>* file_buf;<span class="hljs-comment">/*用于存放目标文件内容的应用程序缓存*/</span>
+        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stat</span> <span class="hljs-title">file_stat</span>;</span><span class="hljs-comment">/*用于获取目标文件的属性，比如是否为目录，文件大小等*/</span>
+        <span class="hljs-keyword">bool</span> valid = <span class="hljs-literal">true</span>;<span class="hljs-comment">/*记录目标文件是否是有效文件*/</span>
+        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;<span class="hljs-comment">/*缓存区header_buf目前已经使用了多少字节的空间*/</span>
+        <span class="hljs-keyword">if</span>( stat( file_name, &amp;file_stat ) &lt; <span class="hljs-number">0</span> )<span class="hljs-comment">/*目标文件不存在*/</span>
+        {
+            valid = <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">else</span>
+        {
+            <span class="hljs-keyword">if</span>( S_ISDIR( file_stat.st_mode ) )<span class="hljs-comment">/*目标文件是一个目录*/</span>
+            {
+                valid = <span class="hljs-literal">false</span>;
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( file_stat.st_mode &amp; S_IROTH )<span class="hljs-comment">/*当前用户有读取目标文件的权限*/</span>
+            {
+                <span class="hljs-comment">/*动态分配缓存区file_buf，并指定其大小为目标文件的大小file_stat.st_size加1，然后将目标文件读入缓存区file_buf中*/</span>
+                <span class="hljs-keyword">int</span> fd = open( file_name, O_RDONLY );
+                file_buf = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span> [ file_stat.st_size + <span class="hljs-number">1</span> ];
+                <span class="hljs-built_in">memset</span>( file_buf, <span class="hljs-string">'\0'</span>, file_stat.st_size + <span class="hljs-number">1</span> );
+                <span class="hljs-keyword">if</span> ( read( fd, file_buf, file_stat.st_size ) &lt; <span class="hljs-number">0</span> )
+                {
+                    valid = <span class="hljs-literal">false</span>;
+                }
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                valid = <span class="hljs-literal">false</span>;
+            }
+        }
+        <span class="hljs-comment">/*如果目标文件有效，则发送正常的HTTP应答*/</span>
+        <span class="hljs-keyword">if</span>( valid )
+        {
+            <span class="hljs-comment">/*下面这部分内容将HTTP应答的状态行、“Content-Length”头部字段和一个空行依次加入header_buf中*/</span>
+            ret = <span class="hljs-built_in">snprintf</span>( header_buf, BUFFER_SIZE<span class="hljs-number">-1</span>, <span class="hljs-string">"%s %s\r\n"</span>, <span class="hljs-string">"HTTP/1.1"</span>, status_line[<span class="hljs-number">0</span>] );
+            len += ret;
+            ret = <span class="hljs-built_in">snprintf</span>( header_buf + len, BUFFER_SIZE<span class="hljs-number">-1</span>-len, 
+                             <span class="hljs-string">"Content-Length: %d\r\n"</span>, file_stat.st_size );
+            len += ret;
+            ret = <span class="hljs-built_in">snprintf</span>( header_buf + len, BUFFER_SIZE<span class="hljs-number">-1</span>-len, <span class="hljs-string">"%s"</span>, <span class="hljs-string">"\r\n"</span> );
+            <span class="hljs-comment">/*利用writev将header_buf和file_buf的内容一并写出*/</span>
+            <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">iovec</span> <span class="hljs-title">iv</span>[2];</span>
+            iv[ <span class="hljs-number">0</span> ].iov_base = header_buf;
+            iv[ <span class="hljs-number">0</span> ].iov_len = <span class="hljs-built_in">strlen</span>( header_buf );
+            iv[ <span class="hljs-number">1</span> ].iov_base = file_buf;
+            iv[ <span class="hljs-number">1</span> ].iov_len = file_stat.st_size;
+            ret = writev( connfd, iv, <span class="hljs-number">2</span> );
+        }
+        <span class="hljs-keyword">else</span><span class="hljs-comment">/*如果目标文件无效，则通知客户端服务器发生了“内部错误”*/</span>
+        {
+            ret = <span class="hljs-built_in">snprintf</span>( header_buf, BUFFER_SIZE<span class="hljs-number">-1</span>, <span class="hljs-string">"%s %s\r\n"</span>, <span class="hljs-string">"HTTP/1.1"</span>, status_line[<span class="hljs-number">1</span>] );
+            len += ret;
+            ret = <span class="hljs-built_in">snprintf</span>( header_buf + len, BUFFER_SIZE<span class="hljs-number">-1</span>-len, <span class="hljs-string">"%s"</span>, <span class="hljs-string">"\r\n"</span> );
+            send( connfd, header_buf, <span class="hljs-built_in">strlen</span>( header_buf ), <span class="hljs-number">0</span> );
+        }
+        close( connfd );
+        <span class="hljs-keyword">delete</span> [] file_buf;
+    }
+
+    close( sock );
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 id="sendfile函数">sendfile函数</h2>
+<p>sendfile函数在两个文件描述符之间直接传递数据（完全在内核中操作），从而避免了内核缓冲区和用 户缓冲区之间的数据拷贝，效率很高，这被称为<strong>零拷贝</strong>。</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜sys/sendfile.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">ssize_t</span> <span class="hljs-title">sendfile</span><span class="hljs-params">(<span class="hljs-keyword">int</span> out_fd,<span class="hljs-keyword">int</span> in_fd,<span class="hljs-keyword">off_t</span>*offset,<span class="hljs-keyword">size_t</span> count)</span></span>;
+<span class="hljs-comment">//offset参数指定从读入 文件流的哪个位置开始读，如果为空，则使用读入文件流默认的起始位置。</span>
+<span class="hljs-comment">//count为字节数</span>
+<span class="hljs-comment">//成功返回字节数</span></code></pre></div>
+<h3 id="实例：利用sendfile传输文件">实例：利用sendfile传输文件</h3>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/socket.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;netinet/in.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;arpa/inet.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;assert.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;errno.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/stat.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/sendfile.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>* argv[] )</span></span>
+<span class="hljs-function"></span>{
+    <span class="hljs-keyword">if</span>( argc &lt;= <span class="hljs-number">3</span> )
+    {
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"usage: %s ip_address port_number filename\n"</span>, basename( argv[<span class="hljs-number">0</span>] ) );
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* ip = argv[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">int</span> port = atoi( argv[<span class="hljs-number">2</span>] );
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* file_name = argv[<span class="hljs-number">3</span>];
+
+    <span class="hljs-keyword">int</span> filefd = open( file_name, O_RDONLY );<span class="hljs-comment">//只读</span>
+    assert( filefd &gt; <span class="hljs-number">0</span> );
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stat</span> <span class="hljs-title">stat_buf</span>;</span>
+    fstat( filefd, &amp;stat_buf );
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">address</span>;</span>
+    bzero( &amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
+    address.sin_family = AF_INET;
+    inet_pton( AF_INET, ip, &amp;address.sin_addr );
+    address.sin_port = htons( port );
+
+    <span class="hljs-keyword">int</span> sock = socket( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );
+    assert( sock &gt;= <span class="hljs-number">0</span> );
+
+    <span class="hljs-keyword">int</span> ret = bind( sock, ( struct sockaddr* )&amp;address, <span class="hljs-keyword">sizeof</span>( address ) );
+    assert( ret != <span class="hljs-number">-1</span> );
+
+    ret = listen( sock, <span class="hljs-number">5</span> );
+    assert( ret != <span class="hljs-number">-1</span> );
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">client</span>;</span>
+    <span class="hljs-keyword">socklen_t</span> client_addrlength = <span class="hljs-keyword">sizeof</span>( client );
+    <span class="hljs-keyword">int</span> connfd = accept( sock, ( struct sockaddr* )&amp;client, &amp;client_addrlength );
+    <span class="hljs-keyword">if</span> ( connfd &lt; <span class="hljs-number">0</span> )
+    {
+        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"errno is: %d\n"</span>, errno );
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        sendfile( connfd, filefd, <span class="hljs-literal">NULL</span>, stat_buf.st_size );<span class="hljs-comment">//直接发送就好啦</span>
+        close( connfd );
+    }
+
+    close( sock );
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 id="mmap和munmap函数">mmap和munmap函数</h2>
+<p>mmap函数用于申请一段内存空间。（这段内存空间可用于进程共享、通信；也可以将文件映射其中）</p>
+<p>munmap函数则释放由mmap创建的这段内存空间。</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜sys/mman.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">void</span>*<span class="hljs-title">mmap</span><span class="hljs-params">(<span class="hljs-keyword">void</span>*start,<span class="hljs-keyword">size_t</span> length,<span class="hljs-keyword">int</span> prot,<span class="hljs-keyword">int</span> flags,<span class="hljs-keyword">int</span> fd,<span class="hljs-keyword">off_t</span> offset)</span></span>; 
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">munmap</span><span class="hljs-params">(<span class="hljs-keyword">void</span>*start,<span class="hljs-keyword">size_t</span> length)</span></span>;
+
+<span class="hljs-comment">//prot参数用来设置内存段的访问权限。</span>
+<span class="hljs-comment">//flags参数控制内存段内容被修改后程序的行为。</span>
+<span class="hljs-comment">//fd参数是被映射文件对应的文件描述符。</span>
+<span class="hljs-comment">//offset参数设置从文件的何处 开始映射（对于不需要读入整个文件的情况）。</span></code></pre></div>
+<h2 id="splice函数">splice函数</h2>
+<p>splice函数用于在两个文件描述符之间移动数据，也是<strong>零拷贝</strong>操作。</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜fcntl.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">ssize_t</span> <span class="hljs-title">splice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd_in,<span class="hljs-keyword">loff_t</span>*off_in,<span class="hljs-keyword">int</span> fd_out,<span class="hljs-keyword">loff_t</span>*off_out,<span class="hljs-keyword">size_t</span> len,<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flags)</span></span>;
+<span class="hljs-comment">//flags参数则控制数据如何移动，它可以被设置为表中的某些值的按位或。</span></code></pre></div>
+<h3 id="实例：splice函数实现回射服务器">实例：splice函数实现回射服务器</h3>
+<h4 id="核心代码：-2">核心代码：</h4>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> pipefd[<span class="hljs-number">2</span>];
+ret = pipe( pipefd );
+assert( ret != <span class="hljs-number">-1</span> );
+<span class="hljs-comment">/*将connfd上流入的客户数据定向到管道中*/</span>
+ret = splice( connfd, <span class="hljs-literal">NULL</span>, pipefd[<span class="hljs-number">1</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">32768</span>, SPLICE_F_MORE | SPLICE_F_MOVE ); 
+assert( ret != <span class="hljs-number">-1</span> );
+<span class="hljs-comment">/*将管道的输出定向到connfd客户连接文件描述符*/</span>
+ret = splice( pipefd[<span class="hljs-number">0</span>], <span class="hljs-literal">NULL</span>, connfd, <span class="hljs-literal">NULL</span>, <span class="hljs-number">32768</span>, SPLICE_F_MORE | SPLICE_F_MOVE );
+assert( ret != <span class="hljs-number">-1</span> );
+close( connfd );</code></pre></div>
+<p>简单高效的回射服务。整个过程未执行recv/send操作，因此也未涉及用户空间和内核空间之间的数据拷贝。</p>
+<h2 id="tee函数">tee函数</h2>
+<p>tee函数在两个管道文件描述符之间复制数据，也是零拷贝操作</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜fcntl.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">ssize_t</span> <span class="hljs-title">tee</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd_in,<span class="hljs-keyword">int</span> fd_out,<span class="hljs-keyword">size_t</span> len,<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flags)</span></span>;
+<span class="hljs-comment">//。tee函数成功时返回在 两个文件描述符之间复制的数据数量（字节数）。返回0表示没有复制任何数据。tee失败时返回-1并设置 errno。</span></code></pre></div>
+<p>利用tee函数和splice函数，实现了Linux下<strong>tee程序</strong>（同时输出数据到终端和文件的程序，不要和tee函数混淆）的基本功能。</p>
+<h2 id="fcntl函数">fcntl函数</h2>
+<p>fcntl函数，正如其名字（file control）描述的那样，提供了对文件描述符的各种控制操作。</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span>＜fcntl.h＞ </span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd,<span class="hljs-keyword">int</span> cmd,…)</span></span>;</code></pre></div>
+<p>另外一个常见的控制文件描述符属性和行为的系统调用是ioctl，而且ioctl比fcntl能够执行更多的控制。但是，对于控制文件描述符常用的属性和行为，fcntl函数是由POSIX规范指定的首选方法。</p>
+<p><strong>常用的指令有</strong>：</p>
+<p>（1）F_DUPFD</p>
+<p>与dup函数功能一样，复制由fd指向的文件描述符，调用成功后返回新的文件描述符，与旧的文件描述符共同指向同一个文件。</p>
+<p>（2）F_GETFD</p>
+<p>读取文件描述符close-on-exec标志</p>
+<p>（3）F_SETFD</p>
+<p>将文件描述符close-on-exec标志设置为第三个参数arg的最后一位</p>
+<p>（4）F_GETFL</p>
+<p>获取文件打开方式的标志，标志值含义与open调用一致</p>
+<p>（5）F_SETF</p>
+<p>设置文件打开方式为arg指定方式</p>
+<h2 id="参考资料">参考资料</h2>
+<p>[1] 《UNIX网络编程 卷1 套接字联网API》</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/linux/">linux</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/C-C/">C/C++</a>
+                    
+                      <a class="hover-with-bg" href="/Wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz",
+          app_key: "xM5uBUb3rHXweg6vxqQBs0YV",
+          placeholder: "快来表扬一下我吧(^_^)！！！（邮箱会保密的，请放心填写，当然也可以不填）",
+          path: window.location.pathname,
+          avatar: "hide",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Flaming","artist":"郑晟河","url":"/Wuhlan3/mp3/song1.mp3","cover":"/Wuhlan3/img/song1.jpg"},{"name":"流れ行く雲","artist":"岸部真明","url":"/Wuhlan3/mp3/song2.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"奇迹の山","artist":"岸部真明","url":"/Wuhlan3/mp3/song3.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"Sunflower","artist":"孙培博","url":"/Wuhlan3/mp3/song5.mp3","cover":"/Wuhlan3/img/song3.jpg"},{"name":"少年の梦","artist":"岸部真明","url":"/Wuhlan3/mp3/song4.m4a","cover":"/Wuhlan3/img/song2.jpg"},{"name":"like a star","artist":"Youngso Kim","url":"/Wuhlan3/mp3/like a star.mp3","cover":"/Wuhlan3/img/like a star.jpg"},{"name":"境","artist":"刘嘉卓","url":"/Wuhlan3/mp3/境.mp3","cover":"/Wuhlan3/img/刘嘉卓.jpg"},{"name":"翼~you are the HERO~","artist":"押尾コータロー","url":"/Wuhlan3/mp3/wings.mp3","cover":"/Wuhlan3/img/押尾.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/Wuhlan3/js/debouncer.js" ></script>
+<script  src="/Wuhlan3/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/Wuhlan3/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/Wuhlan3/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/Wuhlan3/2021/08/10/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E5%8D%81%EF%BC%89/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz'
+    var app_key = 'xM5uBUb3rHXweg6vxqQBs0YV'
+    var server_url = ''
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+  
+<script src="/Wuhlan3/js/dongtaicaidai.js"></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    function typing(id, title){
+        var typed = new Typed('#' + id, {
+            strings: [
+              '  ',
+              title + "&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    }
+    
+        typing("subtitle", "UNIX网络编程（十）")
+    
+  </script>
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/Wuhlan3/js/local-search.js" ></script>
+  <script>
+    var path = "/Wuhlan3/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/Wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>
