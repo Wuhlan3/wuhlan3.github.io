@@ -28,9 +28,9 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.531Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -314,99 +314,93 @@
                 <h2 id="socket函数">socket函数</h2>
 <p>调用socket函数，指定期望的通信协议类型</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">socket</span><span class="hljs-params">(<span class="hljs-type">int</span> family, <span class="hljs-type">int</span> type, <span class="hljs-type">int</span> protocol)</span></span>;<br><span class="hljs-comment">/*返回一个飞赴整数，与文件描述符fd类似，称为套接字描述符sockfd*/</span><br></code></pre></td></tr></table></figure>
-<ol>
-<li>
-<p>family是协议族/协议域</p>
+<ol type="1">
+<li><p>family是协议族/协议域</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>family</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>AF_INET</td>
 <td>IPv4协议</td>
 </tr>
-<tr>
+<tr class="even">
 <td>AF_INET6</td>
 <td>IPv6协议</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>AF_LOCAL</td>
 <td>Unix域协议</td>
 </tr>
-<tr>
+<tr class="even">
 <td>AF_ROUTE</td>
 <td>路由套接字</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>AF_KEY</td>
 <td>密钥套接字</td>
 </tr>
 </tbody>
-</table>
-</li>
-<li>
-<p>type是套接字类型</p>
+</table></li>
+<li><p>type是套接字类型</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>type</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>SOCK_STREAM</td>
 <td>字节流套接字</td>
 </tr>
-<tr>
+<tr class="even">
 <td>SOCK_DGRAM</td>
 <td>数据报套接字</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>SOCK_SEQPACKET</td>
 <td>有序分组套接字</td>
 </tr>
-<tr>
+<tr class="even">
 <td>SOCK_RAW</td>
 <td>原始套接字</td>
 </tr>
 </tbody>
-</table>
-</li>
-<li>
-<p>protocol是某个协议的常值</p>
+</table></li>
+<li><p>protocol是某个协议的常值</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>protocol</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>IPPROTO_CP</td>
 <td>TCP传输协议</td>
 </tr>
-<tr>
+<tr class="even">
 <td>IPPROTO_UDP</td>
 <td>UDP传输协议</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>IPPROTO_SCTP</td>
 <td>SCTP传输协议</td>
 </tr>
 </tbody>
-</table>
-</li>
+</table></li>
 </ol>
 <h2 id="connect函数">connect函数</h2>
 <p>TCP客户用connect函数来建立与TCP服务器的连接：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">connect</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> sockaddr *servaddr, <span class="hljs-type">socklen_t</span> addrlen)</span></span>;<br></code></pre></td></tr></table></figure>
-<ol>
+<ol type="1">
 <li>sockfd是由socket函数返回地套接字描述符</li>
 <li>指向地址结构的指针</li>
 <li>结构的大小</li>
@@ -420,10 +414,11 @@
 <p>通配地址的表示方法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//IPv4</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> servaddr;<br>servaddr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);<span class="hljs-comment">//因为大端序或小端序0都一样，所以htonl可以省略</span><br><span class="hljs-comment">//IPv6</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in6</span> serv;<br>serv.sin6_addr = in6addr_any;<br></code></pre></td></tr></table></figure>
 <h2 id="litsen函数">litsen函数</h2>
-<p>结合<a href="https://wuhlan3.gitee.io/wuhlan3/2021/07/29/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/">UNIX网络编程（二）</a>中的图2-4来理解</p>
+<p>结合<a
+href="https://wuhlan3.gitee.io/wuhlan3/2021/07/29/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/">UNIX网络编程（二）</a>中的图2-4来理解</p>
 <p>socket函数创建一个套接字时，它被假设为一个主动套接字，可以使用connect发起连接。listen函数是把未连接的套接字转换为一个被动套接字。<strong>CLOSED</strong>状态转换为<strong>LISTEN</strong>状态。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">listen</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">int</span> backlog)</span></span>; <span class="hljs-comment">//backlog规定了两条队列的最大数之和</span><br></code></pre></td></tr></table></figure>
-<img src="image-20210802094754444.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210802094754444" style="zoom:80%;" />
+<p><img src="image-20210802094754444.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210802094754444" style="zoom:80%;" /></p>
 <ul>
 <li>未完成连接队列：每个SYN分节对应其中一项。<strong>SYN_RCVD</strong>状态</li>
 <li>已完成连接队列：每个已完成TCP握手状态的客户对应其中一项。<strong>ESTABLISHED</strong>状态</li>
@@ -442,7 +437,7 @@
 </ul>
 <p>如果对于客户协议地址不感兴趣，可以把后两个参数都设为空指针。</p>
 <h3 id="小练习">小练习</h3>
-<p>使用两个客户端分别连接<code>127.0.0.1 </code>和<code>192.168.1.128</code></p>
+<p>使用两个客户端分别连接<code>127.0.0.1</code>和<code>192.168.1.128</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ sudo ./daytimetcpsrv1 <br>connection from 127.0.0.1, port 48390<br>connection from 192.168.206.128, port 44398<br></code></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ ./daytimetcpcli1 127.0.0.1<br>Sun Aug  1 20:31:44 2021<br>counter = 1<br>wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ ./daytimetcpcli1 192.168.206.128<br>Sun Aug  1 20:31:48 2021<br>counter = 1<br></code></pre></td></tr></table></figure>
 <h2 id="fork和exec函数">fork和exec函数</h2>
@@ -459,9 +454,9 @@
 <p>（a）待执行的程序文件是由文件名还是由路径名指定</p>
 <p>（b）新程序的参数是一一列出还是由一个指针数组来引用</p>
 <p>（c）把调用进程的环境传递给新程序还是给新程序指定新的环境</p>
-<img src="image-20210802135655807.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210802135655807" style="zoom:80%;" />
+<p><img src="image-20210802135655807.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210802135655807" style="zoom:80%;" /></p>
 <p>综合上述两个函数，由两种fork的用法：</p>
-<ol>
+<ol type="1">
 <li>一个进程创建一个自身的副本，这样每个副本可以同时处理各自的操作（网络服务器的典型做法）</li>
 <li>一个进程想要执行另一个程序。先fork出一个自身的副本，再让其中一个副本调用exec把自身替换成新的程序。（shell之类程序的典型用法）</li>
 </ol>
@@ -469,7 +464,7 @@
 <p>仔细看daytimetcpsrv1.c的代码，会发现服务器每次执行完一个请求，才会处理下一个，称为<strong>迭代服务器</strong>。对于时间获取而言，时间足够短迭代服务器也就足够了。但是对于任务量比较大的情况，可以实现<strong>并发服务器</strong>，下面给出基本结构：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">pid_t</span> pid;<br><span class="hljs-type">int</span>    listenfd, connfd;<br>listen = <span class="hljs-built_in">Socket</span>( ... );<br><span class="hljs-built_in">Bind</span>(listenfd, ... );<br><span class="hljs-built_in">Listen</span>(listenfd, LISTENQ);<br><span class="hljs-keyword">for</span>( ; ; )&#123;<br>    connfd = <span class="hljs-built_in">Accept</span>(listen, ... );<br>    <span class="hljs-keyword">if</span>( (pid = <span class="hljs-built_in">Fork</span>()) == <span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">Close</span>(listenfd);	<span class="hljs-comment">//子进程关闭监听套接字</span><br>        <span class="hljs-built_in">doit</span>(connfd);		<span class="hljs-comment">//完成请求</span><br>        <span class="hljs-built_in">Close</span>(connfd);		<span class="hljs-comment">//子进程关闭连接套接字</span><br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);			<span class="hljs-comment">//删除子进程，会自动关闭所有套接字，看个人习惯，需不需要显式关闭connfd</span><br>    &#125;<br>    <span class="hljs-built_in">Close</span>(connfd);<br>&#125;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>我们知道，调用close的时候会发送一个<strong>FIN</strong>，为什么父进程close后没有终止子进程与客户之间的连接呢？</p><p>答：每个文件或套接字都有一个引用计数。只有当引用计数为0的时候，才会发生清理和资源释放。</p>
+            <p>我们知道，调用close的时候会发送一个<strong>FIN</strong>，为什么父进程close后没有终止子进程与客户之间的连接呢？</p><p>答：每个文件或套接字都有一个引用计数。只有当引用计数为0的时候，才会发生清理和资源释放。</p>
           </div>
 <h2 id="close函数">close函数</h2>
 <p>用于关闭套接字，并终止TCP连接。</p>
@@ -482,24 +477,14 @@
 <p>这两个函数的最后一个参数都是<strong>值-结果参数</strong>。</p>
 <p>为什么需要这两个函数呢？</p>
 <ul>
-<li>
-<p>TCP客户没有使用bind函数，那么connect成功返回后，getsockname可用于返回内核所选择赋予的本地IP地址和本地端口号</p>
-</li>
-<li>
-<p>在以端口号0调用bind后，getsockname用于返回由内核赋予的本地端口号</p>
-</li>
-<li>
-<p>getsockname还可用于获取某个套接字的地址族</p>
-</li>
-<li>
-<p>在一个以通配IP地址调用bind的TCP服务器上，与某个客户一旦建立连接，getsockname可用于返回内核赋予的本地IP地址</p>
-</li>
-<li>
-<p>当一个服务器是由调用accept的某个进程通过调用exec执行程序时，它能够获取客户身份的唯一途径时调用getpeername</p>
-<img src="image-20210802152054344.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210802152054344" style="zoom:80%;" />
-</li>
+<li><p>TCP客户没有使用bind函数，那么connect成功返回后，getsockname可用于返回内核所选择赋予的本地IP地址和本地端口号</p></li>
+<li><p>在以端口号0调用bind后，getsockname用于返回由内核赋予的本地端口号</p></li>
+<li><p>getsockname还可用于获取某个套接字的地址族</p></li>
+<li><p>在一个以通配IP地址调用bind的TCP服务器上，与某个客户一旦建立连接，getsockname可用于返回内核赋予的本地IP地址</p></li>
+<li><p>当一个服务器是由调用accept的某个进程通过调用exec执行程序时，它能够获取客户身份的唯一途径时调用getpeername</p>
+<p><img src="image-20210802152054344.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210802152054344" style="zoom:80%;" /></p></li>
 </ul>
-<h3 id="小练习，获取套接字的地址族">小练习，获取套接字的地址族</h3>
+<h3 id="小练习获取套接字的地址族">小练习，获取套接字的地址族</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;unp.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">sockfd_to_family</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd)</span></span>&#123;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_storage</span> ss;	<span class="hljs-comment">//采用最大的套接字地址结构来分配空间</span><br>    <span class="hljs-type">socklen_t</span> len;<br>    <br>    len = <span class="hljs-built_in">sizeof</span>(ss);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">getsockname</span>(sockfd, (SA*) &amp;ss, &amp;len) &lt;<span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span>(<span class="hljs-number">-1</span>);<br>    <span class="hljs-keyword">return</span>(ss.ss_family);	<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] https://segmentfault.com/a/1190000019252960</p>
@@ -518,11 +503,11 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -655,12 +640,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -879,49 +858,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

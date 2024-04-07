@@ -308,35 +308,51 @@
             
               <div class="markdown-body">
                 
-                <h1>一文解决位运算</h1>
-<h2 id="技法1：减一与">技法1：减一与</h2>
+                <h1 id="一文解决位运算">一文解决位运算</h1>
+<h2 id="技法1减一与">技法1：减一与</h2>
 <p>我们先来关注一个特性：</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">对于数字1111001000，对其减一可得：<br>1111000111<br>将两个数字做与运算，可得11110000000<br><span class="hljs-code">    1111001000</span><br><span class="hljs-section">&amp;    1111000111</span><br><span class="hljs-section">---------------</span><br><span class="hljs-code">    11110000000</span><br>我们会发现，经过n = n&amp;(n-1)之后，我们可以将最后的一个1消去<br></code></pre></td></tr></table></figure>
 <p>有了这个特性，我们可以解决下面这些题目：</p>
-<h3 id="231-2-的幂"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-two/">231. 2 的幂</a></h3>
+<h3 id="的幂"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-two/">231. 2
+的幂</a></h3>
 <p>解：2的幂特点就是，1、100、10000、10000000。只有1个“1”。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfTwo</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> (n&gt;<span class="hljs-number">0</span>)&amp;&amp;(n&amp;(n<span class="hljs-number">-1</span>))==<span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="342-4的幂"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-four/">342. 4的幂</a></h3>
-<p>解：在2的幂基础上，分类讨论。其中$2<sup>{2x+1}mod3==2$、$2</sup>{2x}mod3==1$</p>
+<h3 id="的幂-1"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-four/">342.
+4的幂</a></h3>
+<p>解：在2的幂基础上，分类讨论。其中<span
+class="math inline">\(2^{2x+1}mod3==2\)</span>、<span
+class="math inline">\(2^{2x}mod3==1\)</span></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isPowerOfFour</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> n&gt;<span class="hljs-number">0</span> &amp;&amp; (n&amp;(n<span class="hljs-number">-1</span>))==<span class="hljs-number">0</span> &amp;&amp; (n%<span class="hljs-number">3</span> == <span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="191-位1的个数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-1-bits/">191. 位1的个数</a></h3>
+<h3 id="位1的个数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-1-bits/">191.
+位1的个数</a></h3>
 <p>解：循环地将最后一个1消去，即可数出1的个数。</p>
-<h3 id="461-汉明距离"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/hamming-distance/">461. 汉明距离</a></h3>
+<h3 id="汉明距离"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/hamming-distance/">461.
+汉明距离</a></h3>
 <p>解：先取异或，然后统计1的个数。</p>
-<h2 id="技法2：异或相消">技法2：异或相消</h2>
+<h2 id="技法2异或相消">技法2：异或相消</h2>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs armasm">假设a != <span class="hljs-keyword">b</span><br>那么 a ^ <span class="hljs-keyword">b</span> ^ a = b<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
-<h3 id="136-只出现一次的数字"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></h3>
+<h3 id="只出现一次的数字"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number/">136.
+只出现一次的数字</a></h3>
 <blockquote>
 <p>进阶（虽然没有用到异或相消原则）</p>
-<h3 id="137-只出现一次的数字-II"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-ii/">137. 只出现一次的数字 II</a></h3>
+<h3 id="只出现一次的数字-ii"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-ii/">137.
+只出现一次的数字 II</a></h3>
 <p>统计每个位是否为3的倍数，如果是，则ans的该位数字为1</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-built_in">int</span> ans = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">32</span>; i ++)&#123;<br>    <span class="hljs-built_in">int</span> <span class="hljs-keyword">sum</span> = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(auto x : nums)&#123;<br>        <span class="hljs-keyword">sum</span>  += (x &gt;&gt; i)&amp;<span class="hljs-number">1</span>;<br>    &#125;<br>    ans += <span class="hljs-keyword">sum</span>%<span class="hljs-number">3</span>==<span class="hljs-number">0</span>? <span class="hljs-number">0</span> : <span class="hljs-number">1</span> &lt;&lt; i;<br>&#125;<br><span class="hljs-keyword">return</span> ans;<br></code></pre></td></tr></table></figure>
 </blockquote>
-<h2 id="技法3：正负值异或">技法3：正负值异或</h2>
+<h2 id="技法3正负值异或">技法3：正负值异或</h2>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">low</span> = n &amp; (-n)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 <p>这样可以获取最低位的1。可以解决下面这样的问题：</p>
-<h3 id="260-只出现一次的数字-III"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-iii/">260. 只出现一次的数字 III</a></h3>
-<h2 id="技法4：数字交换">技法4：数字交换</h2>
+<h3 id="只出现一次的数字-iii"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number-iii/">260.
+只出现一次的数字 III</a></h3>
+<h2 id="技法4数字交换">技法4：数字交换</h2>
 <p><strong>加减数字交换</strong>(可能产生溢出)</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">a</span> = a + b<span class="hljs-comment">;</span><br><span class="hljs-attr">b</span> = a - b<span class="hljs-comment">;</span><br><span class="hljs-attr">a</span> = a - b<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 <p><strong>异或数字交换</strong></p>
@@ -344,11 +360,17 @@
 <p>为什么可以呢？我们展开来看看：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">a</span> = a^b<span class="hljs-comment">;</span><br><span class="hljs-attr">b</span> = a^b = a^b^b = a<span class="hljs-comment">;</span><br><span class="hljs-attr">a</span> = a^b = a^b^a = b<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 <h2 id="其他">其他</h2>
-<h3 id="693-交替位二进制数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-number-with-alternating-bits/">693. 交替位二进制数</a></h3>
+<h3 id="交替位二进制数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-number-with-alternating-bits/">693.
+交替位二进制数</a></h3>
 <p>解：可以使用3（二进制为11）来循环作与运算</p>
-<h3 id="371-两整数之和"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sum-of-two-integers/">371. 两整数之和</a></h3>
+<h3 id="两整数之和"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sum-of-two-integers/">371.
+两整数之和</a></h3>
 <p>解：使用与来计算进位，使用异或来计算当前为的数字。</p>
-<h3 id="面试题-05-01-插入"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insert-into-bits-lcci/">面试题 05.01. 插入</a></h3>
+<h3 id="面试题-05.01.-插入"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insert-into-bits-lcci/">面试题
+05.01. 插入</a></h3>
 
                 
               </div>
@@ -517,12 +539,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -741,49 +757,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

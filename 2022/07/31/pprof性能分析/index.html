@@ -25,7 +25,6 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731201857858.png">
 <meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731204427226.png">
-<meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222053015.png">
 <meta property="og:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222622729.png">
 <meta property="article:published_time" content="2022-07-31T13:53:00.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.595Z">
@@ -312,8 +311,10 @@
             
               <div class="markdown-body">
                 
-                <h1>pprof 性能分析</h1>
-<p>benchmark(基准测试) 可以度量某个函数或方法的性能，也就是说，如果我们知道性能的瓶颈点在哪里，benchmark 是一个非常好的方式。但是面对一个未知的程序，如何去分析这个程序的性能，并找到瓶颈点呢？</p>
+                <h1 id="pprof-性能分析">pprof 性能分析</h1>
+<p>benchmark(基准测试)
+可以度量某个函数或方法的性能，也就是说，如果我们知道性能的瓶颈点在哪里，benchmark
+是一个非常好的方式。但是面对一个未知的程序，如何去分析这个程序的性能，并找到瓶颈点呢？</p>
 <p>pprof 就是用来解决这个问题的。pprof 包含两部分：</p>
 <ul>
 <li>编译到程序中的 <code>runtime/pprof</code> 包</li>
@@ -321,60 +322,81 @@
 </ul>
 <p>windows本地查看腾讯云云服务器上的pprof测试结果，只需远程安装：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo yum install graphviz<br></code></pre></td></tr></table></figure>
-<h2 id="一、CPU性能分析">一、CPU性能分析</h2>
-<p>启动 CPU 分析时，运行时(runtime) 将每隔 10ms 中断一次（为什么是10ms呢？后面会提到），记录此时正在运行的协程(goroutines) 的堆栈信息。启动 CPU 分析时，运行时(runtime) 将每隔 10ms 中断一次，记录此时正在运行的协程(goroutines) 的堆栈信息。程序运行结束后，可以分析记录的数据找到最热代码路径(hottest code paths)。</p>
+<h2 id="一cpu性能分析">一、CPU性能分析</h2>
+<p>启动 CPU 分析时，运行时(runtime) 将每隔 10ms
+中断一次（为什么是10ms呢？后面会提到），记录此时正在运行的协程(goroutines)
+的堆栈信息。启动 CPU 分析时，运行时(runtime) 将每隔 10ms
+中断一次，记录此时正在运行的协程(goroutines)
+的堆栈信息。程序运行结束后，可以分析记录的数据找到最热代码路径(hottest
+code paths)。</p>
 <blockquote>
 <p>编译器热路径是编译器中的代码执行路径，大部分执行时间都花在了这些路径上，并且可能会非常频繁地执行这些路径。</p>
 </blockquote>
-<p>一个函数在性能分析过程中出现的次数越多，说明执行该函数的代码路径(code path)花费的时间占总运行时间的比重越大。</p>
+<p>一个函数在性能分析过程中出现的次数越多，说明执行该函数的代码路径(code
+path)花费的时间占总运行时间的比重越大。</p>
 <h3 id="具体实现方式">具体实现方式</h3>
 <p>在main函数之前添加这两句，可以将性能数据输出到cpu.pprof</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">f, _ := os.OpenFile(<span class="hljs-string">&quot;cpu.pprof&quot;</span>, os.O_CREATE|os.O_RDWR, <span class="hljs-number">0644</span>)<br><span class="hljs-keyword">defer</span> f.Close()<br>pprof.StartCPUProfile(f)    <span class="hljs-comment">//源码中提到：当频率大于500Hz，可能会影响本身的效率，而经过测试，最适合的频率是100Hz，不会影响且会提供有价值的数据。</span><br><span class="hljs-keyword">defer</span> pprof.StopCPUProfile()<br></code></pre></td></tr></table></figure>
 <p>对数据及进行分析：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">$ go<span class="hljs-built_in"> tool </span>pprof <span class="hljs-attribute">-http</span>=127.0.0.1:6060 cpu.pprof<br></code></pre></td></tr></table></figure>
 <p>之后会自动打开浏览器，如下，可以通过不同的方式查看结果：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731201857858.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731201857858" style="zoom:50%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731201857858.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731201857858" style="zoom:50%;" /></p>
 <p>也可以直接通过命令行来分析：</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs stata">[root@VM-16-2-centos pprof-<span class="hljs-keyword">test</span>]# go tool pprof cpu.pprof<br><span class="hljs-keyword">File</span>: main<br><span class="hljs-keyword">Type</span>: cpu<br>Time: Jul 31, 2022 at 3:58pm (CST)<br>Duration: 17.34s, <span class="hljs-keyword">Total</span> samples = 17.25s (99.46%)<br>Entering interactive mode (<span class="hljs-keyword">type</span> <span class="hljs-string">&quot;help&quot;</span> <span class="hljs-keyword">for</span> commands, <span class="hljs-string">&quot;o&quot;</span> <span class="hljs-keyword">for</span> options)<br>(pprof) top<br>Showing nodes accounting <span class="hljs-keyword">for</span> 17.18s, 99.59% of 17.25s <span class="hljs-keyword">total</span><br>Dropped 17 nodes (cum &lt;= 0.09s)<br>      flat  flat%   <span class="hljs-keyword">sum</span>%        cum   cum%<br>    17.18s 99.59% 99.59%     17.21s 99.77%  main.bubbleSort (inline)<br>         0     0% 99.59%     17.22s 99.83%  main.main<br>         0     0% 99.59%     17.22s 99.83%  runtime.main<br>(pprof) top -cum<br>Showing nodes accounting <span class="hljs-keyword">for</span> 17.18s, 99.59% of 17.25s <span class="hljs-keyword">total</span><br>Dropped 17 nodes (cum &lt;= 0.09s)<br>      flat  flat%   <span class="hljs-keyword">sum</span>%        cum   cum%<br>         0     0%     0%     17.22s 99.83%  main.main<br>         0     0%     0%     17.22s 99.83%  runtime.main<br>    17.18s 99.59% 99.59%     17.21s 99.77%  main.bubbleSort (inline)<br>(pprof) <span class="hljs-keyword">help</span><br>  Commands:<br>    callgrind        Outputs a <span class="hljs-keyword">graph</span> <span class="hljs-keyword">in</span> callgrind <span class="hljs-keyword">format</span><br>    comments         Output all profile comments<br>    disasm           Output assembly listings annotated with samples<br>    dot              Outputs a <span class="hljs-keyword">graph</span> <span class="hljs-keyword">in</span> DOT <span class="hljs-keyword">format</span><br>    eog              Visualize <span class="hljs-keyword">graph</span> through eog<br>    evince           Visualize <span class="hljs-keyword">graph</span> through evince<br>    gif              Outputs a <span class="hljs-keyword">graph</span> image <span class="hljs-keyword">in</span> GIF <span class="hljs-keyword">format</span><br>    gv               Visualize <span class="hljs-keyword">graph</span> through gv<br>    kcachegrind      Visualize <span class="hljs-keyword">report</span> <span class="hljs-keyword">in</span> KCachegrind<br>    <span class="hljs-keyword">list</span>             Output annotated source <span class="hljs-keyword">for</span> functions matching regexp<br>    pdf              Outputs a <span class="hljs-keyword">graph</span> <span class="hljs-keyword">in</span> PDF <span class="hljs-keyword">format</span><br>    peek             Output callers/callees of functions matching regexp<br>    png              Outputs a <span class="hljs-keyword">graph</span> image <span class="hljs-keyword">in</span> PNG <span class="hljs-keyword">format</span><br>    proto            Outputs the profile <span class="hljs-keyword">in</span> compressed protobuf <span class="hljs-keyword">format</span><br>    ps               Outputs a <span class="hljs-keyword">graph</span> <span class="hljs-keyword">in</span> PS <span class="hljs-keyword">format</span><br>    raw              Outputs a text representation of the raw profile<br>    svg              Outputs a <span class="hljs-keyword">graph</span> <span class="hljs-keyword">in</span> SVG <span class="hljs-keyword">format</span><br>    tags             Outputs all tags <span class="hljs-keyword">in</span> the profile<br>    text             Outputs top entries <span class="hljs-keyword">in</span> text <span class="hljs-keyword">form</span><br>    top              Outputs top entries <span class="hljs-keyword">in</span> text <span class="hljs-keyword">form</span><br>    topproto         Outputs top entries <span class="hljs-keyword">in</span> compressed protobuf <span class="hljs-keyword">format</span><br>    traces           Outputs all profile samples <span class="hljs-keyword">in</span> text <span class="hljs-keyword">form</span><br>    tree             Outputs a text rendering of call <span class="hljs-keyword">graph</span><br>    web              Visualize <span class="hljs-keyword">graph</span> through web browser<br>    weblist          <span class="hljs-keyword">Display</span> annotated source <span class="hljs-keyword">in</span> a web browser<br>    o/options        <span class="hljs-keyword">List</span> options and their current values<br>    q/quit/<span class="hljs-keyword">exit</span>/^<span class="hljs-keyword">D</span>   <span class="hljs-keyword">Exit</span> pprof<br></code></pre></td></tr></table></figure>
-<h2 id="二、内存分析">二、内存分析</h2>
-<p>内存性能分析(Memory profiling) 记录堆内存分配时的堆栈信息，忽略栈内存分配信息。</p>
+<h2 id="二内存分析">二、内存分析</h2>
+<p>内存性能分析(Memory profiling)
+记录堆内存分配时的堆栈信息，忽略栈内存分配信息。</p>
 <p>内存性能分析启用时，默认每1000次采样1次，这个比例是可以调整的。因为内存性能分析是基于采样的，因此基于内存分析数据来判断程序所有的内存使用情况是很困难的。</p>
-<h3 id="具体实现方式-2">具体实现方式</h3>
-<p>需要导入<code>&quot;github.com/pkg/profile&quot;</code>然后在main函数之前添加：</p>
+<h3 id="具体实现方式-1">具体实现方式</h3>
+<p>需要导入<code>"github.com/pkg/profile"</code>然后在main函数之前添加：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">defer profile<span class="hljs-selector-class">.Start</span>(profile<span class="hljs-selector-class">.MemProfile</span>, profile<span class="hljs-selector-class">.MemProfileRate</span>(<span class="hljs-number">1</span>))<span class="hljs-selector-class">.Stop</span>()<br></code></pre></td></tr></table></figure>
 <p>对数据及进行分析：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">go<span class="hljs-built_in"> tool </span>pprof <span class="hljs-attribute">-http</span>=127.0.0.1:6060 /tmp/profile2738765321/mem.pprof<br></code></pre></td></tr></table></figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731204427226.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731204427226" style="zoom: 50%;" />
-<h2 id="三、针对web程序">三、针对web程序</h2>
-<p>针对一直运行的后台服务，比如 web 应用或者分布式应用，我们可以使用 net/http/pprof 库，它能够在应用提供 HTTP 服务时进行分析。</p>
-<p>pprof 采集后台服务，如果使用了默认的 <code>http.DefaultServeMux</code>，通常是代码直接使用<code> http.ListenAndServe(“0.0.0.0:8000”, nil)</code>，这种情况则比较简单，只需要导入包即可。</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731204427226.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731204427226" style="zoom: 50%;" /></p>
+<h2 id="三针对web程序">三、针对web程序</h2>
+<p>针对一直运行的后台服务，比如 web 应用或者分布式应用，我们可以使用
+net/http/pprof 库，它能够在应用提供 HTTP 服务时进行分析。</p>
+<p>pprof 采集后台服务，如果使用了默认的
+<code>http.DefaultServeMux</code>，通常是代码直接使用<code>http.ListenAndServe(“0.0.0.0:8000”, nil)</code>，这种情况则比较简单，只需要导入包即可。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> (<br>    _ <span class="hljs-string">&quot;net/http/pprof&quot;</span><br>)<br></code></pre></td></tr></table></figure>
-<p>注意该包利用下划线&quot;_&quot;导入，意味着我们只需要该包运行其init()函数即可，如此该包将自动完成信息采集并保存在内存中。</p>
+<p>注意该包利用下划线"_"导入，意味着我们只需要该包运行其init()函数即可，如此该包将自动完成信息采集并保存在内存中。</p>
 <p>如果你使用自定义的 ServerMux复用器，则需要手动注册一些路由规则：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go">r.HandleFunc(<span class="hljs-string">&quot;/debug/pprof/&quot;</span>, pprof.Index)<br>r.HandleFunc(<span class="hljs-string">&quot;/debug/pprof/heap&quot;</span>, pprof.Index)<br>r.HandleFunc(<span class="hljs-string">&quot;/debug/pprof/cmdline&quot;</span>, pprof.Cmdline)<br>r.HandleFunc(<span class="hljs-string">&quot;/debug/pprof/profile&quot;</span>, pprof.Profile)<br>r.HandleFunc(<span class="hljs-string">&quot;/debug/pprof/symbol&quot;</span>, pprof.Symbol)<br>r.HandleFunc(<span class="hljs-string">&quot;/debug/pprof/trace&quot;</span>, pprof.Trace)<br></code></pre></td></tr></table></figure>
 <p>这些路径分别表示：</p>
 <ul>
-<li>/debug/pprof/profile：访问这个链接会自动进行 CPU profiling，持续 30s，并生成一个文件供下载，可以通过带参数?=seconds=60进行60秒的数据采集。</li>
+<li>/debug/pprof/profile：访问这个链接会自动进行 CPU profiling，持续
+30s，并生成一个文件供下载，可以通过带参数?=seconds=60进行60秒的数据采集。</li>
 <li>/debug/pprof/block：Goroutine阻塞事件的记录。默认每发生一次阻塞事件时取样一次。</li>
 <li>/debug/pprof/goroutines：活跃Goroutine的信息的记录。仅在获取时取样一次。</li>
-<li>/debug/pprof/heap： 堆内存分配情况的记录。默认每分配512K字节时取样一次。</li>
+<li>/debug/pprof/heap：
+堆内存分配情况的记录。默认每分配512K字节时取样一次。</li>
 <li>/debug/pprof/mutex: 查看争用互斥锁的持有者。</li>
-<li>/debug/pprof/threadcreate: 系统线程创建情况的记录。 仅在获取时取样一次。</li>
+<li>/debug/pprof/threadcreate: 系统线程创建情况的记录。
+仅在获取时取样一次。</li>
 </ul>
-<h3 id="在Gin框架中使用pprof">在Gin框架中使用pprof</h3>
+<h3 id="在gin框架中使用pprof">在Gin框架中使用pprof</h3>
 <p>可以导入包<code>go get github.com/gin-contrib/pprof</code>，之后就可以看到一些新的接口生成：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222053015.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731222053015"></p>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222053015.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220731222053015" />
+<figcaption aria-hidden="true">image-20220731222053015</figcaption>
+</figure>
 <p>profile文件保存在/root/pprof/pprof.api.samples.cpu.001.pb.gz，之后直接使用上述的分析方式即可在windows界面打开：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp">[<span class="hljs-meta">root@VM-16-2-centos api</span>]<span class="hljs-meta"># go tool pprof -http=127.0.0.1:6060 /root/pprof/pprof.api.samples.cpu.001.pb.gz</span><br>Serving web UI <span class="hljs-keyword">on</span> http:<span class="hljs-comment">//127.0.0.1:6060</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>关于火焰图的基本理解方法：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222622729.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731222622729" style="zoom:67%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220731222622729.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220731222622729" style="zoom:67%;" /></p>
 </blockquote>
 <h2 id="参考资料">参考资料</h2>
-<p>[1] <a target="_blank" rel="noopener" href="https://geektutu.com/post/hpg-pprof.html">https://geektutu.com/post/hpg-pprof.html</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/289818">https://bbs.huaweicloud.com/blogs/289818</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://bytedancecampus1.feishu.cn/docs/doccn4F3nKRdd9Uq7RGl6JPPFWg#">https://bytedancecampus1.feishu.cn/docs/doccn4F3nKRdd9Uq7RGl6JPPFWg#</a></p>
-<p>[4] <a target="_blank" rel="noopener" href="http://liumurong.org/2019/12/gin_pprof/">http://liumurong.org/2019/12/gin_pprof/</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://geektutu.com/post/hpg-pprof.html">https://geektutu.com/post/hpg-pprof.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/289818">https://bbs.huaweicloud.com/blogs/289818</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://bytedancecampus1.feishu.cn/docs/doccn4F3nKRdd9Uq7RGl6JPPFWg#">https://bytedancecampus1.feishu.cn/docs/doccn4F3nKRdd9Uq7RGl6JPPFWg#</a></p>
+<p>[4] <a
+target="_blank" rel="noopener" href="http://liumurong.org/2019/12/gin_pprof/">http://liumurong.org/2019/12/gin_pprof/</a></p>
 
                 
               </div>
@@ -545,12 +567,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -769,49 +785,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

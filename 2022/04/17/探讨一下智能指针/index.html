@@ -312,7 +312,7 @@
             
               <div class="markdown-body">
                 
-                <h1>探讨智能指针</h1>
+                <h1 id="探讨智能指针">探讨智能指针</h1>
 <p>C++中，动态内存的管理需要依靠一对运算符来完成：<strong>new</strong>，在动态内存中为对象分配空间并返回一个指向该对象的指针，我们可以选择对对象进行初始化；<strong>delete</strong>，接受一个动态对象的指针，销毁该对象，释放与之关联的内存。</p>
 <p>但是，动态内存的使用很容易出现问题。</p>
 <ul>
@@ -323,47 +323,47 @@
 <ul>
 <li><code>shared_ptr</code> 允许多个指针指向同一个对象；</li>
 <li><code>unique_ptr</code> 则独占所指向的对象；</li>
-<li><code>weak_ptr</code>，是一种弱引用，指向<code>shared_ptr</code> 管理的对象。</li>
+<li><code>weak_ptr</code>，是一种弱引用，指向<code>shared_ptr</code>
+管理的对象。</li>
 </ul>
-<h2 id="shared-ptr">shared_ptr</h2>
+<h2 id="shared_ptr">shared_ptr</h2>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//空智能指针，</span><br>shared_ptr&lt;string&gt; p1;<br>shared_ptr&lt;list&lt;<span class="hljs-type">int</span>&gt;&gt; p2;<br><br><span class="hljs-comment">//使用的时候需要判断，是否为空</span><br><span class="hljs-keyword">if</span>(p1  &amp;&amp; p1-&gt;<span class="hljs-built_in">empty</span>())<br>    *p1 = <span class="hljs-string">&quot;hi&quot;</span>;<br>    <br><span class="hljs-comment">//更加安全的创建方法是使用make_shared&lt;T&gt;函数</span><br>shared_ptr&lt;<span class="hljs-type">int</span>&gt; p3 = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);    <span class="hljs-comment">//指向值为42的对象</span><br><span class="hljs-keyword">auto</span> p4 = <span class="hljs-built_in">make_shared</span>&lt;string&gt;(<span class="hljs-number">10</span>,<span class="hljs-string">&#x27;9&#x27;</span>);    <span class="hljs-comment">//指向&quot;9999999999&quot;字符串</span><br><span class="hljs-keyword">auto</span> p5 = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;();            <span class="hljs-comment">//值为0</span><br><br><span class="hljs-comment">//拷贝构造</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">p6</span><span class="hljs-params">(p5)</span></span>;<br><br><span class="hljs-comment">//赋值运算符</span><br>p3 = p6;<br></code></pre></td></tr></table></figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415222039697.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415222039697" style="zoom:50%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415222039697.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415222039697" style="zoom:50%;" /></p>
 <div class="note note-success">
-            <p>需要特别注意的是，当调用拷贝构造函数后，引用计数递增。相当于有两个指针指向对象；</p><p>当进行赋值运算时，如<code>p=q</code>，q的引用计数递增，p的引用计数递减。两个指针都指向q的所指对象。</p>
+            <p>需要特别注意的是，当调用拷贝构造函数后，引用计数递增。相当于有两个指针指向对象；</p><p>当进行赋值运算时，如<code>p=q</code>，q的引用计数递增，p的引用计数递减。两个指针都指向q的所指对象。</p>
           </div>
-<p><strong>shared_ptr自动销毁所管理的对象</strong><br>
+<p><strong>shared_ptr自动销毁所管理的对象</strong>
 当指向一个对象的最后一个shared_ptr被销毁时，shared_ptr类会自动销毁此对象，它是通过析构函数完成销毁工作的。shared_ptr的析构函数会递减它所指向的对象的引用计数。如果引用计数变为0，shared_ptr的析构函数就会销毁对象，并释放它所占用的内存。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//p离开作用域，指向的内存会被自动释放掉</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(T arg)</span></span>&#123;<br>    shared_ptr&lt;Foo&gt; p = <span class="hljs-built_in">factory</span>(arg);<br>&#125;<br><br><span class="hljs-comment">//但是p作为返回值时，内存不会被立刻释放掉</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(T arg)</span></span>&#123;<br>    shared_ptr&lt;Foo&gt; p = <span class="hljs-built_in">factory</span>(arg);<br>    <span class="hljs-keyword">return</span> p;<span class="hljs-comment">//当返回p时，引用计数进行了递增操作</span><br>&#125;<span class="hljs-comment">//p离开了作用域，但它指向的内存不会被释放掉</span><br></code></pre></td></tr></table></figure>
-<p><strong>shared_ptr还会自动释放相关联的内存</strong><br>
+<p><strong>shared_ptr还会自动释放相关联的内存</strong>
 当动态对象不再被使用时，shared_ptr类还会自动释放动态对象，这一特性使得动态内存的使用变得非常容易。如果你将shared_ptr存放于一个容器中，而后不再需要全部元素，而只使用其中一部分，要记得用erase删除不再需要的那些元素。</p>
-<p><strong>程序使用动态内存的原因</strong>：<br>
-（1）程序不知道自己需要使用多少对象<br>
-（2）程序不知道所需对象的准确类型<br>
+<p><strong>程序使用动态内存的原因</strong>：
+（1）程序不知道自己需要使用多少对象 （2）程序不知道所需对象的准确类型
 （3）程序需要在多个对象间共享数据</p>
 <p><strong>定义和改变shared_ptr的其他方法</strong>：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415225733681.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415225733681" style="zoom:80%;" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415225811513.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415225811513" style="zoom:80%;" />
-<h2 id="unique-ptr">unique_ptr</h2>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415225733681.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415225733681" style="zoom:80%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415225811513.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415225811513" style="zoom:80%;" /></p>
+<h2 id="unique_ptr">unique_ptr</h2>
 <p>一个unique_ptr“拥有”它所指向的对象，某个时刻只能有一个unique_ptr指向一个给定的对象。没有类似<code>make_shared</code>的函数，所以定义unique_ptr的时候要绑定到一个new返回的指针上。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">p1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">42</span>))</span></span>;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>unique_ptr不支持拷贝、赋值操作</p>
           </div>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415230616073.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415230616073" style="zoom: 33%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415230616073.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415230616073" style="zoom: 33%;" /></p>
 <p><strong>unique_ptr所有权的转移</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//所有权从p1转移给p2</span><br><span class="hljs-function">unique_ptr&lt;string&gt; <span class="hljs-title">p2</span><span class="hljs-params">(p1.release())</span></span>;<br><br><span class="hljs-comment">//将p3所有权转移给p2</span><br><span class="hljs-function">unique_ptr&lt;string&gt; <span class="hljs-title">p3</span><span class="hljs-params">(<span class="hljs-keyword">new</span> string(<span class="hljs-string">&quot;Tom&quot;</span>))</span></span>;<br>p2.<span class="hljs-built_in">reset</span>(p3.<span class="hljs-built_in">release</span>());    <span class="hljs-comment">//reset释放了p2原来指向的内存</span><br></code></pre></td></tr></table></figure>
 <p>不能拷贝unique_ptr有一个例外：我们可以拷贝或赋值一个将要被销毁的unique_ptr.最常见的例子是从函数返回一个unique_ptr.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">clone</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">//正确：从int*创建一个unique_ptr&lt;int&gt;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">unique_ptr</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(p));<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>还可以返回一个局部对象的拷贝：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">clone</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ret</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(p))</span></span>;<br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="weak-ptr">weak_ptr</h2>
+<h2 id="weak_ptr">weak_ptr</h2>
 <p>weak_ptr是一种不控制所指向对象生存期的智能指针，它指向一个由shared_ptr管理的对象。将一个weak_ptr绑定到shared_ptr不会改变引用计数。</p>
 <p>主要是用于解决shared_ptr循环引用的问题。</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415231814811.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415231814811" style="zoom: 33%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220415231814811.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220415231814811" style="zoom: 33%;" /></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span> p = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><span class="hljs-function">weak_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">wp</span><span class="hljs-params">(p)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>由于对象可能不存在，我们<strong>不能使用weak_ptr直接访问对象</strong>，而必须调用lock，此函数检查weak_ptr指向的对象是否存在。如果存在，lock返回一个指向共享对象的shared_ptr,如果不存在，lock将返回一个空指针。</p>
 <div class="note note-success">
-            <p>面试官曾经问过。如果shared_ptr都已经释放掉了，那么weak_ptr还能够访问哪个对象吗？</p><p>将一个weak_ptr绑定到一个shared_ptr不会改变shared_ptr的引用计数。一旦最后一个指向对象的shared_ptr被销毁，对象就会被释放。即使有weak_ptr指向对象，对象也还是会被释放。在实际访问中，可以根据lock的返回值来判断对象是否还存在。</p>
+            <p>面试官曾经问过。如果shared_ptr都已经释放掉了，那么weak_ptr还能够访问哪个对象吗？</p><p>将一个weak_ptr绑定到一个shared_ptr不会改变shared_ptr的引用计数。一旦最后一个指向对象的shared_ptr被销毁，对象就会被释放。即使有weak_ptr指向对象，对象也还是会被释放。在实际访问中，可以根据lock的返回值来判断对象是否还存在。</p>
           </div>
 <p><strong>shared_ptr可以直接赋值给一个weak_ptr，那么如何使用weak_ptr初始化一个shared_ptr呢？</strong></p>
 <p>使用lock函数</p>
@@ -371,7 +371,8 @@
 <h2 id="其他问题">其他问题</h2>
 <h2 id="参考资料">参考资料</h2>
 <p>[1]《C++ Primer中文版 第五版》</p>
-<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/flowing_wind/article/details/81301001">https://blog.csdn.net/flowing_wind/article/details/81301001</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/flowing_wind/article/details/81301001">https://blog.csdn.net/flowing_wind/article/details/81301001</a></p>
 
                 
               </div>
@@ -540,12 +541,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -764,49 +759,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

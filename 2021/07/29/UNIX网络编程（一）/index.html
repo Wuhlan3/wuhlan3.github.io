@@ -28,9 +28,9 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.491Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -319,51 +319,45 @@
 <p>接着运行服务器和客户端程序：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd intro/<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">make daytimetcpsrv</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">sudo ./daytimetcpsrv</span>  <br><span class="hljs-meta prompt_">$ </span><span class="language-bash">make daytimetcpcli</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">./daytimetcpcli 127.0.0.1</span> <br>Wed Jul 28 18:41:20 2021        #运行结果<br></code></pre></td></tr></table></figure>
 <h3 id="分析代码">分析代码</h3>
-<h4 id="客户端程序：">客户端程序：</h4>
+<h4 id="客户端程序">客户端程序：</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span>    <span class="hljs-string">&quot;unp.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span></span>&#123;<br>    <span class="hljs-type">int</span>					sockfd, n;<br>    <span class="hljs-type">char</span>				recvline[MAXLINE + <span class="hljs-number">1</span>];<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span>	servaddr;<br><br>    <span class="hljs-keyword">if</span> (argc != <span class="hljs-number">2</span>)<br>        <span class="hljs-built_in">err_quit</span>(<span class="hljs-string">&quot;usage: a.out &lt;IPaddress&gt;&quot;</span>);<br>    <span class="hljs-comment">//创建套接字后，返回一个整数描述符，用该描述符来标识套接字</span><br>    <span class="hljs-comment">//一种编码风格，左括号留出空格，表示比较运算的左侧是赋值运算</span><br>    <span class="hljs-keyword">if</span> ( (sockfd = <span class="hljs-built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>)) &lt; <span class="hljs-number">0</span>)	<br>        <span class="hljs-built_in">err_sys</span>(<span class="hljs-string">&quot;socket error&quot;</span>);	<span class="hljs-comment">//err_开头的函数是作者自己编写的</span><br><br>    <span class="hljs-built_in">bzero</span>(&amp;servaddr, <span class="hljs-built_in">sizeof</span>(servaddr));	<span class="hljs-comment">//使用bzero把结构清零</span><br>    servaddr.sin_family = AF_INET;	<span class="hljs-comment">//地址族</span><br>    servaddr.sin_port   = <span class="hljs-built_in">htons</span>(<span class="hljs-number">13</span>);	<span class="hljs-comment">//端口号 //host to net short</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">inet_pton</span>(AF_INET, argv[<span class="hljs-number">1</span>], &amp;servaddr.sin_addr) &lt;= <span class="hljs-number">0</span>)	<span class="hljs-comment">//将点分十进制转换为合适的格式</span><br>        <span class="hljs-built_in">err_quit</span>(<span class="hljs-string">&quot;inet_pton error for %s&quot;</span>, argv[<span class="hljs-number">1</span>]);<br>    <span class="hljs-comment">//建立连接</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">connect</span>(sockfd, (SA *) &amp;servaddr, <span class="hljs-built_in">sizeof</span>(servaddr)) &lt; <span class="hljs-number">0</span>)<span class="hljs-comment">//在头文件中把SA定义为struct sockaddr，通用套接字地址结构</span><br>        <span class="hljs-built_in">err_sys</span>(<span class="hljs-string">&quot;connect error&quot;</span>);<br>    <span class="hljs-comment">//读取字符串</span><br>    <span class="hljs-keyword">while</span> ( (n = <span class="hljs-built_in">read</span>(sockfd, recvline, MAXLINE)) &gt; <span class="hljs-number">0</span>) &#123;<br>        recvline[n] = <span class="hljs-number">0</span>;	<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">fputs</span>(recvline, stdout) == EOF)		<span class="hljs-comment">//把字符串写入到指定的流中，但不包括空字符</span><br>            <span class="hljs-built_in">err_sys</span>(<span class="hljs-string">&quot;fputs error&quot;</span>);		<span class="hljs-comment">//该函数返回一个非负值。如果发生错误则返回 EOF(-1)。</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-built_in">err_sys</span>(<span class="hljs-string">&quot;read error&quot;</span>);<br><br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p><strong>为什么要使用bzero呢？</strong></p><p>事实上可以使用memset，不过作者认为memset需要三个参数，bzero只需要两个。而memset的后两个参数曾经出现过位置调换但是没有报错的情况。而bzero的两个参数调换位置是一定会报错的。</p>
+            <p><strong>为什么要使用bzero呢？</strong></p><p>事实上可以使用memset，不过作者认为memset需要三个参数，bzero只需要两个。而memset的后两个参数曾经出现过位置调换但是没有报错的情况。而bzero的两个参数调换位置是一定会报错的。</p>
           </div>
 <div class="note note-success">
-            <p><strong>关于inet_pton函数</strong></p><p>它是一个支持IPv6的新函数。以前的代码用inet_addr来把ASCII点分十进制串变为正确格式。但有些局限，在新的这个函数上得以纠正</p>
+            <p><strong>关于inet_pton函数</strong></p><p>它是一个支持IPv6的新函数。以前的代码用inet_addr来把ASCII点分十进制串变为正确格式。但有些局限，在新的这个函数上得以纠正</p>
           </div>
 <p>将上述代码修改为IPv6版本：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">//1</span><br>struct sockaddr_in6    servaddr;<br><span class="hljs-string">//2</span><br><span class="hljs-keyword">if</span> <span class="hljs-params">( (<span class="hljs-attr">sockfd</span> = socket(AF_INET6, SOCK_STREAM, 0)</span>) &lt; 0)    <br><span class="hljs-string">//3</span><br>servaddr.sin6_family = AF_INET6;    <span class="hljs-string">//</span>地址族<br>    servaddr.sin6_port   = htons<span class="hljs-params">(13)</span>;	<span class="hljs-string">//</span>端口号 <span class="hljs-string">//host</span> to net short<br>    <span class="hljs-keyword">if</span> <span class="hljs-params">(inet_pton(AF_INET6, argv[1], &amp;servaddr.sin6_addr)</span> &lt;= 0)	<span class="hljs-string">//</span>将点分十进制转换为合适的格式<br>        err_<span class="hljs-keyword">quit</span><span class="hljs-params">(&quot;inet_pton error for %s&quot;, argv[1])</span>;<br></code></pre></td></tr></table></figure>
 <div class="note note-primary">
-            <p><strong>总结</strong>：</p><p>将IPv4修改为IPv6协议</p><ul><li>sockaddr_in  ——&gt; sockaddr_in6</li><li>AF_INET ——&gt; AF_INET6</li><li>sin_port ——&gt; sin6_port</li></ul><p>当然，更好的做法是编写协议无关程序，在后续会提到</p>
+            <p><strong>总结</strong>：</p><p>将IPv4修改为IPv6协议</p><ul><li>sockaddr_in ——&gt; sockaddr_in6</li><li>AF_INET ——&gt; AF_INET6</li><li>sin_port ——&gt; sin6_port</li></ul><p>当然，更好的做法是编写协议无关程序，在后续会提到</p>
           </div>
 <h4 id="包裹函数">包裹函数</h4>
-<p>weapper function。在本书中，约定包裹函数名是实际函数名的首字母<strong>大写形式</strong>。每个包裹函数完成实际的函数调用，检查返回值，并在错误时终止进程。</p>
+<p>weapper
+function。在本书中，约定包裹函数名是实际函数名的首字母<strong>大写形式</strong>。每个包裹函数完成实际的函数调用，检查返回值，并在错误时终止进程。</p>
 <p>例如：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Socket</span><span class="hljs-params">(<span class="hljs-type">int</span> family, <span class="hljs-type">int</span> type, <span class="hljs-type">int</span> protocol)</span></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    <span class="hljs-keyword">if</span>( (n = <span class="hljs-built_in">socket</span>(family, type, protocol)) &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-built_in">err_sys</span>(<span class="hljs-string">&quot;socket error&quot;</span>);<br>    <span class="hljs-keyword">return</span>(n);<br>&#125;<br><br>sockfd = <span class="hljs-built_in">Socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
-<h4 id="服务器程序：">服务器程序：</h4>
+<h4 id="服务器程序">服务器程序：</h4>
 <p>（服务器程序里的所有相关函数都使用了包裹函数）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span>    <span class="hljs-string">&quot;unp.h&quot;</span>		<span class="hljs-comment">//该头文件是作者准备的，里面包含了网络编程所需的大部分头文件和各种常值</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span>    <span class="hljs-string">&lt;time.h&gt;</span>	</span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span></span>&#123;<br>    <span class="hljs-type">int</span>					listenfd, connfd;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span>	servaddr;<br>    <span class="hljs-type">char</span>				buff[MAXLINE];<br>    <span class="hljs-type">time_t</span>				ticks;<br><br>    listenfd = <span class="hljs-built_in">Socket</span>(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);<br><br>    <span class="hljs-built_in">bzero</span>(&amp;servaddr, <span class="hljs-built_in">sizeof</span>(servaddr));<br>    servaddr.sin_family      = AF_INET;<br>    servaddr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);<span class="hljs-comment">/*服务器主机可以在任意接口上接收客户连接*/</span><br>    servaddr.sin_port        = <span class="hljs-built_in">htons</span>(<span class="hljs-number">13</span>);	<span class="hljs-comment">/*13号端口：时间获取的服务*/</span><br><br>    <span class="hljs-built_in">Bind</span>(listenfd, (SA *) &amp;servaddr, <span class="hljs-built_in">sizeof</span>(servaddr));<br><br>    <span class="hljs-built_in">Listen</span>(listenfd, LISTENQ);	<span class="hljs-comment">//转换为监听套接字，常值LISTENQ指定了在监听描述符上排队的最大客户连接数</span><br><br>    <span class="hljs-keyword">for</span> ( ; ; ) &#123;<br>        connfd = <span class="hljs-built_in">Accept</span>(listenfd, (SA *) <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">//已连接描述符</span><br><br>        ticks = <span class="hljs-built_in">time</span>(<span class="hljs-literal">NULL</span>);    <span class="hljs-comment">//获取时间戳</span><br>        <span class="hljs-built_in">snprintf</span>(buff, <span class="hljs-built_in">sizeof</span>(buff), <span class="hljs-string">&quot;%.24s\r\n&quot;</span>, <span class="hljs-built_in">ctime</span>(&amp;ticks));    <span class="hljs-comment">//ctime转换为可读格式，snprintf替代sprintf，可以检测缓冲区是否溢出</span><br>        <span class="hljs-built_in">Write</span>(connfd, buff, <span class="hljs-built_in">strlen</span>(buff));<br><br>        <span class="hljs-built_in">Close</span>(connfd);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这种服务器称为<strong>迭代服务器</strong>，对于每个客户它都迭代执行一次；</p>
 <p>同时处理多个客户的为<strong>并发服务器</strong>（Unix的fork函数，线程替代fork等）</p>
 <p>如果我们要使服务器在后台长期运行，那么添加一些代码即可使其成为<strong>Unix守护进程（daemon）</strong>——能在后台运行其不跟任何中断关联的进程</p>
 <h2 id="查看网络信息">查看网络信息</h2>
-<ol>
-<li>
-<p>查看接口信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ netstat -ni<br>Kernel Interface table<br>Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg<br>ens33     1500     9522      0      0 0          4045      0      0      0 BMRU<br>lo       65536      531      0      0 0           531      0      0      0 LRU<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>查看路由表</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ netstat -r<br>Kernel IP routing table<br>Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface<br>default         _gateway        0.0.0.0         UG        0 0          0 ens33<br>link-local      0.0.0.0         255.255.0.0     U         0 0          0 ens33<br>192.168.206.0   0.0.0.0         255.255.255.0   U         0 0          0 ens33<br>wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ netstat -nr<br>Kernel IP routing table<br>Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface<br>0.0.0.0         192.168.206.2   0.0.0.0         UG        0 0          0 ens33<br>169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 ens33<br>192.168.206.0   0.0.0.0         255.255.255.0   U         0 0          0 ens33<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>获取接口的详细信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ ifconfig ens33<br>ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.206.128  netmask 255.255.255.0  broadcast 192.168.206.255<br>        inet6 fe80::7f0a:68f6:c63c:dbd1  prefixlen 64  scopeid 0x20&lt;link&gt;<br>        ether 00:0c:29:98:e8:fe  txqueuelen 1000  (Ethernet)<br>        RX packets 9554  bytes 10994167 (10.9 MB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 4054  bytes 318004 (318.0 KB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>查看本地网络中的众多主机的IP地址：对广播地址进行ping命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ ping -b 192.168.206.0<br>WARNING: pinging broadcast address<br>PING 192.168.206.0 (192.168.206.0) 56(84) bytes of data.<br>64 bytes from 192.168.206.2: icmp_seq=1 ttl=128 time=0.451 ms<br></code></pre></td></tr></table></figure>
-</li>
+<ol type="1">
+<li><p>查看接口信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ netstat -ni<br>Kernel Interface table<br>Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg<br>ens33     1500     9522      0      0 0          4045      0      0      0 BMRU<br>lo       65536      531      0      0 0           531      0      0      0 LRU<br></code></pre></td></tr></table></figure></li>
+<li><p>查看路由表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ netstat -r<br>Kernel IP routing table<br>Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface<br>default         _gateway        0.0.0.0         UG        0 0          0 ens33<br>link-local      0.0.0.0         255.255.0.0     U         0 0          0 ens33<br>192.168.206.0   0.0.0.0         255.255.255.0   U         0 0          0 ens33<br>wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ netstat -nr<br>Kernel IP routing table<br>Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface<br>0.0.0.0         192.168.206.2   0.0.0.0         UG        0 0          0 ens33<br>169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 ens33<br>192.168.206.0   0.0.0.0         255.255.255.0   U         0 0          0 ens33<br></code></pre></td></tr></table></figure></li>
+<li><p>获取接口的详细信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ ifconfig ens33<br>ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.206.128  netmask 255.255.255.0  broadcast 192.168.206.255<br>        inet6 fe80::7f0a:68f6:c63c:dbd1  prefixlen 64  scopeid 0x20&lt;link&gt;<br>        ether 00:0c:29:98:e8:fe  txqueuelen 1000  (Ethernet)<br>        RX packets 9554  bytes 10994167 (10.9 MB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 4054  bytes 318004 (318.0 KB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br></code></pre></td></tr></table></figure></li>
+<li><p>查看本地网络中的众多主机的IP地址：对广播地址进行ping命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/intro$ ping -b 192.168.206.0<br>WARNING: pinging broadcast address<br>PING 192.168.206.0 (192.168.206.0) 56(84) bytes of data.<br>64 bytes from 192.168.206.2: icmp_seq=1 ttl=128 time=0.451 ms<br></code></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] 《UNIX网络编程_卷1》</p>
-<p>[2] http://blog.csdn.net/michael_kong_nju/article/details/43272195</p>
+<p>[2]
+http://blog.csdn.net/michael_kong_nju/article/details/43272195</p>
 
                 
               </div>
@@ -378,11 +372,11 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -515,12 +509,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -739,49 +727,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

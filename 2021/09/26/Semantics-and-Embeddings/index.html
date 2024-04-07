@@ -308,12 +308,13 @@
             
               <div class="markdown-body">
                 
-                <h1>Semantics&amp;Embeddings</h1>
-<h2 id="Relations">Relations</h2>
-<p>Lemmas can be polysemous (多义性，have multiple senses)，比如说mouse：</p>
+                <h1 id="semanticsembeddings">Semantics&amp;Embeddings</h1>
+<h2 id="relations">Relations</h2>
+<p>Lemmas can be polysemous (多义性，have multiple
+senses)，比如说mouse：</p>
 <ul>
 <li>指一种小型啮齿动物</li>
-<li>鼠标…</li>
+<li>鼠标...</li>
 </ul>
 <p>单词之间的关系：</p>
 <ul>
@@ -326,29 +327,29 @@
 <div class="note note-success">
             <p>The meaning of a word is its use in the language</p>
           </div>
-<h2 id="Connotation">Connotation</h2>
+<h2 id="connotation">Connotation</h2>
 <p>单词可以从三个维度来看待：</p>
-<ol>
+<ol type="1">
 <li>Valence（警觉度）：the pleasantness of the stimulus</li>
-<li>Arousal（唤醒度）：the intensity of emotion provoked by the stimulus</li>
-<li>Dominance（支配度）：the degree of control exerted by the stimulus</li>
+<li>Arousal（唤醒度）：the intensity of emotion provoked by the
+stimulus</li>
+<li>Dominance（支配度）：the degree of control exerted by the
+stimulus</li>
 </ol>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262248476.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926224807705" style="zoom:100%;box-shadow: none" />
-<h2 id="Vector-Semantics">Vector Semantics</h2>
-<p>我们是否可以建立一种方法来表达词义呢？接下来就介绍一种常用的模型vector semantics。</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262248476.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926224807705" style="zoom:100%;box-shadow: none" /></p>
+<h2 id="vector-semantics">Vector Semantics</h2>
+<p>我们是否可以建立一种方法来表达词义呢？接下来就介绍一种常用的模型vector
+semantics。</p>
 <blockquote>
-<p>“The meaning of a word is its use in the language”</p>
+<p>"The meaning of a word is its use in the language"</p>
 </blockquote>
-<ol>
-<li>
-<p>通过语言的分布决定语义</p>
-</li>
-<li>
-<p>从多个维度来看待语义（空间中的某个点）</p>
-</li>
+<ol type="1">
+<li><p>通过语言的分布决定语义</p></li>
+<li><p>从多个维度来看待语义（空间中的某个点）</p></li>
 </ol>
-<p>我们使用一个向量来表示每一个词语。相似的词语在<strong>语义空间</strong>(<strong>semantic space</strong>)上是<strong>邻近</strong>的。</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262305164.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926230518609" style="zoom:100%;box-shadow:none" />
+<p>我们使用一个向量来表示每一个词语。相似的词语在<strong>语义空间</strong>(<strong>semantic
+space</strong>)上是<strong>邻近</strong>的。</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262305164.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926230518609" style="zoom:100%;box-shadow:none" /></p>
 <p>对于情绪分析，如果<strong>基于单词本身</strong>：</p>
 <ul>
 <li>单词特征就是用单词来标识的</li>
@@ -358,85 +359,87 @@
 <p>如果<strong>基于词向量(Embedding)</strong>：</p>
 <ul>
 <li>单词特征就是一个向量来表示的</li>
-<li>前一个单词是向量vector[35,22,17…]；现在测试集中我们可能看到相似的向量vector[34,21,14]</li>
-<li>此时我们就可以将其概括为<strong>similar but unseen words</strong>（不再局限于单一的单词，可以是相似的单词）</li>
+<li>前一个单词是向量vector[35,22,17...]；现在测试集中我们可能看到相似的向量vector[34,21,14]</li>
+<li>此时我们就可以将其概括为<strong>similar but unseen
+words</strong>（不再局限于单一的单词，可以是相似的单词）</li>
 </ul>
 <p>我们将会讨论<strong>两种词向量算法</strong>：</p>
-<ol>
+<ol type="1">
 <li><strong>Tf-idf</strong>（特征：用于<strong>信息检索</strong>；一种基线模型；<strong>稀疏向量</strong>；单词用附近的单词计数表示）</li>
-<li><strong>Word2vec</strong>（特征：<strong>密集向量</strong>；通过训练分类器来<strong>预测</strong>单词是否可能出现在附近；上下文嵌入contextual embeddings）</li>
+<li><strong>Word2vec</strong>（特征：<strong>密集向量</strong>；通过训练分类器来<strong>预测</strong>单词是否可能出现在附近；上下文嵌入contextual
+embeddings）</li>
 </ol>
 <blockquote>
 <p>荃者所以在鱼，得鱼而忘荃；</p>
 <p>言者所以在意，得意而忘言。</p>
 <p>——庄子</p>
 </blockquote>
-<h2 id="Words-and-Vectors">Words and Vectors</h2>
+<h2 id="words-and-vectors">Words and Vectors</h2>
 <h3 id="文本间的关系">文本间的关系</h3>
 <p>每个文本都可以表示成一个单词的向量。比如说下面莎士比亚的文章就分别记录了相关单词的出现次数：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234152207" style="zoom:80%;box-shadow:none" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347863.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234200465" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234152207" style="zoom:80%;box-shadow:none" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347863.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234200465" style="zoom:80%;box-shadow:none" /></p>
 <p>可以看到，《亨利五世》和《裘力斯·凯撒》的相关性更强，《皆大欢喜》和《第十二夜》更加相似。</p>
 <h3 id="单词间的关系">单词间的关系</h3>
 <p>两个单词如果它们的上下文相似，这两个单词也是相似的。</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347232.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234555455" style="zoom:80%;box-shadow:none" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347994.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234638018" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347232.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234555455" style="zoom:80%;box-shadow:none" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347994.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234638018" style="zoom:80%;box-shadow:none" /></p>
 <h2 id="cos计算单词相似性">cos计算单词相似性</h2>
-<p>对两个向量进行点乘：<br>
-$$<br>
-dot\ product(v,w) = v·w=\sum^{N}_{i=1}v_iw_i = v_1w_1+v_2w_2…<br>
-$$<br>
-但是这可能会引起一些问题：如果维数过大，乘积可能会非常大</p>
+<p>对两个向量进行点乘： <span class="math display">\[
+dot\ product(v,w) = v·w=\sum^{N}_{i=1}v_iw_i = v_1w_1+v_2w_2...
+\]</span> 但是这可能会引起一些问题：如果维数过大，乘积可能会非常大</p>
 <p>向量长度是：</p>
-<p>$$<br>
-|v| = \sqrt{\sum ^ N _{i=1}v_i ^ 2}<br>
-$$</p>
+<p><span class="math display">\[
+|v| = \sqrt{\sum ^ N _{i=1}v_i ^ 2}
+\]</span></p>
 <p>我们可以计算出：</p>
-<p>$$<br>
-cosine(\hat v , \hat w) = \frac{\hat v · \hat w}{|\hat v||\hat w|}= \frac{\sum ^ N_{i=1}v_i w_i}{\sqrt{\sum ^ N_{i=1}v_i ^ 2}\sqrt{\sum ^ N_{i=1}w_i ^ 2}}<br>
-$$<br>
-样例：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270000427.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927000014433" style="zoom:80%;box-shadow:none" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270001875.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927000051712" style="zoom:80%;box-shadow:none" />
-<h2 id="TF-IDF">TF-IDF</h2>
-<p>TF-IDF（term frequency–inverse document frequency）是一种用于信息检索与数据挖掘的常用<strong>加权</strong>技术。TF是<strong>词频</strong>(Term Frequency)，IDF是<strong>逆文本频率指数</strong>(Inverse Document Frequency)。</p>
-<p>对于单词t在文本d中的<strong>ti-idf值</strong>，如下：<br>
-$$<br>
-w_{t,d} = tf_{t,d} \times idf_i<br>
-$$<br>
-其中，像“the”或“it”的<strong>idf值</strong>将会非常小</p>
+<p><span class="math display">\[
+cosine(\hat v , \hat w) = \frac{\hat v · \hat w}{|\hat v||\hat w|}=
+\frac{\sum ^ N_{i=1}v_i w_i}{\sqrt{\sum ^ N_{i=1}v_i ^ 2}\sqrt{\sum ^
+N_{i=1}w_i ^ 2}}
+\]</span> 样例：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270000427.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927000014433" style="zoom:80%;box-shadow:none" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270001875.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927000051712" style="zoom:80%;box-shadow:none" /></p>
+<h2 id="tf-idf">TF-IDF</h2>
+<p>TF-IDF（term frequency–inverse document
+frequency）是一种用于信息检索与数据挖掘的常用<strong>加权</strong>技术。TF是<strong>词频</strong>(Term
+Frequency)，IDF是<strong>逆文本频率指数</strong>(Inverse Document
+Frequency)。</p>
+<p>对于单词t在文本d中的<strong>ti-idf值</strong>，如下： <span
+class="math display">\[
+w_{t,d} = tf_{t,d} \times idf_i
+\]</span> 其中，像“the”或“it”的<strong>idf值</strong>将会非常小</p>
 <h3 id="tf的计算方法">tf的计算方法</h3>
-<p>$$<br>
-tf_{t,d}=count(t,d)<br>
-$$</p>
-<p>通常不使用原始数据，我们将其压缩一下：<br>
-$$<br>
-tf_{t,d}=log_{10}({count(t,d)+1})<br>
-$$</p>
+<p><span class="math display">\[
+tf_{t,d}=count(t,d)
+\]</span></p>
+<p>通常不使用原始数据，我们将其压缩一下： <span class="math display">\[
+tf_{t,d}=log_{10}({count(t,d)+1})
+\]</span></p>
 <h3 id="idf的计算方法">idf的计算方法</h3>
-<p>注意df不是指该单词在所有文档中出现的总次数(collection Frequency)，而是指该单词出现在了多少个文档中(Document Frequency)</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272204110.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927220135195" style="zoom:100%;box-shadow:none" />
-$$
+<p>注意df不是指该单词在所有文档中出现的总次数(collection
+Frequency)，而是指该单词出现在了多少个文档中(Document Frequency)</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272204110.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927220135195" style="zoom:100%;box-shadow:none" />
+<span class="math display">\[
 idf_t = log_{10}(\frac{N}{df_t})其中N是总的文本数
-$$
-可以注意到，加入一个单词在所有训练的文本中都有出现，那么它的idf就会是0。而出现的频率越低，它的idf就越大。
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272212407.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927221238680" style="zoom:90%;box-shadow:none" />
-<h2 id="PMI">PMI</h2>
-<p>经常会用到PMI（Pointwise Mutual Information，逐点互信息）这个指标来衡量两个事物之间的相关性（比如两个词）：<br>
-$$<br>
-PMI(w_1,w_2) = log\frac{p(w_1,w_2)}{p(w_1)p(w_2)}<br>
-$$<br>
-虽然PMI的取值是负无穷到正无穷，但是取负值是有问题的。</p>
-<p>所以我们用0取代负的PMI，得到PPMI：<br>
-$$<br>
-PPMI(w_1,w_2) = max(log\frac{p(w_1,w_2)}{p(w_1)p(w_2)},0)<br>
-$$</p>
-<h3 id="举例，计算过程">举例，计算过程</h3>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228918.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222604844" style="zoom:80%;box-shadow:none" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228966.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222523541" style="zoom:80%;box-shadow:none" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228347.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222536175" style="zoom:80%;box-shadow:none" />
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228752.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222704853" style="zoom:80%;box-shadow:none" />
-<h2 id="Word2vec">Word2vec</h2>
+\]</span>
+可以注意到，加入一个单词在所有训练的文本中都有出现，那么它的idf就会是0。而出现的频率越低，它的idf就越大。</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272212407.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927221238680" style="zoom:90%;box-shadow:none" /></p>
+<h2 id="pmi">PMI</h2>
+<p>经常会用到PMI（Pointwise Mutual
+Information，逐点互信息）这个指标来衡量两个事物之间的相关性（比如两个词）：
+<span class="math display">\[
+PMI(w_1,w_2) = log\frac{p(w_1,w_2)}{p(w_1)p(w_2)}
+\]</span> 虽然PMI的取值是负无穷到正无穷，但是取负值是有问题的。</p>
+<p>所以我们用0取代负的PMI，得到PPMI： <span class="math display">\[
+PPMI(w_1,w_2) = max(log\frac{p(w_1,w_2)}{p(w_1)p(w_2)},0)
+\]</span></p>
+<h3 id="举例计算过程">举例，计算过程</h3>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228918.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222604844" style="zoom:80%;box-shadow:none" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228966.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222523541" style="zoom:80%;box-shadow:none" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228347.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222536175" style="zoom:80%;box-shadow:none" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228752.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222704853" style="zoom:80%;box-shadow:none" /></p>
+<h2 id="word2vec">Word2vec</h2>
 <h3 id="稠密向量">稠密向量</h3>
 <p>相比于tf-idf更加稠密，且大部分元素不为零。</p>
 <p>为什么要使用稠密向量：</p>
@@ -448,21 +451,16 @@ $$</p>
 <li>实践证明，Word2vec可以做的更好</li>
 </ul>
 <p>获取稠密向量的方法：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282237909.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927164801858" style="zoom:100%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282237909.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927164801858" style="zoom:100%;box-shadow:none" /></p>
 <h3 id="基本思路">基本思路</h3>
 <ul>
-<li>
-<p>基于<strong>二进制预测任务</strong>来训练一个<strong>分类器</strong>：w会喜欢出现在c的附近吗？(true/false)</p>
-</li>
-<li>
-<p>寻找到一个中心词$target$，在设定一个窗口大小（如下图为+/-2）下，如果$c$出现在$target$周围，就设为T，否则为F。</p>
-</li>
-<li>
-<p>我们并不关心这个分类器本身，而是将其权重作为词向量。</p>
-</li>
-<li>
-<p><strong>自监督</strong>的学习方式。标签不是人为设置的，而是根据单词是否出现在窗口中自己形成的。c和w之间是非常弱的标签关系(它们可能在某个地方邻近，在其它可能又没有)。</p>
-</li>
+<li><p>基于<strong>二进制预测任务</strong>来训练一个<strong>分类器</strong>：w会喜欢出现在c的附近吗？(true/false)</p></li>
+<li><p>寻找到一个中心词<span
+class="math inline">\(target\)</span>，在设定一个窗口大小（如下图为+/-2）下，如果<span
+class="math inline">\(c\)</span>出现在<span
+class="math inline">\(target\)</span>周围，就设为T，否则为F。</p></li>
+<li><p>我们并不关心这个分类器本身，而是将其权重作为词向量。</p></li>
+<li><p><strong>自监督</strong>的学习方式。标签不是人为设置的，而是根据单词是否出现在窗口中自己形成的。c和w之间是非常弱的标签关系(它们可能在某个地方邻近，在其它可能又没有)。</p></li>
 </ul>
 <blockquote>
 <p>一个简单地例子：</p>
@@ -471,55 +469,62 @@ $$</p>
 <p>由于“吴彦祖”和“我”使用邻近的词语表示的词向量是非常近似的，所以“我”约等于“吴彦祖”</p>
 </blockquote>
 <h3 id="基本流程">基本流程</h3>
-<ol>
+<ol type="1">
 <li>通过邻居词语context word来获取<strong>正面例子</strong>(true)</li>
 <li>随机获取其他词汇来作为<strong>负面例子</strong>(false)</li>
 <li>训练<strong>逻辑回归分类器</strong>来区分这两种情况</li>
 <li>学习到的权重，最终作为词向量。</li>
 </ol>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282239534.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927165913777" style="zoom:100%;box-shadow:none" />
-<p>预测出$P(+|w,c)$的概率。</p>
-<p>如果两个向量是相似的，那么它们的点积是会非常大的。cosine只是一种标准化的点积。所以我们可以直接使用点积来表示相似性：<br>
-$$<br>
-Similarity(w,c) \approx w · c<br>
-$$<br>
-使用逻辑回归分类器中的$\sigma$将其变为概率：<br>
-$$<br>
-P(+|w,c) = \sigma(c·w) = \frac{1}{1+exp(-c·w)}<br>
-$$</p>
-<p>$$<br>
-P(-|w,c) = 1- P(+|w,c) =\sigma(-c·w) = \frac{1}{1+exp(c·w)}<br>
-$$</p>
-<p>上面的公式，只是针对一个context word，但是我们需要针对很多个context word。我们可以假设每个context word之间是相互独立的，所以可以将他们直接乘起来喔：<br>
-$$<br>
-P(+|w,c_{1:L})=\Pi_{i=1}^ {L} \sigma(c_i · w)<br>
-$$</p>
-<p>$$<br>
-log P(+|w,c_{1:L})=\sum_{i=1}^ {L} log\sigma(c_i · w)<br>
-$$</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282336861.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928233333561" style="zoom:100%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282239534.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927165913777" style="zoom:100%;box-shadow:none" /></p>
+<p>预测出<span class="math inline">\(P(+|w,c)\)</span>的概率。</p>
+<p>如果两个向量是相似的，那么它们的点积是会非常大的。cosine只是一种标准化的点积。所以我们可以直接使用点积来表示相似性：
+<span class="math display">\[
+Similarity(w,c) \approx w · c
+\]</span> 使用逻辑回归分类器中的<span
+class="math inline">\(\sigma\)</span>将其变为概率： <span
+class="math display">\[
+P(+|w,c) = \sigma(c·w) = \frac{1}{1+exp(-c·w)}
+\]</span></p>
+<p><span class="math display">\[
+P(-|w,c) = 1- P(+|w,c) =\sigma(-c·w) = \frac{1}{1+exp(c·w)}
+\]</span></p>
+<p>上面的公式，只是针对一个context word，但是我们需要针对很多个context
+word。我们可以假设每个context
+word之间是相互独立的，所以可以将他们直接乘起来喔： <span
+class="math display">\[
+P(+|w,c_{1:L})=\Pi_{i=1}^ {L} \sigma(c_i · w)
+\]</span></p>
+<p><span class="math display">\[
+log P(+|w,c_{1:L})=\sum_{i=1}^ {L} log\sigma(c_i · w)
+\]</span></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282336861.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928233333561" style="zoom:100%;box-shadow:none" /></p>
 <p>学习的目标是：</p>
 <ul>
 <li>最大化正例中的target word和context word之间的相似性</li>
 <li>最小化反例中的target word和non-neighbor word之间的相似性</li>
 </ul>
 <p>可得到损失函数如下：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282337596.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928233633250" style="zoom:100%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282337596.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928233633250" style="zoom:100%;box-shadow:none" /></p>
 <p>如何学习？</p>
-<p>使用随机梯度下降法(Stochastic gradient descent)；针对整个训练集，使正例的可能性更大，使反例的可能性更小。</p>
+<p>使用随机梯度下降法(Stochastic gradient
+descent)；针对整个训练集，使正例的可能性更大，使反例的可能性更小。</p>
 <p>对于每一步：</p>
 <ul>
 <li>方向：从损失函数的梯度向相反方向移动</li>
-<li>梯度幅值：我们移动的梯度值为$\frac{d}{dw}L(f(x;w),y)$，乘以一个learning rate $\eta$</li>
+<li>梯度幅值：我们移动的梯度值为<span
+class="math inline">\(\frac{d}{dw}L(f(x;w),y)\)</span>，乘以一个learning
+rate <span class="math inline">\(\eta\)</span></li>
 <li>learning rate 越大就意味着下降得越快：</li>
 </ul>
-<p>$$<br>
-w^{t+1} = w^{t}-\eta \frac{d}{dw}L(f(x;w),y)<br>
-$$</p>
+<p><span class="math display">\[
+w^{t+1} = w^{t}-\eta \frac{d}{dw}L(f(x;w),y)
+\]</span></p>
 <p>转过头来看看，损失函数要怎么求导：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071634380.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007163357969" style="zoom:80%;box-shadow:none" />
-<p>所以我们可以先随机地初始化$c$和$w$矩阵，然后根据刚刚提到的<strong>梯度下降法</strong>来进行不断地更新：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071636297.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007163616109" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071634380.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007163357969" style="zoom:80%;box-shadow:none" /></p>
+<p>所以我们可以先随机地初始化<span
+class="math inline">\(c\)</span>和<span
+class="math inline">\(w\)</span>矩阵，然后根据刚刚提到的<strong>梯度下降法</strong>来进行不断地更新：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071636297.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007163616109" style="zoom:80%;box-shadow:none" /></p>
 <h3 id="总结流程">总结流程</h3>
 <ul>
 <li>以一个随机d维地向量V作为初始词向量</li>
@@ -528,23 +533,26 @@ $$</p>
 <li>基于一个语料库，将同时出现的一对对词作为<strong>正例</strong></li>
 <li>以不同时出现的一对对词作为<strong>反例</strong></li>
 <li>通过<strong>梯度下降</strong>的方式来训练分类器，最终提高分类器区分这些词向量的性能</li>
-<li>扔掉分类器的代码，仅仅保留词向量(<strong>词嵌入</strong> embeddings)</li>
-</ul>
-</li>
+<li>扔掉分类器的代码，仅仅保留词向量(<strong>词嵌入</strong>
+embeddings)</li>
+</ul></li>
 </ul>
 <h3 id="词嵌入的特性">词嵌入的特性</h3>
-<h4 id="1-窗口大小">1. 窗口大小</h4>
+<h4 id="窗口大小">1. 窗口大小</h4>
 <ul>
-<li>小窗口$(C=+/-2)$，邻近的单词是同一分类法下语法相似的词。比如Hogwarts和其他虚构学院</li>
-<li>大窗口$(C=+/-5)$，邻近的单词是同一语义领域下的。比如Hogwarts和Dumbledore</li>
+<li>小窗口<span
+class="math inline">\((C=+/-2)\)</span>，邻近的单词是同一分类法下语法相似的词。比如Hogwarts和其他虚构学院</li>
+<li>大窗口<span
+class="math inline">\((C=+/-5)\)</span>，邻近的单词是同一语义领域下的。比如Hogwarts和Dumbledore</li>
 </ul>
-<h4 id="2-类比关系-analogical-relations">2. 类比关系(analogical relations)</h4>
+<h4 id="类比关系analogical-relations">2. 类比关系(analogical
+relations)</h4>
 <p>使用向量的平行关系来进行类比推理</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854110.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007184623878" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854110.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007184623878" style="zoom:80%;box-shadow:none" /></p>
 <p>对于稀疏的词向量或稠密的词向量都可以使用这种方法：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854906.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007184835881" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854906.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007184835881" style="zoom:80%;box-shadow:none" /></p>
 <div class="note note-success">
-            <p>平行四边形法则需要注意的事项：</p><ul><li><p>它似乎只适用于频繁使用的单词、小距离和特定的语言关系（如国家与首都等），但对于其他的无效</p></li><li><p>此外，如何理解类比关系是开放的，多样化的。</p></li></ul>
+            <p>平行四边形法则需要注意的事项：</p><ul><li><p>它似乎只适用于频繁使用的单词、小距离和特定的语言关系（如国家与首都等），但对于其他的无效</p></li><li><p>此外，如何理解类比关系是开放的，多样化的。</p></li></ul>
           </div>
 
                 

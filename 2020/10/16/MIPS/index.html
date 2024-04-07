@@ -256,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          510 words
+          512 words
         
       </span>
     
@@ -309,85 +309,93 @@
             
               <div class="markdown-body">
                 
-                <h4 id="二、MIPS操作数之32个寄存器">二、MIPS操作数之32个寄存器</h4>
+                <h4 id="二mips操作数之32个寄存器">二、MIPS操作数之32个寄存器</h4>
 <table>
 <thead>
-<tr>
-<th style="text-align:left">寄存器名字</th>
-<th style="text-align:left">寄存器编号</th>
-<th style="text-align:left">寄存器功能</th>
+<tr class="header">
+<th style="text-align: left;">寄存器名字</th>
+<th style="text-align: left;">寄存器编号</th>
+<th style="text-align: left;">寄存器功能</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left"><code>$zero</code></td>
-<td style="text-align:left"><code>$0</code></td>
-<td style="text-align:left">恒等于零</td>
+<tr class="odd">
+<td style="text-align: left;"><code>$zero</code></td>
+<td style="text-align: left;"><code>$0</code></td>
+<td style="text-align: left;">恒等于零</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$at</code></td>
-<td style="text-align:left"><code>$1</code></td>
-<td style="text-align:left">被汇编器保留，用于处理大的常数</td>
+<tr class="even">
+<td style="text-align: left;"><code>$at</code></td>
+<td style="text-align: left;"><code>$1</code></td>
+<td style="text-align: left;">被汇编器保留，用于处理大的常数</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$v0 – $v1</code></td>
-<td style="text-align:left"><code>$2-$3</code></td>
-<td style="text-align:left">存放函数返回值</td>
+<tr class="odd">
+<td style="text-align: left;"><code>$v0 – $v1</code></td>
+<td style="text-align: left;"><code>$2-$3</code></td>
+<td style="text-align: left;">存放函数返回值</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$a0 – $a3</code></td>
-<td style="text-align:left"><code>$4-$7</code></td>
-<td style="text-align:left">传递函数参数</td>
+<tr class="even">
+<td style="text-align: left;"><code>$a0 – $a3</code></td>
+<td style="text-align: left;"><code>$4-$7</code></td>
+<td style="text-align: left;">传递函数参数</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$t0 – $t7</code></td>
-<td style="text-align:left"><code>$8-$15</code></td>
-<td style="text-align:left">存放临时变量</td>
+<tr class="odd">
+<td style="text-align: left;"><code>$t0 – $t7</code></td>
+<td style="text-align: left;"><code>$8-$15</code></td>
+<td style="text-align: left;">存放临时变量</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$s0 – $s7</code></td>
-<td style="text-align:left"><code>$16-$23</code></td>
-<td style="text-align:left">存放需要保存的临时值</td>
+<tr class="even">
+<td style="text-align: left;"><code>$s0 – $s7</code></td>
+<td style="text-align: left;"><code>$16-$23</code></td>
+<td style="text-align: left;">存放需要保存的临时值</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$t8 – $t9</code></td>
-<td style="text-align:left"><code>$24-$25</code></td>
-<td style="text-align:left">额外的存放临时变量</td>
+<tr class="odd">
+<td style="text-align: left;"><code>$t8 – $t9</code></td>
+<td style="text-align: left;"><code>$24-$25</code></td>
+<td style="text-align: left;">额外的存放临时变量</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$k0 – $k1</code></td>
-<td style="text-align:left"><code>$26-$27</code></td>
-<td style="text-align:left">用于操作系统内核</td>
+<tr class="even">
+<td style="text-align: left;"><code>$k0 – $k1</code></td>
+<td style="text-align: left;"><code>$26-$27</code></td>
+<td style="text-align: left;">用于操作系统内核</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$gp</code></td>
-<td style="text-align:left"><code>$28</code></td>
-<td style="text-align:left">指向全局变量的指针</td>
+<tr class="odd">
+<td style="text-align: left;"><code>$gp</code></td>
+<td style="text-align: left;"><code>$28</code></td>
+<td style="text-align: left;">指向全局变量的指针</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$sp</code></td>
-<td style="text-align:left"><code>$29</code></td>
-<td style="text-align:left">指向栈顶的指针</td>
+<tr class="even">
+<td style="text-align: left;"><code>$sp</code></td>
+<td style="text-align: left;"><code>$29</code></td>
+<td style="text-align: left;">指向栈顶的指针</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$fp</code></td>
-<td style="text-align:left"><code>$30</code></td>
-<td style="text-align:left">指向栈帧[^footnote2]的指针</td>
+<tr class="odd">
+<td style="text-align: left;"><code>$fp</code></td>
+<td style="text-align: left;"><code>$30</code></td>
+<td style="text-align: left;">指向栈帧[^footnote2]的指针</td>
 </tr>
-<tr>
-<td style="text-align:left"><code>$ra</code></td>
-<td style="text-align:left"><code>$31</code></td>
-<td style="text-align:left">返回地址，用于函数调用</td>
+<tr class="even">
+<td style="text-align: left;"><code>$ra</code></td>
+<td style="text-align: left;"><code>$31</code></td>
+<td style="text-align: left;">返回地址，用于函数调用</td>
 </tr>
 </tbody>
 </table>
-<h4 id="三、MIPS汇编语言指令类型及寻址方式">三、MIPS汇编语言指令类型及寻址方式</h4>
-<p><img src="mips1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201016100110436"></p>
-<p><img src="mips2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201016100254039"></p>
+<h4
+id="三mips汇编语言指令类型及寻址方式">三、MIPS汇编语言指令类型及寻址方式</h4>
+<figure>
+<img src="mips1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201016100110436" />
+<figcaption aria-hidden="true">image-20201016100110436</figcaption>
+</figure>
+<figure>
+<img src="mips2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201016100254039" />
+<figcaption aria-hidden="true">image-20201016100254039</figcaption>
+</figure>
 <p>不调用其他过程的过程称为<strong>叶过程</strong>（leaf procedure）</p>
-<h5 id="编译一个不调用其他过程的C过程">编译一个不调用其他过程的C过程</h5>
+<h5
+id="编译一个不调用其他过程的c过程">编译一个不调用其他过程的C过程</h5>
 <p>思考步骤：</p>
-<ol>
+<ol type="1">
 <li>保存调用过程之后，还需要使用的寄存器<code>$t0~$t7</code>、<code>$a0~$a1</code>、<code>$v0~$v1</code></li>
 <li>保存用到的参数（<code>$a0~$a1</code>）</li>
 <li>保存返回地址<code>$ra</code></li>
@@ -395,7 +403,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">leaf_example</span><span class="hljs-params">(<span class="hljs-type">int</span> g, <span class="hljs-type">int</span> h, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> j)</span>&#123;<br>    <span class="hljs-type">int</span> f;<br>    f = (g+h)-(i+j);<br>    <span class="hljs-keyword">return</span> f<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>MIPS：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-symbol">leaf_example:</span><br>    <span class="hljs-keyword">addi	</span>$<span class="hljs-built_in">sp</span>, $<span class="hljs-built_in">sp</span>, -<span class="hljs-number">12</span> 	<span class="hljs-comment">#在栈中分配3个空间</span><br>    <span class="hljs-keyword">sw	</span>	$<span class="hljs-built_in">t1</span>, <span class="hljs-number">8</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#push $t1</span><br>    <span class="hljs-keyword">sw	</span>	$<span class="hljs-built_in">t0</span>, <span class="hljs-number">4</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#push $t0</span><br>    <span class="hljs-keyword">sw	</span>	$<span class="hljs-built_in">s0</span>, <span class="hljs-number">0</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#push $s0</span><br>    <br>    <span class="hljs-keyword">add	</span>	$<span class="hljs-built_in">t0</span>, $<span class="hljs-built_in">a0</span>, $<span class="hljs-built_in">a1</span>	<span class="hljs-comment">#t0 = g + h</span><br>    <span class="hljs-keyword">add	</span>	$<span class="hljs-built_in">t1</span>, $<span class="hljs-built_in">a2</span>, $<span class="hljs-built_in">a3</span>	<span class="hljs-comment">#t1 = i + j</span><br>    <span class="hljs-keyword">sub </span>	$<span class="hljs-built_in">s0</span>, $<span class="hljs-built_in">t0</span>, $<span class="hljs-built_in">t1</span>	<span class="hljs-comment">#f = g + h - (i + j)</span><br>    <span class="hljs-keyword">add	</span>	$<span class="hljs-built_in">v0</span>, $<span class="hljs-built_in">s0</span>, $<span class="hljs-built_in">zero</span>	<span class="hljs-comment">#将f放入一个返回值寄存器v0中</span><br>    <br>    <span class="hljs-keyword">lw </span>		$<span class="hljs-built_in">s0</span>, <span class="hljs-number">0</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#弹出s0</span><br>    <span class="hljs-keyword">lw </span>		$<span class="hljs-built_in">t0</span>, <span class="hljs-number">4</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#弹出t0</span><br>    <span class="hljs-keyword">lw	</span>	$<span class="hljs-built_in">t1</span>, <span class="hljs-number">8</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#弹出t1</span><br>    <span class="hljs-keyword">addi	</span>$<span class="hljs-built_in">sp</span>, $<span class="hljs-built_in">sp</span>, <span class="hljs-number">12</span>	<span class="hljs-comment">#恢复</span><br>    <br>    <span class="hljs-keyword">jr	</span>	$<span class="hljs-built_in">ra</span>				<span class="hljs-comment">#根据返回地址跳转</span><br></code></pre></td></tr></table></figure>
-<h5 id="编译一个递归C过程">编译一个递归C过程</h5>
+<h5 id="编译一个递归c过程">编译一个递归C过程</h5>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">fact</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span>&#123;<br>    <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">else</span> <br>        <span class="hljs-keyword">return</span> (n*fact(n<span class="hljs-number">-1</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>MIPS:</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-symbol">fact:</span><br>    <span class="hljs-keyword">addi	</span>$<span class="hljs-built_in">sp</span>, $<span class="hljs-built_in">sp</span>, -<span class="hljs-number">8</span>	<span class="hljs-comment">#在栈中分配两个空间</span><br>    <span class="hljs-keyword">sw	</span>	$<span class="hljs-built_in">ra</span>, <span class="hljs-number">4</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#push ra, 如果没有这一步就回不来了</span><br>    <span class="hljs-keyword">sw	</span>	$<span class="hljs-built_in">a0</span>, <span class="hljs-number">0</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#push n</span><br>    <br>    <span class="hljs-keyword">slti	</span>$<span class="hljs-built_in">t0</span>, $<span class="hljs-built_in">a0</span>, <span class="hljs-number">1</span><br>    <span class="hljs-keyword">beq	</span>	$<span class="hljs-built_in">t0</span>, $<span class="hljs-built_in">zero</span>, L1	<span class="hljs-comment">#if(n&gt;=1),goto L1</span><br>    <br>    <span class="hljs-keyword">addi	</span>$<span class="hljs-built_in">v0</span>, $<span class="hljs-built_in">zero</span>, <span class="hljs-number">1</span>	<span class="hljs-comment">#return 1</span><br>    <span class="hljs-keyword">addi </span>	$<span class="hljs-built_in">sp</span>, $<span class="hljs-built_in">sp</span>, <span class="hljs-number">8</span>		<span class="hljs-comment">#弹出</span><br>    <span class="hljs-keyword">jr	</span>	$<span class="hljs-built_in">ra</span><br><span class="hljs-symbol">    </span><br><span class="hljs-symbol">L1:</span><br>    <span class="hljs-keyword">addi	</span>$<span class="hljs-built_in">a0</span>, $<span class="hljs-built_in">a0</span>, -<span class="hljs-number">1</span>	<span class="hljs-comment"># n = n - 1</span><br>    <span class="hljs-keyword">jal </span>    fact			<span class="hljs-comment"># 递归调用fact，此时v0= fact(n-1)</span><br>    <br>    <span class="hljs-keyword">lw    </span>	$<span class="hljs-built_in">a0</span>, <span class="hljs-number">0</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#取出a0</span><br>    <span class="hljs-keyword">lw    </span>	$<span class="hljs-built_in">ra</span>, <span class="hljs-number">4</span>($<span class="hljs-built_in">sp</span>)		<span class="hljs-comment">#取出ra</span><br>    <span class="hljs-keyword">addi    </span>$<span class="hljs-built_in">sp</span>, $<span class="hljs-built_in">sp</span>, <span class="hljs-number">8</span>		<span class="hljs-comment">#栈弹出两个空间</span><br>    <br>    <span class="hljs-keyword">mul </span>     $<span class="hljs-built_in">v0</span>, $<span class="hljs-built_in">a0</span>, $<span class="hljs-built_in">v0</span> 	<span class="hljs-comment">#return n*fact(n-1)</span><br>    <br>    <span class="hljs-keyword">jr    </span>	$<span class="hljs-built_in">ra</span><br></code></pre></td></tr></table></figure>
@@ -570,12 +578,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -794,49 +796,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

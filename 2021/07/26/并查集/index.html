@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          975 words
+          978 words
         
       </span>
     
@@ -308,33 +308,53 @@
             
               <div class="markdown-body">
                 
-                <h2 id="并查集（Union-Find）">并查集（Union-Find）</h2>
+                <h2 id="并查集union-find">并查集（Union-Find）</h2>
 <h3 id="思维导图">思维导图</h3>
-<p><img src="%E5%B9%B6%E6%9F%A5%E9%9B%86.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="并查集"></p>
-<h3 id="C-模板">C++模板</h3>
+<figure>
+<img src="并查集.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="并查集" />
+<figcaption aria-hidden="true">并查集</figcaption>
+</figure>
+<h3 id="c模板">C++模板</h3>
 <p>重点是find函数吧，一般情况下将union啥的可以嵌入到具体的实现中加以判断</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">UnionFindSet</span>&#123;<br><span class="hljs-keyword">private</span>:    <br>    vector&lt;<span class="hljs-type">int</span>&gt; f;  <span class="hljs-comment">//表示第i个节点的父节点</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">UnionFindSet</span>(<span class="hljs-type">int</span> size)&#123;<br>        f.<span class="hljs-built_in">resize</span>(size);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;size;i ++)&#123;<br>            f[i] = i;<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(f[k] == k)<span class="hljs-keyword">return</span> k;<br>        <span class="hljs-keyword">return</span> f[k]  = <span class="hljs-built_in">find</span>(f[k]);  <br>    &#125;<span class="hljs-comment">//寻找到根节点</span><br>    <span class="hljs-comment">//在寻找的过程中，把经过的人的父节点也变为根节点</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span></span>&#123;<br>        <span class="hljs-type">int</span> fx = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> fy = <span class="hljs-built_in">find</span>(y);<br>        <span class="hljs-keyword">if</span>(fx != fy)&#123;<br>            f[fy] = fx; <span class="hljs-comment">//合并子集</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isinoneset</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">find</span>(x) == <span class="hljs-built_in">find</span>(y);<br>    &#125;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>理解了之后，可以再简化一些：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;<span class="hljs-type">int</span>&gt; f;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(f[x] == x)<span class="hljs-keyword">return</span> x;<br>    <span class="hljs-keyword">return</span> f[x] = <span class="hljs-built_in">find</span>(f[x]);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">uni</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span></span>&#123;<br>    f[<span class="hljs-built_in">find</span>(y)] = <span class="hljs-built_in">find</span>(x);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span></span>&#123;<br>    f.<span class="hljs-built_in">resize</span>(n);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++)f[i] = i;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="已解决问题">已解决问题</h2>
-<p>下面的中等题，思路都是非常类似的，一个套路。比较有价值的也就<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/couples-holding-hands/">情侣牵手</a>这道困难题。</p>
-<p><strong><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/satisfiability-of-equality-equations/">990. 等式方程的可满足性[中等]</a></strong></p>
-<p><strong><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-provinces/">547. 省份数量[中等]</a></strong></p>
-<p><strong><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-operations-to-make-network-connected/">1319. 连通网络的操作次数[中等]</a></strong></p>
-<p><strong><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-provinces/">547. 省份数量[中等]</a></strong></p>
-<p><strong><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/couples-holding-hands/">765. 情侣牵手[困难]</a></strong></p>
-<h2 id="较有趣的题：情侣牵手">较有趣的题：情侣牵手</h2>
+<p>下面的中等题，思路都是非常类似的，一个套路。比较有价值的也就<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/couples-holding-hands/">情侣牵手</a>这道困难题。</p>
+<p><strong><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/satisfiability-of-equality-equations/">990.
+等式方程的可满足性[中等]</a></strong></p>
+<p><strong><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-provinces/">547.
+省份数量[中等]</a></strong></p>
+<p><strong><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-operations-to-make-network-connected/">1319.
+连通网络的操作次数[中等]</a></strong></p>
+<p><strong><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-provinces/">547.
+省份数量[中等]</a></strong></p>
+<p><strong><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/couples-holding-hands/">765.
+情侣牵手[困难]</a></strong></p>
+<h2 id="较有趣的题情侣牵手">较有趣的题：情侣牵手</h2>
 <h3 id="题目描述">题目描述</h3>
-<p><code>N </code>对情侣坐在连续排列的<code>2N</code>个座位上，想要牵到对方的手。 计算最少交换座位的次数，以便每对情侣可以并肩坐在一起。 一次交换可选择任意两人，让他们站起来交换座位。</p>
-<p>人和座位用 0 到 2N-1 的整数表示，情侣们按顺序编号，第一对是 <code>(0, 1)</code>，第二对是<code> (2, 3)</code>，以此类推，最后一对是 <code>(2N-2, 2N-1)</code>。</p>
-<p>这些情侣的初始座位  <code>row[i]</code> 是由最初始坐在第 <code>i</code> 个座位上的人决定的。</p>
+<p><code>N</code>对情侣坐在连续排列的<code>2N</code>个座位上，想要牵到对方的手。
+计算最少交换座位的次数，以便每对情侣可以并肩坐在一起。
+一次交换可选择任意两人，让他们站起来交换座位。</p>
+<p>人和座位用 0 到 2N-1 的整数表示，情侣们按顺序编号，第一对是
+<code>(0, 1)</code>，第二对是<code>(2, 3)</code>，以此类推，最后一对是
+<code>(2N-2, 2N-1)</code>。</p>
+<p>这些情侣的初始座位 <code>row[i]</code> 是由最初始坐在第
+<code>i</code> 个座位上的人决定的。</p>
 <p>示例 1:</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs excel">输入<span class="hljs-symbol">:</span> <span class="hljs-built_in">row</span> = [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>]<br>输出<span class="hljs-symbol">:</span> <span class="hljs-number">1</span><br>解释<span class="hljs-symbol">:</span> 我们只需要交换<span class="hljs-built_in">row</span>[<span class="hljs-number">1</span>]和<span class="hljs-built_in">row</span>[<span class="hljs-number">2</span>]的位置即可。<br></code></pre></td></tr></table></figure>
 <p>示例 2:</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: row = [3, 2, 0, 1]</span><br><span class="hljs-section">输出: 0</span><br><span class="hljs-section">解释: 无需交换座位，所有的情侣都已经可以手牵手了。</span><br></code></pre></td></tr></table></figure>
 <p>说明:</p>
-<p><code>len(row) </code>是偶数且数值在 <code>[4, 60]</code>范围内。<br>
-可以保证<code>row </code>是序列 <code>0...len(row)-1</code> 的一个全排列。</p>
+<p><code>len(row)</code>是偶数且数值在 <code>[4, 60]</code>范围内。
+可以保证<code>row</code>是序列 <code>0...len(row)-1</code>
+的一个全排列。</p>
 <h3 id="算法思路">算法思路</h3>
 <p>一开始想到的是：“是不是把两个情侣看作一个连通分量呢？那这样，为什么会用到并查集呢？”</p>
 <p>事实上，这里的<strong>连通分量</strong>是<strong>相互错开的情侣</strong>。下面具体来说一下。</p>
@@ -343,15 +363,17 @@
 <li>假设两组情侣相互交错开了，他们两组之间形成了一个环，那么需要交换1次；</li>
 <li>假设三组情侣相互交错开了，他们三组之间形成了一个环，那么需要交换2次；</li>
 <li>假设四组情侣相互交错开了，他们四组之间形成了一个环，那么需要交换3次；</li>
-<li>…</li>
+<li>...</li>
 </ul>
 <p>把每一个环看作一个连通分量。所以，我们只需要计算情侣之间形成了多少个环，即有多少个集合。</p>
 <p>从头到尾遍历一遍，如果相邻而坐的两个人不是情侣，那么这两个情侣组就处于同一个连通分量中，使用<code>union</code>将他们合并。</p>
 <h3 id="代码实现">代码实现</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    vector&lt;<span class="hljs-type">int</span>&gt; f;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(x == f[x])<span class="hljs-keyword">return</span> x;<br>        <span class="hljs-keyword">return</span> f[x] = <span class="hljs-built_in">find</span>(f[x]);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">uni</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span></span>&#123;<br>        f[<span class="hljs-built_in">find</span>(x)] = <span class="hljs-built_in">find</span>(y);<br>    &#125;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minSwapsCouples</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; row)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = row.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> m = n/<span class="hljs-number">2</span>;<br>        f.<span class="hljs-built_in">resize</span>(m);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i ++)f[i] = i;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += <span class="hljs-number">2</span>)<span class="hljs-built_in">uni</span>(row[i] / <span class="hljs-number">2</span>, row[i + <span class="hljs-number">1</span>] / <span class="hljs-number">2</span>);<br>        <span class="hljs-type">int</span> cnt = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) &#123;<br>            <span class="hljs-keyword">if</span> (i == <span class="hljs-built_in">find</span>(i)) cnt++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> m - cnt;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2>
-<p>[1] <a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/disjoint-set/ovuxje/">https://leetcode-cn.com/leetbook/read/disjoint-set/ovuxje/</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/couples-holding-hands/solution/liang-chong-100-de-jie-fa-bing-cha-ji-ta-26a6/">https://leetcode-cn.com/problems/couples-holding-hands/solution/liang-chong-100-de-jie-fa-bing-cha-ji-ta-26a6/</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/disjoint-set/ovuxje/">https://leetcode-cn.com/leetbook/read/disjoint-set/ovuxje/</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/couples-holding-hands/solution/liang-chong-100-de-jie-fa-bing-cha-ji-ta-26a6/">https://leetcode-cn.com/problems/couples-holding-hands/solution/liang-chong-100-de-jie-fa-bing-cha-ji-ta-26a6/</a></p>
 
                 
               </div>
@@ -520,12 +542,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -744,49 +760,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

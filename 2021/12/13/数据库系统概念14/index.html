@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例： 123456T:">
+    <meta name="description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念14">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/12/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B514/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例： 123456T:">
+<meta property="og:description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例：">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-12-13T02:10:34.000Z">
@@ -310,8 +310,8 @@
             
               <div class="markdown-body">
                 
-                <h1>14 事务</h1>
-<h2 id="14-1-事务的特性">14.1 事务的特性</h2>
+                <h1 id="事务">14 事务</h1>
+<h2 id="事务的特性">14.1 事务的特性</h2>
 <p><strong>ACID特性</strong>，缩写来自四个特性的第一个英文字母：</p>
 <ul>
 <li><strong>原子性</strong>：事务的所有操作要么全部正确反映出来，要么完全不反应</li>
@@ -322,38 +322,31 @@
 <p>实例：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">T:     <span class="hljs-built_in">read</span>(A);<br>    <span class="hljs-selector-tag">A</span> := A - <span class="hljs-number">50</span>;<br>    write(<span class="hljs-selector-tag">A</span>);<br>    read(<span class="hljs-selector-tag">B</span>);<br>    <span class="hljs-selector-tag">B</span> := B + <span class="hljs-number">50</span>;<br>    write(<span class="hljs-selector-tag">B</span>);<br></code></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>一致性：要求事务的执行不改变A、B之和。</p>
-</li>
-<li>
-<p>原子性：不能说因为故障，某个操作中断，导致金额的丢失。因为<strong>不一致状态</strong>必然会在某一个时刻存在，所以这就是原子性的必要性。某个事物的所有动作要么全部反映出来，要么全部不反映。</p>
-<p>保持原子性的方法，是将信息记录在<strong>日志</strong>里，若没能完成由<strong>恢复系统</strong>来恢复旧值</p>
-</li>
-<li>
-<p>持久性：一旦事务被成功执行，发起事物的用户已经被告知转账的发生，系统就必须保证故障不会引起转账数据丢失。</p>
-</li>
-<li>
-<p>隔离性：当多个事务并发执行的时候，即使每个事务都保证一致性和原子性，它们的操作还是会以人们所不希望的某种方式交叉执行，也会导致不一致状态。</p>
-<p>一种解决方法是串行的执行事务；或者使用数据库系统的<strong>并发控制系统</strong>来确保隔离性。</p>
-</li>
+<li><p>一致性：要求事务的执行不改变A、B之和。</p></li>
+<li><p>原子性：不能说因为故障，某个操作中断，导致金额的丢失。因为<strong>不一致状态</strong>必然会在某一个时刻存在，所以这就是原子性的必要性。某个事物的所有动作要么全部反映出来，要么全部不反映。</p>
+<p>保持原子性的方法，是将信息记录在<strong>日志</strong>里，若没能完成由<strong>恢复系统</strong>来恢复旧值</p></li>
+<li><p>持久性：一旦事务被成功执行，发起事物的用户已经被告知转账的发生，系统就必须保证故障不会引起转账数据丢失。</p></li>
+<li><p>隔离性：当多个事务并发执行的时候，即使每个事务都保证一致性和原子性，它们的操作还是会以人们所不希望的某种方式交叉执行，也会导致不一致状态。</p>
+<p>一种解决方法是串行的执行事务；或者使用数据库系统的<strong>并发控制系统</strong>来确保隔离性。</p></li>
 </ul>
-<h2 id="14-2-事务状态">14.2 事务状态</h2>
+<h2 id="事务状态">14.2 事务状态</h2>
 <ul>
 <li>active：初始状态，事务执行时处于这个状态。</li>
-<li>partially commited：最后一条语句执行后。需要特别强调一下：当事务完成它的最后一条语句后就进入了<strong>部分提交状态</strong>。此刻，<strong>事务已经完成执行</strong>，但由于<strong>实际输出</strong>可能仍临时驻留在<strong>主存</strong>中，一个硬件故障就可能阻止其成功完成，所以事务可能不得不中止。接着数据库系统往磁盘上写入足够的信息，确保即使出现故障事务所做的更新也能在系统重启后重新创建。写完最后一条这样的信息后，事务进入<strong>提交状态</strong></li>
+<li>partially
+commited：最后一条语句执行后。需要特别强调一下：当事务完成它的最后一条语句后就进入了<strong>部分提交状态</strong>。此刻，<strong>事务已经完成执行</strong>，但由于<strong>实际输出</strong>可能仍临时驻留在<strong>主存</strong>中，一个硬件故障就可能阻止其成功完成，所以事务可能不得不中止。接着数据库系统往磁盘上写入足够的信息，确保即使出现故障事务所做的更新也能在系统重启后重新创建。写完最后一条这样的信息后，事务进入<strong>提交状态</strong></li>
 <li>failed：不能继续正常执行的时候。</li>
 <li>aborted：事务回滚并且数据库已恢复到事务开始执行前的状态后。进入这个状态后，系统有两种选择：<strong>重启事务</strong>；<strong>杀死事务</strong></li>
 <li>committed：成功完成后。</li>
 </ul>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211213152147883.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211213152147883" style="zoom:50%;" />
-<h2 id="14-3-事物的隔离性">14.3 事物的隔离性</h2>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211213152147883.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211213152147883" style="zoom:50%;" /></p>
+<h2 id="事物的隔离性">14.3 事物的隔离性</h2>
 <p>事务处理系统通常允许多个事务并发地执行，因为有这样的好处。</p>
 <ul>
 <li>提高吞吐量和资源利用率。吞吐量——给定时间内执行的事务数增加；处理起和磁盘利用率提高。</li>
 <li>减少等待时间。减少<strong>平均响应时间</strong>——一个事务从提交到完成所需平均时间</li>
 </ul>
 <p>当多个事务并发地执行时，可能违背隔离性，即使每个事务都正确执行，数据库地一致性也可能被破坏。所以数据库系统必须控制事务之间的交互，以防止它们破坏数据库的一致性。使用<strong>并发控制机制</strong></p>
-<h2 id="14-4-可串行化">14.4 可串行化</h2>
+<h2 id="可串行化">14.4 可串行化</h2>
 <p>可串行化调度：即调度应该在某种程度上等价于一个<strong>串行调度</strong>。</p>
 <p>为了更好地考虑事务地各种操作，我们简化成两种操作：read和write。</p>
 <p>考虑调度S：</p>
@@ -365,34 +358,63 @@
 <li><code>I = write(Q),J = read(Q)</code>。谁先谁后结果不同，次序是重要的。</li>
 <li><code>I = read(Q),J = write(Q)</code>。同上，次序是重要的</li>
 <li><code>I = write(Q),J = write(Q)</code>。次序是重要的，决定了Q的最终值。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p><strong>冲突</strong>：所以，当I与J是不同事务在相同数据项上的操作时，并且其中至少一个是write时，我们说I与J是<strong>冲突的</strong>。</p>
-<p><strong>冲突等价</strong>：如果调度$S$可以经过一系列<strong>非冲突指令交换</strong>转换成$S’$，我们称$S$与$S’$是冲突等价的。</p>
-<p><strong>冲突可串行化</strong>：如果一个调度$S$与一个串行调度冲突等价，则称调度S是冲突可串行化的。</p>
-<p>比如下图，schedule 3 可以经过交换得到 schedule 6，则schedule 3是冲突可串行化的。</p>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20211213155333733.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211213155333733"></p>
+<p><strong>冲突等价</strong>：如果调度<span
+class="math inline">\(S\)</span>可以经过一系列<strong>非冲突指令交换</strong>转换成<span
+class="math inline">\(S&#39;\)</span>，我们称<span
+class="math inline">\(S\)</span>与<span
+class="math inline">\(S&#39;\)</span>是冲突等价的。</p>
+<p><strong>冲突可串行化</strong>：如果一个调度<span
+class="math inline">\(S\)</span>与一个串行调度冲突等价，则称调度S是冲突可串行化的。</p>
+<p>比如下图，schedule 3 可以经过交换得到 schedule 6，则schedule
+3是冲突可串行化的。</p>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211213155333733.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20211213155333733" />
+<figcaption aria-hidden="true">image-20211213155333733</figcaption>
+</figure>
 <p><strong>串行化顺序</strong>：可通过<strong>拓扑排序</strong>得到</p>
 <p><strong>视图等价</strong>：认为两个schedule视图等价，需要满足三个规则：</p>
-<ol>
-<li>对同一 data item，只要是有一个 schedule读了它的初始值，另外一个 schedule 也必须读它的初始值。</li>
-<li>对同一data  item，如果在一个 schedule 里，一个操作是读了一个写操作后的值，另一个 schedule 也必须读同样写操作后的值。</li>
-<li>对同一 data item，如果在一个 schedule 里最后进行了写操作，则另一个 schedule 也要在最后进行同样的写操作。</li>
+<ol type="1">
+<li>对同一 data item，只要是有一个 schedule读了它的初始值，另外一个
+schedule 也必须读它的初始值。</li>
+<li>对同一data item，如果在一个 schedule
+里，一个操作是读了一个写操作后的值，另一个 schedule
+也必须读同样写操作后的值。</li>
+<li>对同一 data item，如果在一个 schedule 里最后进行了写操作，则另一个
+schedule 也要在最后进行同样的写操作。</li>
 </ol>
 <p><strong>视图可串行化</strong>：判断调度是否视图可串行化，已被证明是NP-完全问题。</p>
-<h2 id="14-5-事务隔离性和原子性">14.5 事务隔离性和原子性</h2>
-<p><strong>一个可恢复调度</strong>：对于每个事务$T_i$和$T_j$，如果$T_j$读取了之前由$T_i$所写的数据项，则$T_i$先于$T_j$提交。</p>
+<h2 id="事务隔离性和原子性">14.5 事务隔离性和原子性</h2>
+<p><strong>一个可恢复调度</strong>：对于每个事务<span
+class="math inline">\(T_i\)</span>和<span
+class="math inline">\(T_j\)</span>，如果<span
+class="math inline">\(T_j\)</span>读取了之前由<span
+class="math inline">\(T_i\)</span>所写的数据项，则<span
+class="math inline">\(T_i\)</span>先于<span
+class="math inline">\(T_j\)</span>提交。</p>
 <p><strong>级联回滚</strong>：因单个事务故障导致一系列事务回滚，称为级联回滚</p>
-<p><strong>无级联调度</strong>：对于每对事务$T_j$和$T_i$，如果$T_i$读取了先前由$T_i$所写的数据项，则$T_i$必须在$T_j$这一读操作前提交。</p>
-<h2 id="14-6-事务隔离性级别">14.6 事务隔离性级别</h2>
+<p><strong>无级联调度</strong>：对于每对事务<span
+class="math inline">\(T_j\)</span>和<span
+class="math inline">\(T_i\)</span>，如果<span
+class="math inline">\(T_i\)</span>读取了先前由<span
+class="math inline">\(T_i\)</span>所写的数据项，则<span
+class="math inline">\(T_i\)</span>必须在<span
+class="math inline">\(T_j\)</span>这一读操作前提交。</p>
+<h2 id="事务隔离性级别">14.6 事务隔离性级别</h2>
 <p>1.<strong>可串行化</strong>(serializable)：最高级别，事务不能并发，只能串行</p>
-<p>2.<strong>可重复读</strong>(repeatable read)：禁止读脏和不重复读，但允许幻象读</p>
-<p>3.<strong>已提交读</strong>(read committed)：不读脏，但允许不重复读，SQL默认级别</p>
+<p>2.<strong>可重复读</strong>(repeatable
+read)：禁止读脏和不重复读，但允许幻象读</p>
+<p>3.<strong>已提交读</strong>(read
+committed)：不读脏，但允许不重复读，SQL默认级别</p>
 <p>3.<strong>未提交读</strong>(read uncommitted)：读脏</p>
 <p>以上隔离性级别都不允许<strong>脏写</strong>。</p>
 <p><strong>脏写</strong>：如果一个数据项已经被另外一个尚未提交或中止的事务写入，则不允许对该数据项执行写操作。</p>
-<p>在sql server中的设置方式为<code>set transaction isolation level serializable</code></p>
+<p>在sql
+server中的设置方式为<code>set transaction isolation level serializable</code></p>
 
                 
               </div>

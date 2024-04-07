@@ -28,10 +28,10 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.446Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="Web">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/linuxweb.jpg">
   
@@ -312,7 +312,7 @@
             
               <div class="markdown-body">
                 
-                <h1>信号</h1>
+                <h1 id="信号">信号</h1>
 <p><strong>信号</strong>：由用户、系统或者进程发送给目标进程的信息，以通知目标进程某个状态的改变或系统异常。</p>
 <p>可能由如下条件产生：</p>
 <ul>
@@ -326,25 +326,25 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;signal.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">kill</span><span class="hljs-params">(<span class="hljs-type">pid_t</span> pid, <span class="hljs-type">int</span> sig)</span></span>;<br></code></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>pid参数</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>pid &gt; 0</td>
 <td>信号发送给PID为pid的进程</td>
 </tr>
-<tr>
+<tr class="even">
 <td>pid == 0</td>
 <td>发送给本进程组内的进程</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>pid == -1</td>
 <td>发送给出init进程外的所有进程（需要有权限）</td>
 </tr>
-<tr>
+<tr class="even">
 <td>pid &lt; -1</td>
 <td>发送给<strong>组id</strong>为 -pid的所有进程</td>
 </tr>
@@ -354,34 +354,34 @@
 <h2 id="几个关键信号">几个关键信号</h2>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>信号</th>
 <th>默认行为</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>SIGHUP</td>
 <td>Term</td>
 <td>控制终端挂起</td>
 </tr>
-<tr>
+<tr class="even">
 <td>SIGPIPE</td>
 <td>Term</td>
 <td>往读端被关闭的管道或者socket连接中写数据</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>SIGURG</td>
 <td>Ign</td>
 <td>socket连接上接收到紧急数据</td>
 </tr>
-<tr>
+<tr class="even">
 <td>SIGALRM</td>
 <td>Term</td>
 <td>由alarm或setitimer设置的实时闹钟超时引起</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>SIGCHLD</td>
 <td>Ign</td>
 <td>子进程状态发生变化（退出或者暂停）</td>
@@ -406,13 +406,13 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
-      
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -545,12 +545,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -769,49 +763,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

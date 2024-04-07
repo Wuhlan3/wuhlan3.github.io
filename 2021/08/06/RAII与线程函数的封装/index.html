@@ -27,10 +27,10 @@
 <meta property="article:published_time" content="2021-08-06T09:12:08.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.479Z">
 <meta property="article:author" content="Wuhlan3">
-<meta property="article:tag" content="Web">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/webserver.jpg">
   
@@ -311,8 +311,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="RAII">RAII</h2>
-<p>RAII，即RAII（<strong>R</strong>esource <strong>A</strong>cquisition <strong>I</strong>s <strong>I</strong>nitialization），翻译过来就是“资源获取就是初始化”。是C++等编程语言常用的<strong>管理资源</strong>、<strong>避免内存泄露</strong>的方法。它保证在任何情况下，使用对象时先<strong>构造对象</strong>，最后<strong>析构对象</strong>。</p>
+                <h2 id="raii">RAII</h2>
+<p>RAII，即RAII（<strong>R</strong>esource <strong>A</strong>cquisition
+<strong>I</strong>s
+<strong>I</strong>nitialization），翻译过来就是“资源获取就是初始化”。是C++等编程语言常用的<strong>管理资源</strong>、<strong>避免内存泄露</strong>的方法。它保证在任何情况下，使用对象时先<strong>构造对象</strong>，最后<strong>析构对象</strong>。</p>
 <p>其实就是构造类的思想，里面涉及到构造函数与析构函数。为什么需要用到这种思想呢？直接使用pthread库提供的线程函数不好吗？</p>
 <div class="note note-success">
             <p>RAII，它充分地利用了C++语言局部对象自动销毁的特性来控制资源的生命周期。</p>
@@ -329,13 +331,17 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">locker</span>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">pthread_mutex_t</span> m_mutex;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">locker</span>()&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">pthread_mutex_init</span>(&amp;m_mutex, <span class="hljs-literal">NULL</span>) != <span class="hljs-number">0</span>)<span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">exception</span>();<br>    &#125;<br>    ~<span class="hljs-built_in">locker</span>()&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">pthread_mutex_destroy</span>(&amp;m_mutex) != <span class="hljs-number">0</span>)<span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">exception</span>();<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">pthread_mutex_lock</span>(&amp;m_mutex) == <span class="hljs-number">0</span>;<span class="hljs-comment">//p操作</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">pthread_mutex_unlock</span>(&amp;m_mutex) == <span class="hljs-number">0</span>;<span class="hljs-comment">//v操作</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">pthread_mutex_t</span> *<span class="hljs-title">get</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> &amp;m_mutex;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="条件变量">条件变量</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">cond</span>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">cond</span>()&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">pthread_cond_init</span>(&amp;m_cond, <span class="hljs-literal">NULL</span>) != <span class="hljs-number">0</span>)<span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">exception</span>();<br>    &#125;<br>    ~<span class="hljs-built_in">cond</span>()&#123;<br>        <span class="hljs-built_in">pthread_cond_destroy</span>(&amp;m_cond);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *m_mutex)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">pthread_cond_wait</span>(&amp;m_cond, m_mutex) == <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">timewait</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *m_mutex, <span class="hljs-keyword">struct</span> timespec t)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">pthread_cond_timedwait</span>(&amp;m_cond, m_mutex, &amp;t) == <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">signal</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">pthread_cond_signal</span>(&amp;m_cond) == <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">broadcast</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">pthread_cond_broadcast</span>(&amp;m_cond) == <span class="hljs-number">0</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">pthread_cond_t</span> m_cond;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h2 id="locker-h文件">locker.h文件</h2>
+<h2 id="locker.h文件">locker.h文件</h2>
 <p>加上这样的头文件即可</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> LOCKER_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> LOCKER_H</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;exception&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;semaphore.h&gt;</span></span><br><br>...<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
 <h2 id="参考教程">参考教程</h2>
-<p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34660259">https://zhuanlan.zhihu.com/p/34660259</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNzU2MzcwMw==&amp;mid=2649274278&amp;idx=3&amp;sn=5840ff698e3f963c7855d702e842ec47&amp;chksm=83ffbefeb48837e86fed9754986bca6db364a6fe2e2923549a378e8e5dec6e3cf732cdb198e2&amp;scene=0&amp;xtrack=1#rd">最新版Web服务器项目详解 - 01 线程同步机制封装类</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6">https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34660259">https://zhuanlan.zhihu.com/p/34660259</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNzU2MzcwMw==&amp;mid=2649274278&amp;idx=3&amp;sn=5840ff698e3f963c7855d702e842ec47&amp;chksm=83ffbefeb48837e86fed9754986bca6db364a6fe2e2923549a378e8e5dec6e3cf732cdb198e2&amp;scene=0&amp;xtrack=1#rd">最新版Web服务器项目详解
+- 01 线程同步机制封装类</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6">https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6</a></p>
 
                 
               </div>
@@ -348,13 +354,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
-      
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -487,12 +493,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -711,49 +711,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

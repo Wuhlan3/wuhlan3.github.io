@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="关系模型 关系数据库结构 关系型数据库：是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。 表：关系型数据库这一系列的行和列被称为表 行(row)：一组值的序列。又称为元组(tuple)、数据库记录(record) 列(column)：表中的一个字段、属性(attribute)，所有表由多个列组成 域：对于关系">
+    <meta name="description" content="关系模型 关系数据库结构 关系型数据库：是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。 表：关系型数据库这一系列的行和列被称为表 行(row)：一组值的序列。又称为元组(tuple)、数据库记录(record) 列(column)：表中的一个字段、属性(attribute)，所有表由多个列组成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念2">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/06/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B52/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="关系模型 关系数据库结构 关系型数据库：是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。 表：关系型数据库这一系列的行和列被称为表 行(row)：一组值的序列。又称为元组(tuple)、数据库记录(record) 列(column)：表中的一个字段、属性(attribute)，所有表由多个列组成 域：对于关系">
+<meta property="og:description" content="关系模型 关系数据库结构 关系型数据库：是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。 表：关系型数据库这一系列的行和列被称为表 行(row)：一组值的序列。又称为元组(tuple)、数据库记录(record) 列(column)：表中的一个字段、属性(attribute)，所有表由多个列组成">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-06T02:04:39.000Z">
@@ -257,7 +257,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          882 words
+          884 words
         
       </span>
     
@@ -310,7 +310,7 @@
             
               <div class="markdown-body">
                 
-                <h1>关系模型</h1>
+                <h1 id="关系模型">关系模型</h1>
 <h2 id="关系数据库结构">关系数据库结构</h2>
 <p><strong>关系型数据库</strong>：是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，以便于用户理解，关系型数据库这一系列的行和列被称为表，一组表组成了数据库。</p>
 <p><strong>表</strong>：关系型数据库这一系列的行和列被称为表</p>
@@ -319,32 +319,42 @@
 <p><strong>域</strong>：对于关系的每个属性，都存在一个<strong>允许取值的范围</strong>，为该值的域</p>
 <p><strong>原子的</strong>(atomic)：如果域中的单元被看作是不可分的单元，则这个域就是原子的</p>
 <p><strong>空值</strong>(null)：表示值未知或者不存在</p>
-<p><img src="image-20210906101521521.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906101521521"></p>
+<figure>
+<img src="image-20210906101521521.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906101521521" />
+<figcaption aria-hidden="true">image-20210906101521521</figcaption>
+</figure>
 <p><strong>关系</strong>：我们使用关系来指代<strong>表</strong>。（对应于“变量”）</p>
 <p><strong>关系模式</strong>：由属性序列及各属性对应域组成。（对应于“数据类型”）</p>
 <p><strong>关系实例</strong>：一个关系的特定实例</p>
-<h2 id="码-键">码/键</h2>
+<h2 id="码键">码/键</h2>
 <p><strong>超码</strong>(superkey)：是一个或多个属性的集合，可以在一个关系中唯一地标识一个元组</p>
-<p><strong>候选码</strong>(candidate key)：超码的任意真子集都不能成为超码，这样的最小超码称为候选码</p>
-<p><strong>主码/主键</strong>(primary key)：被DB设计者选中的，用于区分不同元组的候选码。通常把一个关系模式的主码属性列在最前面。</p>
+<p><strong>候选码</strong>(candidate
+key)：超码的任意真子集都不能成为超码，这样的最小超码称为候选码</p>
+<p><strong>主码/主键</strong>(primary
+key)：被DB设计者选中的，用于区分不同元组的候选码。通常把一个关系模式的主码属性列在最前面。</p>
 <div class="note note-success">
             <p>主码在一个关系中<strong>只能有一个</strong>（选定的一个）,但主码中的<strong>属性可以有多个</strong>,叫联合主码。规定主码的值不能为空(null)！</p>
           </div>
-<p><strong>外码</strong>(foreign key)：一个关系模式r1它的属性中包含另一个关系模式r2中的<strong>主码</strong>。则这个属性称为外码；r1称为外码依赖的<strong>参照关系</strong>(referencing relation)；r2称为外码依赖的<strong>被参照关系</strong>(referenced relation)。简单来说，就是r1参照r2嘛~</p>
+<p><strong>外码</strong>(foreign
+key)：一个关系模式r1它的属性中包含另一个关系模式r2中的<strong>主码</strong>。则这个属性称为外码；r1称为外码依赖的<strong>参照关系</strong>(referencing
+relation)；r2称为外码依赖的<strong>被参照关系</strong>(referenced
+relation)。简单来说，就是r1参照r2嘛~</p>
 <div class="note note-success">
             <p>保持数据一致性，完整性，使两张表形成关联，所以外键只能引用外表中的列的值或使用空值。</p>
           </div>
-<p><strong>参照完整性约束</strong>：数据库的参照完整性是指表与表之间的一种对应关系，通常情况下可以通过设置两表之间的主键、外键关系，或者编写两表的触发器来实现。 有对应参照完整性的两张表格，在对他们进行数据插入、更新、删除的过程中，系统都会将被修改表格与另一张对应表格进行对照，从而阻止一些不正确的数据的操作。</p>
+<p><strong>参照完整性约束</strong>：数据库的参照完整性是指表与表之间的一种对应关系，通常情况下可以通过设置两表之间的主键、外键关系，或者编写两表的触发器来实现。
+有对应参照完整性的两张表格，在对他们进行数据插入、更新、删除的过程中，系统都会将被修改表格与另一张对应表格进行对照，从而阻止一些不正确的数据的操作。</p>
 <h2 id="模式图">模式图</h2>
 <p>一个含有主码和外码依赖的数据库模式可以用<strong>模式图</strong>来表示。</p>
-<img src="image-20210907102935560.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210907102935560" style="zoom:67%;" />
+<p><img src="image-20210907102935560.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210907102935560" style="zoom:67%;" /></p>
 <p>箭头的含义：简单来说就是A表的外键指向B表的主键。表明<strong>参照关系</strong>。</p>
 <h2 id="关系运算">关系运算</h2>
-<img src="image-20210907110435039.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210907110435039" style="zoom:67%;" />
-<h2 id="扩展-关系运算的latex语法">[扩展]关系运算的latex语法</h2>
+<p><img src="image-20210907110435039.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210907110435039" style="zoom:67%;" /></p>
+<h2 id="扩展关系运算的latex语法">[扩展]关系运算的latex语法</h2>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>Operation</th>
 <th>中文</th>
 <th>符号</th>
@@ -352,124 +362,125 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>Projection</td>
 <td>投影</td>
-<td>$\Pi$</td>
+<td><span class="math inline">\(\Pi\)</span></td>
 <td><code>\Pi</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Selection</td>
 <td>选择</td>
-<td>$\sigma$</td>
+<td><span class="math inline">\(\sigma\)</span></td>
 <td><code>\sigma</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Renaming</td>
 <td>重命名</td>
-<td>$\rho$</td>
+<td><span class="math inline">\(\rho\)</span></td>
 <td><code>\rho</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Aggregate Function</td>
 <td>聚合函数</td>
-<td>$\mathcal{G}$</td>
+<td><span class="math inline">\(\mathcal{G}\)</span></td>
 <td><code>\mathcal&#123;G&#125;</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Union</td>
 <td>交</td>
-<td>$\cap$</td>
+<td><span class="math inline">\(\cap\)</span></td>
 <td><code>\cap</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Intersection</td>
 <td>补</td>
-<td>$\cup$</td>
+<td><span class="math inline">\(\cup\)</span></td>
 <td><code>\cup</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Natural Join</td>
 <td>自然连接</td>
-<td>$\bowtie$</td>
+<td><span class="math inline">\(\bowtie\)</span></td>
 <td><code>\bowtie</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Left Outer Join</td>
 <td>左外连接</td>
 <td>⟕</td>
-<td>… 这几个直接复制吧</td>
+<td>... 这几个直接复制吧</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Right Outer Join</td>
 <td>右外连接</td>
 <td>⟖</td>
 <td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Full Outer Join</td>
 <td>全外连接</td>
 <td>⟗</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Cartesian product</td>
 <td>笛卡尔乘积</td>
-<td>$\times$</td>
+<td><span class="math inline">\(\times\)</span></td>
 <td><code>\times</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Divide</td>
 <td>除</td>
-<td>$\div$</td>
+<td><span class="math inline">\(\div\)</span></td>
 <td><code>\div</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Assignment</td>
 <td>赋值</td>
-<td>$\leftarrow$</td>
+<td><span class="math inline">\(\leftarrow\)</span></td>
 <td><code>\leftarrow</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>And</td>
 <td>条件并列</td>
-<td>$\land$</td>
+<td><span class="math inline">\(\land\)</span></td>
 <td><code>\land</code> or <code>\vee</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Negation</td>
 <td>非</td>
-<td>$\neg$</td>
+<td><span class="math inline">\(\neg\)</span></td>
 <td><code>\neg</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Exist</td>
 <td>存在</td>
-<td>$\exists$</td>
+<td><span class="math inline">\(\exists\)</span></td>
 <td><code>\exists</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>For All</td>
 <td>对所有</td>
-<td>$\forall$</td>
+<td><span class="math inline">\(\forall\)</span></td>
 <td><code>\forall</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
 <td>长长长长括号</td>
-<td>$\big( \Big( \bigg( \Bigg($</td>
+<td><span class="math inline">\(\big( \Big( \bigg( \Bigg(\)</span></td>
 <td><code>\big( \Big( \bigg( \Bigg(</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td></td>
 <td>比较</td>
-<td>$\gt \ge \lt \le \ne$</td>
+<td><span class="math inline">\(\gt \ge \lt \le \ne\)</span></td>
 <td><code>\gt \ge \lt \le \ne</code></td>
 </tr>
 </tbody>
 </table>
 <h2 id="参考资料">参考资料</h2>
-<p>[1]<a target="_blank" rel="noopener" href="https://billc.io/2020/04/latex-relational-algebra/">https://billc.io/2020/04/latex-relational-algebra/</a></p>
+<p>[1]<a
+target="_blank" rel="noopener" href="https://billc.io/2020/04/latex-relational-algebra/">https://billc.io/2020/04/latex-relational-algebra/</a></p>
 <p>[2]《数据库系统概念》第六版</p>
 
                 

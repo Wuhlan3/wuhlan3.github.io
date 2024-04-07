@@ -313,7 +313,7 @@
             
               <div class="markdown-body">
                 
-                <h1>实验5：实现系统调用</h1>
+                <h1 id="实验5实现系统调用">实验5：实现系统调用</h1>
 <h3 id="实验目的">实验目的</h3>
 <p>1、 学习掌握PC系统的软中断指令</p>
 <p>2、掌握操作系统内核对用户提供服务的系统调用程序设计方法</p>
@@ -326,42 +326,58 @@
 <p>4、C语言的库设计，实现<code>putch()</code>、<code>getch()</code>、<code>printf()</code>等基本输入输出库过程。</p>
 <p>5、编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</p>
 <h3 id="实验内容">实验内容</h3>
-<p>(1) 修改实验4的内核代码，先编写save()和restart()两个汇编过程，分别用于中断处理的现场保护和现场恢复，内核定义一个保护现场的数据结构，以后，处理程序的开头都调用save()保存中断现场，处理完后都用restart()恢复中断现场。</p>
-<p>(2) 内核增加int 20h、int 21h和int 22h软中断的处理程序，其中，int 20h用于用户程序结束是返回内核准备接受命令的状态；int 21h用于系统调用，并实现3-5个简单系统调用功能；int22h功能未定，先实现为屏幕某处显示INT22H。</p>
-<p>(3) 保留无敌风火轮显示，取消触碰键盘显示OUCH!这样功能。</p>
-<p>(4) 进行C语言的库设计，实现putch()、getch()、gets()、puts()、printf()、scanf()等基本输入输出库过程，汇编产生libs.obj。</p>
-<p>(5) 利用自己设计的C库libs.obj，编写一个使用这些库函数的C语言用户程序，再编译，再与libs.obj一起链接，产生COM程序。增加内核命令执行这个程序：</p>
+<ol type="1">
+<li><p>修改实验4的内核代码，先编写save()和restart()两个汇编过程，分别用于中断处理的现场保护和现场恢复，内核定义一个保护现场的数据结构，以后，处理程序的开头都调用save()保存中断现场，处理完后都用restart()恢复中断现场。</p></li>
+<li><p>内核增加int 20h、int 21h和int 22h软中断的处理程序，其中，int
+20h用于用户程序结束是返回内核准备接受命令的状态；int
+21h用于系统调用，并实现3-5个简单系统调用功能；int22h功能未定，先实现为屏幕某处显示INT22H。</p></li>
+<li><p>保留无敌风火轮显示，取消触碰键盘显示OUCH!这样功能。</p></li>
+<li><p>进行C语言的库设计，实现putch()、getch()、gets()、puts()、printf()、scanf()等基本输入输出库过程，汇编产生libs.obj。</p></li>
+<li><p>利用自己设计的C库libs.obj，编写一个使用这些库函数的C语言用户程序，再编译，再与libs.obj一起链接，产生COM程序。增加内核命令执行这个程序：</p></li>
+</ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>       <span class="hljs-type">char</span> ch,str[<span class="hljs-number">80</span>];<br>       <span class="hljs-type">int</span> a;<br>       <span class="hljs-built_in">getch</span>(&amp;ch);<br>       <span class="hljs-built_in">gets</span>(str);<br>       <span class="hljs-built_in">scnf</span>(“a=%d”,&amp;a);<br>      <span class="hljs-built_in">putch</span>(ch);<br>      <span class="hljs-built_in">puts</span>(str);<br>       <span class="hljs-built_in">printint</span>(“ch=%c, a=%d, str=%s”, ch, a, str);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>(6) 编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</p>
-<p><img src="new.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="new"></p>
+<ol start="6" type="1">
+<li>编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</li>
+</ol>
+<figure>
+<img src="new.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="new" />
+<figcaption aria-hidden="true">new</figcaption>
+</figure>
 <h3 id="实验环境">实验环境</h3>
-<h5 id="1-系统与虚拟机">1.系统与虚拟机</h5>
+<h5 id="系统与虚拟机">1.系统与虚拟机</h5>
 <ul>
 <li>Windows 10 - x64 18363.1139</li>
 <li>VMware Workstation 16 Player：用于跑ubuntu虚拟机</li>
 <li>Ubuntu 20.04.2 LTS</li>
 <li>VirtualBox-6.1.18-142142-Win：用于运行.img文件</li>
-<li>DOSBox DOS Emulator 0,74,0,0：用于tcc和tasm编译，并且运行.com文件</li>
+<li>DOSBox DOS Emulator
+0,74,0,0：用于tcc和tasm编译，并且运行.com文件</li>
 </ul>
-<h5 id="2-windows上的相关软件、编译器等">2.windows上的相关软件、编译器等</h5>
+<h5
+id="windows上的相关软件编译器等">2.windows上的相关软件、编译器等</h5>
 <ul>
-<li>NASM version 2.10.07 compiled on Jan  2 2013</li>
+<li>NASM version 2.10.07 compiled on Jan 2 2013</li>
 <li>TCC.EXE：用于16位C语言编程</li>
 <li>TLINK.EXE：用于C语言与汇编语言链接</li>
 <li>TASM.EXE：用于.asm文件的汇编</li>
 </ul>
-<h5 id="3-Ubuntu上的相关软件、编译器等">3.Ubuntu上的相关软件、编译器等</h5>
+<h5 id="ubuntu上的相关软件编译器等">3.Ubuntu上的相关软件、编译器等</h5>
 <ul>
 <li>NASM version 2.14.02</li>
 <li>makefile：GNU Make 4.2.1</li>
 </ul>
 <h3 id="实验基本架构">实验基本架构</h3>
-<p><img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="Wuhlan OS"></p>
+<figure>
+<img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="Wuhlan OS" />
+<figcaption aria-hidden="true">Wuhlan OS</figcaption>
+</figure>
 <h3 id="实验过程">实验过程</h3>
-<h4 id="1-根据例程，写出保护现场与恢复现场">1.根据例程，写出保护现场与恢复现场</h4>
+<h4
+id="根据例程写出保护现场与恢复现场">1.根据例程，写出保护现场与恢复现场</h4>
 <p>在C程序中定义了一个结构体，包含了汇编中的14个寄存器，用于存储原来的状态，结构体如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cpuRegisters</span>&#123;</span><br>    <span class="hljs-type">int</span> ax;		<span class="hljs-comment">/*0*/</span><br>    <span class="hljs-type">int</span> bx;<br>    <span class="hljs-type">int</span> cx;<br>    <span class="hljs-type">int</span> dx;<br>    <span class="hljs-type">int</span> di;<br>    <span class="hljs-type">int</span> bp;<br>    <span class="hljs-type">int</span> es;<br>    <span class="hljs-type">int</span> ds;		<span class="hljs-comment">/*14*/</span><br>    <span class="hljs-type">int</span> si;		<span class="hljs-comment">/*16*/</span><br>    <span class="hljs-type">int</span> ss;		<span class="hljs-comment">/*18*/</span><br>    <span class="hljs-type">int</span> sp;		<span class="hljs-comment">/*20*/</span><br>    <span class="hljs-type">int</span> ip;		<span class="hljs-comment">/*22*/</span><br>    <span class="hljs-type">int</span> cs;		<span class="hljs-comment">/*24*/</span><br>    <span class="hljs-type">int</span> flags;	<span class="hljs-comment">/*26*/</span><br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<p>老师给出了<code>Minix</code>中的<code>save</code>和<code>restart</code>过程，我们可以先看懂该程序，再写出自己的<code>_save</code>和<code>_restart</code>。我们必须要明确刚调用save的时候栈里有什么东西，包括标志寄存器flag，代码段cs，中断代码pc，和save 的返回地址。我们发现结构体中的前7个寄存器一般来说是比较容易处理的（不会对当前执行的代码造成其他意想不到的影响），且可以在save执行过程中作为中介保存一下。</p>
+<p>老师给出了<code>Minix</code>中的<code>save</code>和<code>restart</code>过程，我们可以先看懂该程序，再写出自己的<code>_save</code>和<code>_restart</code>。我们必须要明确刚调用save的时候栈里有什么东西，包括标志寄存器flag，代码段cs，中断代码pc，和save
+的返回地址。我们发现结构体中的前7个寄存器一般来说是比较容易处理的（不会对当前执行的代码造成其他意想不到的影响），且可以在save执行过程中作为中介保存一下。</p>
 <p>仿照老师所给的代码，使用结构体保存中断现场，且在执行save之后，ss,sp,ds,cs,ip几个寄存器会变为内核态的。详情可以看下面代码的注释部分，对于栈的变化进行详细的讲述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs asm">;保护中断现场，此时栈顶/flags/cs/int ip/save ip*********************<br>_save proc near        <br>    push ds				;/flags/cs/ip/ip/ds<br>    push cs			<br>    pop ds				;ds=cs<br>    <br>    push si				;/flags/cs/ip/ip/ds/si<br>    <br>    lea si,_cpuReg			;此时si是结构体的地址<br>    pop word ptr [si+16]	;si存入结构体,/flags/cs/ip/ip/ds<br>    pop word ptr [si+14]	;ds存入结构体,/flags/cs/ip/ip<br>    <br>    lea si,save_ip			;这个ip指的是save的返回地址<br>    pop word ptr [si]		;ip存入ret_temp中,/flags/cs/ip<br>    <br>    lea si,_cpuReg<br>    pop word ptr [si+22]	;ip存入结构体，/flags/cs<br>    pop word ptr [si+24]	;cs存入结构体，/flags<br>    pop word ptr [si+26]	;flags存入结构体，/，栈为空<br>    <br>    mov [si+18],ss			;ss存入结构体<br>    mov [si+20],sp			;sp存入结构体<br>    <br>    mov si,ds		<br>    mov ss,si		;将栈修改为内核栈<br>    <br>    lea si,_cpuReg<br>    mov sp,si		;使栈指针指向结构体<br>    add sp,14		;sp指向ds<br>    <br>    push es			;将剩余的寄存器存入结构体<br>    push bp<br>    push di<br>    push dx<br>    push cx<br>    push bx<br>    push ax<br>    <br>    lea si,kernelsp	<br>    mov sp,[si]<br>    ;此时ss,sp,ds,cs,ip都是内核的<br>    <br>    lea si,save_ip	;通过保存的save_iP进行返回<br>    mov ax,[si]<br>    jmp ax<br>_save endp<br>;********************************************************<br></code></pre></td></tr></table></figure>
 <p>由于save的时候，最后才存储那7个寄存器，在恢复的时候，可以先恢复。由于我们使用si来进行寻址，所以先把恢复的si寄存器存入一个临时变量中，最后再进行恢复。比较需要注意的是栈的变化，首先把结构体作为栈，后来恢复了原来的栈，要对结构体进行手动寻址方式。</p>
@@ -371,7 +387,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs asm">call _save<br>call do_INT_XXh<br>jmp _restart<br></code></pre></td></tr></table></figure>
 <p>可以在<code>Timer</code>的前后使用，程序照常进行。</p>
 <p>还可以在<code>OUCH OUCH！</code>的前后使用，程序如常，说明save、restart是成功的。</p>
-<h4 id="2-增加INT-20软中断程序">2.增加INT 20软中断程序</h4>
+<h4 id="增加int-20软中断程序">2.增加INT 20软中断程序</h4>
 <blockquote>
 <p>int 20h用于用户程序结束是返回内核准备接受命令的状态</p>
 </blockquote>
@@ -379,12 +395,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs asm">public _jump<br>_jump proc near;两个参数,要跳到的cs:ip<br>    ;保护现场***********************************************<br>    push bp<br>    mov bp,sp		;先获取当前的栈指针，方便寻址，/jumpdest_ip/jumpdest_cs/ip/bp<br>    push ax<br>    push bx<br>    push cx<br>    push dx<br>    push di<br>    push es<br>    push ds<br>    push si<br>    pushf<br><br>    mov bx,[bp+4]		;获取参数cs<br>    mov ax,[bp+6]		;获取参数ip<br>    <br>    mov es,bx<br>    lea si,PSPBegin<br>    mov di,0<br>    lea cx,PSPEnd<br>    sub cx,si<br>    rep movsb<br>    <br>    lea si,kernelsp<br>    mov [si],sp<br><br>    mov ss,bx<br>    mov sp,0<br>    <br>    xor cx,cx<br>    push cx<br><br>    push bx				;要跳转的cs<br>    push ax				;要跳转的ip<br>    retf				;retf用栈中数据同时改CS,IP,远转移远返回指令。当它执行时，处理器先从栈中弹出<br>                        ;一个字到IP，再弹出一个字到CS。retf  -&gt;  pop ip   pop cs<br>PSPBegin:<br>    int 20h<br>PSPEnd:nop<br></code></pre></td></tr></table></figure>
 <p>INT20h，前半部分是对中断的载入，与其他中断的载入方式一致，不必赘述。从用户程序返回到内核的方法，恢复内核栈，再恢复寄存器最后直接返回即可</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs asm">public _loadINT_20h<br>_loadINT_20h proc near        ;载入中断，基本固定化的格式了，不必赘述<br>    push ax				<br>    push es<br>    CLI<br>    xor ax,ax<br>    mov es,ax<br>    lea ax,INT20H<br>    mov [es:80h],ax<br>    mov ax,cs<br>    mov [es:82h],ax<br>    mov es,ax<br>    STI<br><br>    pop es<br>    pop ax<br><br>    ret<br><br>INT20H:<br>    mov ax,cs				<br>    mov ds,ax				;ds = cs<br>    mov ss,ax				;ss = ss<br>     lea si,kernelsp			<br>    mov sp,[si]				;恢复栈指针<br>    popf					;因为在调用jump过程后，push了很多寄存器，所以需要返回前需要pop<br>    pop si<br>    pop ds<br>    pop es<br>    pop di<br>    pop dx<br>    pop cx<br>    pop bx<br>    pop ax<br>    pop bp<br>    ret<br>_loadINT_20h endp<br></code></pre></td></tr></table></figure>
-<h4 id="3-增加INT-21软中断程序">3.增加INT 21软中断程序</h4>
+<h4 id="增加int-21软中断程序">3.增加INT 21软中断程序</h4>
 <p>基本结构如下：</p>
 <ul>
-<li>载入int 21h（与其他中断的载入方式类似，偏移量存放在地址84h，代码段地址存放在86h的位置）</li>
+<li>载入int
+21h（与其他中断的载入方式类似，偏移量存放在地址84h，代码段地址存放在86h的位置）</li>
 <li>执行int 21h</li>
-<li>三个功能号，分别是：输出一个字符、获取键盘输入的字符（这个并不是完整的getchar）、返回内核（与int 20h一致）。</li>
+<li>三个功能号，分别是：输出一个字符、获取键盘输入的字符（这个并不是完整的getchar）、返回内核（与int
+20h一致）。</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs asm">;INT 21h****************************************************<br>INT_21h:<br>    call _save<br>    call do_INT_21h<br>    jmp _restart<br>do_INT_21h:<br>    lea si, _cpuReg<br>    mov ax, [si]					;此时si的地址就是ax<br>    <br>    cmp	ah, 01h<br>    jz INT_21h_1h<br>    <br>    cmp ah, 02h<br>    jz INT_21h_2h<br>    <br>    cmp ah, 4ch<br>    jz INT_21h_3h<br>_21h_end:    <br>    ret<br>;***********************************************************<br></code></pre></td></tr></table></figure>
 <p>1h：获取键盘输入的字符</p>
@@ -393,64 +411,59 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs asm">INT_21h_2h proc near<br>    mov ax,cs<br>    mov es,ax<br>    <br>    mov bh,0<br>    mov ah,3<br>    int 10h;<br>    lea bp,_cpuReg		<br>    add bp,6			<br>    mov ax,1301h<br>    mov bx,0007h<br>    mov cx,1<br>    int 10h<br>    jmp _21h_end<br>    <br>INT_21h_2h endp<br></code></pre></td></tr></table></figure>
 <p>3h：返回内核</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs asm">INT_21h_3h proc near<br>    mov ax,cs<br>    mov ds,ax<br>    mov ah,0<br>    int 16h<br>    xor ah,ah<br>    lea si,_cpuReg<br>    mov [si],ax<br>    jmp _21h_end<br>INT_21h_3h endp<br></code></pre></td></tr></table></figure>
-<h4 id="4-增加INT-22软中断程序">4.增加INT 22软中断程序</h4>
-<p>由于<code>save</code>和<code>restart</code>已经准备好了，所以我们可以很轻松地写出INT 22h</p>
+<h4 id="增加int-22软中断程序">4.增加INT 22软中断程序</h4>
+<p>由于<code>save</code>和<code>restart</code>已经准备好了，所以我们可以很轻松地写出INT
+22h</p>
 <p>加载22h中断，偏移量存放在地址88h，代码段地址存放在8ah的位置</p>
 <p>Int22h中断处理程序(屏幕某处显示INT22H):int22h功能未定，先实现为屏幕某处显示INT22H。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs asm">;22号中断***************************************************<br>INT_22h:<br>    call _save<br>    call do_INT_22h<br>    jmp _restart<br><br>do_INT_22h:<br>    mov ax, cs<br>    mov ds, ax<br>    mov ax,0b800h<br>    mov es,ax<br>    <br>    mov cx, 6 					;字符串长度,用于循环计数<br>    lea si, INT22H_str			;获取字符串地址<br>    <br>    mov bx,(12*80+40)*2			;打印于屏幕中心<br>    mov ah,07h<br>loop_int_22:<br>    mov al,[si]<br>    mov es:[bx], ax<br>    inc bx<br>    inc bx<br>    inc si<br>    loop loop_int_22			;loop结合cx可以使循环写的很舒服<br>    ret	<br>INT22H_str db &quot;INT 22H&quot;<br>;***********************************************************<br></code></pre></td></tr></table></figure>
 <p>使用一个用户程序来调用int 22h</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asm">org 8c00h<br>start:<br>    int 22h<br>    ret<br></code></pre></td></tr></table></figure>
-<h4 id="5-完善C函数库">5.完善C函数库</h4>
+<h4 id="完善c函数库">5.完善C函数库</h4>
 <p>事实上，在之前的实验中我已经写了一个类似的库，这一次实验的主要是实现printf和scanf.</p>
 <p>printf和scanf都是参数变长的函数。我对此完全没有概念，只好求助于搜索引擎。</p>
 <p>关键的操作在于取str指针的地址，通过+偏移量的方式，寻址得到后面的参数。</p>
 <p>如：<code>itos((int)*(&amp;str+off))</code>可以获得%d对应的数字，并将其转换为字符串</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">printf</span><span class="hljs-params">(<span class="hljs-type">char</span> *str, ...)</span>&#123;<br>    <span class="hljs-type">int</span> i;<br>    <span class="hljs-type">int</span> off = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; str[i] != <span class="hljs-number">0</span>; i++)&#123;<br>        <span class="hljs-keyword">if</span> (str[i] != <span class="hljs-string">&#x27;%&#x27;</span>)&#123;<br>            putch(str[i]);<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            i++;<br>            <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">&#x27;d&#x27;</span>)<br>                <span class="hljs-built_in">puts</span>(itos((<span class="hljs-type">int</span>)*(&amp;str + off)));<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">&#x27;c&#x27;</span>)<br>                putch((<span class="hljs-type">char</span>)*(&amp;str + off));<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">&#x27;s&#x27;</span>)<br>                <span class="hljs-built_in">puts</span>((<span class="hljs-type">char</span> *)*(&amp;str + off));<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">continue</span>;<br>            off += <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">scanf</span><span class="hljs-params">(<span class="hljs-type">char</span> *str, ...)</span>&#123;<br>    <span class="hljs-type">int</span> off = <span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> i;<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; str[i] != <span class="hljs-number">0</span>; i++)&#123;<br>        <span class="hljs-keyword">if</span> (str[i] == <span class="hljs-string">&#x27;%&#x27;</span>)&#123;<br>            i++;<br>            <span class="hljs-keyword">switch</span> (str[i])&#123;<br>            <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">&#x27;d&#x27;</span>)&#123;<br>                gets(num);<br>                *((<span class="hljs-type">int</span> *)(*(&amp;str + off))) = stoi();<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">&#x27;c&#x27;</span>)<br>                getch((<span class="hljs-type">char</span> *)*(&amp;str + off));<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str[i] == <span class="hljs-string">&#x27;s&#x27;</span>)<br>                gets((<span class="hljs-type">char</span> *)*(&amp;str + off));<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            off += <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="6-将所有文件进行编译，并写入软盘">6.将所有文件进行编译，并写入软盘</h4>
+<h4
+id="将所有文件进行编译并写入软盘">6.将所有文件进行编译，并写入软盘</h4>
 <p>我们再来看看实验的要求：</p>
 <blockquote>
-<p>(5) 利用自己设计的C库libs.obj，编写一个使用这些库函数的C语言用户程序，再编译，再与libs.obj一起链接，产生COM程序。增加内核命令执行这个程序。</p>
+<ol start="5" type="1">
+<li>利用自己设计的C库libs.obj，编写一个使用这些库函数的C语言用户程序，再编译，再与libs.obj一起链接，产生COM程序。增加内核命令执行这个程序。</li>
+</ol>
 </blockquote>
 <p>此次生成的.com程序涉及到四个代码文件，对于C函数库，经过网上搜索发现不能使用<code>.h</code>作为文件名，而应该直接使用<code>.c</code>。之后使用批处理提高生产效率（其中，后四段命令是新添加的）：</p>
 <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bat"><span class="hljs-built_in">del</span> *.obj<br><span class="hljs-built_in">del</span> *.com<br>tcc -mt -c -omain.obj main.c &gt; ccmsg.txt<br>tasm monitor.asm monitor.obj &gt; amsg.txt<br>tlink /<span class="hljs-number">3</span> /t monitor.obj main.obj, monitor.com,,<br>tcc -mt -c -otest.obj test.c &gt; test.txt<br>tcc -mt -c -ostdio.obj stdio.c &gt; stdio.txt<br>tasm loadtest.asm loadtest.obj &gt; loadtest.txt<br>tasm lib.asm lib.obj &gt; lib.txt<br>tlink /<span class="hljs-number">3</span> /t loadtest.obj lib.obj stdio.obj test.obj, loadtest.com,,<br></code></pre></td></tr></table></figure>
 <p>本次实验引入了两个新的用户程序：</p>
 <ul>
-<li>
-<p>test_int_22.bin，是用于测试中断向量22h的，加载到磁头号1，6号扇区的位置</p>
-</li>
-<li>
-<p>LOADTEST.COM是用于测试中断向量21h的，加载到磁头号1，7号扇区的位置</p>
-</li>
+<li><p>test_int_22.bin，是用于测试中断向量22h的，加载到磁头号1，6号扇区的位置</p></li>
+<li><p>LOADTEST.COM是用于测试中断向量21h的，加载到磁头号1，7号扇区的位置</p></li>
 </ul>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs makefile">BIN = loader.bin startOS.bin 19335209_A.bin 19335209_B.bin 19335209_C.bin 19335209_D.bin test_int_22.bin<br>IMG = wuhlan.img<br><span class="hljs-section">all: clear <span class="hljs-variable">$(BIN)</span> <span class="hljs-variable">$(IMG)</span></span><br><span class="hljs-section">clear:</span><br>    rm -f <span class="hljs-variable">$(BIN)</span> <span class="hljs-variable">$(IMG)</span><br><span class="hljs-section">%.bin: %.asm</span><br>    nasm -fbin <span class="hljs-variable">$&lt;</span> -o <span class="hljs-variable">$@</span><br><span class="hljs-section">%.img:</span><br>    /sbin/mkfs.msdos -C <span class="hljs-variable">$@</span> 1440<br>    dd if=loader.bin of=<span class="hljs-variable">$@</span> conv=notrunc<br>    dd if=MONITOR.COM of=<span class="hljs-variable">$@</span> seek=1 conv=notrunc<br>    dd if=19335209_A.bin of=<span class="hljs-variable">$@</span> seek=18 conv=notrunc<br>    dd if=19335209_B.bin of=<span class="hljs-variable">$@</span> seek=19 conv=notrunc<br>    dd if=19335209_C.bin of=<span class="hljs-variable">$@</span> seek=20 conv=notrunc<br>    dd if=19335209_D.bin of=<span class="hljs-variable">$@</span> seek=21 conv=notrunc<br>    dd if=startOS.bin of=<span class="hljs-variable">$@</span> seek=22 conv=notrunc<br>    dd if=test_int_22.bin of=<span class="hljs-variable">$@</span> seek=23 conv=notrunc<br>    dd if=LOADTEST.COM of=<span class="hljs-variable">$@</span> seek=24 conv=notrunc<br></code></pre></td></tr></table></figure>
 <h3 id="实验结果">实验结果</h3>
 <p>开机动画正常运作</p>
-<img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515224730500" style="zoom: 67%;" />
+<p><img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515224730500" style="zoom: 67%;" /></p>
 <p>可以注意到，右下角的风火轮可以正常转动，同时新增加两个用户程序，分别用于测试int21和int22</p>
-<img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515224550534" style="zoom: 67%;" />
+<p><img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515224550534" style="zoom: 67%;" /></p>
 <p>int22可以正常显示</p>
-<img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515225137314" style="zoom:67%;" />
+<p><img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515225137314" style="zoom:67%;" /></p>
 <p>int21执行如下</p>
-<img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515230025451" style="zoom:67%;" />
+<p><img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515230025451" style="zoom:67%;" /></p>
 <h3 id="问题与解决方式">问题与解决方式</h3>
-<ol>
-<li>
-<p>终于解决了，之前实验中C语言字符串无法显示的问题【捂脸】，经过老师的轻轻一点拨，原来就是我在载入监控程序的时候，没有控制好载入扇区的数量。如下，对<code>al</code>的值进行修改即可。😊</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs asm">mov ax,cs                ;段地址 ; 存放数据的内存基地址<br>mov es,ax                ;设置段地址（不能直接mov es,段地址）<br>mov bx, OS_offset   <br>mov ah,2                 ;功能号<br>mov al,10                 ;扇区数，内核占用扇区数  注意：不止加载了一个扇区<br>mov dl,0                 ;驱动器号 ; 软盘为0，硬盘和U盘为80H<br>mov dh,0                 ;磁头号 ; 起始编号为0<br>mov ch,0                 ;柱面号 ; 起始编号为0<br>mov cl,2                 ;存放内核的起始扇区号 ; 起始编号为1<br>int 13H                  ;调用读磁盘BIOS的13h功能<br>jmp 0a00h:100h            <br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在dosbox编译的时候出现神奇错误：</p>
+<ol type="1">
+<li><p>终于解决了，之前实验中C语言字符串无法显示的问题【捂脸】，经过老师的轻轻一点拨，原来就是我在载入监控程序的时候，没有控制好载入扇区的数量。如下，对<code>al</code>的值进行修改即可。:blush:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs asm">mov ax,cs                ;段地址 ; 存放数据的内存基地址<br>mov es,ax                ;设置段地址（不能直接mov es,段地址）<br>mov bx, OS_offset   <br>mov ah,2                 ;功能号<br>mov al,10                 ;扇区数，内核占用扇区数  注意：不止加载了一个扇区<br>mov dl,0                 ;驱动器号 ; 软盘为0，硬盘和U盘为80H<br>mov dh,0                 ;磁头号 ; 起始编号为0<br>mov ch,0                 ;柱面号 ; 起始编号为0<br>mov cl,2                 ;存放内核的起始扇区号 ; 起始编号为1<br>int 13H                  ;调用读磁盘BIOS的13h功能<br>jmp 0a00h:100h            <br></code></pre></td></tr></table></figure></li>
+<li><p>在dosbox编译的时候出现神奇错误：</p>
 <p><code>Fatal: Command line: Can't locate file: load_stdio_test.asm</code></p>
-<p>解决方法是，将文件名改短😓</p>
-</li>
-<li>
-<p>在编译<code>int 21h</code>测试程序的时候，出现调用.com程序失败的问题。原来是.com程序超过了512kb，在载入内存的时候需要多载入几个扇区。这个问题也卡了好久，以后一定要注意😡</p>
-</li>
+<p>解决方法是，将文件名改短:sweat:</p></li>
+<li><p>在编译<code>int 21h</code>测试程序的时候，出现调用.com程序失败的问题。原来是.com程序超过了512kb，在载入内存的时候需要多载入几个扇区。这个问题也卡了好久，以后一定要注意:rage:</p></li>
 </ol>
 <h3 id="实验总结">实验总结</h3>
 <p>本次实验看起来内容不多，但是真正做起来，是有非常多细节需要处理的。</p>
-<p>第一个难关就是<code>save</code>和<code>restart</code>的设计。 它起到保护中断现场的作用，可以使得多出来的在后续的实验中大概会起到非常重要的作用。看起来只不过是push和pop的简单问题，但是事实上，很多的寄存器（如ss,sp等）是会影响当前指令的正常执行的，常常需要额外的变量存储，并且需要对栈的过程、对函数调用中的栈的调用过程非常清晰。通过对上网查阅资料，我对汇编语言中所有的寄存器的特点有了更深刻的理解。</p>
+<p>第一个难关就是<code>save</code>和<code>restart</code>的设计。
+它起到保护中断现场的作用，可以使得多出来的在后续的实验中大概会起到非常重要的作用。看起来只不过是push和pop的简单问题，但是事实上，很多的寄存器（如ss,sp等）是会影响当前指令的正常执行的，常常需要额外的变量存储，并且需要对栈的过程、对函数调用中的栈的调用过程非常清晰。通过对上网查阅资料，我对汇编语言中所有的寄存器的特点有了更深刻的理解。</p>
 <p>接下来一个难关，是用户程序常常遇到调用失败的问题。很多时候是自己加载的扇区数，磁头号，扇区号不正确导致的。也出现了用户栈与内核栈并不对应导致错误。希望在后续的实验中能够避免。</p>
 <p>希望下次实验能够顺顺利利！！！</p>
 
@@ -621,12 +634,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -845,49 +852,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

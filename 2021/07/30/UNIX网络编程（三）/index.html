@@ -28,9 +28,9 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.492Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -311,34 +311,36 @@
             
               <div class="markdown-body">
                 
-                <h1>套接字编程</h1>
-<h2 id="IPv4套接字地址结构">IPv4套接字地址结构</h2>
+                <h1 id="套接字编程">套接字编程</h1>
+<h2 id="ipv4套接字地址结构">IPv4套接字地址结构</h2>
 <p>以sockaddr_in命名，定义在<code>&lt;netinet/in.h&gt;</code>头文件中：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span>&#123;<br>    <span class="hljs-type">in_addr_t</span> s_addr;<br>&#125;;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span>&#123;<br>    <span class="hljs-type">uint8_t</span>			sin_len;		<span class="hljs-comment">//地址结构长度字段</span><br>    <span class="hljs-type">sa_family_t</span>		sin_family;		<span class="hljs-comment">//地址族</span><br>    <span class="hljs-type">in_port_t</span>		sin_port;		<span class="hljs-comment">//端口号</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span>	sin_addr;		<span class="hljs-comment">//IP地址</span><br>    <span class="hljs-type">char</span>			sin_zero[<span class="hljs-number">8</span>];	<span class="hljs-comment">//无用</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<img src="image-20210730135838669.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730135838669" style="zoom:80%;" />
+<p><img src="image-20210730135838669.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730135838669" style="zoom:80%;" /></p>
 <h3 id="一些规范">一些规范</h3>
 <ul>
 <li>sa_family_t 的类型可以是任意无符号整数</li>
-<li>IPv4地址和TCP或UDP端口号在 socket地址结构中总是以<strong>网络字节序</strong>来存储。在后面将会区分主机字节序与网络字节序的区别。</li>
+<li>IPv4地址和TCP或UDP端口号在
+socket地址结构中总是以<strong>网络字节序</strong>来存储。在后面将会区分主机字节序与网络字节序的区别。</li>
 <li>IPv4地址存在两种不同的方法：
 <ul>
 <li><code>serv.sin_addr</code>按照<code>in_addr</code>结构来引用地址</li>
 <li><code>serv.sin_addr.s_addr</code>按照<code>in_addr_t</code>来引用地址</li>
 <li>编译器对传递结构和传递整数的处理是完全不同的。需要注意</li>
-</ul>
-</li>
+</ul></li>
 <li>sin_zero未曾使用，但是总是把它置为0。按照惯例，我们通常在填写结构体之前，把整个结构体都置为0。使用<code>bzero()</code>函数</li>
 <li>socket地址结构仅在给定主机上使用，虽然某些字段（IP地址和端口号）会用在通信中，但是结构本身是不会在主机上传递的。</li>
 </ul>
 <h3 id="通用套接字地址结构">通用套接字地址结构</h3>
-<p>在ANSI C之后，我们可以很轻松地传递地址结构的指针——使用<code>void*</code>。但是套接字结构是在ANSI C之前定义的，所以这也算是一个历史遗留问题。当时在<code>&lt;sys/socket.h&gt;</code>定义了一个通用的套接字地址结构：</p>
+<p>在ANSI
+C之后，我们可以很轻松地传递地址结构的指针——使用<code>void*</code>。但是套接字结构是在ANSI
+C之前定义的，所以这也算是一个历史遗留问题。当时在<code>&lt;sys/socket.h&gt;</code>定义了一个通用的套接字地址结构：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr</span>&#123;<br>    <span class="hljs-type">uint8_t</span>		sa_len;<br>    <span class="hljs-type">sa_family_t</span>	sa_family;<br>    <span class="hljs-type">char</span>		sa_data[<span class="hljs-number">14</span>];<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>所以在使用套接字函数的时候，我们需要以一个指向通用套接字结构的指针作为参数，通常使用强制类型转换：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span>    <span class="hljs-title class_">sockaddr_in</span> serv;<br><span class="hljs-built_in">bind</span>(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;serv, <span class="hljs-built_in">sizeof</span>(serv));<br><span class="hljs-built_in">bind</span>(sockfd, (SA *)&amp;serv, <span class="hljs-built_in">sizeof</span>(serv));<span class="hljs-comment">//本书中对该结构体宏定义SA</span><br></code></pre></td></tr></table></figure>
-<h2 id="IPv6套接字地址结构">IPv6套接字地址结构</h2>
+<h2 id="ipv6套接字地址结构">IPv6套接字地址结构</h2>
 <p>以sockaddr_in6命名，定义在<code>&lt;netinet/in.h&gt;</code>头文件中：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">in6_addr</span>&#123;<br>    <span class="hljs-type">unit8_t</span>		s6_addr[<span class="hljs-number">16</span>];<br>&#125;;<br><span class="hljs-meta">#<span class="hljs-keyword">define</span> SIN6_LEN</span><br><span class="hljs-keyword">struct</span>    <span class="hljs-title class_">sockaddr_in6</span>&#123;<br>    <span class="hljs-type">uint8_t</span>			sin6_len;<br>    <span class="hljs-type">sa_family_t</span>		sin6_family;<br>    <span class="hljs-type">in_port_t</span>		sin6_port;<br>    <span class="hljs-type">uint32_t</span>		sin6_flowinfo;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in6_addr</span>	sin6_addr;<br>    <span class="hljs-type">uint32_t</span>		sin6_scope_id;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="一些规范-2">一些规范</h3>
+<h3 id="一些规范-1">一些规范</h3>
 <ul>
 <li>如果系统支持套接字地址结构中的长度字段，那么SIN6_LEN常值必须定义</li>
 <li>IPv6的地址族是AF_INET6，而IPv4的地址族是AF_INET</li>
@@ -351,19 +353,19 @@
 <p>（1）如果系统支持的任意socket地址结构有对齐需要，那么sockaddr_storage能够满足最苛刻的对其要求</p>
 <p>（2）sockaddr_storage足够大，能够容纳系统支持的任何socket地址结构。</p>
 <p>（3）除了上面呈现的两个字段外，剩下的字段对于用户是透明地，需要类型强制转换后才能够访问到。</p>
-<img src="image-20210730143759509.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730143759509" style="zoom:80%;" />
+<p><img src="image-20210730143759509.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730143759509" style="zoom:80%;" /></p>
 <h2 id="值-结果参数">值-结果参数</h2>
 <p>1、从<strong>进程</strong>到<strong>内核</strong>传递的套接口结构有3个函数：bind，connect和sendto，这三个函数的一个参数是指向套接口结构的指针，另一个是结构的大小，如：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> serv;<span class="hljs-comment">/*fill in serv[]*/</span><br><span class="hljs-built_in">connect</span>(sockfd,(SA *)&amp;serv,<span class="hljs-built_in">sizeof</span>(serv));<br></code></pre></td></tr></table></figure>
 <p>由于从进程到内核的参数是指向结构的指针和结构的大小，所以从进程到内核拷贝的数据是确定的。</p>
-<img src="image-20210730145354528.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730145354528" style="zoom:80%;" />
+<p><img src="image-20210730145354528.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730145354528" style="zoom:80%;" /></p>
 <p>2、与前面的正好相反，从<strong>内核</strong>到<strong>进程</strong>传递的套接口地址结构有四个函数：accept，recvfrom，getsockname，和getpeername，其参数是：指向套接字结构的指针和指向表示结构大小的指针，如：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> cli;<br><span class="hljs-type">socklen_t</span> len;<br><br>len = <span class="hljs-built_in">sizeof</span>(cli);<br><span class="hljs-built_in">getpeername</span>(unixfd,(SA *)&amp;cli,&amp;len); <span class="hljs-comment">/*len可能会发生改变*/</span><br></code></pre></td></tr></table></figure>
 <p>为何将结构大小由整数改为整数的指针呢？这是因为当函数被调用时，结构大小是一个值（value，此值告诉内核大小，使内核写结构时不至于越界），当函数返回时，结构大小又是一个结果（result，它告诉进程内核确实在结构中存储了信息），这种参数类型叫做<strong>值-结果参数</strong>。</p>
-<img src="image-20210730145420900.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730145420900" style="zoom:80%;" />
+<p><img src="image-20210730145420900.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730145420900" style="zoom:80%;" /></p>
 <h2 id="字节排序函数">字节排序函数</h2>
 <p>区分<strong>小端</strong>（little-endian）与<strong>大端</strong>（big-endian）</p>
-<img src="image-20210730145745716.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730145745716" style="zoom:80%;" />
+<p><img src="image-20210730145745716.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730145745716" style="zoom:80%;" /></p>
 <p>大端小端统称为<strong>主机字节序</strong>。比较遗憾的是，两种字节序都有主机使用。</p>
 <p>网络协议必须指定一个网络字节序。因此我们要关注如何在主机字节序和网络字节序之间进行转换。下面是转换的四个函数：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/in.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">uint16_t</span> <span class="hljs-title">htons</span><span class="hljs-params">(<span class="hljs-type">uint16_t</span> host16bitvalue)</span></span>;<br><span class="hljs-function"><span class="hljs-type">uint32_t</span> <span class="hljs-title">htonl</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> host32bitvalue)</span></span>;<br><br><span class="hljs-function"><span class="hljs-type">uint16_t</span> <span class="hljs-title">ntohs</span><span class="hljs-params">(<span class="hljs-type">uint16_t</span> net16bitvalue)</span></span>;<br><span class="hljs-function"><span class="hljs-type">uint32_t</span> <span class="hljs-title">ntohl</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> nett32bitvalue)</span></span>;<br></code></pre></td></tr></table></figure>
@@ -374,20 +376,20 @@
 <p>以mem开头的，起源于ANSI C标准：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">memset</span><span class="hljs-params">(<span class="hljs-type">void</span> *dest, <span class="hljs-type">int</span> c, <span class="hljs-type">size_t</span> len)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">memcpy</span><span class="hljs-params">(<span class="hljs-type">void</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *src, <span class="hljs-type">size_t</span> nbytes)</span></span>;    <span class="hljs-comment">//记忆方法 dest = src</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">memcmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">void</span> *ptr1, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *ptr2, <span class="hljs-type">size_t</span> nbytes)</span></span>;<br></code></pre></td></tr></table></figure>
 <h2 id="地址转换函数">地址转换函数</h2>
-<h3 id="第一组地址转换函数：">第一组地址转换函数：</h3>
+<h3 id="第一组地址转换函数">第一组地址转换函数：</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">inet_aton</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *strptr, <span class="hljs-keyword">struct</span> in_addr *addrptr)</span></span>;<br>        <span class="hljs-comment">/*作用：点分十进制 =&gt; 32位的网络字节序二进制值   </span><br><span class="hljs-comment">        返回：若字符串有效则为1，否则为0*/</span><br><br><span class="hljs-function"><span class="hljs-type">in_addr_t</span> <span class="hljs-title">inet_addr</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *strptr)</span></span>;<br>       <span class="hljs-comment">/* 作用：点分十进制 =&gt; 32位的网络字节序二进制值   </span><br><span class="hljs-comment">        说明：目前已被废弃</span><br><span class="hljs-comment">        返回：若字符串有效则为32位二进制网络字节序的IPv4地址，否则为INADDR_NONE</span><br><span class="hljs-comment">       （INADDR_NONE通常是一个32位均为1的值，这就导致无法应用于广播地址）*/</span><br><br><span class="hljs-function"><span class="hljs-type">char</span> *<span class="hljs-title">inet_ntoa</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> in_addr inaddr)</span></span>;<br>        <span class="hljs-comment">/*作用：32位的网络字节序二进制值 =&gt; 点分十进制</span><br><span class="hljs-comment">        返回：指向一个点分十进制数串的指针*/</span><br></code></pre></td></tr></table></figure>
-<h3 id="第二组地址转换函数（新）：">第二组地址转换函数（新）：</h3>
+<h3 id="第二组地址转换函数新">第二组地址转换函数（新）：</h3>
 <p>可用于IPv4和IPv6</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">inet_pton</span><span class="hljs-params">(<span class="hljs-type">int</span> family, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *strptr, <span class="hljs-type">void</span> *addrptr)</span></span>;<br>    <span class="hljs-comment">/*返回：若成功则为1，若输入不是有效的表达格式则为0，若出错则为-1*/</span><br><br><span class="hljs-function"><span class="hljs-type">const</span> <span class="hljs-type">char</span> *<span class="hljs-title">inet_ntop</span><span class="hljs-params">(<span class="hljs-type">int</span> family, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *addrptr, <span class="hljs-type">char</span> *strptr, <span class="hljs-type">size_t</span> len)</span></span>;<br>    <span class="hljs-comment">/*返回：若成功则为指向结果的指针，若出错则为NULL</span><br><span class="hljs-comment"></span><br><span class="hljs-comment"> 注：两个函数的family参数既可以是AF_INET，也可以是AF_INET6；如果以不被支持的地址族作为family参数，这两个函数就都返回一个错误，并将errno置为EAFNOSUPPORT；</span><br><span class="hljs-comment">    inet_ntop函数的strptr参数不可以是一个空指针，调用者必须为目标存储单元分配内存并指定其大小，调用成功时，这个指针就是该函数的返回值*/</span><br></code></pre></td></tr></table></figure>
 <h2 id="三个读写函数">三个读写函数</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;unp.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">ssize_t</span>    <span class="hljs-title">readn</span><span class="hljs-params">(<span class="hljs-type">int</span> fildes, <span class="hljs-type">void</span> *buff, <span class="hljs-type">size_t</span> nbytes)</span></span>;<br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">written</span><span class="hljs-params">(<span class="hljs-type">int</span> filedes, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *buff, <span class="hljs-type">size_t</span> nbytes)</span></span>;<br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">readline</span><span class="hljs-params">(<span class="hljs-type">int</span> fileds, <span class="hljs-type">void</span> *buff, <span class="hljs-type">size_t</span> maxlen)</span></span>;<br></code></pre></td></tr></table></figure>
-<h3 id="readn函数：">readn函数：</h3>
+<h3 id="readn函数">readn函数：</h3>
 <p>循环调用read函数，从而读取n个字节</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-comment">//文件句柄/文件描述符是fd，int类型</span><br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">readn</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">void</span> *buf, <span class="hljs-type">size_t</span> n)</span> </span>&#123;<br>    <span class="hljs-type">size_t</span> nleft;    <span class="hljs-comment">//剩余的字节数</span><br>    <span class="hljs-type">ssize_t</span> nread;    <span class="hljs-comment">//读取的字节数</span><br>    <span class="hljs-type">char</span> *ptr;<br><br>    ptr = buf;    <span class="hljs-comment">//指向缓冲区</span><br>    nleft = n;<br>    <span class="hljs-keyword">while</span> (nleft &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> ( (nread = <span class="hljs-built_in">read</span>(fd, ptr, nleft)) &lt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span> (errno == EINTR) &#123;<br>                nread = <span class="hljs-number">0</span>; <span class="hljs-comment">/* call read() again */</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-built_in">return</span> (<span class="hljs-number">-1</span>);<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nread == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">break</span>;         <span class="hljs-comment">/* EOF */</span><br>        &#125;<br>        nleft -= nread;<br>        ptr += nread;<br>    &#125;<br>    <span class="hljs-keyword">return</span> (n - nleft);        <span class="hljs-comment">/*return &gt;= 0*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="writen函数：">writen函数：</h3>
+<h3 id="writen函数">writen函数：</h3>
 <p>往缓冲区中写n个字符</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">writen</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *vptr, <span class="hljs-type">size_t</span> n)</span> </span>&#123;<br>    <span class="hljs-type">size_t</span> nleft;<br>    <span class="hljs-type">ssize_t</span> nwritten;<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span> *ptr;<br><br>    ptr = vptr;<br>    nleft = n;<br>    <span class="hljs-keyword">while</span> (nleft &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> ( (nwritten = <span class="hljs-built_in">write</span>(fd, ptr, nleft)) &lt;= <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span> (nwritten &lt; <span class="hljs-number">0</span> &amp;&amp; errno == EINTR) &#123;<br>                nwritten = <span class="hljs-number">0</span>; <span class="hljs-comment">/* call write() again */</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-built_in">return</span> (<span class="hljs-number">-1</span>); <span class="hljs-comment">/* error */</span><br>            &#125;<br>        &#125; <br>        nleft -= nwritten;<br>        ptr   += nwritten;<br>    &#125;<br>    <span class="hljs-keyword">return</span> (n - nwritten);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="readline函数：">readline函数：</h3>
+<h3 id="readline函数">readline函数：</h3>
 <p>从缓冲区中读文本行，一次一个字节</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">readline</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">void</span> *vptr, <span class="hljs-type">size_t</span> maxlen)</span> </span>&#123;<br>    <span class="hljs-type">ssize_t</span> n, rc;<br>    <span class="hljs-type">char</span> c, *ptr;<br><br>    ptr = vptr;<br>    <span class="hljs-keyword">for</span> (n = <span class="hljs-number">1</span>; n &lt;= maxlen; n++) &#123;<br>        again:<br>        <span class="hljs-keyword">if</span> ( (rc = <span class="hljs-built_in">read</span>(fd, &amp;c, <span class="hljs-number">1</span>)) == <span class="hljs-number">1</span>) &#123;<br>            *ptr++ = c;<br>            <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;\n&#x27;</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rc == <span class="hljs-number">0</span>) &#123;<br>            *ptr = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> (n - <span class="hljs-number">1</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">if</span> (errno == EINTR) &#123;<br>                <span class="hljs-keyword">goto</span> again;<br>            &#125; <br>            <span class="hljs-keyword">return</span> (<span class="hljs-number">-1</span>);<br>        &#125;<br>    &#125;<br>    *ptr = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">return</span> ((maxlen == (n<span class="hljs-number">-1</span>))?(n<span class="hljs-number">-1</span>):n);<br>&#125;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
@@ -413,11 +415,11 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -550,12 +552,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -774,49 +770,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

@@ -27,10 +27,10 @@
 <meta property="article:published_time" content="2021-08-09T06:43:12.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.553Z">
 <meta property="article:author" content="Wuhlan3">
-<meta property="article:tag" content="Web">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/webserver.jpg">
   
@@ -311,95 +311,88 @@
             
               <div class="markdown-body">
                 
-                <h2 id="select、poll、epoll">select、poll、epoll</h2>
+                <h2 id="selectpollepoll">select、poll、epoll</h2>
 <p>之前在UNIX网络编程（unp）中学习过select、poll。这两个函数用于I/O复用。为什么我们还需要使用epoll呢？</p>
 <p><strong>简单归纳一下它们的不同点：</strong></p>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:center">select</th>
-<th style="text-align:center">poll</th>
-<th style="text-align:center">epoll</th>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">select</th>
+<th style="text-align: center;">poll</th>
+<th style="text-align: center;">epoll</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">调用函数</td>
-<td style="text-align:center">一个函数</td>
-<td style="text-align:center">一个函数</td>
-<td style="text-align:center">一组函数</td>
+<tr class="odd">
+<td style="text-align: left;">调用函数</td>
+<td style="text-align: center;">一个函数</td>
+<td style="text-align: center;">一个函数</td>
+<td style="text-align: center;">一组函数</td>
 </tr>
-<tr>
-<td style="text-align:left">操作方式</td>
-<td style="text-align:center">遍历</td>
-<td style="text-align:center">遍历</td>
-<td style="text-align:center">回调</td>
+<tr class="even">
+<td style="text-align: left;">操作方式</td>
+<td style="text-align: center;">遍历</td>
+<td style="text-align: center;">遍历</td>
+<td style="text-align: center;">回调</td>
 </tr>
-<tr>
-<td style="text-align:left">描述符集合</td>
-<td style="text-align:center">数组</td>
-<td style="text-align:center">链表</td>
-<td style="text-align:center">红黑树</td>
+<tr class="odd">
+<td style="text-align: left;">描述符集合</td>
+<td style="text-align: center;">数组</td>
+<td style="text-align: center;">链表</td>
+<td style="text-align: center;">红黑树</td>
 </tr>
-<tr>
-<td style="text-align:left">IO效率</td>
-<td style="text-align:center">每次调用都进行线性遍历，时间复杂度为O(n)</td>
-<td style="text-align:center">每次调用都进行线性遍历，时间复杂度为O(n)</td>
-<td style="text-align:center">事件通知方式，每当fd就绪，系统注册的回调函数（中断）就会被调用，将就绪fd放到readyList(就绪链表)里面，时间复杂度O(1)</td>
+<tr class="even">
+<td style="text-align: left;">IO效率</td>
+<td
+style="text-align: center;">每次调用都进行线性遍历，时间复杂度为O(n)</td>
+<td
+style="text-align: center;">每次调用都进行线性遍历，时间复杂度为O(n)</td>
+<td
+style="text-align: center;">事件通知方式，每当fd就绪，系统注册的回调函数（中断）就会被调用，将就绪fd放到readyList(就绪链表)里面，时间复杂度O(1)</td>
 </tr>
-<tr>
-<td style="text-align:left">最大连接数</td>
-<td style="text-align:center">1024（x86）或2048（x64）</td>
-<td style="text-align:center">无上限</td>
-<td style="text-align:center">无上限</td>
+<tr class="odd">
+<td style="text-align: left;">最大连接数</td>
+<td style="text-align: center;">1024（x86）或2048（x64）</td>
+<td style="text-align: center;">无上限</td>
+<td style="text-align: center;">无上限</td>
 </tr>
-<tr>
-<td style="text-align:left">fd拷贝</td>
-<td style="text-align:center">每次调用select，都需要把fd集合从用户态拷贝到内核态</td>
-<td style="text-align:center">每次调用poll，都需要把fd集合从用户态拷贝到内核态</td>
-<td style="text-align:center">调用epoll_ctl时拷贝进内核并保存，之后每次epoll_wait不拷贝</td>
+<tr class="even">
+<td style="text-align: left;">fd拷贝</td>
+<td
+style="text-align: center;">每次调用select，都需要把fd集合从用户态拷贝到内核态</td>
+<td
+style="text-align: center;">每次调用poll，都需要把fd集合从用户态拷贝到内核态</td>
+<td
+style="text-align: center;">调用epoll_ctl时拷贝进内核并保存，之后每次epoll_wait不拷贝</td>
 </tr>
-<tr>
-<td style="text-align:left">工作模式</td>
-<td style="text-align:center">LT</td>
-<td style="text-align:center">LT</td>
-<td style="text-align:center">LT、ET、EPOLLONESHOT</td>
+<tr class="odd">
+<td style="text-align: left;">工作模式</td>
+<td style="text-align: center;">LT</td>
+<td style="text-align: center;">LT</td>
+<td style="text-align: center;">LT、ET、EPOLLONESHOT</td>
 </tr>
 </tbody>
 </table>
 <p><strong>epoll是Linux目前大规模网络并发程序开发的首选模型</strong>。在绝大多数情况下性能远超select和poll。目前流行的高性能web服务器Nginx正是依赖于epoll提供的<strong>高效网络套接字轮询服务</strong>。但是，在并发连接不高的情况下，多线程+阻塞I/O方式（或select和poll）可能性能更好。</p>
-<h2 id="epoll-create">epoll_create</h2>
+<h2 id="epoll_create">epoll_create</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/epoll.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">epoll_create</span><span class="hljs-params">(<span class="hljs-type">int</span> size)</span></span>;        <span class="hljs-comment">//size可以忽略</span><br></code></pre></td></tr></table></figure>
 <p>epoll_create用于创建一个epoll实例（返回epoll内核事件表的文件描述符）。注：在最初的版本中，size用于告诉内核至少使用多少个文件描述符，现在已经被<strong>弃用</strong>。</p>
-<h2 id="epoll-ctl">epoll_ctl</h2>
+<h2 id="epoll_ctl">epoll_ctl</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/epoll.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">epoll_ctl</span><span class="hljs-params">(<span class="hljs-type">int</span> epfd, <span class="hljs-type">int</span> op, <span class="hljs-type">int</span> fd, <span class="hljs-keyword">struct</span> epoll_event *event)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>该函数用于操作内核事件表监控的文件描述符上的事件：<strong>注册</strong>、<strong>修改</strong>、<strong>删除</strong></p>
 <p>参数如下：</p>
 <ul>
-<li>
-<p>epfd：为epoll_creat的句柄；</p>
-</li>
-<li>
-<p>op：表示动作，用3个宏来表示：</p>
+<li><p>epfd：为epoll_creat的句柄；</p></li>
+<li><p>op：表示动作，用3个宏来表示：</p>
 <ul>
-<li>
-<p>EPOLL_CTL_ADD (注册新的fd到epfd)，</p>
-</li>
-<li>
-<p>EPOLL_CTL_MOD (修改已经注册的fd的监听事件)，</p>
-</li>
-<li>
-<p>EPOLL_CTL_DEL (从epfd删除一个fd)；</p>
-</li>
-</ul>
-</li>
-<li>
-<p>fd：描述符。交互式输入描述符、socket描述符等等</p>
-</li>
-<li>
-<p>event：告诉内核需要监听的事件；</p>
-</li>
+<li><p>EPOLL_CTL_ADD (注册新的fd到epfd)，</p></li>
+<li><p>EPOLL_CTL_MOD (修改已经注册的fd的监听事件)，</p></li>
+<li><p>EPOLL_CTL_DEL (从epfd删除一个fd)；</p></li>
+</ul></li>
+<li><p>fd：描述符。交互式输入描述符、socket描述符等等</p></li>
+<li><p>event：告诉内核需要监听的事件；</p></li>
 </ul>
 <p>其中，<code>struct epoll_event</code>，该指针指向内核所监听的事件：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">epoll_event</span> &#123;<br><span class="hljs-type">__uint32_t</span> events; <span class="hljs-comment">/* Epoll events */</span><br><span class="hljs-type">epoll_data_t</span> data; <span class="hljs-comment">/* User data variable */</span><br>&#125;;<br>events描述事件类型，其中epoll事件类型有以下几种<br></code></pre></td></tr></table></figure>
@@ -409,72 +402,47 @@
 <li>EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）</li>
 <li>EPOLLERR：表示对应的文件描述符发生错误</li>
 <li>EPOLLHUP：表示对应的文件描述符被挂断；</li>
-<li>EPOLLET：将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)而言的</li>
+<li>EPOLLET：将EPOLL设为边缘触发(Edge
+Triggered)模式，这是相对于水平触发(Level Triggered)而言的</li>
 <li>EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</li>
 </ul>
-<h2 id="epoll-wait">epoll_wait</h2>
+<h2 id="epoll_wait">epoll_wait</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/epoll.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">epoll_wait</span><span class="hljs-params">(<span class="hljs-type">int</span> epfd, <span class="hljs-keyword">struct</span> epoll_event *events, <span class="hljs-type">int</span> maxevents, <span class="hljs-type">int</span> timeout)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>该函数用于等待所监控文件描述符上有事件的产生，返回就绪的文件描述符个数</p>
 <ul>
-<li>
-<p>events：用来存内核得到事件的集合（与select和poll不同的地方，epoll会返回事件集合）</p>
-</li>
-<li>
-<p>maxevents：告知内核这个events有多大</p>
-</li>
-<li>
-<p>timeout：是超时时间</p>
-</li>
-<li>
-<ul>
+<li><p>events：用来存内核得到事件的集合（与select和poll不同的地方，epoll会返回事件集合）</p></li>
+<li><p>maxevents：告知内核这个events有多大</p></li>
+<li><p>timeout：是超时时间</p></li>
+<li><ul>
 <li>-1：阻塞</li>
 <li>0：立即返回，非阻塞</li>
 <li>&gt;0：指定毫秒</li>
+</ul></li>
+<li><p>返回值：成功返回有多少文件描述符就绪，时间到时返回0，出错返回-1</p></li>
 </ul>
-</li>
-<li>
-<p>返回值：成功返回有多少文件描述符就绪，时间到时返回0，出错返回-1</p>
-</li>
-</ul>
-<h2 id="ET、LT、EPOLLONESHOT">ET、LT、EPOLLONESHOT</h2>
+<h2 id="etltepolloneshot">ET、LT、EPOLLONESHOT</h2>
 <ul>
-<li>
-<p><strong>LT水平触发模式</strong></p>
+<li><p><strong>LT水平触发模式</strong></p>
 <ul>
-<li>
-<p>epoll_wait检测到文件描述符有事件发生，则将其通知给应用程序，应用程序可以不立即处理该事件。</p>
-</li>
-<li>
-<p>当下一次调用epoll_wait时，epoll_wait还会再次向应用程序报告此事件，直至被处理</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>ET边缘触发模式</strong></p>
+<li><p>epoll_wait检测到文件描述符有事件发生，则将其通知给应用程序，应用程序可以不立即处理该事件。</p></li>
+<li><p>当下一次调用epoll_wait时，epoll_wait还会再次向应用程序报告此事件，直至被处理</p></li>
+</ul></li>
+<li><p><strong>ET边缘触发模式</strong></p>
 <ul>
-<li>
-<p>epoll_wait检测到文件描述符有事件发生，则将其通知给应用程序，应用程序必须立即处理该事件</p>
-</li>
-<li>
-<p>必须要一次性将数据读取完，使用非阻塞I/O，读取到出现eagain</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>EPOLLONESHOT</strong></p>
+<li><p>epoll_wait检测到文件描述符有事件发生，则将其通知给应用程序，应用程序必须立即处理该事件</p></li>
+<li><p>必须要一次性将数据读取完，使用非阻塞I/O，读取到出现eagain</p></li>
+</ul></li>
+<li><p><strong>EPOLLONESHOT</strong></p>
 <ul>
-<li>
-<p>一个线程读取某个socket上的数据后开始处理数据，在处理过程中该socket上又有新数据可读，此时另一个线程被唤醒读取，此时出现两个线程处理同一个socket</p>
-</li>
-<li>
-<p>我们期望的是一个socket连接在任一时刻都只被一个线程处理，通过epoll_ctl对该文件描述符注册epolloneshot事件，一个线程处理socket时，其他线程将无法处理，<strong>当该线程处理完后，需要通过epoll_ctl重置epolloneshot事件</strong></p>
-</li>
-</ul>
-</li>
+<li><p>一个线程读取某个socket上的数据后开始处理数据，在处理过程中该socket上又有新数据可读，此时另一个线程被唤醒读取，此时出现两个线程处理同一个socket</p></li>
+<li><p>我们期望的是一个socket连接在任一时刻都只被一个线程处理，通过epoll_ctl对该文件描述符注册epolloneshot事件，一个线程处理socket时，其他线程将无法处理，<strong>当该线程处理完后，需要通过epoll_ctl重置epolloneshot事件</strong></p></li>
+</ul></li>
 </ul>
 <h2 id="参考资料">参考资料</h2>
-<p>[1] <a target="_blank" rel="noopener" href="https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6">https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/397449cadc9a">https://www.jianshu.com/p/397449cadc9a</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6">https://github.com/qinguoyi/TinyWebServer#%E6%A1%86%E6%9E%B6</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.jianshu.com/p/397449cadc9a">https://www.jianshu.com/p/397449cadc9a</a></p>
 
                 
               </div>
@@ -487,13 +455,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
-      
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -626,12 +594,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -850,49 +812,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

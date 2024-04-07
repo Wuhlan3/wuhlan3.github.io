@@ -28,9 +28,9 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.499Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -314,38 +314,20 @@
                 <h2 id="守护进程">守护进程</h2>
 <p><strong>守护进程（daemon）</strong>：是在后台运行且不与任何控制终端关联的进程</p>
 <p><strong>守护进程的启动方法</strong>：</p>
-<ol>
-<li>
-<p>系统启动时，由系统初始化脚本启动。一般在/etc目录下，或者以/etc/rc开头的目录</p>
-</li>
-<li>
-<p>许多网络服务器由inetd超级服务器启动</p>
-</li>
-<li>
-<p>cron守护进程按规则定期执行一些程序</p>
-</li>
-<li>
-<p>用at命令指定在将来的某一时刻执行程序。</p>
-</li>
-<li>
-<p>还可以从用户终端、前台、后台启动</p>
-</li>
+<ol type="1">
+<li><p>系统启动时，由系统初始化脚本启动。一般在/etc目录下，或者以/etc/rc开头的目录</p></li>
+<li><p>许多网络服务器由inetd超级服务器启动</p></li>
+<li><p>cron守护进程按规则定期执行一些程序</p></li>
+<li><p>用at命令指定在将来的某一时刻执行程序。</p></li>
+<li><p>还可以从用户终端、前台、后台启动</p></li>
 </ol>
 <h2 id="syslogd守护进程">syslogd守护进程</h2>
 <p><strong>启动过程</strong>：</p>
-<ol>
-<li>
-<p>读入配置文件，通常是/etc/syslog.conf。设定守护进程对接收每次键入的各种等级消息的处理。</p>
-</li>
-<li>
-<p>创建一个unix域套接口，捆绑路径名/var/run/log</p>
-</li>
-<li>
-<p>创建一个UDP套接口，给它捆绑端口514（syslog服务专用的端口号）</p>
-</li>
-<li>
-<p>打开路径名/dev/klog，内核中的所有出错消息作为这个设备的输入出现</p>
-</li>
+<ol type="1">
+<li><p>读入配置文件，通常是/etc/syslog.conf。设定守护进程对接收每次键入的各种等级消息的处理。</p></li>
+<li><p>创建一个unix域套接口，捆绑路径名/var/run/log</p></li>
+<li><p>创建一个UDP套接口，给它捆绑端口514（syslog服务专用的端口号）</p></li>
+<li><p>打开路径名/dev/klog，内核中的所有出错消息作为这个设备的输入出现</p></li>
 </ol>
 <p>在这之后，syslogd守护进程就会在后台无限循环地运行。可以调用select来等待它的三个描述符（分别对应步骤2，3，4）</p>
 <p><strong>syslog函数</strong>：syslog常被称为系统日志或系统记录，是一种用来在互联网协议（TCP/IP）的网上中传递记录档消息的标准。</p>
@@ -353,7 +335,7 @@
 <p>举例：假设rename函数调用失败</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">syslog</span>(LOG_INFO|LOG_LOCAL2,<span class="hljs-string">&quot;rename(%s,%s):%m&quot;</span>,file1,file2);<br></code></pre></td></tr></table></figure>
 <p>%m:将当前的errno值的出错消息取代</p>
-<h2 id="daemon-init函数">daemon_init函数</h2>
+<h2 id="daemon_init函数">daemon_init函数</h2>
 <p>通过调用它，可以将一个普通进程变为守护进程</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;unp.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;syslog.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MAXFD 64</span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> daemon_proc;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">daemon_init</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> * pname,<span class="hljs-type">int</span> facility)</span></span>&#123;<br><span class="hljs-type">int</span> i;<br><span class="hljs-type">pid_t</span> pid;<br> <br><span class="hljs-keyword">if</span>((pid = <span class="hljs-built_in">Fork</span>())!=<span class="hljs-number">0</span>) <span class="hljs-comment">//调用fork，终止父进程，留下子进程继续运行。</span><br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br> <br><span class="hljs-built_in">setid</span>(); <span class="hljs-comment">//创建一个新的登陆会话session;当前进程变为新会话的会话头进程以及新进程组的头进程，从而不再有控制终端</span><br><span class="hljs-built_in">Signal</span>(SIGHUP,SIG_IGN); <span class="hljs-comment">//忽略SGIHUP信号并再次调用fork</span><br> <br><span class="hljs-keyword">if</span>((pid=<span class="hljs-built_in">Fork</span>())!=<span class="hljs-number">0</span>) <span class="hljs-comment">//确保将来即使打开一个终端设备，也不会自动获得控制终端。</span><br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br> <br>daemon_proc = <span class="hljs-number">1</span>; <span class="hljs-comment">//非零时，出错处理函数将调用syslog函数取代fprintf输出到标准错误输出</span><br> <br><span class="hljs-built_in">chdir</span>(<span class="hljs-string">&quot;/&quot;</span>);<br><span class="hljs-built_in">umask</span>(<span class="hljs-number">0</span>);<span class="hljs-comment">//将工作目录改到根目录</span><br> <br><span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;MAXFD;i++) <span class="hljs-comment">//关闭守护进程从运行开始打开的所有文件描述字</span><br>    <span class="hljs-built_in">close</span>(i);<br> <br><span class="hljs-built_in">openlog</span>(pname,LOG_PID,facility);<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="inetd守护进程">inetd守护进程</h2>
@@ -370,7 +352,8 @@
 <p>daemon_init函数把一个进程作为守护进程启动，经过以下步骤：调用fork到后台运行；调用setsid建立一个新的POSIX会话并成为会话头进程；fork以避免获得控制终端；改变工作目录和文件创建模式掩码，关闭非必要描述符。</p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] 《UNIX网络编程 卷1 套接字联网API》</p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xing901022/p/3532700.html">https://www.cnblogs.com/xing901022/p/3532700.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/xing901022/p/3532700.html">https://www.cnblogs.com/xing901022/p/3532700.html</a></p>
 
                 
               </div>
@@ -385,11 +368,11 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -522,12 +505,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -746,49 +723,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

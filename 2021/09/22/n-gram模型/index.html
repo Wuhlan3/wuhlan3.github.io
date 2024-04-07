@@ -308,55 +308,70 @@
             
               <div class="markdown-body">
                 
-                <h1>N-gram语言模型</h1>
+                <h1 id="n-gram语言模型">N-gram语言模型</h1>
 <p><strong>语言模型</strong>：简单来说就是用于判断一个句子是否通顺，我们的目标是要给一个句子赋予一个概率。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">//机器翻译</span><br><span class="hljs-function"><span class="hljs-title">P</span><span class="hljs-params">(high winds tonite)</span></span> &gt; <span class="hljs-built_in">P</span>(large winds tonite)<br><span class="hljs-comment">//正确拼写</span><br><span class="hljs-function"><span class="hljs-title">P</span><span class="hljs-params">(about fifteen minutes from)</span></span> &gt; <span class="hljs-built_in">P</span>(about fifteen minuets from)<br><span class="hljs-comment">//语言识别</span><br><span class="hljs-function"><span class="hljs-title">P</span><span class="hljs-params">(I saw a van)</span></span> &gt;&gt; <span class="hljs-built_in">P</span>(eyes awe of an)<br></code></pre></td></tr></table></figure>
 <p>可以提炼成两个问题：</p>
 <ul>
-<li>最终问题：计算一个句子或一系列单词的概率$P(W)=P(w_1,w_2,w_3,w_4…w_n)$</li>
-<li>相关问题：预测下一个单词出现的概率$P(w_n | w_1,w_2,w_3…w_n-1)$</li>
+<li>最终问题：计算一个句子或一系列单词的概率<span
+class="math inline">\(P(W)=P(w_1,w_2,w_3,w_4...w_n)\)</span></li>
+<li>相关问题：预测下一个单词出现的概率<span class="math inline">\(P(w_n
+| w_1,w_2,w_3...w_n-1)\)</span></li>
 </ul>
 <blockquote>
-<p>将概率最大的作为预测结果返回。再比如机器翻译中，‘I like Tom so much.’ ===&gt;{‘我’，‘喜欢’，‘汤姆’，‘非常’} 将这个集合里的字词排列组合成句子，然后用语言模型去计算形成句子的概率大小。概率越大，说明翻译越顺畅，越好，就作为最终的答案返回。</p>
+<p>将概率最大的作为预测结果返回。再比如机器翻译中，‘I like Tom so much.’
+===&gt;{‘我’，‘喜欢’，‘汤姆’，‘非常’}
+将这个集合里的字词排列组合成句子，然后用语言模型去计算形成句子的概率大小。概率越大，说明翻译越顺畅，越好，就作为最终的答案返回。</p>
 </blockquote>
-<img src="image-20210906214136251.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906214136251" style="zoom: 50%;" />
-<h1>Markov Assumption</h1>
+<p><img src="image-20210906214136251.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906214136251" style="zoom: 50%;" /></p>
+<h1 id="markov-assumption">Markov Assumption</h1>
 <p>我们一般不会这样判断：</p>
-<p>$P(the|its\ water\ is\ so\ transparent\ that)=\frac{Count(its\ water\ is\ so\ transparent\ that\ the)}{Count(its\ water\ is\ so\ transparent\ that)}$</p>
+<p><span class="math inline">\(P(the|its\ water\ is\ so\ transparent\
+that)=\frac{Count(its\ water\ is\ so\ transparent\ that\
+the)}{Count(its\ water\ is\ so\ transparent\ that)}\)</span></p>
 <p>因为涉及到太多可能的句子了。</p>
 <p>直接这么计算，是有很大困难的，我们可以将其简化为求：</p>
-<p>$P(the|its\ water\ is\ so\ transparent\ that)∪P(the|that)$</p>
-<p>或者：<br>
-$P(the|its\ water\ is\ so\ transparent\ that)∪P(the|transparent\ that)$</p>
+<p><span class="math inline">\(P(the|its\ water\ is\ so\ transparent\
+that)∪P(the|that)\)</span></p>
+<p>或者： <span class="math inline">\(P(the|its\ water\ is\ so\
+transparent\ that)∪P(the|transparent\ that)\)</span></p>
 <p>这里引入的就是<strong>马尔科夫假设，即：一个item的出现概率，只与其前m个items有关，当m=0时，就是unigram，m=1时，是bigram模型。</strong></p>
-<p>$P(w_1w_2w_3…w_n)=\prod_{i=1}^{n}P(w_i|w_1w_2w_3…w_{i-1})$</p>
+<p><span
+class="math inline">\(P(w_1w_2w_3...w_n)=\prod_{i=1}^{n}P(w_i|w_1w_2w_3...w_{i-1})\)</span></p>
 <ul>
-<li>unigram模型：$P(w_1w_2w_3…w_n)=\prod_{i=1}^{n}P(w_i)$</li>
-<li>bigram模型：$P(w_i|w_1w_2w_3…w_{n-1})\approx P(w_i|w_{i-1})$</li>
+<li>unigram模型：<span
+class="math inline">\(P(w_1w_2w_3...w_n)=\prod_{i=1}^{n}P(w_i)\)</span></li>
+<li>bigram模型：<span
+class="math inline">\(P(w_i|w_1w_2w_3...w_{n-1})\approx
+P(w_i|w_{i-1})\)</span></li>
 </ul>
 <div class="note note-success">
             <p><strong>局限性</strong>：比如说，两个词语有长距离依赖关系时，起不了作用。</p>
           </div>
 <h2 id="计算流程">计算流程</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">数出现的频数——&gt;建表——&gt;计算某个句子的概率<br></code></pre></td></tr></table></figure>
-<img src="image-20210906224947161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906224947161" style="zoom: 67%;" />
-<img src="image-20210906173428485.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906173428485" style="zoom: 50%;" />
-<p>由于句子可能会很长，这个概率就会变得非常小，可能会出现下界(underflow)的问题。所以可以修改直接相乘为log相加：$log(p_1·p_2·p_3·p_4)=logp_1+logp_2+logp_3+logp_4$</p>
+<p><img src="image-20210906224947161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906224947161" style="zoom: 67%;" /></p>
+<p><img src="image-20210906173428485.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906173428485" style="zoom: 50%;" /></p>
+<p>由于句子可能会很长，这个概率就会变得非常小，可能会出现下界(underflow)的问题。所以可以修改直接相乘为log相加：<span
+class="math inline">\(log(p_1·p_2·p_3·p_4)=logp_1+logp_2+logp_3+logp_4\)</span></p>
 <p><strong>两个工具包</strong>：</p>
-<p><a target="_blank" rel="noopener" href="http://www.speech.sri.com/projects/srilm/">http://www.speech.sri.com/projects/srilm/</a></p>
-<p><a target="_blank" rel="noopener" href="https://kheafield.com/code/kenlm/">https://kheafield.com/code/kenlm/</a></p>
+<p><a
+target="_blank" rel="noopener" href="http://www.speech.sri.com/projects/srilm/">http://www.speech.sri.com/projects/srilm/</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://kheafield.com/code/kenlm/">https://kheafield.com/code/kenlm/</a></p>
 <h2 id="效果评估">效果评估</h2>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs css">一般方法是：<br><span class="hljs-number">1</span>. 在训练集(training set)中训练我们的模型参数<br><span class="hljs-number">2</span>. 使用区别于训练集的数据集作为测试集(test set)<br><span class="hljs-number">3</span>. 评估指标告诉我们模型在测试集上的表现如何<br><br>比较两个模型<span class="hljs-selector-tag">A</span>和<span class="hljs-selector-tag">B</span>的最佳评估方法是：<br><span class="hljs-number">1</span>. 将每个模型放入一个任务中——拼写校正器、语音识别器、机器翻译系统<br><span class="hljs-number">2</span>. 运行任务，获得<span class="hljs-selector-tag">A</span>和<span class="hljs-selector-tag">B</span>的精度，包括<br>  o 正确纠正了多少拼写错误的单词<br>  o 有多少单词翻译正确<br><span class="hljs-number">3</span>. 比较<span class="hljs-selector-tag">A</span>和<span class="hljs-selector-tag">B</span>的精确度<br></code></pre></td></tr></table></figure>
 <p>Shannon Game：香农游戏。即给出前面n个单词，猜出第n+1个单词。</p>
 <p><strong>困惑度</strong>（Perplexity）。PPL是用在自然语言处理领域（NLP）中，衡量语言模型好坏的指标。</p>
-<img src="image-20210906175128920.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906175128920" style="zoom:50%;" />
-<h2 id="Generalization-and-Zeros">Generalization and Zeros</h2>
-<p>如果出现从未见到过的单词，就可能出现0除的情况，困惑度无法计算。所以我们引入<strong>Laplace Smoothing</strong>。</p>
+<p><img src="image-20210906175128920.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906175128920" style="zoom:50%;" /></p>
+<h2 id="generalization-and-zeros">Generalization and Zeros</h2>
+<p>如果出现从未见到过的单词，就可能出现0除的情况，困惑度无法计算。所以我们引入<strong>Laplace
+Smoothing</strong>。</p>
 <p>每个部分减去一点点，分给所有没有出现过的情况。或者称为<strong>加1法</strong>（在出现次数表里，设置所有的初始值为1）。</p>
-<img src="image-20210906175721810.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906175721810" style="zoom:50%;" />
-<img src="image-20210906175734929.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906175734929" style="zoom: 50%;" />
-<img src="image-20210906230732145.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906230732145" style="zoom: 67%;" />
-<img src="image-20210906230755996.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906230755996" style="zoom: 80%;" />
+<p><img src="image-20210906175721810.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906175721810" style="zoom:50%;" /></p>
+<p><img src="image-20210906175734929.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906175734929" style="zoom: 50%;" /></p>
+<p><img src="image-20210906230732145.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906230732145" style="zoom: 67%;" /></p>
+<p><img src="image-20210906230755996.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210906230755996" style="zoom: 80%;" /></p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] https://www.jianshu.com/p/e91f061d6d91</p>
 <p>[2] 权小军 nlp课程</p>

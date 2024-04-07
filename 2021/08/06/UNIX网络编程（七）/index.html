@@ -28,9 +28,9 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.491Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -314,7 +314,7 @@
                 <h2 id="getsockopt和setsockopt">getsockopt和setsockopt</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span>   </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> *optlen)</span></span>;  <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">setsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> optlen)</span></span>; <br></code></pre></td></tr></table></figure>
 <p>参数按顺序分别为：</p>
-<ol>
+<ol type="1">
 <li>套接字描述符</li>
 <li>解释选项的代码，通用套接字的代码，某个特定协议的代码</li>
 <li>需要访问的选项名。</li>
@@ -331,7 +331,7 @@
 </ul>
 <h2 id="小结">小结</h2>
 <p>介绍了四个函数：</p>
-<ol>
+<ol type="1">
 <li>getsockopt</li>
 <li>setsockopt</li>
 <li>fcntl：把套接字设置为非阻塞型I/O或信号驱动式I/O的POSIX方法</li>
@@ -363,11 +363,11 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -500,12 +500,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -724,49 +718,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

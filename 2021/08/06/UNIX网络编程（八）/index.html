@@ -28,9 +28,9 @@
 <meta property="article:modified_time" content="2024-03-22T15:55:27.513Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -311,10 +311,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="UDP过程">UDP过程</h2>
+                <h2 id="udp过程">UDP过程</h2>
 <p>UDP是无连接不可靠的数据报协议</p>
 <p>编写常用的应用程序有：DNS（域名系统）、NFS（网络文件系统）、SNMP（简单网络管理协议）</p>
-<img src="image-20210806101310040.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210806101310040" style="zoom:80%;" />
+<p><img src="image-20210806101310040.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210806101310040" style="zoom:80%;" /></p>
 <h2 id="recvfrom和sendto函数">recvfrom和sendto函数</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">recvform</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">void</span> *buff , <span class="hljs-type">size_t</span> nbytes, <span class="hljs-type">int</span> flags , </span></span><br><span class="hljs-params"><span class="hljs-function">                    <span class="hljs-keyword">struct</span> sockaddr *from , <span class="hljs-type">socklen_t</span> *addrlen)</span></span>;<br><span class="hljs-function"><span class="hljs-type">ssize_t</span> <span class="hljs-title">sendto</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *buff , <span class="hljs-type">size_t</span> nbytes, <span class="hljs-type">int</span> flags , </span></span><br><span class="hljs-params"><span class="hljs-function">                <span class="hljs-keyword">struct</span> sockaddr *to , <span class="hljs-type">socklen_t</span> addrlen)</span></span>;<br><span class="hljs-comment">//若成功则返回读或写的字节大小，若出错返回-1</span><br></code></pre></td></tr></table></figure>
 <ul>
@@ -323,7 +323,7 @@
 <li>recvfrom的最后两个参数是值-结果参数</li>
 <li>注意recv的最后一个参数是指针，与sendto的不同。指的是地址结构的长度</li>
 </ul>
-<h2 id="UDP-echo服务器">UDP echo服务器</h2>
+<h2 id="udp-echo服务器">UDP echo服务器</h2>
 <p>服务器udp_server：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;unp.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dg_echo</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, SA* cliaddr, <span class="hljs-type">socklen_t</span> clilen)</span></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    <span class="hljs-type">socklen_t</span> len;<br>    <span class="hljs-type">char</span> msg[MAXLINE];<br><br>    <span class="hljs-keyword">for</span>(; ;)&#123;<br>        len = clilen;<br>        n = <span class="hljs-built_in">Recvfrom</span>(sockfd, msg, MAXLINE, <span class="hljs-number">0</span>, cliaddr, &amp;len);   <span class="hljs-comment">//注意最后一个参数与Sendto不同</span><br>        <span class="hljs-built_in">Sendto</span>(sockfd, msg, n, <span class="hljs-number">0</span>, cliaddr, len);<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> sockfd;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> servaddr, cliaddr;<br>    sockfd = <span class="hljs-built_in">Socket</span>(AF_INET, SOCK_DGRAM, <span class="hljs-number">0</span>);<br>    <span class="hljs-built_in">bzero</span>(&amp;servaddr, <span class="hljs-built_in">sizeof</span>(servaddr));<br><br>    servaddr.sin_family = AF_INET;<br>    servaddr.sin_addr.s_addr = <span class="hljs-built_in">htonl</span>(INADDR_ANY);<br>    servaddr.sin_port = <span class="hljs-built_in">htons</span>(SERV_PORT);<br><br>    <span class="hljs-built_in">Bind</span>(sockfd, (SA *) &amp;servaddr, <span class="hljs-built_in">sizeof</span>(servaddr));<br><br>    <span class="hljs-built_in">dg_echo</span>(sockfd, (SA *)&amp;cliaddr, <span class="hljs-built_in">sizeof</span>(cliaddr));<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>客户端udp_client：</p>
@@ -332,7 +332,8 @@
 <ul>
 <li>实现了UDP_echo服务器与客户端</li>
 <li>UDP可能产生异步错误</li>
-<li>UDP没有流量控制。但是一般UDP是 <strong>请求-应答模式</strong>构造的，不用于传送大量数据，所以没有关系</li>
+<li>UDP没有流量控制。但是一般UDP是
+<strong>请求-应答模式</strong>构造的，不用于传送大量数据，所以没有关系</li>
 </ul>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] 《UNIX网络编程 卷1 套接字联网API》</p>
@@ -350,11 +351,11 @@
       
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -487,12 +488,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -711,49 +706,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 

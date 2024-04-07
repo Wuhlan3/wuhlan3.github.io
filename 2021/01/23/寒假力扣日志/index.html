@@ -26,8 +26,6 @@
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/01/23/%E5%AF%92%E5%81%87%E5%8A%9B%E6%89%A3%E6%97%A5%E5%BF%97/multilevellinkedlist.png">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/01/23/%E5%AF%92%E5%81%87%E5%8A%9B%E6%89%A3%E6%97%A5%E5%BF%97/multilevellinkedlistflattened.png">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/01/23/%E5%AF%92%E5%81%87%E5%8A%9B%E6%89%A3%E6%97%A5%E5%BF%97/1.jpg">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210126192802293.png">
-<meta property="og:image" content="https://pic.leetcode-cn.com/6f70a6649d2192cf32af68500915d84b476aa34ec899f98766c038fc9cc54662-image.png">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/01/23/%E5%AF%92%E5%81%87%E5%8A%9B%E6%89%A3%E6%97%A5%E5%BF%97/2.png">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/01/23/%E5%AF%92%E5%81%87%E5%8A%9B%E6%89%A3%E6%97%A5%E5%BF%97/3.png">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/01/23/%E5%AF%92%E5%81%87%E5%8A%9B%E6%89%A3%E6%97%A5%E5%BF%97/4.png">
@@ -321,15 +319,19 @@
               <div class="markdown-body">
                 
                 <p>刷题顺序参考如下：https://leetcode-cn.com/circle/article/48kq9d/</p>
-<h1>目录</h1>
+<h1 id="目录">目录</h1>
 <p><a href="#1">链表相关</a></p>
 <p><a href="#2">数组相关</a></p>
 <p><a href="#3">动态规划相关</a></p>
-<h2 id ="1">链表相关</h2>
-<h3 id="力扣203移除链表元素">力扣203<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-linked-list-elements/">移除链表元素</a></h3>
+<h2 id="1">
+链表相关
+</h2>
+<h3 id="力扣203移除链表元素">力扣203<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-linked-list-elements/">移除链表元素</a></h3>
 <p>难点在于如何处理头节点。解决方法是添加一个哨兵节点(dummy node)。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ListNode* <span class="hljs-title">removeElements</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> val)</span> </span>&#123;<br>       <span class="hljs-keyword">if</span>(!head)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>       ListNode* newhead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>();<br>       newhead-&gt;next = head;<br>       ListNode* pre, *cur;<br>       pre = newhead;<br>       cur = head;<br>       <span class="hljs-keyword">while</span>(cur)&#123;<br>           ListNode* temp = <span class="hljs-literal">nullptr</span>;<br>           <span class="hljs-keyword">if</span>(cur-&gt;val == val)&#123;<br>               pre-&gt;next = cur-&gt;next;<br>                temp = cur;<br>               cur = cur-&gt;next;<br>               <span class="hljs-keyword">delete</span> temp;<br>           &#125;<br>           <span class="hljs-keyword">if</span>(temp)<span class="hljs-keyword">continue</span>;<br>           cur = cur-&gt;next;<br>           pre = pre-&gt;next;<br>       &#125;<br>       ListNode* temp = newhead-&gt;next;<br>       <span class="hljs-keyword">delete</span> newhead;<br>           <span class="hljs-keyword">return</span> temp;<br>   &#125;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣237删除链表中的节点">力扣237<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-node-in-a-linked-list/">删除链表中的节点</a></h3>
+<h3 id="力扣237删除链表中的节点">力扣237<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-node-in-a-linked-list/">删除链表中的节点</a></h3>
 <h4 id="算法思路">算法思路</h4>
 <p>这道题函数中只有一个节点，要求删除该节点。（没有给出头节点）</p>
 <p>一道简单的脑筋急转弯。由于题目强调了绝对不会删除掉尾节点，只需把下一个节点的元素赋给node，删除掉下一个节点即可。</p>
@@ -344,177 +346,242 @@
 <p>这题会误导很多开发者，这题的设计模式更是不可取！</p>
 <p>个人认为这题应该删除</p>
 <p>而203. 移除链表元素这题才是真正的移除链表元素！</p>
-<p>作者：AmazingPP<br>
-链接：https://leetcode-cn.com/problems/delete-node-in-a-linked-list/solution/tong-pi-ci-ti-li-ying-shan-chu-yin-chu-c-taij/<br>
-来源：力扣（LeetCode）<br>
+<p>作者：AmazingPP
+链接：https://leetcode-cn.com/problems/delete-node-in-a-linked-list/solution/tong-pi-ci-ti-li-ying-shan-chu-yin-chu-c-taij/
+来源：力扣（LeetCode）
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 </blockquote>
-<h3 id="力扣19-删除链表的倒数第-N-个结点">力扣19 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">删除链表的倒数第 N 个结点</a></h3>
-<h4 id="算法思路-2">算法思路</h4>
+<h3 id="力扣19-删除链表的倒数第-n-个结点">力扣19 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">删除链表的倒数第
+N 个结点</a></h3>
+<h4 id="算法思路-1">算法思路</h4>
 <p>方法一：暴力法</p>
 <pre><code class="hljs"> 1. 遍历一遍，获取链表的长度
- 2. 再循环L-n-1次，获取目标结点的前一个结点。
-</code></pre>
+ 2. 再循环L-n-1次，获取目标结点的前一个结点。</code></pre>
 <p>方法二：快慢指针法（只需遍历一遍）</p>
-<h4 id="代码实现-2">代码实现</h4>
+<h4 id="代码实现-1">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>();<br>        dummynode-&gt;next = head;<br>        ListNode* fast = dummynode;<br>        ListNode* slow = dummynode;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++)&#123;<br>            fast = fast-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">while</span>(fast-&gt;next)&#123;<br>            fast = fast-&gt;next;<br>            slow = slow-&gt;next;<br>        &#125;<br>        ListNode* temp = slow-&gt;next;<br>        slow-&gt;next = slow-&gt;next-&gt;next;<br>        <span class="hljs-keyword">delete</span> temp;<br>        <span class="hljs-keyword">return</span> dummynode-&gt;next;<br>    &#125;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣430-扁平化多级双向链表">力扣430 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list/">扁平化多级双向链表</a></h3>
+<h3 id="力扣430-扁平化多级双向链表">力扣430 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list/">扁平化多级双向链表</a></h3>
 <h4 id="题目要求">题目要求</h4>
-<p><img src="multilevellinkedlist.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="1"></p>
+<figure>
+<img src="multilevellinkedlist.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="1" />
+<figcaption aria-hidden="true">1</figcaption>
+</figure>
 <p>变化为</p>
-<p><img src="multilevellinkedlistflattened.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="2"></p>
-<h4 id="算法思路-3">算法思路</h4>
-<ol>
+<figure>
+<img src="multilevellinkedlistflattened.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="2" />
+<figcaption aria-hidden="true">2</figcaption>
+</figure>
+<h4 id="算法思路-2">算法思路</h4>
+<ol type="1">
 <li>DFS（事实上，歪着脖子看，就是二叉树的前序遍历）将结点存入数组中</li>
 <li>遍历数组，从新连接结点</li>
 </ol>
-<h4 id="代码实现-3">代码实现</h4>
+<h4 id="代码实现-2">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    vector&lt;Node*&gt; arr;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(Node* head)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(!head)<span class="hljs-keyword">return</span>;<br>        arr.<span class="hljs-built_in">push_back</span>(head);<br>        <span class="hljs-built_in">dfs</span>(head-&gt;child);<br>        <span class="hljs-built_in">dfs</span>(head-&gt;next);<br>    &#125;<br>    <span class="hljs-function">Node* <span class="hljs-title">flatten</span><span class="hljs-params">(Node* head)</span> </span>&#123;<br>        <span class="hljs-built_in">dfs</span>(head);<br>        <span class="hljs-type">int</span> size = arr.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size;  i++)&#123;<br>            <span class="hljs-keyword">if</span>(i+<span class="hljs-number">1</span> &lt; size) arr[i]-&gt;next = arr[i+<span class="hljs-number">1</span>];<br>            <span class="hljs-keyword">if</span>(i&gt;<span class="hljs-number">0</span>) arr[i]-&gt;prev = arr[i<span class="hljs-number">-1</span>];<br>            arr[i]-&gt;child = <span class="hljs-literal">NULL</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> head;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>因为前两天学习到很多方法，所以今天的题目都能很快完成</p>
-<h3 id="力扣61-旋转链表">力扣61 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-list/">旋转链表</a></h3>
-<h3 id="力扣24-两两交换链表中的节点">力扣24 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">两两交换链表中的节点</a></h3>
-<h3 id="力扣206-反转链表">力扣206 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">反转链表</a></h3>
-<h4 id="算法思路-4">算法思路</h4>
-<ol>
-<li>
-<p>迭代法（三指针）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>,head);<br>        <span class="hljs-keyword">if</span>(dummynode-&gt;next == <span class="hljs-literal">NULL</span> || dummynode-&gt;next-&gt;next == <span class="hljs-literal">NULL</span>)<span class="hljs-keyword">return</span> head;<br>        ListNode* pre = <span class="hljs-literal">NULL</span>;<br>        ListNode* mid = dummynode-&gt;next;<br>        ListNode* tail = dummynode-&gt;next-&gt;next;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>            mid-&gt;next =  pre;<br>            <span class="hljs-keyword">if</span>(tail == <span class="hljs-literal">NULL</span>)<span class="hljs-keyword">break</span>;<br>            pre = mid;<br>            mid = tail;<br>            tail = tail-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">return</span> mid;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>递归法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!head || !head-&gt;next) &#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br>        ListNode* newHead = <span class="hljs-built_in">reverseList</span>(head-&gt;next);<br><br>        head-&gt;next-&gt;next = head;     <span class="hljs-comment">//下一个结点指回自己</span><br>        head-&gt;next = <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">return</span> newHead;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-</li>
+<h3 id="力扣61-旋转链表">力扣61 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-list/">旋转链表</a></h3>
+<h3 id="力扣24-两两交换链表中的节点">力扣24 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">两两交换链表中的节点</a></h3>
+<h3 id="力扣206-反转链表">力扣206 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">反转链表</a></h3>
+<h4 id="算法思路-3">算法思路</h4>
+<ol type="1">
+<li><p>迭代法（三指针）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>,head);<br>        <span class="hljs-keyword">if</span>(dummynode-&gt;next == <span class="hljs-literal">NULL</span> || dummynode-&gt;next-&gt;next == <span class="hljs-literal">NULL</span>)<span class="hljs-keyword">return</span> head;<br>        ListNode* pre = <span class="hljs-literal">NULL</span>;<br>        ListNode* mid = dummynode-&gt;next;<br>        ListNode* tail = dummynode-&gt;next-&gt;next;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>            mid-&gt;next =  pre;<br>            <span class="hljs-keyword">if</span>(tail == <span class="hljs-literal">NULL</span>)<span class="hljs-keyword">break</span>;<br>            pre = mid;<br>            mid = tail;<br>            tail = tail-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">return</span> mid;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure></li>
+<li><p>递归法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!head || !head-&gt;next) &#123;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br>        ListNode* newHead = <span class="hljs-built_in">reverseList</span>(head-&gt;next);<br><br>        head-&gt;next-&gt;next = head;     <span class="hljs-comment">//下一个结点指回自己</span><br>        head-&gt;next = <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">return</span> newHead;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="力扣92-反转链表-II">力扣92 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii/"> 反转链表 II</a></h3>
-<h4 id="算法思路-5">算法思路</h4>
+<h3 id="力扣92-反转链表-ii">力扣92 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">反转链表
+II</a></h3>
+<h4 id="算法思路-4">算法思路</h4>
 <p>该题难点在于要求一次遍历，需要理清变量的位置。</p>
 <p>哨兵节点：<code>dummynode</code></p>
 <p>反转链表需要三个变量：<code>fir</code>、<code>sec</code>、<code>thr</code></p>
 <p>确定反转后的头和尾需要两个变量：<code>pre</code>、<code>tail</code></p>
-<p><img src="1.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="3"></p>
-<h4 id="代码实现-4">代码实现</h4>
+<figure>
+<img src="1.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="3" />
+<figcaption aria-hidden="true">3</figcaption>
+</figure>
+<h4 id="代码实现-3">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseBetween</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(!head)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span>(!head-&gt;next)<span class="hljs-keyword">return</span> head;<br>        <span class="hljs-keyword">if</span>(m == n)<span class="hljs-keyword">return</span> head;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>,head);<br>        ListNode* fir = dummynode;<br>        ListNode* sec = dummynode-&gt;next;<br>        ListNode* thr = dummynode-&gt;next-&gt;next;<br>        ListNode* pre;<span class="hljs-comment">//连接m点</span><br>        ListNode* tail;<span class="hljs-comment">//连接n点</span><br><br>        <span class="hljs-keyword">while</span>(thr)&#123;<br>            <span class="hljs-keyword">if</span>(m == <span class="hljs-number">1</span>)<span class="hljs-keyword">break</span>;<br>            fir = sec;<br>            sec = thr;<br>            thr = thr-&gt;next;<br>            n--;<br>            m--;<br>        &#125;<br>        pre = fir;<br>        tail = sec;<br>        <span class="hljs-keyword">while</span>(thr)&#123;<br>            fir= sec;<br>            sec = thr;<br>            thr = thr-&gt;next;<br>            sec-&gt;next = fir;<br>            n--;<br>            <span class="hljs-keyword">if</span>(n == <span class="hljs-number">1</span>)<span class="hljs-keyword">break</span>;<br>        &#125;<br>        tail-&gt;next = thr;<br>        pre-&gt;next = sec;<br>        <span class="hljs-keyword">return</span> dummynode-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣25-K-个一组翻转链表">力扣25 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/">K 个一组翻转链表</a></h3>
-<h4 id="算法思路-6">算法思路</h4>
-<ol>
+<h3 id="力扣25-k-个一组翻转链表">力扣25 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/">K
+个一组翻转链表</a></h3>
+<h4 id="算法思路-5">算法思路</h4>
+<ol type="1">
 <li>遍历一遍链表，获得链表长度<code>cnt</code>，根据<code>cnt</code>分割出每段<code>len</code></li>
 <li>用三指针进行反转</li>
 </ol>
 <p>与上题类似。可以继续沿用上题的我画的图</p>
-<p><mark>！！！注意注意！！！</mark>花了半个小时debug，问题在于 <code>fir = tail;</code>反转一段链表后，需要更新<code>fir</code>为<code>tail</code></p>
-<h4 id="代码实现-5">代码实现</h4>
+<p><mark>！！！注意注意！！！</mark>花了半个小时debug，问题在于
+<code>fir = tail;</code>反转一段链表后，需要更新<code>fir</code>为<code>tail</code></p>
+<h4 id="代码实现-4">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(!head)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span>(!head-&gt;next)<span class="hljs-keyword">return</span> head;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>,head);<br>        <span class="hljs-comment">//得到长度</span><br>        ListNode* cur = dummynode;<br>        <span class="hljs-type">int</span> cnt = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(cur)&#123;<br>            cnt++;<br>            cur = cur-&gt;next;<br>        &#125;<br>        cnt--;<br>        <span class="hljs-type">int</span> len = cnt/k;<br>        ListNode* fir = dummynode;<br>        ListNode* sec = dummynode-&gt;next;<br>        ListNode* thr = dummynode-&gt;next-&gt;next;<br>        ListNode* pre;<br>        ListNode* tail;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span> ; i &lt; len; i ++)&#123;<br>            pre = fir;<br>            tail = sec;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j ++)&#123;<br>                sec-&gt;next = fir;<br>                fir = sec;<br>                sec = thr;<br>                <span class="hljs-keyword">if</span>(thr == <span class="hljs-literal">NULL</span>) thr = <span class="hljs-literal">NULL</span>;<br>                <span class="hljs-keyword">else</span> thr = thr-&gt;next;<br>            &#125;<br>            pre-&gt;next = fir;<br>            tail-&gt;next = sec;<br>            fir = tail;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dummynode-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p><mark>思考：</mark>如何只用一次遍历。太累了，以后再解决吧。</p>
-<h3 id="力扣21-合并两个有序链表">力扣21 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-two-sorted-lists/">合并两个有序链表</a></h3>
-<h3 id="力扣2-两数相加">力扣2 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers/">两数相加</a></h3>
-<h3 id="力扣445-两数相加-II">力扣445 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers-ii/">两数相加 II</a></h3>
-<h4 id="算法思路-7">算法思路</h4>
-<ol>
+<h3 id="力扣21-合并两个有序链表">力扣21 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-two-sorted-lists/">合并两个有序链表</a></h3>
+<h3 id="力扣2-两数相加">力扣2 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers/">两数相加</a></h3>
+<h3 id="力扣445-两数相加-ii">力扣445 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers-ii/">两数相加
+II</a></h3>
+<h4 id="算法思路-6">算法思路</h4>
+<ol type="1">
 <li>由于需要逆序处理链表，从个位开始相加，所以可以考虑使用<mark>栈</mark></li>
 <li>引入一个<code>carry</code>变量作为进位</li>
 </ol>
-<h4 id="代码实现-6">代码实现</h4>
+<h4 id="代码实现-5">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">addTwoNumbers</span><span class="hljs-params">(ListNode* l1, ListNode* l2)</span> </span>&#123;<br>        stack&lt;<span class="hljs-type">int</span>&gt; s1;<br>        stack&lt;<span class="hljs-type">int</span>&gt; s2;<br>        ListNode* cur;<br>        <span class="hljs-comment">//遍历l1</span><br>        cur = l1;<br>        <span class="hljs-keyword">while</span>(cur)&#123;<br>            s1.<span class="hljs-built_in">push</span>(cur-&gt;val);<br>            cur = cur-&gt;next;<br>        &#125;<br>        <span class="hljs-comment">//遍历l2</span><br>        cur = l2;<br>        <span class="hljs-keyword">while</span>(cur)&#123;<br>            s2.<span class="hljs-built_in">push</span>(cur-&gt;val);<br>            cur = cur-&gt;next;<br>        &#125;<br>        ListNode* ans = <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-type">int</span> carry = <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//当l1为空，l2为空，carry为0时结束循环</span><br>        <span class="hljs-keyword">while</span>(!s1.<span class="hljs-built_in">empty</span>()|| !s2.<span class="hljs-built_in">empty</span>() || carry)&#123;<br>            <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>;<br>            <span class="hljs-type">int</span> right = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span>(!s1.<span class="hljs-built_in">empty</span>())&#123;<br>                left = s1.<span class="hljs-built_in">top</span>();<br>                s1.<span class="hljs-built_in">pop</span>() ;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(!s2.<span class="hljs-built_in">empty</span>())&#123;<br>                right = s2.<span class="hljs-built_in">top</span>();<br>                s2.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            <span class="hljs-type">int</span> newval = left+right+carry;<br>            carry = newval/<span class="hljs-number">10</span>;<br>            newval = newval%<span class="hljs-number">10</span>;<br>            ListNode* node = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(newval);<br>            node-&gt;next = ans;<br>            ans = node;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣23-合并K个升序链表">力扣23 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">合并K个升序链表</a></h3>
-<h4 id="算法思路一、">算法思路一、</h4>
+<h3 id="力扣23-合并k个升序链表">力扣23 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">合并K个升序链表</a></h3>
+<h4 id="算法思路一">算法思路一、</h4>
 <p>一种想法是将所有结点打散，存在一个优先队列中。但是耗时较长</p>
 <blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210126192802293.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210126192802293"></p>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210126192802293.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20210126192802293" />
+<figcaption aria-hidden="true">image-20210126192802293</figcaption>
+</figure>
 </blockquote>
 <p>但是，可以直接的考虑应该是每次取出各个链表的第一个元素，放入优先队列。</p>
 <p>学习优先队列的使用方法，熟悉<code>for(auto node : lists)&#123;&#125;</code>这种遍历方式。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Status</span> &#123;<br>        <span class="hljs-type">int</span> val;<br>        ListNode *ptr;<br>        <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span> &lt; (<span class="hljs-type">const</span> Status &amp;rhs) <span class="hljs-type">const</span> &#123;<br>            <span class="hljs-keyword">return</span> val &gt; rhs.val;<br>        &#125;<br>    &#125;;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">mergeKLists</span><span class="hljs-params">(vector&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;<br>        priority_queue&lt;Status&gt; q;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> node: lists) &#123;<br>            <span class="hljs-keyword">if</span> (node) q.<span class="hljs-built_in">push</span>(&#123;node-&gt;val, node&#125;);<br>        &#125;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>);<br>        ListNode* tail = dummynode;<br>        <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>()) &#123;<br>            <span class="hljs-keyword">auto</span> front = q.<span class="hljs-built_in">top</span>(); q.<span class="hljs-built_in">pop</span>();<br>            tail-&gt;next = front.ptr; <br>            tail = tail-&gt;next;<br>            <span class="hljs-keyword">if</span> (front.ptr-&gt;next) q.<span class="hljs-built_in">push</span>(&#123;front.ptr-&gt;next-&gt;val, front.ptr-&gt;next&#125;);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dummynode-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h4 id="算法思路二、">算法思路二、</h4>
+<h4 id="算法思路二">算法思路二、</h4>
 <p>分治合并。</p>
-<p><img src="https://pic.leetcode-cn.com/6f70a6649d2192cf32af68500915d84b476aa34ec899f98766c038fc9cc54662-image.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img
+src="https://pic.leetcode-cn.com/6f70a6649d2192cf32af68500915d84b476aa34ec899f98766c038fc9cc54662-image.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>需要两个函数：1.用于合并两个链表；2.分治递归</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">//合并两个链表</span><br>    <span class="hljs-function">ListNode* <span class="hljs-title">merge2Lists</span><span class="hljs-params">(ListNode* l1, ListNode* l2)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(!l1 &amp;&amp; !l2)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span>(!l1 )<span class="hljs-keyword">return</span> l2;<br>        <span class="hljs-keyword">if</span>(!l2) <span class="hljs-keyword">return</span> l1;<br>        ListNode* cur1 = l1;<br>        ListNode* cur2 = l2;<br>        ListNode* dummynode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>);<br>        ListNode* cur = dummynode;<br>        <span class="hljs-keyword">while</span>(cur1 &amp;&amp; cur2)&#123;<br>            <span class="hljs-keyword">if</span>(cur1-&gt;val &lt; cur2-&gt;val)&#123;<br>                ListNode* temp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(cur1-&gt;val);<br>                cur-&gt;next = temp;<br>                cur1 = cur1-&gt;next;<br>                cur = cur-&gt;next;<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cur1-&gt;val &gt;= cur2-&gt;val)&#123;<br>                ListNode* temp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(cur2-&gt;val);<br>                cur-&gt;next = temp;<br>                cur2 = cur2-&gt;next;<br>                cur = cur-&gt;next;<br>            &#125;<br>        &#125;<br>        cur-&gt;next = cur1? cur1 : cur2;<br>        <span class="hljs-keyword">return</span> dummynode-&gt;next;<br>    &#125;<br>    <span class="hljs-comment">//递归</span><br>    <span class="hljs-function">ListNode* <span class="hljs-title">fun</span><span class="hljs-params">(vector&lt;ListNode*&gt;&amp; lists, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span></span>&#123;<br>        <span class="hljs-type">int</span> mid = (left + right)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span>(left == right)<span class="hljs-keyword">return</span> lists[left];<br>        <span class="hljs-keyword">if</span>(left &gt; right)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        ListNode* ans = <span class="hljs-built_in">merge2Lists</span>(<span class="hljs-built_in">fun</span>(lists, left, mid),<span class="hljs-built_in">fun</span>(lists, mid+<span class="hljs-number">1</span>, right));<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>    <span class="hljs-function">ListNode* <span class="hljs-title">mergeKLists</span><span class="hljs-params">(vector&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">fun</span>(lists, <span class="hljs-number">0</span>, lists.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>链表暂告一段落…</p>
-<h2 id ="2">数组相关</h2>
-<h3 id="力扣485-最大连续1的个数">力扣485 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-consecutive-ones/">最大连续1的个数</a></h3>
-<h3 id="力扣495-提莫攻击">力扣495 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/teemo-attacking/">提莫攻击</a></h3>
-<h3 id="力扣414-第三大的数">力扣414 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/third-maximum-number/">第三大的数</a></h3>
-<h3 id="力扣-剑指-Offer-40-最小的k个数">力扣 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/">剑指 Offer 40. 最小的k个数</a></h3>
-<h3 id="力扣628-三个数的最大乘积">力扣628 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-of-three-numbers/">三个数的最大乘积</a></h3>
-<h3 id="力扣645-错误的集合">力扣645 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/set-mismatch/">错误的集合</a></h3>
+<p>链表暂告一段落......</p>
+<h2 id="2">
+数组相关
+</h2>
+<h3 id="力扣485-最大连续1的个数">力扣485 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-consecutive-ones/">最大连续1的个数</a></h3>
+<h3 id="力扣495-提莫攻击">力扣495 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/teemo-attacking/">提莫攻击</a></h3>
+<h3 id="力扣414-第三大的数">力扣414 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/third-maximum-number/">第三大的数</a></h3>
+<h3 id="力扣-剑指-offer-40.-最小的k个数">力扣 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/">剑指
+Offer 40. 最小的k个数</a></h3>
+<h3 id="力扣628-三个数的最大乘积">力扣628 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-of-three-numbers/">三个数的最大乘积</a></h3>
+<h3 id="力扣645-错误的集合">力扣645 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/set-mismatch/">错误的集合</a></h3>
 <p>https://leetcode-cn.com/problems/set-mismatch/solution/cyi-huo-fa-xiang-jie-by-feng-feng-19/</p>
-<h3 id="力扣697-数组的度">力扣697 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/degree-of-an-array/">数组的度</a></h3>
-<h4 id="算法思路-8">算法思路</h4>
-<ol>
+<h3 id="力扣697-数组的度">力扣697 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/degree-of-an-array/">数组的度</a></h3>
+<h4 id="算法思路-7">算法思路</h4>
+<ol type="1">
 <li>构建一个<code>unordered_map&lt;int,pair&lt;int,int&gt;&gt;</code>，其中pair包含数据出现次数与数据第一次出现的坐标</li>
 </ol>
-<h3 id="力扣448-找到所有数组中消失的数字">力扣448 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/">找到所有数组中消失的数字</a></h3>
-<h2 id ="3">动态规划相关</h2>
-<p><img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203195708610"></p>
+<h3 id="力扣448-找到所有数组中消失的数字">力扣448 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/">找到所有数组中消失的数字</a></h3>
+<h2 id="3">
+动态规划相关
+</h2>
+<figure>
+<img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203195708610" />
+<figcaption aria-hidden="true">image-20210203195708610</figcaption>
+</figure>
 <p>动态规划组成部分：</p>
-<ol>
-<li>
-<p>确定状态：最后一步和子问题</p>
-<p><img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203200248268"></p>
-</li>
-<li>
-<p>转移方程</p>
-<p><img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203200631362"></p>
-</li>
-<li>
-<p>初始条件和边界情况</p>
-<p><img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203201010114"></p>
-</li>
-<li>
-<p>计算顺序（递归：自顶向下，动态规划：自底向上）</p>
-<p><img src="6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203201219009"></p>
-</li>
+<ol type="1">
+<li><p>确定状态：最后一步和子问题</p>
+<figure>
+<img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203200248268" />
+<figcaption aria-hidden="true">image-20210203200248268</figcaption>
+</figure></li>
+<li><p>转移方程</p>
+<figure>
+<img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203200631362" />
+<figcaption aria-hidden="true">image-20210203200631362</figcaption>
+</figure></li>
+<li><p>初始条件和边界情况</p>
+<figure>
+<img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203201010114" />
+<figcaption aria-hidden="true">image-20210203201010114</figcaption>
+</figure></li>
+<li><p>计算顺序（递归：自顶向下，动态规划：自底向上）</p>
+<figure>
+<img src="6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203201219009" />
+<figcaption aria-hidden="true">image-20210203201219009</figcaption>
+</figure></li>
 </ol>
-<p><img src="7.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203203659002"></p>
-<h3 id="力扣338-比特位计数">力扣338 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/counting-bits/">比特位计数</a></h3>
-<h4 id="算法思路-9">算法思路</h4>
+<figure>
+<img src="7.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210203203659002" />
+<figcaption aria-hidden="true">image-20210203203659002</figcaption>
+</figure>
+<h3 id="力扣338-比特位计数">力扣338 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/counting-bits/">比特位计数</a></h3>
+<h4 id="算法思路-8">算法思路</h4>
 <p>要输出二进制数的‘1’的个数，只需要考虑两种情况：</p>
-<ol>
-<li>奇数：$f(i) = f(i-1)+1$</li>
-<li>偶数：$f(i) = f(i/2)$</li>
+<ol type="1">
+<li>奇数：<span class="math inline">\(f(i) = f(i-1)+1\)</span></li>
+<li>偶数：<span class="math inline">\(f(i) = f(i/2)\)</span></li>
 </ol>
-<h4 id="代码实现-7">代码实现</h4>
+<h4 id="代码实现-6">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">countBits</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-keyword">if</span>(num &gt;= <span class="hljs-number">0</span>)ans.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">if</span>(num &gt;= <span class="hljs-number">1</span>)ans.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= num; i ++)&#123;<br>            <span class="hljs-keyword">if</span>(i%<span class="hljs-number">2</span> == <span class="hljs-number">1</span>)&#123;<br>                ans.<span class="hljs-built_in">push_back</span>(ans[i<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>);<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                ans.<span class="hljs-built_in">push_back</span>(ans[i/<span class="hljs-number">2</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣45-跳跃游戏-II">力扣45 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game-ii/">跳跃游戏 II</a></h3>
-<h4 id="第一种思路使用动态规划：">第一种思路使用动态规划：</h4>
-<p>另开数组记录每一个位置的步数，然后$f(x) = min({f(0),f(1),…f(x-1)})+1$</p>
-<p>时间复杂度为$O(n^2)$</p>
-<h4 id="第二种思路，从后往前">第二种思路，从后往前</h4>
-<p>最坏时间复杂度也为$O(n^2)$，超出时间</p>
+<h3 id="力扣45-跳跃游戏-ii">力扣45 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game-ii/">跳跃游戏
+II</a></h3>
+<h4 id="第一种思路使用动态规划">第一种思路使用动态规划：</h4>
+<p>另开数组记录每一个位置的步数，然后<span class="math inline">\(f(x) =
+min({f(0),f(1),...f(x-1)})+1\)</span></p>
+<p>时间复杂度为<span class="math inline">\(O(n^2)\)</span></p>
+<h4 id="第二种思路从后往前">第二种思路，从后往前</h4>
+<p>最坏时间复杂度也为<span
+class="math inline">\(O(n^2)\)</span>，超出时间</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> pos = nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-type">int</span> ans = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(pos!=<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; pos; i ++)&#123;<br>                <span class="hljs-keyword">if</span>(nums[i]+i &gt;= pos)&#123;<br>                    pos = i;<br>                    ans ++;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h4 id="第三种思路，贪心算法">第三种思路，贪心算法</h4>
-<p>时间复杂度为$O(n)$</p>
+<h4 id="第三种思路贪心算法">第三种思路，贪心算法</h4>
+<p>时间复杂度为<span class="math inline">\(O(n)\)</span></p>
 <p>在2的后面的两个数之中，找出一个能到达最远位置的数</p>
-<img src="8.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image.png"  />
+<p><img src="8.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image.png"  /></p>
 <p>在3的后面的三个数之中，找出一个能到达最远位置的数</p>
-<img src="9.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image.png"  />
+<p><img src="9.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image.png"  /></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> ans = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> end = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> maxpos = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>; i ++)&#123;<br>            maxpos = <span class="hljs-built_in">max</span>(maxpos,nums[i]+i);<br>            <span class="hljs-keyword">if</span>(i == end)&#123;<br>                end = maxpos;<br>                ans++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣198-打家劫舍">力扣198 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">打家劫舍</a></h3>
-<h4 id="算法思路-10">算法思路</h4>
-<p>转移方程：$f(i) = max(f(i-1),f(i-2)+nums[i])$</p>
-<h4 id="代码实现-8">代码实现</h4>
+<h3 id="力扣198-打家劫舍">力扣198 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">打家劫舍</a></h3>
+<h4 id="算法思路-9">算法思路</h4>
+<p>转移方程：<span class="math inline">\(f(i) =
+max(f(i-1),f(i-2)+nums[i])\)</span></p>
+<h4 id="代码实现-7">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>() == <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> size = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> arr[size];<br>        <span class="hljs-keyword">if</span>(size &gt;= <span class="hljs-number">1</span>)arr[<span class="hljs-number">0</span>] = nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">if</span>(size &gt;= <span class="hljs-number">2</span>)arr[<span class="hljs-number">1</span>] = <span class="hljs-built_in">max</span>(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; size; i ++)&#123;<br>            arr[i] = <span class="hljs-built_in">max</span>(arr[i<span class="hljs-number">-1</span>],arr[i<span class="hljs-number">-2</span>]+nums[i]);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> arr[size<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>优化方案：发现可将上面的<code>arr</code>和<code>nums</code>合并为一个数组</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>() == <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>() &gt;= <span class="hljs-number">2</span>)nums[<span class="hljs-number">1</span>] = <span class="hljs-built_in">max</span>(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); i ++)&#123;<br>            nums[i] = <span class="hljs-built_in">max</span>(nums[i<span class="hljs-number">-1</span>],nums[i<span class="hljs-number">-2</span>]+nums[i]);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> nums[nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣213-打家劫舍-II">力扣213 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber-ii/">打家劫舍 II</a></h3>
-<h4 id="算法思路-11">算法思路</h4>
-<ol>
+<h3 id="力扣213-打家劫舍-ii">力扣213 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber-ii/">打家劫舍
+II</a></h3>
+<h4 id="算法思路-10">算法思路</h4>
+<ol type="1">
 <li>分为两种情况：（1）算头不算尾；（2）算尾不算头</li>
 <li>在上述两种情况下，进行“打家劫舍”的操作</li>
 </ol>
-<h4 id="代码实现-9">代码实现</h4>
+<h4 id="代码实现-8">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">first_rob</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt; &amp; nums)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>() &gt;= <span class="hljs-number">2</span>)nums[<span class="hljs-number">1</span>] = <span class="hljs-built_in">max</span>(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); i ++)&#123;<br>        nums[i] = <span class="hljs-built_in">max</span>(nums[i<span class="hljs-number">-1</span>], nums[i<span class="hljs-number">-2</span>]+nums[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> nums[nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>];<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-comment">//分为两种情况，调用first_rob函数</span><br>    <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>()==<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>() == <span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>];<br>    vector&lt;<span class="hljs-type">int</span>&gt;::const_iterator head = nums.<span class="hljs-built_in">begin</span>();<br>    vector&lt;<span class="hljs-type">int</span>&gt;::const_iterator tail = nums.<span class="hljs-built_in">begin</span>()+nums.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">x</span><span class="hljs-params">(head+<span class="hljs-number">1</span>, tail)</span></span>;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">y</span><span class="hljs-params">(head, tail<span class="hljs-number">-1</span>)</span></span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-built_in">first_rob</span>(x), <span class="hljs-built_in">first_rob</span>(y));<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="力扣650-只有两个键的键盘">力扣650 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/2-keys-keyboard/">只有两个键的键盘</a></h3>
-<h4 id="算法思路：DP">算法思路：DP</h4>
-<ol>
+<h3 id="力扣650-只有两个键的键盘">力扣650 <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/2-keys-keyboard/">只有两个键的键盘</a></h3>
+<h4 id="算法思路dp">算法思路：DP</h4>
+<ol type="1">
 <li>寻找最大的因子<code>j</code></li>
-<li>状态转移方程为$f(i) = f(j) + i/j$</li>
+<li>状态转移方程为<span class="math inline">\(f(i) = f(j) +
+i/j\)</span></li>
 </ol>
-<p>该算法效率不高，<mark>因为额外计算了很多不必要的量</mark>，最坏情况时间复杂度为$O(n^2)$</p>
-<h4 id="代码实现-10">代码实现</h4>
+<p>该算法效率不高，<mark>因为额外计算了很多不必要的量</mark>，最坏情况时间复杂度为<span
+class="math inline">\(O(n^2)\)</span></p>
+<h4 id="代码实现-9">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minSteps</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-type">int</span> arr[n+<span class="hljs-number">1</span>];<br>    <span class="hljs-keyword">if</span>(n &gt;= <span class="hljs-number">0</span>)arr[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(n &gt;= <span class="hljs-number">1</span>)arr[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(n &gt;= <span class="hljs-number">2</span>)arr[<span class="hljs-number">2</span>] = <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">3</span>; i &lt;= n; i ++)&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = i/<span class="hljs-number">2</span>+<span class="hljs-number">1</span>; j &gt;<span class="hljs-number">0</span>; j --)&#123;<br>            <span class="hljs-keyword">if</span>(i%j == <span class="hljs-number">0</span>)&#123;<br>                arr[i] = arr[j] + i/j;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br><br>    &#125;<br>    <span class="hljs-keyword">return</span> arr[n];<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="算法思路二：递归法">算法思路二：递归法</h4>
-<h4 id="代码实现-11">代码实现</h4>
+<h4 id="算法思路二递归法">算法思路二：递归法</h4>
+<h4 id="代码实现-10">代码实现</h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minSteps</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(n == <span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = n/<span class="hljs-number">2</span>; i &gt; <span class="hljs-number">1</span>; i--)&#123;<br>            <span class="hljs-keyword">if</span>(n%i == <span class="hljs-number">0</span>)&#123;    <span class="hljs-comment">//得到最大因数</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">minSteps</span>(i)+n/i;    <br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//如果n为素数，则直接返回其本身。</span><br>        <span class="hljs-keyword">return</span> n;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
                 

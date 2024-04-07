@@ -306,9 +306,9 @@
             
               <div class="markdown-body">
                 
-                <h2 id="JS——五子棋小游戏">JS——五子棋小游戏</h2>
+                <h2 id="js五子棋小游戏">JS——五子棋小游戏</h2>
 <p>可以在这里玩哦http://wuhlan3.gitee.io/web/</p>
-<ol>
+<ol type="1">
 <li>使用canvas绘制棋盘</li>
 <li>使棋子可以显示</li>
 <li>使棋子可以落在棋盘交点上</li>
@@ -485,12 +485,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -709,49 +703,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/wuhlan3/js/leancloud.js" ></script>
 
