@@ -308,13 +308,19 @@
             
               <div class="markdown-body">
                 
-                <h1 id="text-classification">Text Classification</h1>
+                <h1>Text Classification</h1>
 <h2 id="基本任务">基本任务</h2>
 <ul>
-<li><p>识别垃圾邮件(spam)</p></li>
-<li><p>给杂志、论文贴上标签</p></li>
-<li><p>划出句子中的正面、负面的词汇，从而把握整体的情感：</p>
-<p><img src="image-20210915110828809.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210915110828809" style="zoom: 50%;" /></p></li>
+<li>
+<p>识别垃圾邮件(spam)</p>
+</li>
+<li>
+<p>给杂志、论文贴上标签</p>
+</li>
+<li>
+<p>划出句子中的正面、负面的词汇，从而把握整体的情感：</p>
+<img src="image-20210915110828809.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210915110828809" style="zoom: 50%;" />
+</li>
 </ul>
 <p>情绪分析(sentiment analysis)包括:</p>
 <ul>
@@ -325,44 +331,50 @@
 <li>Prediction : predict market trends from sentiment</li>
 </ul>
 <p>情绪分析是对attitude的检测，主要关注两个方面：</p>
-<ol type="1">
+<ol>
 <li>positive or negative</li>
 <li>classification</li>
 </ol>
 <h2 id="基本模型">基本模型</h2>
 <p><strong>Input</strong>:</p>
 <ul>
-<li>a document <span class="math inline">\(d\)</span></li>
-<li>a fixed set of classes <span class="math inline">\(C = \{c_1, c_2,
-c_3...\}\)</span></li>
+<li>a document $d$</li>
+<li>a fixed set of classes $C = {c_1, c_2, c_3…}$</li>
 </ul>
 <p><strong>Output</strong> :</p>
 <ul>
-<li>a predicted class <span class="math inline">\(c\in C\)</span></li>
+<li>a predicted class $c\in C$</li>
 </ul>
 <p>简单来说就是确定好几个类别，将新的一个文本分进一个类别。</p>
 <h3 id="解决办法">解决办法</h3>
-<ol type="1">
-<li><p>手动制定规则：</p>
+<ol>
+<li>
+<p>手动制定规则：</p>
 <ul>
 <li>基于单词的组合或其他特征（垃圾邮件地下有网址或其中的重复关键句）</li>
 <li>可以非常准确</li>
 <li>但规则制定的过程成本昂贵</li>
-</ul></li>
-<li><p>基于深度学习</p>
+</ul>
+</li>
+<li>
+<p>基于深度学习</p>
 <p>Input:</p>
 <ul>
-<li><p>文档：A document d</p></li>
-<li><p>定义好的一些类：A fixed set of classes <span
-class="math inline">\(C=\{c_1,c_2,...,c_n\}\)</span></p></li>
-<li><p>训练集：A training set of m hand-labeled documents <span
-class="math inline">\((d_1,c_1),...,(d_m,c_m)\)</span></p></li>
+<li>
+<p>文档：A document d</p>
+</li>
+<li>
+<p>定义好的一些类：A fixed set of classes $C={c_1,c_2,…,c_n}$</p>
+</li>
+<li>
+<p>训练集：A training set of m hand-labeled documents $(d_1,c_1),…,(d_m,c_m)$</p>
+</li>
 </ul>
 <p>Output:</p>
 <ul>
-<li>分类器：A learned classifier <span class="math inline">\(f: d
-\rightarrow c\)</span></li>
-</ul></li>
+<li>分类器：A learned classifier $f: d \rightarrow c$</li>
+</ul>
+</li>
 </ol>
 <p>一些知名的分类器：</p>
 <ul>
@@ -372,123 +384,103 @@ class="math inline">\((d_1,c_1),...,(d_m,c_m)\)</span></p></li>
 <li>k-Nearest Neighbors</li>
 </ul>
 <h2 id="朴素贝叶斯分类器">朴素贝叶斯分类器</h2>
-<p>朴素贝叶斯分类器是基于贝叶斯规则的。依赖于一个简单的文档表示方法——Bag
-of words：</p>
-<p><img src="image-20210919185219007.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919185219007" style="zoom:80%;" /></p>
-<p>Bag of
-words中包含每个单词的出现频率，我们可以通过它来计算、学习出一个分类器。</p>
-<p><img src="image-20210919185313308.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919185313308" style="zoom:80%;" /></p>
-<p>对于一个文档d和一个类c有： <span class="math display">\[
-P(c|d)=\frac{P(dc)}{P(d)}=\frac{P(d|c)P(c)}{P(d)}
-\]</span></p>
-<p><span class="math display">\[
-\begin{align}
-c_{map}&amp;=argmax_{c\in C}P(c|d)
-\\\\ &amp;=argmax_{c\in C}\frac{P(d|c)P(c)}{P(d)}
-\\\\ &amp;=argmax_{c\in C}P(d|c)P(c)
-\\\\ &amp;=argmax_{c\in C}P(x_1,x_2,...,x_n | c)P(c)
-\\\\ &amp;c_{NB}=argmax_{c\in C}P(c)\prod_{x_i\in X}P(x_i|c)
-\\\\ &amp;=argmax_{c\in C}\big[logP(c)+\sum_{i\in
-positions}logP(x_i|c)\big]
-\end{align}
-\]</span></p>
+<p>朴素贝叶斯分类器是基于贝叶斯规则的。依赖于一个简单的文档表示方法——Bag of words：</p>
+<img src="image-20210919185219007.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919185219007" style="zoom:80%;" />
+<p>Bag of words中包含每个单词的出现频率，我们可以通过它来计算、学习出一个分类器。</p>
+<img src="image-20210919185313308.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919185313308" style="zoom:80%;" />
+<p>对于一个文档d和一个类c有：<br>
+$$<br>
+P(c|d)=\frac{P(dc)}{P(d)}=\frac{P(d|c)P©}{P(d)}<br>
+$$</p>
+<p>$$<br>
+\begin{align}<br>
+c_{map}&amp;=argmax_{c\in C}P(c|d)<br>
+\\ &amp;=argmax_{c\in C}\frac{P(d|c)P©}{P(d)}<br>
+\\ &amp;=argmax_{c\in C}P(d|c)P©<br>
+\\ &amp;=argmax_{c\in C}P(x_1,x_2,…,x_n | c)P©<br>
+\\ &amp;c_{NB}=argmax_{c\in C}P©\prod_{x_i\in X}P(x_i|c)<br>
+\\ &amp;=argmax_{c\in C}\big[logP©+\sum_{i\in positions}logP(x_i|c)\big]<br>
+\end{align}<br>
+$$</p>
 <p>上面的公式中：</p>
 <ul>
-<li>map指的是maximum a
-posteriori最大后验概率，即我们要找出一个最大可能的类；</li>
-<li>由于所有类的算出的<span
-class="math inline">\(c_{map}\)</span>的分母都是<span
-class="math inline">\(P(d)\)</span>，所以可以省去</li>
-<li><span
-class="math inline">\(P(c)\)</span>是先验概率，即某一个类的出现概率</li>
-<li>如何估算<span class="math inline">\(P(x_1,x_2,...,x_n |
-c)\)</span>，我们可以假设单词的位置、顺序是无关紧要的，且假设<span
-class="math inline">\(P(x_i|c)\)</span>之间相互独立，则我们可以得到最后一条式子。</li>
+<li>map指的是maximum a posteriori最大后验概率，即我们要找出一个最大可能的类；</li>
+<li>由于所有类的算出的$c_{map}$的分母都是$P(d)$，所以可以省去</li>
+<li>$P©$是先验概率，即某一个类的出现概率</li>
+<li>如何估算$P(x_1,x_2,…,x_n | c)$，我们可以假设单词的位置、顺序是无关紧要的，且假设$P(x_i|c)$之间相互独立，则我们可以得到最后一条式子。</li>
 <li>positions指的是所有单词再文本中的位置</li>
 <li>考虑小数精度问题、计算的方便性，我们可以取log</li>
 </ul>
-<h2 id="learning">Learning</h2>
-<p>在上面的式子中，主要求两个值：<span
-class="math inline">\(P(c)\)</span>和<span
-class="math inline">\(P(x_i|c)\)</span></p>
-<p>我们可以单纯的使用单词出现的频率来表示这两个值： <span
-class="math display">\[
-\hat P(c_j) = \frac{N_{c_j}}{N_{total}}\\
-\hat P(w_i|c_j)=\frac{count(w_i,c_j)}{\sum_{w\in V}count(w,c_j)}
-\]</span>
-考虑有的单词没有出现在训练集中，可能出现P等于0的情况，所以需要进行拉普拉斯平滑：
-<span class="math display">\[
-\hat P(w_i|c_j)=\frac{count(w_i,c_j)+1}{\sum_{w\in V}count(w,c_j)+|V|}
-\]</span></p>
-<h2 id="unknown-words">Unknown words</h2>
+<h2 id="Learning">Learning</h2>
+<p>在上面的式子中，主要求两个值：$P©$和$P(x_i|c)$</p>
+<p>我们可以单纯的使用单词出现的频率来表示这两个值：<br>
+$$<br>
+\hat P(c_j) = \frac{N_{c_j}}{N_{total}}\<br>
+\hat P(w_i|c_j)=\frac{count(w_i,c_j)}{\sum_{w\in V}count(w,c_j)}<br>
+$$<br>
+考虑有的单词没有出现在训练集中，可能出现P等于0的情况，所以需要进行拉普拉斯平滑：<br>
+$$<br>
+\hat P(w_i|c_j)=\frac{count(w_i,c_j)+1}{\sum_{w\in V}count(w,c_j)+|V|}<br>
+$$</p>
+<h2 id="Unknown-words">Unknown words</h2>
 <p>对于在测试集中出现了我们训练集中没有遇到过的单词怎么办？</p>
 <ul>
 <li>将他们从测试集文档中移除</li>
 <li>假装他们不存在</li>
-<li>Don't include any probability for them at all</li>
+<li>Don’t include any probability for them at all</li>
 </ul>
-<h2 id="stop-words">Stop words</h2>
+<h2 id="Stop-words">Stop words</h2>
 <p>一些系统会忽略掉stop words——非常频繁出现的词汇比如the、a</p>
 <ul>
 <li>在训练集中对所有的单词进行频率的排序</li>
 <li>将出现次数最多的前10~50个单词列入stopword list</li>
 <li>在训练集和测试集中移除这些词语，假装他们从未出现过</li>
 </ul>
-<p>但是移除停用词也未必起到很好的效果，在实践过程中常常使用所有单词而不会设置stopword
-list</p>
+<p>但是移除停用词也未必起到很好的效果，在实践过程中常常使用所有单词而不会设置stopword list</p>
 <h2 id="实例sentiment-example">实例sentiment example</h2>
-<p><img src="image-20210919225343885.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919225343885" style="zoom: 100%;" /></p>
+<img src="image-20210919225343885.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919225343885" style="zoom: 100%;" />
 <p>基本过程总结：</p>
-<ol type="1">
+<ol>
 <li>计算每个类的出现频率</li>
 <li>删除每个文档中的重复项（停用词）</li>
-<li>使用拉普拉斯平滑计算<span class="math inline">\(\hat
-P(w_i|c_j)\)</span></li>
-<li>计算<span class="math inline">\(c_{NB}\)</span>或者说<span
-class="math inline">\(c_{MAP}\)</span></li>
+<li>使用拉普拉斯平滑计算$\hat P(w_i|c_j)$</li>
+<li>计算$c_{NB}$或者说$c_{MAP}$</li>
 </ol>
-<h3 id="optimizing-for-sentiment-analysis">Optimizing for sentiment
-analysis</h3>
+<h3 id="Optimizing-for-sentiment-analysis">Optimizing for sentiment analysis</h3>
 <p>对于情绪分析，似乎单词的出现次数并不能告诉我们更多信息，比如说fantastic出现五次和出现一次没有太大区别。</p>
-<p>所以我们可以将其优化成Binary multinominal Naive B ayes 或者 binary
-NB：</p>
+<p>所以我们可以将其优化成Binary multinominal Naive B ayes 或者 binary NB：</p>
 <p>即将所有的单词计数记为1。</p>
-<h2 id="naïve-bayes-relationship-tolanguage-modeling">Naïve Bayes:
-Relationship toLanguage Modeling</h2>
+<h2 id="Naive-Bayes-Relationship-toLanguage-Modeling">Naïve Bayes: Relationship toLanguage Modeling</h2>
 <p>朴素贝叶斯分类器可用于多种分类：URL、email address、字典等</p>
 <p>我们只使用了单词的特征，且使用了文本中所有的单词。</p>
-<p>这与之前文章中<a
-target="_blank" rel="noopener" href="http://localhost:4000/Wuhlan3/2021/09/06/n-gram%E6%A8%A1%E5%9E%8B/">《N-gram语言模型》</a>提到的language
-modeling中的unigram模型有很多相似之处。</p>
-<h2 id="precision-recall-and-f-measure">Precision, Recall, and F
-measure</h2>
+<p>这与之前文章中<a target="_blank" rel="noopener" href="http://localhost:4000/Wuhlan3/2021/09/06/n-gram%E6%A8%A1%E5%9E%8B/">《N-gram语言模型》</a>提到的language modeling中的unigram模型有很多相似之处。</p>
+<h2 id="Precision-Recall-and-F-measure">Precision, Recall, and F measure</h2>
 <p>让我们考虑二进制文本分类任务。</p>
 <p>假设你是戴尔的首席执行官，你想知道人们对你的笔记本电脑的看法，所以你建立了一个“戴尔笔记本电脑”推特检测器：</p>
 <ul>
 <li>正面类：关于戴尔笔记本电脑的推文</li>
 <li>负面类：所有其他推文</li>
 </ul>
-<p><img src="image-20210919231408871.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919231408871" style="zoom:100%;" /></p>
+<img src="image-20210919231408871.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919231408871" style="zoom:100%;" />
 <p>我们为什么不把<strong>accuracy</strong>作为衡量标准呢？</p>
-<p>想象一下，我们看到了100万条推特，其中100人谈论戴尔笔记本电脑，999900谈了些别的事
+<p>想象一下，我们看到了100万条推特，其中100人谈论戴尔笔记本电脑，999900谈了些别的事<br>
 我们可以建立一个愚蠢的分类器，只标记每个不关于戴尔笔记本电脑的tweet。</p>
-<p>它将获得99.99%的准确率！！！但是这并不是我们需要寻找的东西。这就是为什么需要引入<strong>precision</strong>和<strong>recall</strong>了。我们使用以下公式来计算
-<span class="math display">\[
-F_{ \beta } = \frac {( {\beta } ^ 2+1)PR}{\beta ^2P+R}
-\]</span></p>
-<p>大部分情况下使用balanced <span
-class="math inline">\(F_1取\beta=1\)</span></p>
-<p><span class="math display">\[
-F_{\beta} = \frac{2PR}{P+R}
-\]</span></p>
+<p>它将获得99.99%的准确率！！！但是这并不是我们需要寻找的东西。这就是为什么需要引入<strong>precision</strong>和<strong>recall</strong>了。我们使用以下公式来计算<br>
+$$<br>
+F_{ \beta } = \frac {( {\beta } ^ 2+1)PR}{\beta ^2P+R}<br>
+$$</p>
+<p>大部分情况下使用balanced $F_1取\beta=1$</p>
+<p>$$<br>
+F_{\beta} = \frac{2PR}{P+R}<br>
+$$</p>
 <h2 id="交叉测试">交叉测试</h2>
-<p><img src="image-20210919233044082.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919233044082" style="zoom:100%;" /></p>
+<img src="image-20210919233044082.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919233044082" style="zoom:100%;" />
 <p>在训练集上训练，在development集上调整，在测试集上进行验证、报告：</p>
 <ul>
 <li>相比于在<strong>训练集上调整</strong>这样可以防止过拟合</li>
 <li>但是想要尽可能多的数据进行测试，又有尽可能多的数据作为development该怎么做呢？</li>
 </ul>
-<p><img src="image-20210919233659699.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919233659699" style="zoom:100%;" /></p>
+<img src="image-20210919233659699.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210919233659699" style="zoom:100%;" />
 
                 
               </div>

@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.查询全部课程的详细记录; 1select * from COURSES;  2.查询所有有选修课的学生的编号; 1select distinct sid from choices;  3.查询课时&lt;88(小时)的课程的编号; 1select cid from COURSES where hour &lt; 88;  4.请找出总分超过400分的学生; 123selec">
+    <meta name="description" content="1.查询全部课程的详细记录; 1select * from COURSES;  2.查询所有有选修课的学生的编号; 1select distinct sid from choices;  3.查询课时&lt;88(小时)的课程的编号; 1select cid from COURSES where hour &lt; 88;  4.请找出总分超过400分的学生; 123select sid from">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lab3-select基础">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/13/lab3-select%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="1.查询全部课程的详细记录; 1select * from COURSES;  2.查询所有有选修课的学生的编号; 1select distinct sid from choices;  3.查询课时&lt;88(小时)的课程的编号; 1select cid from COURSES where hour &lt; 88;  4.请找出总分超过400分的学生; 123selec">
+<meta property="og:description" content="1.查询全部课程的详细记录; 1select * from COURSES;  2.查询所有有选修课的学生的编号; 1select distinct sid from choices;  3.查询课时&lt;88(小时)的课程的编号; 1select cid from COURSES where hour &lt; 88;  4.请找出总分超过400分的学生; 123select sid from">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-13T08:40:35.000Z">
@@ -309,47 +309,39 @@
             
               <div class="markdown-body">
                 
-                <h3 id="查询全部课程的详细记录">1.查询全部课程的详细记录;</h3>
+                <h3 id="1-查询全部课程的详细记录">1.查询全部课程的详细记录;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> COURSES;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913154224368.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154224368" style="zoom:50%;" /></p>
-<h3
-id="查询所有有选修课的学生的编号">2.查询所有有选修课的学生的编号;</h3>
+<img src="image-20210913154224368.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154224368" style="zoom:50%;" />
+<h3 id="2-查询所有有选修课的学生的编号">2.查询所有有选修课的学生的编号;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> sid <span class="hljs-keyword">from</span> choices;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913154237512.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154237512" style="zoom:50%;" /></p>
-<h3
-id="查询课时88小时的课程的编号">3.查询课时&lt;88(小时)的课程的编号;</h3>
+<img src="image-20210913154237512.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154237512" style="zoom:50%;" />
+<h3 id="3-查询课时-88-小时-的课程的编号">3.查询课时&lt;88(小时)的课程的编号;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cid <span class="hljs-keyword">from</span> COURSES <span class="hljs-keyword">where</span> <span class="hljs-keyword">hour</span> <span class="hljs-operator">&lt;</span> <span class="hljs-number">88</span>;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913154302007.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154302007" style="zoom:50%;" /></p>
-<h3 id="请找出总分超过400分的学生">4.请找出总分超过400分的学生;</h3>
+<img src="image-20210913154302007.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154302007" style="zoom:50%;" />
+<h3 id="4-请找出总分超过400分的学生">4.请找出总分超过400分的学生;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> sid <span class="hljs-keyword">from</span> CHOICES<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> sid<br><span class="hljs-keyword">having</span> <span class="hljs-built_in">SUM</span>(isnull(score,<span class="hljs-number">0</span>)) <span class="hljs-operator">&gt;</span> <span class="hljs-number">400</span>;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913155332086.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913155332086" style="zoom:50%;" /></p>
-<h3 id="查询课程的总数">5.查询课程的总数;</h3>
+<img src="image-20210913155332086.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913155332086" style="zoom:50%;" />
+<h3 id="5-查询课程的总数">5.查询课程的总数;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">COUNT</span>(cid) <span class="hljs-keyword">from</span> COURSES;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913143709063.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913143709063" style="zoom:50%;" /></p>
-<h3
-id="查询所有课程和选修该课程的学生总数">6.查询所有课程和选修该课程的学生总数;</h3>
+<img src="image-20210913143709063.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913143709063" style="zoom:50%;" />
+<h3 id="6-查询所有课程和选修该课程的学生总数">6.查询所有课程和选修该课程的学生总数;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  cname,<span class="hljs-built_in">count</span>(sid) <span class="hljs-keyword">as</span> student_cnt<br><span class="hljs-keyword">from</span> COURSES c ,choices ch<br><span class="hljs-keyword">where</span> c.cid <span class="hljs-operator">=</span> ch.cid<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cname;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913144731761.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913144731761" style="zoom:50%;" /></p>
-<h3
-id="查询选修成绩超过60的课程超过两门的学生编号">7.查询选修成绩超过60的课程超过两门的学生编号;</h3>
+<img src="image-20210913144731761.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913144731761" style="zoom:50%;" />
+<h3 id="7-查询选修成绩超过60的课程超过两门的学生编号">7.查询选修成绩超过60的课程超过两门的学生编号;</h3>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">select sid <br>from CHOICES<br>where score &gt; <span class="hljs-number">60</span><br>group by sid<br>having <span class="hljs-title function_">COUNT</span><span class="hljs-params">(cid)</span>&gt;2;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913145328293.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913145328293" style="zoom:50%;" /></p>
-<h3
-id="统计各个学生的选修课程数目和平均成绩">8.统计各个学生的选修课程数目和平均成绩;</h3>
+<img src="image-20210913145328293.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913145328293" style="zoom:50%;" />
+<h3 id="8-统计各个学生的选修课程数目和平均成绩">8.统计各个学生的选修课程数目和平均成绩;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  sid, <span class="hljs-built_in">COUNT</span>(cid) <span class="hljs-keyword">as</span> coursesnum, <span class="hljs-built_in">AVG</span>(isnull(score,<span class="hljs-number">0</span>)) <span class="hljs-keyword">as</span> avg_score <br><span class="hljs-keyword">from</span> CHOICES<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> sid;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913155200818.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913155200818" style="zoom:50%;" /></p>
-<h3
-id="查询选修java的所有学生的编号及姓名">9.查询选修Java的所有学生的编号及姓名;</h3>
+<img src="image-20210913155200818.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913155200818" style="zoom:50%;" />
+<h3 id="9-查询选修Java的所有学生的编号及姓名">9.查询选修Java的所有学生的编号及姓名;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  <span class="hljs-keyword">distinct</span> s.sid <span class="hljs-keyword">as</span> studetn_id, snamefrom students s ,COURSES c ,choices chwhere s.sid <span class="hljs-operator">=</span> ch.sid <span class="hljs-keyword">and</span> c.cid <span class="hljs-operator">=</span> ch.cid <span class="hljs-keyword">and</span> cname <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;java&#x27;</span>;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913153301386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913153301386" style="zoom:50%;" /></p>
-<h3
-id="查询姓名为sssht的学生所选的课程的编号和成绩">10.查询姓名为sssht的学生所选的课程的编号和成绩;</h3>
+<img src="image-20210913153301386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913153301386" style="zoom:50%;" />
+<h3 id="10-查询姓名为sssht的学生所选的课程的编号和成绩">10.查询姓名为sssht的学生所选的课程的编号和成绩;</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cid">select  cid,scorefrom students s ,choices chwhere sname = &#x27;sssht&#x27; and s.sid = ch.sid  ;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913150654296.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913150654296" style="zoom:50%;" /></p>
-<h3
-id="查询其他课时比课程c多的课程的名称">11.查询其他课时比课程C++多的课程的名称;</h3>
+<img src="image-20210913150654296.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913150654296" style="zoom:50%;" />
+<h3 id="11-查询其他课时比课程C-多的课程的名称">11.查询其他课时比课程C++多的课程的名称;</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  c2.cnamefrom COURSES c1, COURSES c2where c1.cname <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;c++&#x27;</span> <span class="hljs-keyword">and</span> c2.hour <span class="hljs-operator">&gt;</span> c1.hour;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210913151619265.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913151619265" style="zoom:50%;" /></p>
+<img src="image-20210913151619265.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913151619265" style="zoom:50%;" />
 
                 
               </div>

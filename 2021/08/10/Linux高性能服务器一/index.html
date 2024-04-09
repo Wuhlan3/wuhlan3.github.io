@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TCP&#x2F;IP通信案例：访问Internet上的Web服务器 基本原理 代理服务器：客户端和目标服务器之间提供对目标资源的中转访问。 正向代理服务器：要求客户端自己设置代理服务器的地址。客户的每次请求都会直接发送到该代理服务器，并由代理服务器来请求目标资源。 反向代理服务器：设置在服务器端，因而客户端无须进行任何设置。反向代理是指用代理服务器来接受Internet上的连接请求，然后将请求发送">
+    <meta name="description" content="TCP&#x2F;IP通信案例：访问Internet上的Web服务器 基本原理 代理服务器：客户端和目标服务器之间提供对目标资源的中转访问。 正向代理服务器：要求客户端自己设置代理服务器的地址。客户的每次请求都会直接发送到该代理服务器，并由代理服务器来请求目标资源。 反向代理服务器：设置在服务器端，因而客户端无须进行任何设置。反向代理是指用代理服务器来接受Internet上的连接请求，然后将请求发送给内部网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux高性能服务器一">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/08/10/Linux%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%80/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="TCP&#x2F;IP通信案例：访问Internet上的Web服务器 基本原理 代理服务器：客户端和目标服务器之间提供对目标资源的中转访问。 正向代理服务器：要求客户端自己设置代理服务器的地址。客户的每次请求都会直接发送到该代理服务器，并由代理服务器来请求目标资源。 反向代理服务器：设置在服务器端，因而客户端无须进行任何设置。反向代理是指用代理服务器来接受Internet上的连接请求，然后将请求发送">
+<meta property="og:description" content="TCP&#x2F;IP通信案例：访问Internet上的Web服务器 基本原理 代理服务器：客户端和目标服务器之间提供对目标资源的中转访问。 正向代理服务器：要求客户端自己设置代理服务器的地址。客户的每次请求都会直接发送到该代理服务器，并由代理服务器来请求目标资源。 反向代理服务器：设置在服务器端，因而客户端无须进行任何设置。反向代理是指用代理服务器来接受Internet上的连接请求，然后将请求发送给内部网">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/linuxweb.jpg">
 <meta property="article:published_time" content="2021-08-10T09:45:15.000Z">
@@ -312,198 +312,188 @@
             
               <div class="markdown-body">
                 
-                <h2
-id="tcpip通信案例访问internet上的web服务器">TCP/IP通信案例：访问Internet上的Web服务器</h2>
+                <h2 id="TCP-IP通信案例：访问Internet上的Web服务器">TCP/IP通信案例：访问Internet上的Web服务器</h2>
 <h3 id="基本原理">基本原理</h3>
 <p><strong>代理服务器</strong>：客户端和目标服务器之间提供对目标资源的中转访问。</p>
 <p><strong>正向代理服务器</strong>：要求客户端自己设置代理服务器的地址。客户的每次请求都会直接发送到该代理服务器，并由代理服务器来请求目标资源。</p>
 <p><strong>反向代理服务器</strong>：设置在服务器端，因而客户端无须进行任何设置。反向代理是指用代理服务器来接受Internet上的连接请求，然后将请求发送给内部网络上的服务器，并将从内部服务器上得到的结果返回给客户端。</p>
 <p><strong>透明代理服务器</strong>：设置在网关上，用户访问Internet的数据报必然都经过网关。透明代理可以看作正向代理的一种特殊情况。</p>
-<p><img src="image-20210810092524814.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210810092524814" style="zoom: 50%;" /></p>
-<h3 id="访问dns服务器">访问DNS服务器</h3>
+<img src="image-20210810092524814.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210810092524814" style="zoom: 50%;" />
+<h3 id="访问DNS服务器">访问DNS服务器</h3>
 <p>读取/etc/resolv.conf文件获得DNS服务器的IP地址，然后把控制权传递给内核中的UDP模块。UDP模块将DNS查询报文封装成UDP数据报，同时把源端口号和目标端口号加入UDP数据报头部，然后UDP模块调用IP服务，IP模块将UDP数据报封装成IP数据报，并把源端IP地址和DNS服务器的IP地址加入IP数据报头部。接下来本地查询域名的IP地址。</p>
-<p><img src="image-20210810093646201.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210810093646201" style="zoom:67%;" /></p>
+<img src="image-20210810093646201.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210810093646201" style="zoom:67%;" />
 <h3 id="本地名称查询">本地名称查询</h3>
 <p>通过主机名访问本地局域网上的机器时，则可通过本地的静态文件来获得该机器的IP地址。Linux将目标主机名及其对应的IP地址存储在/etc/hosts配置文件中。当需要查询某个主机名对应的IP地址时，程序将首要检查这个文件。</p>
-<h3 id="http通信">HTTP通信</h3>
+<h3 id="HTTP通信">HTTP通信</h3>
 <p>可以看到，三次握手建立TCP连接，之后是请求与响应，最后是四次握手关闭连接。</p>
-<p><img src="image-20210810093955855.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210810093955855" style="zoom:67%;" /></p>
-<h3 id="http请求消息">HTTP请求消息</h3>
-<p><img src="2012072810301161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"  /></p>
+<img src="image-20210810093955855.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210810093955855" style="zoom:67%;" />
+<h3 id="HTTP请求消息">HTTP请求消息</h3>
+<img src="2012072810301161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"  />
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/hello.txt</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3<br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>www.example.com<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>en, mi<br></code></pre></td></tr></table></figure>
 <h4 id="请求方法">请求方法</h4>
 <p>HTTP1.0 ： GET、POST 和 HEAD</p>
 <p>HTTP1.1 ：OPTIONS、PUT、PATCH、DELETE、TRACE 和 CONNECT</p>
 <table>
-
 <thead>
-<tr class="header">
-<th style="text-align: left;">序号</th>
-<th style="text-align: left;">方法</th>
-<th style="text-align: left;">描述</th>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">GET</td>
-<td style="text-align: left;">请求指定的页面信息，并返回实体主体。</td>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">请求指定的页面信息，并返回实体主体。</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">HEAD</td>
-<td style="text-align: left;">类似于 GET
-请求，只不过返回的响应中没有具体的内容，用于获取报头</td>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">HEAD</td>
+<td style="text-align:left">类似于 GET 请求，只不过返回的响应中没有具体的内容，用于获取报头</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">POST</td>
-<td
-style="text-align: left;">向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST
-请求可能会导致新的资源的建立和/或已有资源的修改。</td>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST 请求可能会导致新的资源的建立和/或已有资源的修改。</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">PUT</td>
-<td
-style="text-align: left;">从客户端向服务器传送的数据取代指定的文档的内容。</td>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">PUT</td>
+<td style="text-align:left">从客户端向服务器传送的数据取代指定的文档的内容。</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">DELETE</td>
-<td style="text-align: left;">请求服务器删除指定的页面。</td>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">请求服务器删除指定的页面。</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">CONNECT</td>
-<td style="text-align: left;">HTTP/1.1
-协议中预留给能够将连接改为管道方式的代理服务器。</td>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">CONNECT</td>
+<td style="text-align:left">HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器。</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">OPTIONS</td>
-<td style="text-align: left;">允许客户端查看服务器的性能。</td>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">OPTIONS</td>
+<td style="text-align:left">允许客户端查看服务器的性能。</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">TRACE</td>
-<td
-style="text-align: left;">回显服务器收到的请求，主要用于测试或诊断。</td>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">TRACE</td>
+<td style="text-align:left">回显服务器收到的请求，主要用于测试或诊断。</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">9</td>
-<td style="text-align: left;">PATCH</td>
-<td style="text-align: left;">是对 PUT
-方法的补充，用来对已知资源进行局部更新 。</td>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">PATCH</td>
+<td style="text-align:left">是对 PUT 方法的补充，用来对已知资源进行局部更新 。</td>
 </tr>
 </tbody>
 </table>
-<h3 id="http响应消息">HTTP响应消息</h3>
+<h3 id="HTTP响应消息">HTTP响应消息</h3>
 <p><code>头部+空行+正文</code></p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs HTTP"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK<br><span class="hljs-attribute">Date</span><span class="hljs-punctuation">: </span>Mon, 27 Jul 2009 12:28:53 GMT<br><span class="hljs-attribute">Server</span><span class="hljs-punctuation">: </span>Apache<br><span class="hljs-attribute">Last-Modified</span><span class="hljs-punctuation">: </span>Wed, 22 Jul 2009 19:15:56 GMT<br><span class="hljs-attribute">ETag</span><span class="hljs-punctuation">: </span>&quot;34aa387-d-1568eb00&quot;<br><span class="hljs-attribute">Accept-Ranges</span><span class="hljs-punctuation">: </span>bytes<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>51<br><span class="hljs-attribute">Vary</span><span class="hljs-punctuation">: </span>Accept-Encoding<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>text/plain<br>#空行<br>&lt;html&gt;<br>...<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
-<h4 id="http状态码分类">HTTP状态码分类</h4>
+<h4 id="HTTP状态码分类">HTTP状态码分类</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>分类</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>1XX</td>
 <td>信息，服务器收到请求，需要请求者继续执行操作</td>
 </tr>
-<tr class="even">
+<tr>
 <td>2XX</td>
 <td>成功，操作被成功接收并处理</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>3XX</td>
 <td>重定向，需要进一步的操作以完成请求</td>
 </tr>
-<tr class="even">
+<tr>
 <td>4XX</td>
 <td>客户端错误，请求包含语法错误或无法完成请求</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>5XX</td>
 <td>服务器错误，服务器在处理请求的过程中发生了错误</td>
 </tr>
 </tbody>
 </table>
-<h4 id="http状态码常见">HTTP状态码（常见）</h4>
+<h4 id="HTTP状态码（常见）">HTTP状态码（常见）</h4>
 <table>
-
 <thead>
-<tr class="header">
+<tr>
 <th>状态码</th>
 <th>状态码英文名称</th>
 <th>中文描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>100</td>
 <td>Continue</td>
 <td>继续。客户端应继续其请求</td>
 </tr>
-<tr class="even">
+<tr>
 <td>200</td>
 <td>OK</td>
 <td>请求成功</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>301</td>
 <td>Moved Permanently</td>
 <td>资源被转移，请求将被重定向</td>
 </tr>
-<tr class="even">
+<tr>
 <td>302</td>
 <td>Found</td>
 <td>资源能在其他地方找到，需要使用GET</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>304</td>
 <td>Not Modified</td>
 <td>表示被申请的资源没有更新</td>
 </tr>
-<tr class="even">
+<tr>
 <td>307</td>
 <td>Temporary Redirect</td>
 <td>通知客户端资源能在其他地方找到。与302不同的是，可以使用之前的请求方式来访问</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>400</td>
 <td>Bad Request</td>
 <td>通用客户请求错误</td>
 </tr>
-<tr class="even">
+<tr>
 <td>401</td>
 <td>Unauthorized</td>
 <td>请求需要认证信息</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>403</td>
 <td>Forbidden</td>
 <td>访问被服务器禁止，没有权限</td>
 </tr>
-<tr class="even">
+<tr>
 <td>404</td>
 <td>Not Found</td>
 <td>资源没找到</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>407</td>
 <td>Proxy Authentication Required</td>
 <td>客户端选哟先获得代理服务器的认证</td>
 </tr>
-<tr class="even">
+<tr>
 <td>500</td>
 <td>Internal Server Error</td>
 <td>通用服务器错误</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>503</td>
 <td>Service Unavailable</td>
 <td>暂时无法访问服务器</td>
@@ -512,10 +502,8 @@ style="text-align: left;">回显服务器收到的请求，主要用于测试或
 </table>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] 《Linux高性能服务器》游双</p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://blog.csdn.net/amoscykl/article/details/80659274">https://blog.csdn.net/amoscykl/article/details/80659274</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.runoob.com/http/http-tutorial.html">https://www.runoob.com/http/http-tutorial.html</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/amoscykl/article/details/80659274">https://blog.csdn.net/amoscykl/article/details/80659274</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-tutorial.html">https://www.runoob.com/http/http-tutorial.html</a></p>
 
                 
               </div>

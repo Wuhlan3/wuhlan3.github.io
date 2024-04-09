@@ -310,23 +310,20 @@
                 
                 <p>[toc]</p>
 <h2 id="学习历程">学习历程</h2>
-<p>[1] 通过b站视频简单过了一遍。<a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx411X7BD?p=1">动力节点-MySQL基础入门</a></p>
+<p>[1] 通过b站视频简单过了一遍。<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx411X7BD?p=1">动力节点-MySQL基础入门</a></p>
 <p>[2] 学习很多人推荐的书《MySQL必知必会》</p>
 <p>[3] 学校课程，搞懂原理</p>
 <h2 id="术语">术语</h2>
-<ol type="1">
-<li>DB：DB（英文全称data
-base，数据库）是依照某种数据模型组织起来并存放二级存储器中的数据集合。</li>
-<li>DBMS：数据库管理系统(Database Management
-System)是一种操纵和管理数据库的大型软件，用于建立、使用和维护数据库。包括Oracle、MySQL等等软件。</li>
+<ol>
+<li>DB：DB（英文全称data base，数据库）是依照某种数据模型组织起来并存放二级存储器中的数据集合。</li>
+<li>DBMS：数据库管理系统(Database Management System)是一种操纵和管理数据库的大型软件，用于建立、使用和维护数据库。包括Oracle、MySQL等等软件。</li>
 <li>SQL：<em>SQL</em> 是用于访问和处理数据库的标准的计算机语言。</li>
 <li>表：tables。是数据库中用来存储数据的对象，是有结构的数据的集合，是整个数据库系统的基础。</li>
 <li>行：称为数据/记录（data）</li>
 <li>列：称为字段（column）</li>
 </ol>
 <p>SQL的分类：</p>
-<ol type="1">
+<ol>
 <li>DQL（数据查询语言）：查询语句，凡是select语句都是DQL</li>
 <li>DML（数据操作语言）：insert delete update，对表中数据增删改</li>
 <li>DDL（数据定义语言）：create drop alter，对表的结构的增删改</li>
@@ -347,17 +344,17 @@ System)是一种操纵和管理数据库的大型软件，用于建立、使用�
 <p>语句：select * from dept</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from dept;<br>+--------+------------+----------+<br>| DEPTNO | DNAME      | LOC      |<br>+--------+------------+----------+<br>|     10 | ACCOUNTING | NEW YORK |<br>|     20 | RESEARCH   | DALLAS   |<br>|     30 | SALES      | CHICAGO  |<br>|     40 | OPERATIONS | BOSTON   |<br>+--------+------------+----------+<br>4 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>一个很重要的点是，学习的时候要区分<strong>sql语句</strong>和<strong>命令</strong></p><ul><li><p>任何一条sql语句都要以';'结尾</p></li><li><p>sql语句不区分<strong>大小写</strong></p></li></ul>
+            <p>一个很重要的点是，学习的时候要区分<strong>sql语句</strong>和<strong>命令</strong></p><ul><li><p>任何一条sql语句都要以’;'结尾</p></li><li><p>sql语句不区分<strong>大小写</strong></p></li></ul>
           </div>
-<h2 id="简单的dql语句">简单的DQL语句</h2>
-<p>语句：select 字段名1,字段名2,字段名3... from 表名;</p>
+<h2 id="简单的DQL语句">简单的DQL语句</h2>
+<p>语句：select 字段名1,字段名2,字段名3… from 表名;</p>
 <div class="note note-success">
             <p>字段名也就是列名鸭！</p>
           </div>
-<h3 id="小练习一查询员工的年薪">小练习一：查询员工的年薪</h3>
+<h3 id="小练习一：查询员工的年薪">小练习一：查询员工的年薪</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++">mysql&gt; select ENAME,SAL*<span class="hljs-number">12</span> from emp;<br>+--------+----------+<br>| ENAME  | SAL*<span class="hljs-number">12</span>   |<br>+--------+----------+<br>| SMITH  |  <span class="hljs-number">9600.00</span> |<br>| ALLEN  | <span class="hljs-number">19200.00</span> |<br>| WARD   | <span class="hljs-number">15000.00</span> |<br>| JONES  | <span class="hljs-number">35700.00</span> |<br>| MARTIN | <span class="hljs-number">15000.00</span> |<br>| BLAKE  | <span class="hljs-number">34200.00</span> |<br>| CLARK  | <span class="hljs-number">29400.00</span> |<br>| SCOTT  | <span class="hljs-number">36000.00</span> |<br>| KING   | <span class="hljs-number">60000.00</span> |<br>| TURNER | <span class="hljs-number">18000.00</span> |<br>| ADAMS  | <span class="hljs-number">13200.00</span> |<br>| JAMES  | <span class="hljs-number">11400.00</span> |<br>| FORD   | <span class="hljs-number">36000.00</span> |<br>| MILLER | <span class="hljs-number">15600.00</span> |<br>+--------+----------+<br><span class="hljs-number">14</span> <span class="hljs-function">rows in <span class="hljs-title">set</span> <span class="hljs-params">(<span class="hljs-number">0.01</span> sec)</span></span><br></code></pre></td></tr></table></figure>
 <p>说明：可以对字段直接进行运算喔！</p>
-<h3 id="小练习二对sal12字段重命名">小练习二：对SAL*12字段重命名</h3>
+<h3 id="小练习二：对SAL-12字段重命名">小练习二：对SAL*12字段重命名</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ENAME,SAL*12 as 年薪 from emp;<br>+--------+----------+<br>| ENAME  | 年薪     |<br>+--------+----------+<br>| SMITH  |  9600.00 |<br>| ALLEN  | 19200.00 |<br>| WARD   | 15000.00 |<br>| JONES  | 35700.00 |<br>| MARTIN | 15000.00 |<br>| BLAKE  | 34200.00 |<br>| CLARK  | 29400.00 |<br>| SCOTT  | 36000.00 |<br>| KING   | 60000.00 |<br>| TURNER | 18000.00 |<br>| ADAMS  | 13200.00 |<br>| JAMES  | 11400.00 |<br>| FORD   | 36000.00 |<br>| MILLER | 15600.00 |<br>+--------+----------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <p>中文有以下三种写法，版本不同可能兼容性不同：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ENAME,SAL*12 as 年薪 from emp;<br>mysql&gt; select ENAME,SAL*12 as &#x27;年薪&#x27; from emp;<br>mysql&gt; select ENAME,SAL*12 as &quot;年薪&quot; from emp;<br></code></pre></td></tr></table></figure>
@@ -373,140 +370,131 @@ System)是一种操纵和管理数据库的大型软件，用于建立、使用�
 <h3 id="比较运算符">比较运算符</h3>
 <p>比较结果为真，则返回 1，为假则返回 0，比较结果不确定则返回 NULL。</p>
 <table>
-
 <thead>
-<tr class="header">
-<th style="text-align: left;">符号</th>
-<th style="text-align: left;">描述</th>
-<th style="text-align: left;">备注</th>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">备注</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">=</td>
-<td style="text-align: left;">等于</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">=</td>
+<td style="text-align:left">等于</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">&lt;&gt;, !=</td>
-<td style="text-align: left;">不等于</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">&lt;&gt;, !=</td>
+<td style="text-align:left">不等于</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">&gt;</td>
-<td style="text-align: left;">大于</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">&gt;</td>
+<td style="text-align:left">大于</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">&lt;</td>
-<td style="text-align: left;">小于</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">&lt;</td>
+<td style="text-align:left">小于</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">&lt;=</td>
-<td style="text-align: left;">小于等于</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">&lt;=</td>
+<td style="text-align:left">小于等于</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">&gt;=</td>
-<td style="text-align: left;">大于等于</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">&gt;=</td>
+<td style="text-align:left">大于等于</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">BETWEEN</td>
-<td style="text-align: left;">在两值之间</td>
-<td style="text-align: left;">&gt;=min&amp;&amp;&lt;=max</td>
+<tr>
+<td style="text-align:left">BETWEEN</td>
+<td style="text-align:left">在两值之间</td>
+<td style="text-align:left">&gt;=min&amp;&amp;&lt;=max</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">NOT BETWEEN</td>
-<td style="text-align: left;">不在两值之间</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">NOT BETWEEN</td>
+<td style="text-align:left">不在两值之间</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">IN</td>
-<td style="text-align: left;">在集合中</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">IN</td>
+<td style="text-align:left">在集合中</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">NOT IN</td>
-<td style="text-align: left;">不在集合中</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">NOT IN</td>
+<td style="text-align:left">不在集合中</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">&lt;=&gt;</td>
-<td style="text-align: left;">严格比较两个NULL值是否相等</td>
-<td
-style="text-align: left;">两个操作码均为NULL时，其所得值为1；而当一个操作码为NULL时，其所得值为0</td>
+<tr>
+<td style="text-align:left">&lt;=&gt;</td>
+<td style="text-align:left">严格比较两个NULL值是否相等</td>
+<td style="text-align:left">两个操作码均为NULL时，其所得值为1；而当一个操作码为NULL时，其所得值为0</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">LIKE</td>
-<td style="text-align: left;">模糊匹配</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">LIKE</td>
+<td style="text-align:left">模糊匹配</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">REGEXP 或 RLIKE</td>
-<td style="text-align: left;">正则式匹配</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">REGEXP 或 RLIKE</td>
+<td style="text-align:left">正则式匹配</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">IS NULL</td>
-<td style="text-align: left;">为空</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">IS NULL</td>
+<td style="text-align:left">为空</td>
+<td style="text-align:left"></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">IS NOT NULL</td>
-<td style="text-align: left;">不为空</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left">IS NOT NULL</td>
+<td style="text-align:left">不为空</td>
+<td style="text-align:left"></td>
 </tr>
 </tbody>
 </table>
-<h3
-id="小练习一找到薪资在10003000的员工">小练习一：找到薪资在1000~3000的员工</h3>
+<h3 id="小练习一：找到薪资在1000-3000的员工">小练习一：找到薪资在1000~3000的员工</h3>
 <p>两种写法：</p>
 <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal &gt;= <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> sal &lt;= <span class="hljs-number">3000</span>;<br>mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal <span class="hljs-keyword">between</span> <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> <span class="hljs-number">3000</span>;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>between除了用在数字外，还可以用于字符串</p>
           </div>
-<h3 id="小练习二找到没有津贴的员工">小练习二：找到没有津贴的员工</h3>
+<h3 id="小练习二：找到没有津贴的员工">小练习二：找到没有津贴的员工</h3>
 <p>注意这个表中0.00和null都是没有津贴的员工：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where comm is NULL or comm = 0;<br>+-------+--------+-----------+------+------------+---------+------+--------+<br>| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |<br>+-------+--------+-----------+------+------------+---------+------+--------+<br>|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 | NULL |     20 |<br>|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |<br>|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |<br>|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |<br>|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |<br>|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |<br>|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |<br>|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 | NULL |     20 |<br>|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 | NULL |     30 |<br>|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |<br>|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 | NULL |     10 |<br>+-------+--------+-----------+------+------------+---------+------+--------+<br>11 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
-<h3
-id="小练习三寻找薪资为1000或3000的员工">小练习三：寻找薪资为1000或3000的员工</h3>
+<h3 id="小练习三：寻找薪资为1000或3000的员工">小练习三：寻找薪资为1000或3000的员工</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where SAL in(1000,3000);<br>+-------+-------+---------+------+------------+---------+------+--------+<br>| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>|  7788 | SCOTT | ANALYST | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |<br>|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>in的用法如上。需要注意的是，这里不是区间，而是1000或3000</p>
           </div>
-<h3
-id="小练习四寻找名字中含有o的员工">小练习四：寻找名字中含有O的员工</h3>
+<h3 id="小练习四：寻找名字中含有O的员工">小练习四：寻找名字中含有O的员工</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where ENAME like &#x27;%O%&#x27;;<br>+-------+-------+---------+------+------------+---------+------+--------+<br>| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |<br>|  7788 | SCOTT | ANALYST | 7566 | 1987-04-19 | 3000.00 | NULL |     20 |<br>|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |<br>+-------+-------+---------+------+------------+---------+------+--------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
-<h3
-id="小练习五寻找名字中第二个字母为a的员工">小练习五：寻找名字中第二个字母为A的员工</h3>
+<h3 id="小练习五：寻找名字中第二个字母为A的员工">小练习五：寻找名字中第二个字母为A的员工</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp where ENAME like &#x27;_A%&#x27;;<br>+-------+--------+----------+------+------------+---------+---------+--------+<br>| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |<br>+-------+--------+----------+------+------------+---------+---------+--------+<br>|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |<br>|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |<br>|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |<br>+-------+--------+----------+------+------------+---------+---------+--------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>like指<strong>模糊查询</strong></p><p>关键是'_'是表示任意一个字符；'%'表示任意多个字符</p><p>若要寻找名字中含有下划线的记录，则使用'\'作为<strong>转义符</strong></p>
+            <p>like指<strong>模糊查询</strong></p><p>关键是’_‘是表示任意一个字符；’%'表示任意多个字符</p><p>若要寻找名字中含有下划线的记录，则使用’\'作为<strong>转义符</strong></p>
           </div>
 <h2 id="数据排序">数据排序</h2>
-<h3 id="小练习一以名字顺序来查询">小练习一：以名字顺序来查询</h3>
+<h3 id="小练习一：以名字顺序来查询">小练习一：以名字顺序来查询</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp order by Ename;<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL |     20 |<br>|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |<br>|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |<br>|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |<br>|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |<br>|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |<br>|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |<br>|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |<br>|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |<br>|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |<br>|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL |     20 |<br>|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |<br>|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |<br>|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>14 rows in set (0.02 sec)<br></code></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp order by ename asc;    //升序，默认<br>mysql&gt; select * from emp order by ename desc;   //降序<br></code></pre></td></tr></table></figure>
 <p>根据选出来的第二列进行排序：（但是要尽量少用！！！）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ename,job from emp order by 2;<br>+--------+-----------+<br>| ename  | job       |<br>+--------+-----------+<br>| SCOTT  | ANALYST   |<br>| FORD   | ANALYST   |<br>| SMITH  | CLERK     |<br>| ADAMS  | CLERK     |<br>| JAMES  | CLERK     |<br>| MILLER | CLERK     |<br>| JONES  | MANAGER   |<br>| BLAKE  | MANAGER   |<br>| CLARK  | MANAGER   |<br>| KING   | PRESIDENT |<br>| ALLEN  | SALESMAN  |<br>| WARD   | SALESMAN  |<br>| MARTIN | SALESMAN  |<br>| TURNER | SALESMAN  |<br>+--------+-----------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
-<h3
-id="小练习二工资降序工资相同时名字升序">小练习二：工资降序，工资相同时名字升序</h3>
+<h3 id="小练习二：工资降序，工资相同时名字升序">小练习二：工资降序，工资相同时名字升序</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp order by sal desc, ename asc;<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |<br>|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |<br>|  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL |     20 |<br>|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |<br>|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |<br>|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |<br>|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |<br>|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |<br>|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |<br>|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |<br>|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |<br>|  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL |     20 |<br>|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |<br>|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |<br>+-------+--------+-----------+------+------------+---------+---------+--------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
-<h2 id="分组聚合函数">分组/聚合函数</h2>
+<h2 id="分组-聚合函数">分组/聚合函数</h2>
 <p>又称为多行处理函数。总共有5个。自动忽略NULL。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select sum(sal) from emp;<br>mysql&gt; select max(sal) from emp;<br>mysql&gt; select min(sal) from emp;<br>mysql&gt; select avg(sal) from emp;<br>mysql&gt; select count(*) from emp;<br></code></pre></td></tr></table></figure>
-<h3 id="小练习一计算算上津贴的年薪">小练习一，计算算上津贴的年薪</h3>
+<h3 id="小练习一，计算算上津贴的年薪">小练习一，计算算上津贴的年薪</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select ENAME,(sal+ifnull(comm,0))*12 as 年薪 from emp;<br>+--------+----------+<br>| ENAME  | 年薪     |<br>+--------+----------+<br>| SMITH  |  9600.00 |<br>| ALLEN  | 22800.00 |<br>| WARD   | 21000.00 |<br>| JONES  | 35700.00 |<br>| MARTIN | 31800.00 |<br>| BLAKE  | 34200.00 |<br>| CLARK  | 29400.00 |<br>| SCOTT  | 36000.00 |<br>| KING   | 60000.00 |<br>| TURNER | 18000.00 |<br>| ADAMS  | 13200.00 |<br>| JAMES  | 11400.00 |<br>| FORD   | 36000.00 |<br>| MILLER | 15600.00 |<br>+--------+----------+<br>14 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>注意：对于NULL值可以使用<code>ifnull()</code>处理</p>
           </div>
 <h2 id="分组查询">分组查询</h2>
-<p>分组函数一般在group by后执行。没有进行group
-by的话，整个表自成一组。</p>
-<h3
-id="练习一找出每个工作岗位的最高薪资">练习一：找出每个工作岗位的最高薪资</h3>
+<p>分组函数一般在group by后执行。没有进行group by的话，整个表自成一组。</p>
+<h3 id="练习一：找出每个工作岗位的最高薪资">练习一：找出每个工作岗位的最高薪资</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select job,max(sal) from emp group by job;<br>+-----------+----------+<br>| job       | max(sal) |<br>+-----------+----------+<br>| ANALYST   |  3000.00 |<br>| CLERK     |  1300.00 |<br>| MANAGER   |  2975.00 |<br>| PRESIDENT |  5000.00 |<br>| SALESMAN  |  1600.00 |<br>+-----------+----------+<br>5 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
 <h2 id="执行顺序">执行顺序</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select            5<br>...<br>from            1<br>...<br>where            2<br>...<br>group by        3<br>...<br>having            4<br>...<br>order by        6<br>...<br></code></pre></td></tr></table></figure>
@@ -528,11 +516,12 @@ id="练习一找出每个工作岗位的最高薪资">练习一：找出每个�
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select distinct job from emp;<br></code></pre></td></tr></table></figure>
 <p>练习一：统计不同的工作数量：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select count(distinct job) from emp;<br>+---------------------+<br>| count(distinct job) |<br>+---------------------+<br>|                   5 |<br>+---------------------+<br>1 row in set (0.01 sec)<br></code></pre></td></tr></table></figure>
-<h1 id="连接查询">连接查询</h1>
+<h1>连接查询</h1>
 <p>连接查询的分类：</p>
 <p>SQL92</p>
 <p>SQL99</p>
-<p>连接方式的划分，包括： 内连接：</p>
+<p>连接方式的划分，包括：<br>
+内连接：</p>
 <ul>
 <li>等值连接</li>
 <li>非等值连接</li>
@@ -544,8 +533,8 @@ id="练习一找出每个工作岗位的最高薪资">练习一：找出每个�
 <li>右外连接</li>
 </ul>
 <p>全连接</p>
-<h2 id="笛卡尔积现象懂了">笛卡尔积现象（懂了）</h2>
-<h2 id="等值连接懂了">等值连接（懂了）</h2>
+<h2 id="笛卡尔积现象（懂了）">笛卡尔积现象（懂了）</h2>
+<h2 id="等值连接（懂了）">等值连接（懂了）</h2>
 <p>关于join和on，使得结构更加清晰</p>
 <h2 id="非等值连接">非等值连接</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select <br>    e.ename , e.sal , s.grade <br>from <br>    emp e <br>join <br>    salgrade s <br>on <br>    e.sal between s.losal and s.hisal;<br></code></pre></td></tr></table></figure>
@@ -568,10 +557,16 @@ id="练习一找出每个工作岗位的最高薪资">练习一：找出每个�
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select <br>    e.ename as &quot;员工&quot;,d.dname,s.grade,e1.ename as &quot;领导&quot;<br>from <br>    emp e<br>join<br>    dept d<br>on<br>    e.deptno = d.deptno<br>join <br>    salgrade s<br>on<br>    e.sal between s.losal and s.hisal<br>left join<br>    emp e1<br>on<br>    e.mgr = e1.empno;<br></code></pre></td></tr></table></figure>
 <h2 id="子查询">子查询</h2>
 <ul>
-<li><p>where后面</p></li>
-<li><p>from后面</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select<br>t.*, s.grade<br>from<br>(select deptno,avg(sal) as avgsal from emp group by deptno) t<br>join<br>salgrade s<br>on<br>t.avgsal between s.losal and s.hisal;<br></code></pre></td></tr></table></figure></li>
-<li><p>select后面</p></li>
+<li>
+<p>where后面</p>
+</li>
+<li>
+<p>from后面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select<br>t.*, s.grade<br>from<br>(select deptno,avg(sal) as avgsal from emp group by deptno) t<br>join<br>salgrade s<br>on<br>t.avgsal between s.losal and s.hisal;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>select后面</p>
+</li>
 </ul>
 <h2 id="union">union</h2>
 <p>将两个表拼接在一起。可以相关也可以不相关。</p>

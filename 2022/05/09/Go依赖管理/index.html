@@ -309,18 +309,17 @@
             
               <div class="markdown-body">
                 
-                <h1 id="go依赖管理">Go依赖管理</h1>
+                <h1>Go依赖管理</h1>
 <p>实际开发过程中，工程项目不可能都从0到1地开发。所以，依赖库的管理非常重要。</p>
-<h1 id="一go依赖管理的演进">一、Go依赖管理的演进</h1>
-<ol type="1">
+<h1>一、Go依赖管理的演进</h1>
+<ol>
 <li>GOPATH</li>
 <li>Go Vender</li>
 <li>Go Module</li>
 </ol>
 <p>主要解决两个问题：不同环境依赖的版本不同；控制依赖库的版本</p>
-<h2 id="gopath">1.GOPATH</h2>
-<p>GOPATH是一个环境变量，是Go的一个工作区。在go的早期版本里，需要将代码放在<code>$GOPATH/src</code>下，而且go
-get产生的依赖也会自动下载到<code>$GOPATH/src</code>。</p>
+<h2 id="1-GOPATH">1.GOPATH</h2>
+<p>GOPATH是一个环境变量，是Go的一个工作区。在go的早期版本里，需要将代码放在<code>$GOPATH/src</code>下，而且go get产生的依赖也会自动下载到<code>$GOPATH/src </code>。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">GOPATH<br>├── bin        <span class="hljs-comment">#项目编译的二进制文件</span><br>├── pkg        <span class="hljs-comment">#项目编译的中间产物，加速编译</span><br>├── src        <span class="hljs-comment">#项目源码</span><br>    ├── github.com<br>    <span class="hljs-string">...</span><br></code></pre></td></tr></table></figure>
 <p>GOPATH呈现的特点是：</p>
 <ul>
@@ -328,46 +327,37 @@ get产生的依赖也会自动下载到<code>$GOPATH/src</code>。</p>
 <li>Go get下载最新版本的包到src目录下</li>
 </ul>
 <p>GOPATH的弊端也很明显：就是当projectA依赖于某个包的v1版本，而projectB又依赖于该包的v2版本，就会出现问题——<strong>无法实现package的多版本控制</strong></p>
-<p><img width="500" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e785f4283acf43908ab920827907c5c1~tplv-k3u1fbpfcp-zoom-1.image" srcset="/wuhlan3/img/loading.gif" lazyload></p>
-<h2 id="go-vender">2.Go Vender</h2>
-<p>随着Go的依赖包越来越丰富，版本越来越多。Go 官方在 Go 1.5
-的时候提出了实验性质的 vendor
-机制——<strong>每个项目都可以有一个</strong><code>``vendor/``</code><strong>目录来存放项目所需版本依赖的拷贝</strong>。</p>
+<img width="500" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e785f4283acf43908ab920827907c5c1~tplv-k3u1fbpfcp-zoom-1.image" srcset="/wuhlan3/img/loading.gif" lazyload>
+<h2 id="2-Go-Vender">2.Go Vender</h2>
+<p>随着Go的依赖包越来越丰富，版本越来越多。Go 官方在 Go 1.5 的时候提出了实验性质的 vendor 机制——<strong>每个项目都可以有一个</strong><code>``vendor/``</code><strong>目录来存放项目所需版本依赖的拷贝</strong>。</p>
 <ul>
 <li>在项目目录下，增加vendor文件夹，所有依赖包副本形式放在$ProjectRoot/vendor；</li>
 <li>依赖寻址方式：首先查找vendor，再查找GOPATH；</li>
 <li>通过每个项目引入一份依赖符本，解决了多个项目需要同一个package依赖的冲突问题</li>
 </ul>
-<p>Go
-Vendor依然存在一些弊端——<strong>同一个项目中的package可能依赖于不同版本的包，这也会产生冲突</strong>。</p>
-<p><img width="500" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/06c7f720da094c1c8e4c186cee352556~tplv-k3u1fbpfcp-zoom-1.image" srcset="/wuhlan3/img/loading.gif" lazyload></p>
-<h2 id="go-module">3.Go Module</h2>
+<p>Go Vendor依然存在一些弊端——<strong>同一个项目中的package可能依赖于不同版本的包，这也会产生冲突</strong>。</p>
+<img width="500" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/06c7f720da094c1c8e4c186cee352556~tplv-k3u1fbpfcp-zoom-1.image" srcset="/wuhlan3/img/loading.gif" lazyload>
+<h2 id="3-Go-Module">3.Go Module</h2>
 <ul>
 <li>通过go.mod文件管理依赖包版本</li>
 <li>通过go get/go mod指令工具管理依赖包</li>
 </ul>
-<p>Go
-Module实现了最终的目标：<strong>可以定义版本规则和管理项目依赖关系</strong></p>
-<h1 id="二依赖管理">二、依赖管理</h1>
-<h2 id="依赖管理的三要素">1.依赖管理的三要素</h2>
-<ol type="1">
+<p>Go Module实现了最终的目标：<strong>可以定义版本规则和管理项目依赖关系</strong></p>
+<h1>二、依赖管理</h1>
+<h2 id="1-依赖管理的三要素">1.依赖管理的三要素</h2>
+<ol>
 <li>配置文件，描述依赖 go.mod</li>
 <li>中心仓库管理依赖库 Proxy</li>
 <li>本地工具 go get/go mod</li>
 </ol>
-<h2 id="配置文件"><strong>2.配置文件</strong></h2>
-<p>go.mod结构如下,
-其中version分为两种，语义化版本；基于commit的伪版本</p>
-<p><img width="500" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cb99b58a026d46fb8d248154a3ea2ff2~tplv-k3u1fbpfcp-zoom-1.image" srcset="/wuhlan3/img/loading.gif" lazyload></p>
+<h2 id="2-配置文件"><strong>2.配置文件</strong></h2>
+<p>go.mod结构如下, 其中version分为两种，语义化版本；基于commit的伪版本</p>
+<img width="500" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cb99b58a026d46fb8d248154a3ea2ff2~tplv-k3u1fbpfcp-zoom-1.image" srcset="/wuhlan3/img/loading.gif" lazyload>
 <blockquote>
-<p><code>go.mod</code>文件中出现
-<code>+incompatible</code>，说明你引用了一个不规范的
-Module，正常情况下，只能说明这个 Module
-版本未遵循版本化语义规范。可能会有一些风险</p>
+<p><code>go.mod</code>文件中出现 <code>+incompatible</code>，说明你引用了一个不规范的 Module，正常情况下，只能说明这个 Module 版本未遵循版本化语义规范。可能会有一些风险</p>
 </blockquote>
-<h2 id="中心仓库管理依赖库"><strong>3.中心仓库管理依赖库</strong></h2>
-<p>Go
-mod中的依赖都可以对应到github上的某一个提交的代码版本，这样就可以直接下载代码来完成依赖分发。但是过度依赖代码托管平台又会导致以下几个问题：</p>
+<h2 id="3-中心仓库管理依赖库"><strong>3.中心仓库管理依赖库</strong></h2>
+<p>Go mod中的依赖都可以对应到github上的某一个提交的代码版本，这样就可以直接下载代码来完成依赖分发。但是过度依赖代码托管平台又会导致以下几个问题：</p>
 <ul>
 <li>无法保证构建稳定性：增加/修改/删除软件版本</li>
 <li>无法保证依赖可用性：代码的作者可以删除软件</li>
@@ -376,32 +366,30 @@ mod中的依赖都可以对应到github上的某一个提交的代码版本，�
 <p>所以我们可以在中间增加一个proxy，它负责缓存软件版本，保证了依赖的稳定性。</p>
 <p>我们使用GOPROXY来管理proxy的配置：</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs clean">GOPROXY=<span class="hljs-string">&quot;https://proxy1.cn, https://proxy2.cn, direct&quot;</span><br><br>#服务站点URL列表，“direct”表示源站<br>#proxy1-&gt;proxy2-&gt;Direct<br>#即会先从proxy1查找依赖，再到proxy2查找依赖，最后回到源站查找<br></code></pre></td></tr></table></figure>
-<h2 id="工具go-get"><strong>4.工具go get</strong></h2>
-<p>go
-get命令可以借助代码管理工具通过远程拉取或更新代码包及其依赖包,并自动完成编译和安装</p>
+<h2 id="4-工具go-get"><strong>4.工具go get</strong></h2>
+<p>go get命令可以借助代码管理工具通过远程拉取或更新代码包及其依赖包,并自动完成编译和安装</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">go</span> <span class="hljs-built_in">get</span> <span class="hljs-built_in">example</span>.org/pkg<br></code></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">@update  默认<br>@node    删除依赖<br>@v1.1.2  tag版本，语义版本<br>@23dfdd5 特定的commit<br>@master  分支的最新commit<br></code></pre></td></tr></table></figure>
-<h2 id="工具go-mod"><strong>5.工具go mod</strong></h2>
+<h2 id="5-工具go-mod"><strong>5.工具go mod</strong></h2>
 <h3 id="go-mod-init">go mod init</h3>
 <p>创建空项目后，可以执行这个命令。</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">go</span> <span class="hljs-keyword">mod</span> init gitee.<span class="hljs-keyword">com</span>/biexiaoyansudian/my.<span class="hljs-keyword">cn</span><br>#指定了模块导入路径为 gitee.<span class="hljs-keyword">com</span>/biexiaoyansudian/my.<span class="hljs-keyword">cn</span><br></code></pre></td></tr></table></figure>
 <p>这个 init 指定的路径作用是：</p>
 <ul>
-<li><p>作为模块的标识</p></li>
-<li><p>作为模块的import path，当其他项目引用这个模块下的 package
-时都会以该 import path
-作为共同的前缀<code>import "``gitee.com/biexiaoyansudian/my.cn/mypkg``"</code></p></li>
+<li>
+<p>作为模块的标识</p>
+</li>
+<li>
+<p>作为模块的import path，当其他项目引用这个模块下的 package 时都会以该 import path 作为共同的前缀<code>import &quot;``gitee.com/biexiaoyansudian/my.cn/mypkg``&quot;</code></p>
+</li>
 </ul>
-<p>go mod init 执行完毕，就初始化了使用 Go modules 的项目，会多出来一个
-<strong>go.mod
-文件</strong>。它记录了当前项目的模块信息，每一行都以一个关键词开头。</p>
+<p>go mod init 执行完毕，就初始化了使用 Go modules 的项目，会多出来一个 <strong>go.mod 文件</strong>。它记录了当前项目的模块信息，每一行都以一个关键词开头。</p>
 <h3 id="go-mod-download">go mod download</h3>
 <p>下载依赖包</p>
 <h3 id="go-mod-tidy">go mod tidy</h3>
 <p>拉取缺少的依赖，移除不用的依赖</p>
-<h1 id="参考资料">参考资料</h1>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.infoq.cn/article/xyjhjja87y7pvu1iwhz3">https://www.infoq.cn/article/xyjhjja87y7pvu1iwhz3</a></p>
+<h1>参考资料</h1>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.infoq.cn/article/xyjhjja87y7pvu1iwhz3">https://www.infoq.cn/article/xyjhjja87y7pvu1iwhz3</a></p>
 <p>[2] 字节跳动青训营——Go语言上手 - 工程实践</p>
 
                 

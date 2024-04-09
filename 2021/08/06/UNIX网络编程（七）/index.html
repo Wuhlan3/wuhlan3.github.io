@@ -314,7 +314,7 @@
                 <h2 id="getsockopt和setsockopt">getsockopt和setsockopt</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span>   </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> *optlen)</span></span>;  <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">setsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> optlen)</span></span>; <br></code></pre></td></tr></table></figure>
 <p>参数按顺序分别为：</p>
-<ol type="1">
+<ol>
 <li>套接字描述符</li>
 <li>解释选项的代码，通用套接字的代码，某个特定协议的代码</li>
 <li>需要访问的选项名。</li>
@@ -331,7 +331,7 @@
 </ul>
 <h2 id="小结">小结</h2>
 <p>介绍了四个函数：</p>
-<ol type="1">
+<ol>
 <li>getsockopt</li>
 <li>setsockopt</li>
 <li>fcntl：把套接字设置为非阻塞型I/O或信号驱动式I/O的POSIX方法</li>

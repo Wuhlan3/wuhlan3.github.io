@@ -311,7 +311,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="io模型">I/O模型</h2>
+                <h2 id="I-O模型">I/O模型</h2>
 <ul>
 <li>阻塞型I/O</li>
 <li>非阻塞型I/O</li>
@@ -319,24 +319,24 @@
 <li>信号驱动式I/O（SIGIO）</li>
 <li>异步I/O（POSIX的aio_系列函数）</li>
 </ul>
-<h3 id="阻塞型io">阻塞型I/O</h3>
-<p><img src="image-20210804140524461.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804140524461" style="zoom:80%;" /></p>
+<h3 id="阻塞型I-O">阻塞型I/O</h3>
+<img src="image-20210804140524461.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804140524461" style="zoom:80%;" />
 <p>例子：本书把recvfrom当作是系统调用（不同操作系统可能不太一样），因为涉及到内核与应用进程的切换。在调用recvfrom到返回的这一段时间内，是被<strong>阻塞的</strong>。</p>
-<h3 id="非阻塞型io">非阻塞型I/O</h3>
+<h3 id="非阻塞型I-O">非阻塞型I/O</h3>
 <p>特点用一句话概括。进程把套接字设置成非阻塞型是在通知内核：当所请求的I/O操作非得把本进程投入睡眠才能完成时，不要投入睡眠而是返回一个错误。</p>
-<p><img src="image-20210804141302991.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804141302991" style="zoom:80%;" /></p>
+<img src="image-20210804141302991.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804141302991" style="zoom:80%;" />
 <p>如图，当一个应用进程像这样对一个非阻塞描述符循环调用recvfrom，称为<strong>轮询</strong>（polling）。应用进程持续访问内核，查看内核是否就绪。这样会造成大量的CPU时间损耗，值在一小部分系统中会应用到。</p>
-<h3 id="io复用">I/O复用</h3>
-<p><img src="image-20210804141842651.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804141842651" style="zoom:80%;" /></p>
+<h3 id="I-O复用">I/O复用</h3>
+<img src="image-20210804141842651.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804141842651" style="zoom:80%;" />
 <p>调用select或poll，阻塞在这两个系统调用的某个之上。</p>
 <p>注意：相比于图6-1，该方法使用了两次系统调用（select，recvfrom）</p>
-<h3 id="信号驱动式io">信号驱动式I/O</h3>
-<p><img src="image-20210804144110660.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804144110660" style="zoom:80%;" /></p>
+<h3 id="信号驱动式I-O">信号驱动式I/O</h3>
+<img src="image-20210804144110660.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804144110660" style="zoom:80%;" />
 <p>其优势在于，等待数据报到达之前，不需要阻塞。</p>
-<h3 id="异步io">异步I/O</h3>
-<p><img src="image-20210804144456504.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804144456504" style="zoom:80%;" /></p>
-<h2 id="io复用的场合">I/O复用的场合</h2>
-<ol type="1">
+<h3 id="异步I-O">异步I/O</h3>
+<img src="image-20210804144456504.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804144456504" style="zoom:80%;" />
+<h2 id="I-O复用的场合">I/O复用的场合</h2>
+<ol>
 <li>当客户使用多个描述符时（套接字和交互式输入），必须使用I/O复用。</li>
 <li>一个用户同时处理多个套接字</li>
 <li>一个服务器既要处理listen套接字，又要处理connect套接字</li>
@@ -346,34 +346,34 @@
 <h2 id="select函数">select函数</h2>
 <p>调用select告知内核对哪些描述符（读、写或异常条件）感兴趣以及等待多长时间。事实上任何描述符都可以使用select来进行测试。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/select.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/time.h&gt;</span></span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">select</span><span class="hljs-params">(<span class="hljs-type">int</span> maxfdp1, fd_set *readset, fd_set *writeset, fd_set *exceptset,<span class="hljs-keyword">struct</span> timeval *timeout)</span></span>;<br>    <span class="hljs-comment">//第一个参数表示，待测试的最大描述符+1.  可使用宏定义的FD_SETSIZE</span><br>    <span class="hljs-comment">//中间的三个参数分别指定让内核测试读、写、异常的描述符，异常状态只有两种不做详细讨论,不敢行曲则置为空NULL</span><br>    <span class="hljs-comment">//返回，若有就绪描述符则返回数目，若超时则返回0，若出错则返回-1</span><br></code></pre></td></tr></table></figure>
-<h3 id="关于fd_set">关于fd_set</h3>
+<h3 id="关于fd-set">关于fd_set</h3>
 <p>要怎么来表示多个描述符呢？</p>
 <p>定义了一种数据类型fd_set和四个宏，具体实现不需了解：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FD_ZERO</span><span class="hljs-params">(fd_set *fdset)</span></span>;            <span class="hljs-comment">/*将描述符集清零*/</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FD_SET</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, fd_set *fdset)</span></span>;        <span class="hljs-comment">/*将其中一个描述符位  置1*/</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FD_CLR</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, fd_set *fdset)</span></span>;        <span class="hljs-comment">/*将其中一个描述符位  置0*/</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FD_ISSET</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, fd_set *fdset)</span></span>;    <span class="hljs-comment">/*判断某一位是否被设置*/</span><br></code></pre></td></tr></table></figure>
 <p>使用方法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">fd_set     socket_set;<br><span class="hljs-built_in">FD_SET</span>(<span class="hljs-number">1</span>, &amp;socket_set);<br><span class="hljs-built_in">FD_SET</span>(<span class="hljs-number">4</span>, &amp;socket_set);<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>注意，描述符集参数是<strong>值-结果参数</strong>。原本为1的位，调用完后可能为0；</p><p>此外，maxfdp1也容易忘记+1。是在最大描述符的基础上+1</p>
+            <p>注意，描述符集参数是 <strong>值-结果参数</strong>。原本为1的位，调用完后可能为0；</p><p>此外，maxfdp1也容易忘记+1。是在最大描述符的基础上+1</p>
           </div>
 <h3 id="关于struct-timeval">关于struct timeval</h3>
 <p>其中，struct timeval 的结构如下，指定了这段时间的秒数和微秒数：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">timeval</span>&#123;<br>    <span class="hljs-type">long</span> tv_sec;<br>    <span class="hljs-type">long</span> tv_usec;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>这个参数有三种可能：</p>
-<ol type="1">
+<ol>
 <li>永远等待下去：指针设置为空</li>
 <li>等待一段固定时间：设置秒数和微秒数</li>
 <li>根本不等待：检查描述符后里面返回，这就是之前提到的<strong>轮询</strong>。把秒数和微秒数设置为0。</li>
 </ol>
 <h2 id="就绪条件">就绪条件</h2>
-<p><img src="image-20210805093941701.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805093941701" style="zoom: 67%;" /></p>
-<h2 id="对str_cli进行修改">对str_cli进行修改</h2>
+<img src="image-20210805093941701.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805093941701" style="zoom: 67%;" />
+<h2 id="对str-cli进行修改">对str_cli进行修改</h2>
 <p>之前我们遇到的问题是：客户端进程阻塞在fgets，不能及时读取socket描述符的信息。下面来进行改进：</p>
-<ol type="1">
+<ol>
 <li>如果对端发送数据，那么该套接字变为可读，返回一个大于0的值（读入字节数）</li>
 <li>如果对端发送一个FIN，那么该套接字变为可读，read返回一个0（EOF）</li>
 <li>如果对端发送一个RST（对端主机崩溃或重新启动），那么该套接字变为可读，read返回一个-1（errno含有错误码）</li>
 </ol>
-<p><img src="image-20210805094459846.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805094459846" style="zoom:80%;" /></p>
+<img src="image-20210805094459846.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805094459846" style="zoom:80%;" />
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;unp.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">str_cli</span><span class="hljs-params">(FILE *fp, <span class="hljs-type">int</span> sockfd)</span></span>&#123;<br>    <span class="hljs-type">int</span> maxfdp1;    <span class="hljs-comment">//最大描述符数</span><br>    fd_set rset;    <span class="hljs-comment">//read set 读入的描述符集</span><br>    <span class="hljs-type">char</span> sendline[MAXLINE], recvline[MAXLINE];<br>    <span class="hljs-built_in">FD_ZERO</span>(&amp;rset);    <span class="hljs-comment">//初始化，清零</span><br>    <br>    <span class="hljs-keyword">for</span>( ; ; ) &#123;<br>        <span class="hljs-built_in">FD_SET</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset);	<span class="hljs-comment">//设置文件描述符。其中fileno可以把文件指针转为描述符</span><br>        <span class="hljs-built_in">FD_SET</span>(sockfd, &amp;rset);		<span class="hljs-comment">//设置套接字描述符</span><br>        maxfdp1 = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">fileno</span>(fp), sockfd)+<span class="hljs-number">1</span>;	<span class="hljs-comment">// +1 +1 +1</span><br>        <span class="hljs-built_in">Select</span>(maxfdp1, &amp;rset, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);<br>        <br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">FD_ISSET</span>(sockfd, &amp;rset))&#123;	<span class="hljs-comment">//若读套接字已就绪</span><br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Readline</span>(sockfd, recvline, MAXLINE) == <span class="hljs-number">0</span> )&#123;		<span class="hljs-comment">//EOF</span><br>            	<span class="hljs-built_in">err_quit</span>(<span class="hljs-string">&quot;str_cli:server terminated prematurely&quot;</span>);<br>            &#125;<br>            <span class="hljs-built_in">Fputs</span>(recvline, stdout);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">FD_ISSET</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset))&#123;	<span class="hljs-comment">//若读文件流已就绪</span><br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Fgets</span>(sendline, MAXLINE, fp) == <span class="hljs-literal">NULL</span> )&#123;<br>            	<span class="hljs-keyword">return</span>;<br>            &#125;<br>            <span class="hljs-built_in">Writen</span>(sockfd, sendline,<span class="hljs-built_in">strlen</span>(sendline) );<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>我们再来使用netstat、ps、kill等工具进行检测。发现：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ ./client 127.0.0.1<br>hello<br>hello<br>miomiao<br>miomiao<br>str_cli:server terminated prematurely<br></code></pre></td></tr></table></figure>
@@ -384,105 +384,109 @@
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">wuhlan3</span>@ubuntu:~/Desktop/unpv13e-master/my_test$ w<br> <span class="hljs-attribute">19</span>:<span class="hljs-number">50</span>:<span class="hljs-number">52</span> up  <span class="hljs-number">1</span>:<span class="hljs-number">10</span>,  <span class="hljs-number">1</span> user,  load average: <span class="hljs-number">0</span>.<span class="hljs-number">40</span>, <span class="hljs-number">0</span>.<span class="hljs-number">25</span>, <span class="hljs-number">0</span>.<span class="hljs-number">20</span><br><span class="hljs-attribute">USER</span>     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT<br><span class="hljs-attribute">wuhlan3</span>  :<span class="hljs-number">0</span>       :<span class="hljs-number">0</span>               <span class="hljs-number">01</span>:<span class="hljs-number">15</span>   ?xdm?   <span class="hljs-number">2</span>:<span class="hljs-number">42</span>   <span class="hljs-number">0</span>.<span class="hljs-number">07</span>s /usr/lib/gdm3/g<br></code></pre></td></tr></table></figure>
 <h2 id="shutdown函数">shutdown函数</h2>
 <p>一般来说关闭连接使用close函数，但是有两个限制：</p>
-<ol type="1">
+<ol>
 <li>close吧描述符的counter-1，只有counter为0时才关闭套机字</li>
 <li>close终止读和写两个方向上的数据传送</li>
 </ol>
-<p><img src="image-20210805110818646.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805110818646" style="zoom:67%;" /></p>
+<img src="image-20210805110818646.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805110818646" style="zoom:67%;" />
 <p>这就是另一个需要解决的问题：有的时候客户端发送完数据后，直接就发送FIN了，是要告知服务器我已经发送完数据了。此时客户端仍想要保持套接字打开，继续接收读取服务器发回来的数据。这就要用到shutdown函数</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">shutdown</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">int</span> howto)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    SHUT_RD:关闭连接读半部</span><br><span class="hljs-comment">    SHUT_WR:关闭连接写半部，对于TCP而言，这就是半关闭状态half-close</span><br><span class="hljs-comment">    SHUT_RDWR:关闭连接读写。等价于调用分别上面两次shutdown</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
-<h2 id="str_cli的再修改">str_cli的再修改</h2>
+<h2 id="str-cli的再修改">str_cli的再修改</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;unp.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">str_cli</span><span class="hljs-params">(FILE *fp, <span class="hljs-type">int</span> sockfd)</span></span>&#123;<br>    <span class="hljs-type">int</span> stdineof = <span class="hljs-number">0</span>; <span class="hljs-comment">//判断是否收到eof，只要标志为0，就select标准输入的可读性</span><br>    <span class="hljs-type">int</span> maxfdp1;<br>    fd_set rset;<br>    <span class="hljs-type">char</span> buf[MAXLINE];<br>    <span class="hljs-type">int</span> n;<br>    <span class="hljs-built_in">FD_ZERO</span>(&amp;rset);<br>    <span class="hljs-keyword">for</span>( ; ; ) &#123;<br>        <span class="hljs-keyword">if</span>(stdineof == <span class="hljs-number">0</span>)<span class="hljs-comment">//若没收到，则开启该描述符</span><br>            <span class="hljs-built_in">FD_SET</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset);<br>        <span class="hljs-built_in">FD_SET</span>(sockfd, &amp;rset);<br>        maxfdp1 = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">fileno</span>(fp), sockfd)+<span class="hljs-number">1</span>;<br>        <span class="hljs-built_in">Select</span>(maxfdp1, &amp;rset, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);<br>        <span class="hljs-comment">//连接输入（接收）</span><br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">FD_ISSET</span>(sockfd, &amp;rset))&#123;<br>            <span class="hljs-keyword">if</span>( (n == <span class="hljs-built_in">Read</span>(sockfd, buf, MAXLINE)) == <span class="hljs-number">0</span>)&#123;<br>            	<span class="hljs-keyword">if</span>(stdineof == <span class="hljs-number">1</span>)<span class="hljs-comment">//若收到服务器发来的FIN，且自己在这之前已经关闭则返回</span><br>            	    <span class="hljs-keyword">return</span>;<br>            	<span class="hljs-keyword">else</span>				<span class="hljs-comment">//否则报：“服务器提前结束”</span><br>            	    <span class="hljs-built_in">err_quit</span>(<span class="hljs-string">&quot;str_cli:server terminated prematurely&quot;</span>);<br>            &#125;<br>            <span class="hljs-built_in">Write</span>(<span class="hljs-built_in">fileno</span>(stdout), buf, n);<br>        &#125;<br>        <span class="hljs-comment">//用户输入</span><br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">FD_ISSET</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset))&#123;<br>            <span class="hljs-keyword">if</span>( (n = <span class="hljs-built_in">Read</span>(<span class="hljs-built_in">fileno</span>(fp), buf, MAXLINE)) == <span class="hljs-number">0</span>)&#123;<br>            	stdineof = <span class="hljs-number">1</span>;<span class="hljs-comment">//若用户写入EOF，则置为1</span><br>            	<span class="hljs-built_in">Shutdown</span>(sockfd, SHUT_WR);<span class="hljs-comment">//关闭连接的写半部</span><br>            	<span class="hljs-built_in">FD_CLR</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset);<span class="hljs-comment">//将用户输入的读描述集也关闭</span><br>            	<span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-built_in">Writen</span>(sockfd, buf, n);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="使用selcet实现服务器">使用selcet实现服务器</h2>
 <p>使用select函数可以替换掉每次fork一个子进程。实现过程与上面客户端的str_cli类似。不再赘述。</p>
 <h2 id="pselect函数">pselect函数</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/select.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;signal.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;time.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">pselect</span><span class="hljs-params">(<span class="hljs-type">int</span> maxfdp1, fd_set *readset, fd_set *writeset, fd_set *exceptest, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> timespec *timeout, <span class="hljs-type">const</span> <span class="hljs-type">sigset_t</span> *sigmask)</span></span>;<br></code></pre></td></tr></table></figure>
-<h3
-id="pselect与select仅有以下几点区别">pselect与select仅有以下几点区别</h3>
+<h3 id="pselect与select仅有以下几点区别">pselect与select仅有以下几点区别</h3>
 <ul>
-<li><p>timeout的结构变为秒和纳秒</p></li>
-<li><p>select的timeout是<strong>值-结果参数</strong>，pselect的timeout不会改变</p></li>
-<li><p>多了一个信号掩码参数。</p>
-<p><img src="image-20210805144333226.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805144333226" style="zoom: 80%;" /></p></li>
+<li>
+<p>timeout的结构变为秒和纳秒</p>
+</li>
+<li>
+<p>select的timeout是<strong>值-结果参数</strong>，pselect的timeout不会改变</p>
+</li>
+<li>
+<p>多了一个信号掩码参数。</p>
+<img src="image-20210805144333226.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805144333226" style="zoom: 80%;" />
+</li>
 </ul>
 <h2 id="poll函数">poll函数</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;poll.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">poll</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> pollfd fd[], <span class="hljs-type">nfds_t</span> nfds, <span class="hljs-type">int</span> timeout)</span></span>;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">pollfd</span>&#123;<br>　　<span class="hljs-type">int</span> fd;          <span class="hljs-comment">//文件描述符</span><br>　　<span class="hljs-type">short</span> events;    <span class="hljs-comment">//请求的事件</span><br>　　<span class="hljs-type">short</span> revents;   <span class="hljs-comment">//返回的事件</span><br>　　&#125;;<br></code></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>常量</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>POLLIN</td>
 <td>普通或优先级带数据可读</td>
 </tr>
-<tr class="even">
+<tr>
 <td>POLLRDNORM</td>
 <td>普通数据可读</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>POLLRDBAND</td>
 <td>优先级带数据可读</td>
 </tr>
-<tr class="even">
+<tr>
 <td>POLLPRI</td>
 <td>高优先级数据可读</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>POLLOUT</td>
 <td>普通数据可写</td>
 </tr>
-<tr class="even">
+<tr>
 <td>POLLWRNORM</td>
 <td>普通数据可写</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>POLLWRBAND</td>
 <td>优先级带数据可写</td>
 </tr>
-<tr class="even">
+<tr>
 <td>POLLERR</td>
 <td>发生错误</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>POLLHUP</td>
 <td>发生挂起</td>
 </tr>
-<tr class="even">
+<tr>
 <td>POLLNVAL</td>
 <td>描述字不是一个打开的文件</td>
 </tr>
 </tbody>
 </table>
-<p>注意：后三个只能作为描述字的返回结果<a
-target="_blank" rel="noopener" href="http://www.storworld.com/">存储</a>在revents中，而不能作为测试条件用于events中</p>
+<p>注意：后三个只能作为描述字的返回结果<a target="_blank" rel="noopener" href="http://www.storworld.com/">存储</a>在revents中，而不能作为测试条件用于events中</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th><strong>timeout值</strong></th>
 <th><strong>说明</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>INFTIM</td>
 <td>永远等待</td>
 </tr>
-<tr class="even">
+<tr>
 <td>0</td>
 <td>立即返回，不阻塞进程</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>＞0</td>
 <td>等待指定数目的毫秒数</td>
 </tr>
 </tbody>
 </table>
 <h2 id="小结">小结</h2>
-<ol type="1">
+<ol>
 <li>回顾一下提到的五种I/O模型：阻塞型I/O、非阻塞型I/O、I/O复用、信号驱动式I/O、异步I/O</li>
 <li>用于I/O复用模型的select函数</li>
 <li>解决输入结束后，数据仍在去往或来自服务器管道的问题。使用shutdown函数</li>

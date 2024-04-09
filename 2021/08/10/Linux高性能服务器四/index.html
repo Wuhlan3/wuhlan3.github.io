@@ -312,7 +312,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="信号">信号</h1>
+                <h1>信号</h1>
 <p><strong>信号</strong>：由用户、系统或者进程发送给目标进程的信息，以通知目标进程某个状态的改变或系统异常。</p>
 <p>可能由如下条件产生：</p>
 <ul>
@@ -326,25 +326,25 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;signal.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">kill</span><span class="hljs-params">(<span class="hljs-type">pid_t</span> pid, <span class="hljs-type">int</span> sig)</span></span>;<br></code></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>pid参数</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>pid &gt; 0</td>
 <td>信号发送给PID为pid的进程</td>
 </tr>
-<tr class="even">
+<tr>
 <td>pid == 0</td>
 <td>发送给本进程组内的进程</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>pid == -1</td>
 <td>发送给出init进程外的所有进程（需要有权限）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>pid &lt; -1</td>
 <td>发送给<strong>组id</strong>为 -pid的所有进程</td>
 </tr>
@@ -354,34 +354,34 @@
 <h2 id="几个关键信号">几个关键信号</h2>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>信号</th>
 <th>默认行为</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>SIGHUP</td>
 <td>Term</td>
 <td>控制终端挂起</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SIGPIPE</td>
 <td>Term</td>
 <td>往读端被关闭的管道或者socket连接中写数据</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SIGURG</td>
 <td>Ign</td>
 <td>socket连接上接收到紧急数据</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SIGALRM</td>
 <td>Term</td>
 <td>由alarm或setitimer设置的实时闹钟超时引起</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SIGCHLD</td>
 <td>Ign</td>
 <td>子进程状态发生变化（退出或者暂停）</td>

@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          568 words
+          567 words
         
       </span>
     
@@ -308,73 +308,40 @@
             
               <div class="markdown-body">
                 
-                <h1 id="动态规划">动态规划</h1>
+                <h1>动态规划</h1>
 <h2 id="最大子数组和系列">最大子数组和系列</h2>
-<h4 id="最大子数组和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">53.
-最大子数组和</a></h4>
+<h4 id="53-最大子数组和"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">53. 最大子数组和</a></h4>
 <blockquote>
-<p>我觉得这道题目的思想是： 走完这一生
-如果我和你在一起会变得更好，那我们就在一起，否则我就丢下你。
-我回顾我最光辉的时刻就是和不同人在一起，变得更好的最长连续时刻</p>
+<p>我觉得这道题目的思想是： 走完这一生 如果我和你在一起会变得更好，那我们就在一起，否则我就丢下你。 我回顾我最光辉的时刻就是和不同人在一起，变得更好的最长连续时刻</p>
 <p>——coolBoy</p>
 </blockquote>
 <p>一切的一切都是从这个演化而来的：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxSubArray</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-type">int</span> Max = nums[<span class="hljs-number">0</span>];<br>    <span class="hljs-type">int</span> pre = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;n : nums)&#123;<br>        pre = <span class="hljs-built_in">max</span>(pre+n, n);<br>        Max = <span class="hljs-built_in">max</span>(Max, pre);<br>    &#125;<br>    <span class="hljs-keyword">return</span> Max;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="乘积最大子数组"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-subarray/">152.
-乘积最大子数组</a></h4>
+<h4 id="152-乘积最大子数组"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-subarray/">152. 乘积最大子数组</a></h4>
 <p>区别在于，多出一个变量来记录最小的乘积，因为最小的很可能突然变为最大的。</p>
-<h4 id="环形子数组的最大和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-sum-circular-subarray/">918.
-环形子数组的最大和</a></h4>
+<h4 id="918-环形子数组的最大和"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-sum-circular-subarray/">918. 环形子数组的最大和</a></h4>
 <p>非常巧妙，用同样的方法分别记录<strong>最小数组和</strong>和<strong>最大数组和</strong>。假设数组没有回环，那么最大数组就是<code>max_sum</code>；假设数组回环了，就进行<code>total-min_sum</code></p>
 <p>最后，还需要判断一下整个子数组都是负数的情况。</p>
-<figure>
-<img
-src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/1639228731-hwXkOI-image.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image.png" />
-<figcaption aria-hidden="true">image.png</figcaption>
-</figure>
-<h4 id="面试题-17.24.-最大子矩阵"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-submatrix-lcci/">面试题
-17.24. 最大子矩阵</a></h4>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/1639228731-hwXkOI-image.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="面试题-17-24-最大子矩阵"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-submatrix-lcci/">面试题 17.24. 最大子矩阵</a></h4>
 <p>使用<code>top</code>和<code>bottom</code>来遍历不同行数的矩阵。对于每一个固定行数的矩阵，可以采用<strong>前缀和</strong>的方式计算每列的和。之后转化为一维的<strong>最大子数组和</strong>问题。</p>
-<h4 id="矩形区域不超过-k-的最大数值和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/">363.
-矩形区域不超过 K 的最大数值和</a></h4>
+<h4 id="363-矩形区域不超过-K-的最大数值和"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/">363. 矩形区域不超过 K 的最大数值和</a></h4>
 <p>有点困难，之后再细看</p>
 <h2 id="打家劫舍问题">打家劫舍问题</h2>
-<h4 id="打家劫舍"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">198.
-打家劫舍</a></h4>
+<h4 id="198-打家劫舍"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">198. 打家劫舍</a></h4>
 <p>不算特别难，dp[i]设定为到达第i间房子之前能会获得的最大收益。</p>
-<h4 id="打家劫舍-ii"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber-ii/">213. 打家劫舍
-II</a></h4>
+<h4 id="213-打家劫舍-II"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber-ii/">213. 打家劫舍 II</a></h4>
 <p>在上个问题的基础上，划分为抢第一间房子；不抢第一间房子。</p>
-<h4 id="删除并获得点数"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-and-earn/">740.
-删除并获得点数</a></h4>
+<h4 id="740-删除并获得点数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-and-earn/">740. 删除并获得点数</a></h4>
 <p>可以转换为打家劫舍问题</p>
-<h4 id="n-块披萨"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/pizza-with-3n-slices/">1388. 3n
-块披萨</a></h4>
+<h4 id="1388-3n-块披萨"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/pizza-with-3n-slices/">1388. 3n 块披萨</a></h4>
 <p>比较麻烦。题意可概括为，求一个3n大小的循环数组中长度为n的不连续子数组的最大和。需要用到打家劫舍II的思想，来处理循环数组问题。</p>
 <p>将<code>dp[i][j]</code>定义为到第i个元素为止，选择j个元素的最大和。</p>
-<h2 id="其他单串dpi问题">其他单串dp[i]问题</h2>
-<h4 id="最长有效括号"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-valid-parentheses/">32.
-最长有效括号</a></h4>
-<h4 id="等差数列划分"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/arithmetic-slices/">413.
-等差数列划分</a></h4>
-<h4 id="解码方法"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/decode-ways/">91.
-解码方法</a></h4>
-<h4 id="分割回文串-ii"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/palindrome-partitioning-ii/">132.
-分割回文串 II</a></h4>
+<h2 id="其他单串dp-i-问题">其他单串dp[i]问题</h2>
+<h4 id="32-最长有效括号"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-valid-parentheses/">32. 最长有效括号</a></h4>
+<h4 id="413-等差数列划分"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/arithmetic-slices/">413. 等差数列划分</a></h4>
+<h4 id="91-解码方法"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/decode-ways/">91. 解码方法</a></h4>
+<h4 id="132-分割回文串-II"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/palindrome-partitioning-ii/">132. 分割回文串 II</a></h4>
 
                 
               </div>

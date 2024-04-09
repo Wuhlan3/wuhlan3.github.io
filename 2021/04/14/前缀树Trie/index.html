@@ -257,7 +257,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          925 words
+          919 words
         
       </span>
     
@@ -310,27 +310,18 @@
             
               <div class="markdown-body">
                 
-                <h3 id="力扣208.-实现-trie-前缀树"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-trie-prefix-tree/">力扣——208.
-实现 Trie (前缀树)</a></h3>
+                <h3 id="力扣——208-实现-Trie-前缀树"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-trie-prefix-tree/">力扣——208. 实现 Trie (前缀树)</a></h3>
 <h3 id="题目">题目</h3>
-<p>Trie（发音类似 "try"）或者说 前缀树
-是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。</p>
+<p>Trie（发音类似 “try”）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。</p>
 <p>样例如下：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">输入<br>[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;search&quot;, &quot;startsWith&quot;, &quot;insert&quot;, &quot;search&quot;]<br>[[], [&quot;apple&quot;], [&quot;apple&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;]]<br>输出<br>[<span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">true</span>]<br><br>解释<br>Trie trie = <span class="hljs-built_in">new</span> Trie();<br>trie.<span class="hljs-keyword">insert</span>(&quot;apple&quot;);<br>trie.<span class="hljs-keyword">search</span>(&quot;apple&quot;);   // 返回 <span class="hljs-keyword">True</span><br>trie.<span class="hljs-keyword">search</span>(&quot;app&quot;);     // 返回 <span class="hljs-keyword">False</span><br>trie.startsWith(&quot;app&quot;); // 返回 <span class="hljs-keyword">True</span><br>trie.<span class="hljs-keyword">insert</span>(&quot;app&quot;);<br>trie.<span class="hljs-keyword">search</span>(&quot;app&quot;);     // 返回 <span class="hljs-keyword">True</span><br></code></pre></td></tr></table></figure>
 <h3 id="算法思路">算法思路</h3>
 <p>简单来说，前缀树就是一个26-叉树。</p>
 <p>每个节点是一个结构体：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Trie</span>&#123;<br>    vector&lt;Trie*&gt; children;  <span class="hljs-comment">//存储所有可能的下一个节点 大小为26的数组</span><br>    <span class="hljs-type">bool</span> isEnd;	<span class="hljs-comment">//用于判断是否为单词的结尾</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="3.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="来自算法4" />
-<figcaption aria-hidden="true">来自算法4</figcaption>
-</figure>
+<p><img src="3.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="来自算法4"></p>
 <p>忽略了空节点之后可以简化为如下形式：</p>
-<figure>
-<img src="2.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img src="2.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
 <h3 id="代码实现">代码实现</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Trie</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    vector&lt;Trie*&gt; child;<br>    <span class="hljs-type">bool</span> isEnd = <span class="hljs-literal">false</span>;<br><span class="hljs-keyword">public</span>:<br><br>    <span class="hljs-comment">/** Initialize your data structure here. */</span><br>    <span class="hljs-built_in">Trie</span>():<span class="hljs-built_in">child</span>(<span class="hljs-number">26</span>),<span class="hljs-built_in">isEnd</span>(<span class="hljs-number">0</span>) &#123;&#125;<br>    <br>    <span class="hljs-comment">/** Inserts a word into the trie. */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(string word)</span> </span>&#123;<br>        Trie* node = <span class="hljs-keyword">this</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c : word)&#123;<br>            <span class="hljs-type">int</span> pos = c - <span class="hljs-string">&#x27;a&#x27;</span>;<br>            <span class="hljs-keyword">if</span>(node-&gt;child[pos] == <span class="hljs-literal">nullptr</span>)&#123;<br>                node-&gt;child[pos] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Trie</span>();<br>            &#125;<br>            node = node-&gt;child[pos];<br>        &#125;<br>        node-&gt;isEnd = <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-comment">/** Returns if the word is in the trie. */</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">search</span><span class="hljs-params">(string word)</span> </span>&#123;<br>        Trie* node = <span class="hljs-keyword">this</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c : word)&#123;<br>            <span class="hljs-type">int</span> pos = c - <span class="hljs-string">&#x27;a&#x27;</span>;<br>            <span class="hljs-keyword">if</span>(node-&gt;child[pos] == <span class="hljs-literal">nullptr</span>)&#123;<br>                node = node-&gt;child[pos];<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            node = node-&gt;child[pos];<br>        &#125;<br>        <span class="hljs-keyword">if</span>(node != <span class="hljs-literal">nullptr</span> &amp;&amp; node-&gt;isEnd == <span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-comment">/** Returns if there is any word in the trie that starts with the given prefix. */</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">startsWith</span><span class="hljs-params">(string prefix)</span> </span>&#123;<br>        Trie* node = <span class="hljs-keyword">this</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c : prefix)&#123;<br>            <span class="hljs-type">int</span> pos = c - <span class="hljs-string">&#x27;a&#x27;</span>;<br>            <span class="hljs-keyword">if</span>(node-&gt;child[pos] == <span class="hljs-literal">nullptr</span>)&#123;<br>                node = node-&gt;child[pos];<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            node = node-&gt;child[pos];<br>        &#125;<br>        <span class="hljs-keyword">if</span>(node != <span class="hljs-literal">nullptr</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>但是，我们发现函数的重复率非常高，可以写一个搜索前缀的函数，修改为如下形式：</p>
@@ -338,29 +329,35 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-
 <h3 id="拓展一下">拓展一下</h3>
 <p><strong>压缩前缀树</strong></p>
 <p>由于一个字母占用一个节点（含有大小为26的数组），非常浪费空间。压缩前缀树是前缀树的一种优化方案。</p>
-<figure>
-<img src="1.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img src="1.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
 <h3 id="应用场景">应用场景</h3>
 <p>当然在本题中前缀树起到的作用仅仅是判断是否收录了某个单词。在实际应用中可以通过修改isEnd为一个值，形成健与值的映射，增加应用范围。</p>
 <p>这种时候，我们很自然地就会将前缀树与哈希表进行对比。</p>
 <ul>
-<li><p>哈希表</p>
-<p>当哈希表hash函数选取的好，计算量少且冲突少时，效率可达<span
-class="math inline">\(O(1)\)</span>。</p>
-<p>哈希表不能支持动态查询功能（即写前缀，显示后缀）</p></li>
-<li><p>前缀树</p>
-<p>前缀树的时间复杂度为<span
-class="math inline">\(O(L)\)</span>，其中<span
-class="math inline">\(L\)</span>为字符串长度。处理大量字符串的时候，效率比哈希表高。但是额外消耗的空间较大。经典：以空间换时间。</p></li>
+<li>
+<p>哈希表</p>
+<p>当哈希表hash函数选取的好，计算量少且冲突少时，效率可达$O(1)$。</p>
+<p>哈希表不能支持动态查询功能（即写前缀，显示后缀）</p>
+</li>
+<li>
+<p>前缀树</p>
+<p>前缀树的时间复杂度为$O(L)$，其中$L$为字符串长度。处理大量字符串的时候，效率比哈希表高。但是额外消耗的空间较大。经典：以空间换时间。</p>
+</li>
 </ul>
-<ol type="1">
-<li><p>字符串的快速检索</p></li>
-<li><p>字符串排序</p></li>
-<li><p>最长公共前缀</p></li>
-<li><p>自动匹配前缀显示后缀</p>
-<p>如我们在搜索引擎和字典中输入前面的东西，会自动显示后面的内容。（只需把后缀遍历显示出来）</p></li>
+<ol>
+<li>
+<p>字符串的快速检索</p>
+</li>
+<li>
+<p>字符串排序</p>
+</li>
+<li>
+<p>最长公共前缀</p>
+</li>
+<li>
+<p>自动匹配前缀显示后缀</p>
+<p>如我们在搜索引擎和字典中输入前面的东西，会自动显示后面的内容。（只需把后缀遍历显示出来）</p>
+</li>
 </ol>
 <h3 id="参考资料">参考资料</h3>
 <p>https://zhuanlan.zhihu.com/p/46670859</p>

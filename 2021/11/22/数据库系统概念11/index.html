@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="11.索引与散列 许多查询只涉及文件中的少量记录，但是很多时候我们需要因此查询关系中的每一个元组。为了能够快速定位这些记录，所以出现了索引这种与文件相关联的附加结构。 11.1 基本概念 两种索引类型：  顺序索引：基于值的顺序排列。 散列索引：基于将值平均分布到若干散列桶中。一个值所属的散列桶由散列函数决定。  搜索码：用于在文件中查找记录的属性或属性集称为 11.2 顺序索引">
+    <meta name="description" content="11.索引与散列 许多查询只涉及文件中的少量记录，但是很多时候我们需要因此查询关系中的每一个元组。为了能够快速定位这些记录，所以出现了索引这种与文件相关联的附加结构。 11.1 基本概念 两种索引类型：  顺序索引：基于值的顺序排列。 散列索引：基于将值平均分布到若干散列桶中。一个值所属的散列桶由散列函数决定。  搜索码：用于在文件中查找记录的属性或属性集称为 11.2 顺序索引 聚集索引&#x2F;主索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念11">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/11/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B511/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="11.索引与散列 许多查询只涉及文件中的少量记录，但是很多时候我们需要因此查询关系中的每一个元组。为了能够快速定位这些记录，所以出现了索引这种与文件相关联的附加结构。 11.1 基本概念 两种索引类型：  顺序索引：基于值的顺序排列。 散列索引：基于将值平均分布到若干散列桶中。一个值所属的散列桶由散列函数决定。  搜索码：用于在文件中查找记录的属性或属性集称为 11.2 顺序索引">
+<meta property="og:description" content="11.索引与散列 许多查询只涉及文件中的少量记录，但是很多时候我们需要因此查询关系中的每一个元组。为了能够快速定位这些记录，所以出现了索引这种与文件相关联的附加结构。 11.1 基本概念 两种索引类型：  顺序索引：基于值的顺序排列。 散列索引：基于将值平均分布到若干散列桶中。一个值所属的散列桶由散列函数决定。  搜索码：用于在文件中查找记录的属性或属性集称为 11.2 顺序索引 聚集索引&#x2F;主索引">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/11/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B511/image-20211204155307236.png">
 <meta property="og:image" content="https://wuhlan3.gitee.io/2021/11/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B511/image-20211204160534033.png">
@@ -309,16 +309,16 @@
             
               <div class="markdown-body">
                 
-                <h1 id="索引与散列">11.索引与散列</h1>
+                <h1>11.索引与散列</h1>
 <p>许多查询只涉及文件中的少量记录，但是很多时候我们需要因此查询关系中的每一个元组。为了能够快速定位这些记录，所以出现了<strong>索引</strong>这种与文件相关联的附加结构。</p>
-<h2 id="基本概念">11.1 基本概念</h2>
+<h2 id="11-1-基本概念">11.1 基本概念</h2>
 <p>两种索引类型：</p>
-<ol type="1">
+<ol>
 <li><strong>顺序索引</strong>：基于值的顺序排列。</li>
 <li><strong>散列索引</strong>：基于将值平均分布到若干散列桶中。一个值所属的散列桶由<strong>散列函数</strong>决定。</li>
 </ol>
 <p><strong>搜索码</strong>：用于在文件中查找记录的属性或属性集称为</p>
-<h2 id="顺序索引">11.2 顺序索引</h2>
+<h2 id="11-2-顺序索引">11.2 顺序索引</h2>
 <p><strong>聚集索引</strong>/<strong>主索引</strong>：如果文件是按照某个搜索码指定的顺序排序的，那么该搜索码对应的索引称为<strong>聚集索引</strong>/<strong>主索引</strong>。虽然通常建立在主码上，但也不是必须的喔！</p>
 <p><strong>非聚集索引</strong>/<strong>辅助索引</strong>：搜索码指定的顺序与文件中记录的物理顺序不同的索引称为<strong>非聚集索引</strong>或<strong>辅助索引</strong>。</p>
 <p><strong>索引顺序文件</strong>：在搜索码上有聚集索引的文件称为索引顺序文件。</p>
@@ -326,16 +326,16 @@
 <p><strong>索引项</strong>/<strong>索引记录</strong>：由一个搜索码值和指向具有该搜索码值得一条或多条记录得指针构成。（指针包括磁盘块的标识和标识磁盘块内记录的块内偏移量）</p>
 <p><strong>稠密索引</strong>：文件中的每个搜索码值都有一个索引项。</p>
 <p><strong>稀疏索引</strong>：在稀疏索引中，只为搜索码的某些值建立索引项。</p>
-<p><img src="image-20211204155307236.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211204155307236" style="zoom:100%;" /></p>
+<img src="image-20211204155307236.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211204155307236" style="zoom:100%;" />
 <h3 id="多级索引">多级索引</h3>
 <p>如果索引很小，搜索一个索引项的时间就很短。但是如果索引过大不能放在主存中，就必须要从磁盘中读取索引块，多次读取磁盘块将消耗非常多的时间。</p>
 <h3 id="索引与更新">索引与更新</h3>
 <p>当文件中有记录insert或delete的时候，索引都需要更新；update的时候，搜索码属性受影响的索引也必须相应地更新。</p>
-<p><img src="image-20211204160534033.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211204160534033" style="zoom:100%;" /></p>
-<p><img src="image-20211204160601700.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211204160601700" style="zoom:100%;" /></p>
+<img src="image-20211204160534033.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211204160534033" style="zoom:100%;" />
+<img src="image-20211204160601700.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211204160601700" style="zoom:100%;" />
 <p>对于多级索引，</p>
 <h3 id="辅助索引">辅助索引</h3>
-<h2 id="b树索引文件">11.3 B+树索引文件</h2>
+<h2 id="11-3-B-树索引文件">11.3 B+树索引文件</h2>
 <p>逻辑上靠近的块，物理上不一定挨得很近</p>
 <p>非子结点是稀疏索引</p>
 

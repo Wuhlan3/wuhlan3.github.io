@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SQL SQL语言 SQL：结构化查询语言。包含以下几个部分：  数据定义语言（DDL）：提供定义关系模式、删除关系以及修改关系模式的命令 数据操纵语言（DML）：提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力 完整性：SQL DDL中包括定义完整性约束的命令，数据库中的数据必须满足所定义的完整性约束。破坏完整性约束的更新不被允许。 视图定义：SQL DD">
+    <meta name="description" content="SQL SQL语言 SQL：结构化查询语言。包含以下几个部分：  数据定义语言（DDL）：提供定义关系模式、删除关系以及修改关系模式的命令 数据操纵语言（DML）：提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力 完整性：SQL DDL中包括定义完整性约束的命令，数据库中的数据必须满足所定义的完整性约束。破坏完整性约束的更新不被允许。 视图定义：SQL DDL包括定义视图的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念3">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B53/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="SQL SQL语言 SQL：结构化查询语言。包含以下几个部分：  数据定义语言（DDL）：提供定义关系模式、删除关系以及修改关系模式的命令 数据操纵语言（DML）：提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力 完整性：SQL DDL中包括定义完整性约束的命令，数据库中的数据必须满足所定义的完整性约束。破坏完整性约束的更新不被允许。 视图定义：SQL DD">
+<meta property="og:description" content="SQL SQL语言 SQL：结构化查询语言。包含以下几个部分：  数据定义语言（DDL）：提供定义关系模式、删除关系以及修改关系模式的命令 数据操纵语言（DML）：提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力 完整性：SQL DDL中包括定义完整性约束的命令，数据库中的数据必须满足所定义的完整性约束。破坏完整性约束的更新不被允许。 视图定义：SQL DDL包括定义视图的">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-08T06:24:30.000Z">
@@ -268,7 +268,7 @@
         
         
         
-          22 mins
+          23 mins
         
       </span>
     
@@ -310,19 +310,17 @@
             
               <div class="markdown-body">
                 
-                <h1 id="sql">SQL</h1>
-<h2 id="sql语言">SQL语言</h2>
+                <h1>SQL</h1>
+<h2 id="SQL语言">SQL语言</h2>
 <p>SQL：结构化查询语言。包含以下几个部分：</p>
 <ul>
 <li><strong>数据定义语言</strong>（DDL）：提供定义关系模式、删除关系以及修改关系模式的命令</li>
 <li><strong>数据操纵语言</strong>（DML）：提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
-<li><strong>完整性</strong>：SQL
-DDL中包括定义完整性约束的命令，数据库中的数据必须满足所定义的完整性约束。破坏完整性约束的更新不被允许。</li>
+<li><strong>完整性</strong>：SQL DDL中包括定义完整性约束的命令，数据库中的数据必须满足所定义的完整性约束。破坏完整性约束的更新不被允许。</li>
 <li><strong>视图定义</strong>：SQL DDL包括定义视图的命令</li>
 <li><strong>事务控制</strong>：SQL包括定义事务的开始与结束的命令</li>
 <li><strong>嵌入式SQL和动态SQL</strong>：关于嵌入式和动态SQL定义SQL语句如何嵌入到通用编程语言，如C、C++和Java中。</li>
-<li><strong>授权</strong>：SQL
-DDL包括定义对关系和视图的访问权限的命令。</li>
+<li><strong>授权</strong>：SQL DDL包括定义对关系和视图的访问权限的命令。</li>
 </ul>
 <h2 id="数据定义">数据定义</h2>
 <p>SQL标准支持的固有类型包括：</p>
@@ -334,14 +332,14 @@ DDL包括定义对关系和视图的访问权限的命令。</li>
 <li><strong>numeric(p,d)</strong>：定点数，精度由用户定义。该数有p位数字，其中d位数字在小数点右边。</li>
 <li><strong>real, double precision</strong>：浮点数与双精度浮点数</li>
 <li><strong>float(n)</strong>：精度至少为n位的浮点数</li>
-<li>...</li>
+<li>…</li>
 </ul>
 <h2 id="基本模式定义">基本模式定义</h2>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student (<br>ID              <span class="hljs-type">varchar</span>(<span class="hljs-number">5</span>),<br>name            <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>,<br>dept_name          <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),<br>tot_cred        <span class="hljs-type">numeric</span>(<span class="hljs-number">3</span>,<span class="hljs-number">0</span>),<br><span class="hljs-keyword">primary</span> key (ID),<br><span class="hljs-keyword">foreign</span> key (dept_name) <span class="hljs-keyword">references</span> department) );<br></code></pre></td></tr></table></figure>
 <p>涉及的完整性约束包括：</p>
 <ul>
-<li><code>primary key (A,B,C,D...)</code>：主码，唯一性且不为空。也可以直接写在某个属性后面。</li>
-<li><code>foreign key (A,B,C,D...) references R</code>：这里(A,B,C,D...)的取值必须对应于关系R中某元组在主码属性上的取值</li>
+<li><code>primary key (A,B,C,D...) </code>：主码，唯一性且不为空。也可以直接写在某个属性后面。</li>
+<li><code>foreign key (A,B,C,D...) references R</code>：这里(A,B,C,D…)的取值必须对应于关系R中某元组在主码属性上的取值</li>
 <li><code>not null</code>：不为空</li>
 </ul>
 <div class="note note-success">
@@ -349,14 +347,22 @@ DDL包括定义对关系和视图的访问权限的命令。</li>
           </div>
 <h2 id="增删操作">增删操作</h2>
 <ul>
-<li><p><code>insert into instructor values (‘10211’, ’Smith’, ’Biology’, 66000);</code>：插入数据</p></li>
-<li><p><code>drop table student</code>：删除表及其结构</p></li>
-<li><p><code>delete from student</code>：删除表的内容，但是表的结构还在</p></li>
-<li><p><code>alter table</code></p>
+<li>
+<p><code>insert into instructor values (‘10211’, ’Smith’, ’Biology’, 66000);</code>：插入数据</p>
+</li>
+<li>
+<p><code>drop table student</code>：删除表及其结构</p>
+</li>
+<li>
+<p><code>delete from student</code>：删除表的内容，但是表的结构还在</p>
+</li>
+<li>
+<p><code>alter table</code></p>
 <ul>
 <li><code>alter table r add A D</code>：增加一列，增加的时候为空</li>
 <li><code>alter table r drop A</code>：删除一列</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2 id="基本查询">基本查询</h2>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> A1, A2, ...,<br><span class="hljs-keyword">from</span> r1, r2, ..., <br><span class="hljs-keyword">where</span> P<br></code></pre></td></tr></table></figure>
@@ -364,10 +370,14 @@ DDL包括定义对关系和视图的访问权限的命令。</li>
 <h3 id="关于select">关于select</h3>
 <p>查询结果是允许重复的：</p>
 <ul>
-<li><p>distinct：把重复的去掉</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> dept_name<br><span class="hljs-keyword">from</span> instructor<br></code></pre></td></tr></table></figure></li>
-<li><p>all：与默认情况下一样，显示全部</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">all</span> dept_name<br><span class="hljs-keyword">from</span> instructor<br></code></pre></td></tr></table></figure></li>
+<li>
+<p>distinct：把重复的去掉</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> dept_name<br><span class="hljs-keyword">from</span> instructor<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>all：与默认情况下一样，显示全部</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">all</span> dept_name<br><span class="hljs-keyword">from</span> instructor<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
 <h3 id="关于where">关于where</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> name<br><span class="hljs-keyword">from</span> instructor<br><span class="hljs-keyword">where</span> dept_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Comp.Sci.&#x27;</span>  <span class="hljs-keyword">and</span> salary <span class="hljs-operator">&gt;</span> <span class="hljs-number">80000</span><br></code></pre></td></tr></table></figure>
@@ -381,21 +391,21 @@ DDL包括定义对关系和视图的访问权限的命令。</li>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> ename,dname <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span> dept;<br></code></pre></td></tr></table></figure>
 <p>只有当两个表的公共属性相同时，才保留。比如下面的例子，两个表是根据deptno来连接的。</p>
 <div class="note note-success">
-            <p>需要注意的是：mysql支持<code>natural join</code>，但是sqlserver不支持。</p>
+            <p>需要注意的是：mysql支持<code>natural join</code>，但是sql server不支持。</p>
           </div>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from emp natural join dept;<br>+--------+-------+--------+-----------+------+------------+---------+---------+------------+----------+<br>| DEPTNO | EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DNAME      | LOC      |<br>+--------+-------+--------+-----------+------+------------+---------+---------+------------+----------+<br>|     20 |  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL | RESEARCH   | DALLAS   |<br>|     30 |  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 | SALES      | CHICAGO  |<br>|     30 |  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 | SALES      | CHICAGO  |<br>|     20 |  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL | RESEARCH   | DALLAS   |<br>|     30 |  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 | SALES      | CHICAGO  |<br>|     30 |  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL | SALES      | CHICAGO  |<br>|     10 |  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL | ACCOUNTING | NEW YORK |<br>|     20 |  7788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 | 3000.00 |    NULL | RESEARCH   | DALLAS   |<br>|     10 |  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL | ACCOUNTING | NEW YORK |<br>|     30 |  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 | SALES      | CHICAGO  |<br>|     20 |  7876 | ADAMS  | CLERK     | 7788 | 1987-05-23 | 1100.00 |    NULL | RESEARCH   | DALLAS   |<br>|     30 |  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL | SALES      | CHICAGO  |<br>|     20 |  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL | RESEARCH   | DALLAS   |<br>|     10 |  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL | ACCOUNTING | NEW YORK |<br>+--------+-------+--------+-----------+------+------------+---------+---------+------------+----------+<br>14 rows in set (0.07 sec)<br></code></pre></td></tr></table></figure>
 <h3 id="字符串运算">字符串运算</h3>
 <ul>
 <li>百分号：匹配任意子串</li>
 <li>下划线：匹配任意一个字符</li>
-<li></li>
+<li>\为转义字符</li>
 <li>！！这里是大小写敏感的</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> HIREDATE <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;1981%&#x27;</span>;<br><span class="hljs-operator">+</span><span class="hljs-comment">-------+--------+-----------+------+------------+---------+---------+--------+</span><br><span class="hljs-operator">|</span> EMPNO <span class="hljs-operator">|</span> ENAME  <span class="hljs-operator">|</span> JOB       <span class="hljs-operator">|</span> MGR  <span class="hljs-operator">|</span> HIREDATE   <span class="hljs-operator">|</span> SAL     <span class="hljs-operator">|</span> COMM    <span class="hljs-operator">|</span> DEPTNO <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">-------+--------+-----------+------+------------+---------+---------+--------+</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7499</span> <span class="hljs-operator">|</span> ALLEN  <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-02</span><span class="hljs-number">-20</span> <span class="hljs-operator">|</span> <span class="hljs-number">1600.00</span> <span class="hljs-operator">|</span>  <span class="hljs-number">300.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7521</span> <span class="hljs-operator">|</span> WARD   <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-02</span><span class="hljs-number">-22</span> <span class="hljs-operator">|</span> <span class="hljs-number">1250.00</span> <span class="hljs-operator">|</span>  <span class="hljs-number">500.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> JONES  <span class="hljs-operator">|</span> MANAGER   <span class="hljs-operator">|</span> <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-04</span><span class="hljs-number">-02</span> <span class="hljs-operator">|</span> <span class="hljs-number">2975.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7654</span> <span class="hljs-operator">|</span> MARTIN <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-09</span><span class="hljs-number">-28</span> <span class="hljs-operator">|</span> <span class="hljs-number">1250.00</span> <span class="hljs-operator">|</span> <span class="hljs-number">1400.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> BLAKE  <span class="hljs-operator">|</span> MANAGER   <span class="hljs-operator">|</span> <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-05</span><span class="hljs-number">-01</span> <span class="hljs-operator">|</span> <span class="hljs-number">2850.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7782</span> <span class="hljs-operator">|</span> CLARK  <span class="hljs-operator">|</span> MANAGER   <span class="hljs-operator">|</span> <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-06</span><span class="hljs-number">-09</span> <span class="hljs-operator">|</span> <span class="hljs-number">2450.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">10</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> KING   <span class="hljs-operator">|</span> PRESIDENT <span class="hljs-operator">|</span> <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-11</span><span class="hljs-number">-17</span> <span class="hljs-operator">|</span> <span class="hljs-number">5000.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">10</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7844</span> <span class="hljs-operator">|</span> TURNER <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-09</span><span class="hljs-number">-08</span> <span class="hljs-operator">|</span> <span class="hljs-number">1500.00</span> <span class="hljs-operator">|</span>    <span class="hljs-number">0.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7900</span> <span class="hljs-operator">|</span> JAMES  <span class="hljs-operator">|</span> CLERK     <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-12</span><span class="hljs-number">-03</span> <span class="hljs-operator">|</span>  <span class="hljs-number">950.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7902</span> <span class="hljs-operator">|</span> FORD   <span class="hljs-operator">|</span> ANALYST   <span class="hljs-operator">|</span> <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-12</span><span class="hljs-number">-03</span> <span class="hljs-operator">|</span> <span class="hljs-number">3000.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">-------+--------+-----------+------+------------+---------+---------+--------+</span><br><span class="hljs-number">10</span> <span class="hljs-keyword">rows</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">set</span>, <span class="hljs-number">1</span> warning (<span class="hljs-number">0.00</span> sec)<br></code></pre></td></tr></table></figure>
 <h3 id="关于order">关于order</h3>
 <p>对job升序排序，之后对ename降序排序：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> job, ename <span class="hljs-keyword">desc</span>;<br><span class="hljs-operator">+</span><span class="hljs-comment">-------+--------+-----------+------+------------+---------+---------+--------+</span><br><span class="hljs-operator">|</span> EMPNO <span class="hljs-operator">|</span> ENAME  <span class="hljs-operator">|</span> JOB       <span class="hljs-operator">|</span> MGR  <span class="hljs-operator">|</span> HIREDATE   <span class="hljs-operator">|</span> SAL     <span class="hljs-operator">|</span> COMM    <span class="hljs-operator">|</span> DEPTNO <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">-------+--------+-----------+------+------------+---------+---------+--------+</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7788</span> <span class="hljs-operator">|</span> SCOTT  <span class="hljs-operator">|</span> ANALYST   <span class="hljs-operator">|</span> <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> <span class="hljs-number">1987</span><span class="hljs-number">-04</span><span class="hljs-number">-19</span> <span class="hljs-operator">|</span> <span class="hljs-number">3000.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7902</span> <span class="hljs-operator">|</span> FORD   <span class="hljs-operator">|</span> ANALYST   <span class="hljs-operator">|</span> <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-12</span><span class="hljs-number">-03</span> <span class="hljs-operator">|</span> <span class="hljs-number">3000.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7369</span> <span class="hljs-operator">|</span> SMITH  <span class="hljs-operator">|</span> CLERK     <span class="hljs-operator">|</span> <span class="hljs-number">7902</span> <span class="hljs-operator">|</span> <span class="hljs-number">1980</span><span class="hljs-number">-12</span><span class="hljs-number">-17</span> <span class="hljs-operator">|</span>  <span class="hljs-number">800.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7934</span> <span class="hljs-operator">|</span> MILLER <span class="hljs-operator">|</span> CLERK     <span class="hljs-operator">|</span> <span class="hljs-number">7782</span> <span class="hljs-operator">|</span> <span class="hljs-number">1982</span><span class="hljs-number">-01</span><span class="hljs-number">-23</span> <span class="hljs-operator">|</span> <span class="hljs-number">1300.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">10</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7900</span> <span class="hljs-operator">|</span> JAMES  <span class="hljs-operator">|</span> CLERK     <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-12</span><span class="hljs-number">-03</span> <span class="hljs-operator">|</span>  <span class="hljs-number">950.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7876</span> <span class="hljs-operator">|</span> ADAMS  <span class="hljs-operator">|</span> CLERK     <span class="hljs-operator">|</span> <span class="hljs-number">7788</span> <span class="hljs-operator">|</span> <span class="hljs-number">1987</span><span class="hljs-number">-05</span><span class="hljs-number">-23</span> <span class="hljs-operator">|</span> <span class="hljs-number">1100.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> JONES  <span class="hljs-operator">|</span> MANAGER   <span class="hljs-operator">|</span> <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-04</span><span class="hljs-number">-02</span> <span class="hljs-operator">|</span> <span class="hljs-number">2975.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7782</span> <span class="hljs-operator">|</span> CLARK  <span class="hljs-operator">|</span> MANAGER   <span class="hljs-operator">|</span> <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-06</span><span class="hljs-number">-09</span> <span class="hljs-operator">|</span> <span class="hljs-number">2450.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">10</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> BLAKE  <span class="hljs-operator">|</span> MANAGER   <span class="hljs-operator">|</span> <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-05</span><span class="hljs-number">-01</span> <span class="hljs-operator">|</span> <span class="hljs-number">2850.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7839</span> <span class="hljs-operator">|</span> KING   <span class="hljs-operator">|</span> PRESIDENT <span class="hljs-operator">|</span> <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-11</span><span class="hljs-number">-17</span> <span class="hljs-operator">|</span> <span class="hljs-number">5000.00</span> <span class="hljs-operator">|</span>    <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">10</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7521</span> <span class="hljs-operator">|</span> WARD   <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-02</span><span class="hljs-number">-22</span> <span class="hljs-operator">|</span> <span class="hljs-number">1250.00</span> <span class="hljs-operator">|</span>  <span class="hljs-number">500.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7844</span> <span class="hljs-operator">|</span> TURNER <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-09</span><span class="hljs-number">-08</span> <span class="hljs-operator">|</span> <span class="hljs-number">1500.00</span> <span class="hljs-operator">|</span>    <span class="hljs-number">0.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7654</span> <span class="hljs-operator">|</span> MARTIN <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-09</span><span class="hljs-number">-28</span> <span class="hljs-operator">|</span> <span class="hljs-number">1250.00</span> <span class="hljs-operator">|</span> <span class="hljs-number">1400.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7499</span> <span class="hljs-operator">|</span> ALLEN  <span class="hljs-operator">|</span> SALESMAN  <span class="hljs-operator">|</span> <span class="hljs-number">7698</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-02</span><span class="hljs-number">-20</span> <span class="hljs-operator">|</span> <span class="hljs-number">1600.00</span> <span class="hljs-operator">|</span>  <span class="hljs-number">300.00</span> <span class="hljs-operator">|</span>     <span class="hljs-number">30</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">-------+--------+-----------+------+------------+---------+---------+--------+</span><br><span class="hljs-number">14</span> <span class="hljs-keyword">rows</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">set</span> (<span class="hljs-number">0.00</span> sec)<br></code></pre></td></tr></table></figure>
-<h3 id="并交差">并、交、差</h3>
+<h3 id="并、交、差">并、交、差</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> HIREDATE <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;1980%&#x27;</span><br>    <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-keyword">union</span><br>    <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> emp <span class="hljs-keyword">where</span> sal <span class="hljs-operator">=</span> <span class="hljs-number">3000</span>;<br><span class="hljs-operator">+</span><span class="hljs-comment">-------+-------+---------+------+------------+---------+------+--------+</span><br><span class="hljs-operator">|</span> EMPNO <span class="hljs-operator">|</span> ENAME <span class="hljs-operator">|</span> JOB     <span class="hljs-operator">|</span> MGR  <span class="hljs-operator">|</span> HIREDATE   <span class="hljs-operator">|</span> SAL     <span class="hljs-operator">|</span> COMM <span class="hljs-operator">|</span> DEPTNO <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">-------+-------+---------+------+------------+---------+------+--------+</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7369</span> <span class="hljs-operator">|</span> SMITH <span class="hljs-operator">|</span> CLERK   <span class="hljs-operator">|</span> <span class="hljs-number">7902</span> <span class="hljs-operator">|</span> <span class="hljs-number">1980</span><span class="hljs-number">-12</span><span class="hljs-number">-17</span> <span class="hljs-operator">|</span>  <span class="hljs-number">800.00</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7788</span> <span class="hljs-operator">|</span> SCOTT <span class="hljs-operator">|</span> ANALYST <span class="hljs-operator">|</span> <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> <span class="hljs-number">1987</span><span class="hljs-number">-04</span><span class="hljs-number">-19</span> <span class="hljs-operator">|</span> <span class="hljs-number">3000.00</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">7902</span> <span class="hljs-operator">|</span> FORD  <span class="hljs-operator">|</span> ANALYST <span class="hljs-operator">|</span> <span class="hljs-number">7566</span> <span class="hljs-operator">|</span> <span class="hljs-number">1981</span><span class="hljs-number">-12</span><span class="hljs-number">-03</span> <span class="hljs-operator">|</span> <span class="hljs-number">3000.00</span> <span class="hljs-operator">|</span> <span class="hljs-keyword">NULL</span> <span class="hljs-operator">|</span>     <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">-------+-------+---------+------+------------+---------+------+--------+</span><br><span class="hljs-number">3</span> <span class="hljs-keyword">rows</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">set</span>, <span class="hljs-number">1</span> warning (<span class="hljs-number">0.01</span> sec)<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
             <p>遗憾的是，mysql不支持intersect和except操作。SQL Server应该可以</p>
@@ -415,36 +425,42 @@ DDL包括定义对关系和视图的访问权限的命令。</li>
 </ul>
 <p>关于unknown需要注意：</p>
 <ul>
-<li><p>如果逻辑子句被判断为false和unknown时，则不会加入结果集中。</p></li>
-<li><p>判断一个子句是不是unknown可以使用<code>is unknown</code>或<code>is not unknown</code></p></li>
-<li><p>当出现<code>null = null</code>时，返回的也是unknown</p></li>
+<li>
+<p>如果逻辑子句被判断为false和unknown时，则不会加入结果集中。</p>
+</li>
+<li>
+<p>判断一个子句是不是unknown可以使用<code>is unknown</code>或<code>is not unknown</code></p>
+</li>
+<li>
+<p>当出现<code>null = null</code>时，返回的也是unknown</p>
+</li>
 </ul>
 <h3 id="聚集函数">聚集函数</h3>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>关键字</th>
 <th>作用</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>avg</td>
 <td>average value</td>
 </tr>
-<tr class="even">
+<tr>
 <td>min</td>
 <td>minimum value</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>max</td>
 <td>maximum value</td>
 </tr>
-<tr class="even">
+<tr>
 <td>sum</td>
 <td>sum of values</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>count</td>
 <td>number of values</td>
 </tr>
@@ -485,9 +501,8 @@ DDL包括定义对关系和视图的访问权限的命令。</li>
 <p>要求后面的查询语句的结果不为空。</p>
 <p>找出2009年秋季学期和2010年春季学期同时开课的所有课程：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql">use homework<br><span class="hljs-keyword">select</span> course_id<br><span class="hljs-keyword">from</span> section <span class="hljs-keyword">as</span> S<br><span class="hljs-keyword">where</span> semester <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Fall&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">year</span> <span class="hljs-operator">=</span> <span class="hljs-number">2009</span> <span class="hljs-keyword">and</span> <br>    <span class="hljs-keyword">exists</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br>        <span class="hljs-keyword">from</span> section <span class="hljs-keyword">as</span> T<br>        <span class="hljs-keyword">where</span> semester <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Spring&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">year</span> <span class="hljs-operator">=</span> <span class="hljs-number">2010</span> <span class="hljs-keyword">and</span> <br>            S.course_id <span class="hljs-operator">=</span> T.course_id);<br></code></pre></td></tr></table></figure>
-<p>这里嵌套的子查询里面用到的<code>S</code>是外层查询的相关名称，所以称为<strong>相关子查询</strong>(correlated
-subquery)</p>
-<h4 id="unique重复性检测">unique（重复性检测）</h4>
+<p>这里嵌套的子查询里面用到的<code>S</code>是外层查询的相关名称，所以称为<strong>相关子查询</strong>(correlated subquery)</p>
+<h4 id="unique（重复性检测）">unique（重复性检测）</h4>
 <p>判断后面的查询语句的结果是否有重复元组.</p>
 <p>找出所有在2009年最多开设一次的课程：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> T.course_id<br><span class="hljs-keyword">from</span> course <span class="hljs-keyword">as</span> T<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">unique</span>(<span class="hljs-keyword">select</span> R.course_id<br>    <span class="hljs-keyword">from</span> section <span class="hljs-keyword">as</span> R<br>    <span class="hljs-keyword">where</span> T.course_id <span class="hljs-operator">=</span> R.course_id <span class="hljs-keyword">and</span> <br>    R.year <span class="hljs-operator">=</span> <span class="hljs-number">2009</span>);<br></code></pre></td></tr></table></figure>

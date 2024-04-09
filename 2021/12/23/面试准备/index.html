@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="面试准备 语言：C++ 1. C++的四种智能指针 我们为什么需要使用智能指针呢？其作用就是用来管理一个指针，避免咱们程序员申请的空间在函数结束时忘记释放，造成内存泄漏的情况发生。智能指针的本质是一个类，当超出类的作用域时，类就会自动调用析构函数，自动释放资源。解决了什么问题：空指针与野指针；对象重复释放的问题；内存泄露的问题；new后忘记delete的问题 C++11 中封装在了 &amp;lt">
+    <meta name="description" content="面试准备 语言：C++ 1. C++的四种智能指针 我们为什么需要使用智能指针呢？其作用就是用来管理一个指针，避免咱们程序员申请的空间在函数结束时忘记释放，造成内存泄漏的情况发生。智能指针的本质是一个类，当超出类的作用域时，类就会自动调用析构函数，自动释放资源。解决了什么问题：空指针与野指针；对象重复释放的问题；内存泄露的问题；new后忘记delete的问题 C++11 中封装在了 &lt;mem">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试准备">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/12/23/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="面试准备 语言：C++ 1. C++的四种智能指针 我们为什么需要使用智能指针呢？其作用就是用来管理一个指针，避免咱们程序员申请的空间在函数结束时忘记释放，造成内存泄漏的情况发生。智能指针的本质是一个类，当超出类的作用域时，类就会自动调用析构函数，自动释放资源。解决了什么问题：空指针与野指针；对象重复释放的问题；内存泄露的问题；new后忘记delete的问题 C++11 中封装在了 &amp;lt">
+<meta property="og:description" content="面试准备 语言：C++ 1. C++的四种智能指针 我们为什么需要使用智能指针呢？其作用就是用来管理一个指针，避免咱们程序员申请的空间在函数结束时忘记释放，造成内存泄漏的情况发生。智能指针的本质是一个类，当超出类的作用域时，类就会自动调用析构函数，自动释放资源。解决了什么问题：空指针与野指针；对象重复释放的问题；内存泄露的问题；new后忘记delete的问题 C++11 中封装在了 &lt;mem">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1350514/201903/1350514-20190313105516378-237949533.png">
 <meta property="article:published_time" content="2021-12-23T15:04:24.000Z">
@@ -308,41 +308,38 @@
             
               <div class="markdown-body">
                 
-                <h1 id="面试准备">面试准备</h1>
-<h2 id="语言c">语言：C++</h2>
-<h3 id="c的四种智能指针">1. C++的四种智能指针</h3>
+                <h1>面试准备</h1>
+<h2 id="语言：C">语言：C++</h2>
+<h3 id="1-C-的四种智能指针">1. C++的四种智能指针</h3>
 <p>我们为什么需要使用智能指针呢？其作用就是用来管理一个指针，避免咱们程序员申请的空间在函数结束时忘记释放，造成内存泄漏的情况发生。智能指针的本质是一个类，当超出类的作用域时，类就会自动调用析构函数，自动释放资源。解决了什么问题：空指针与野指针；对象重复释放的问题；内存泄露的问题；new后忘记delete的问题</p>
-<p>C++11 中封装在了 <code>&lt;memory&gt;</code>
-头文件中。四种智能指针分别是：</p>
+<p>C++11 中封装在了 <code>&lt;memory&gt;</code> 头文件中。四种智能指针分别是：</p>
 <ul>
-<li><p><code>auto_ptr</code>（C++98方案，C++11已经弃用）采用所有权模式</p></li>
-<li><p><code>unique_ptr</code>（替代<code>auto_ptr</code>）：“独占”所指的对象。</p></li>
-<li><p><code>shared_ptr</code>（共享型，强引用）：允许多个指针指向同一个对象。使用计数机制来表明资源被几个指针共享。可以使用函数<code>use_count()</code>来查看对象的所有者。当调用<code>release()</code>时，指针回释放资源所有权，计数减一。当计数为0时，资源会被释放。</p></li>
-<li><p><code>weak_ptr</code>（弱引用）：指向shared_ptr所管理的对象。不控制对象生命周期，即不能分配与释放对象的内存。它可以由一个<code>shared_ptr</code>或另一个<code>weak_ptr</code>对象来构造，它的构造和析构不会引起计数的变化。</p>
+<li>
+<p><code>auto_ptr</code>（C<ins>98方案，C</ins>11已经弃用）采用所有权模式</p>
+</li>
+<li>
+<p><code>unique_ptr</code>（替代<code>auto_ptr</code>）：“独占”所指的对象。</p>
+</li>
+<li>
+<p><code>shared_ptr</code>（共享型，强引用）：允许多个指针指向同一个对象。使用计数机制来表明资源被几个指针共享。可以使用函数<code>use_count()</code>来查看对象的所有者。当调用<code>release()</code>时，指针回释放资源所有权，计数减一。当计数为0时，资源会被释放。</p>
+</li>
+<li>
+<p><code>weak_ptr</code>（弱引用）：指向shared_ptr所管理的对象。不控制对象生命周期，即不能分配与释放对象的内存。它可以由一个<code>shared_ptr</code>或另一个<code>weak_ptr</code>对象来构造，它的构造和析构不会引起计数的变化。</p>
 <blockquote>
-<p><code>weak_ptr</code>
-是用来解决<code>shared_ptr</code>相互引用时造成的死锁问题，如果两个<code>shared_ptr</code>相互引用，那么两个指针的引用计数永远不会下降为0。</p>
-<p><code>weak_ptr</code> 和<code>shared_ptr</code>
-之间可以相互转化：<code>shared_ptr</code>可以直接赋值给<code>weak_ptr</code>，<code>weak_ptr</code>可以调用<code>lock()</code>函数来转换为<code>shared_ptr</code></p>
-</blockquote></li>
+<p><code>weak_ptr</code> 是用来解决<code>shared_ptr</code>相互引用时造成的死锁问题，如果两个<code>shared_ptr</code>相互引用，那么两个指针的引用计数永远不会下降为0。</p>
+<p><code>weak_ptr</code> 和<code>shared_ptr</code> 之间可以相互转化：<code>shared_ptr</code>可以直接赋值给<code>weak_ptr</code>，<code>weak_ptr</code>可以调用<code>lock()</code>函数来转换为<code>shared_ptr</code></p>
+</blockquote>
+</li>
 </ul>
-<h3 id="c的内存管理">2. C++的内存管理</h3>
+<h3 id="2-C-的内存管理">2. C++的内存管理</h3>
 <p>C++ 内存分区：栈、堆、全局/静态存储区、常量存储区、代码区。</p>
-<p><strong>栈</strong>：存放函数的局部变量、函数参数、返回地址等，由编译器自动分配和释放。
-<strong>堆</strong>：动态申请的内存空间，就是由 malloc
-分配的内存块，由程序员控制它的分配和释放，如果程序执行结束还没有释放，操作系统会自动回收。
-<strong>全局区/静态存储区</strong>（<strong>.bss</strong> 段和
-<strong>.data
-段</strong>）：存放全局变量和静态变量，程序运行结束操作系统自动释放，在
-C 语言中，未初始化的放在 .bss 段中，初始化的放在 .data 段中，C++
-中不再区分了。 <strong>常量存储区</strong>（<strong>.data</strong>
-段）：存放的是常量，不允许修改，程序运行结束自动释放。
-<strong>代码区</strong>（<strong>.text</strong>
-段）：存放代码，不允许修改，但可以执行。编译后的二进制文件存放在这里。
+<p><strong>栈</strong>：存放函数的局部变量、函数参数、返回地址等，由编译器自动分配和释放。<br>
+<strong>堆</strong>：动态申请的内存空间，就是由 malloc 分配的内存块，由程序员控制它的分配和释放，如果程序执行结束还没有释放，操作系统会自动回收。<br>
+<strong>全局区/静态存储区</strong>（<strong>.bss</strong> 段和 <strong>.data 段</strong>）：存放全局变量和静态变量，程序运行结束操作系统自动释放，在 C 语言中，未初始化的放在 .bss 段中，初始化的放在 .data 段中，C++ 中不再区分了。<br>
+<strong>常量存储区</strong>（<strong>.data</strong> 段）：存放的是常量，不允许修改，程序运行结束自动释放。<br>
+<strong>代码区</strong>（<strong>.text</strong> 段）：存放代码，不允许修改，但可以执行。编译后的二进制文件存放在这里。<br>
 说明：</p>
-<p>从操作系统的本身来讲，以上存储区在内存中的分布是如下形式(从低地址到高地址)：.text
-段 --&gt; .data 段 --&gt; .bss 段 --&gt; 堆 --&gt; unused --&gt; 栈
---&gt; env</p>
+<p>从操作系统的本身来讲，以上存储区在内存中的分布是如下形式(从低地址到高地址)：.text 段 --&gt; .data 段 --&gt; .bss 段 --&gt; 堆 --&gt; unused --&gt; 栈 --&gt; env</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">int</span> g_var = <span class="hljs-number">0</span>; <span class="hljs-comment">// g_var 在全局区（.data 段）</span><br><span class="hljs-type">char</span> *gp_var;  <span class="hljs-comment">// gp_var 在全局区（.bss 段）</span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> var;                    <span class="hljs-comment">// var 在栈区</span><br>    <span class="hljs-type">char</span> *p_var;                <span class="hljs-comment">// p_var 在栈区</span><br>    <span class="hljs-type">char</span> arr[] = <span class="hljs-string">&quot;abc&quot;</span>;         <span class="hljs-comment">// arr 为数组变量，存储在栈区；&quot;abc&quot;为字符串常量，存储在常量区</span><br>    <span class="hljs-type">char</span> *p_var1 = <span class="hljs-string">&quot;123456&quot;</span>;    <span class="hljs-comment">// p_var1 在栈区；&quot;123456&quot;为字符串常量，存储在常量区</span><br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> s_var = <span class="hljs-number">0</span>;       <span class="hljs-comment">// s_var 为静态变量，存在静态存储区（.data 段）</span><br>    p_var = (<span class="hljs-type">char</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">10</span>); <span class="hljs-comment">// 分配得来的 10 个字节的区域在堆区</span><br>    <span class="hljs-built_in">free</span>(p_var);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>关于堆与栈的区别：</p>
@@ -352,8 +349,7 @@ C 语言中，未初始化的放在 .bss 段中，初始化的放在 .data 段�
 <p>4.申请效率：栈是系统自动分配的，申请效率高，程序员无法控制；堆是程序员主动申请的，效率低，申请方便但容易产生碎片。</p>
 <p>5.存放内容：栈中存放的是局部变量，函数参数；堆中存放的内容由程序员控制。</p>
 </blockquote>
-<h3 id="c中的指针参数传递和引用参数传递">3.
-C++中的指针参数传递和引用参数传递</h3>
+<h3 id="3-C-中的指针参数传递和引用参数传递">3. C++中的指针参数传递和引用参数传递</h3>
 <p>简单来说：</p>
 <ul>
 <li>指针参数传递的本质是<strong>值传递</strong>，即主调中的指针是p1，而函数中的指针是p2，只不过他们两个指向的是同一个地址。即多了一个替身；</li>
@@ -364,32 +360,33 @@ C++中的指针参数传递和引用参数传递</h3>
 <h2 id="数据库">数据库</h2>
 <h2 id="操作系统">操作系统</h2>
 <h2 id="计算机网络">计算机网络</h2>
-<h2 id="http">HTTP</h2>
+<h2 id="HTTP">HTTP</h2>
 <h2 id="项目说明">项目说明</h2>
-<h3 id="什么是跨域问题">1.什么是跨域问题？</h3>
+<h3 id="1-什么是跨域问题？">1.什么是跨域问题？</h3>
 <p>浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任一不同，都是<strong>跨域</strong>。</p>
-<ol type="1">
+<ol>
 <li>端口和协议的不同，只能通过后台来解决。</li>
-<li>在跨域问题上，仅仅是通过“URL的首部”来识别而不会根据域名对应的IP地址是否相同来判断。“URL的首部”可以理解为“协议,
-域名和端口必须匹配”。</li>
+<li>在跨域问题上，仅仅是通过“URL的首部”来识别而不会根据域名对应的IP地址是否相同来判断。“URL的首部”可以理解为“协议, 域名和端口必须匹配”。</li>
 <li>localhost和127.0.0.1虽然都指向本机，但也属于跨域。即便两个不同的域名指向同一个ip地址，也非同源。</li>
 <li>跨域并不是请求发不出去，请求能发出去，服务端能收到请求并正常返回结果，只是结果被浏览器拦截了</li>
 </ol>
 <p>解决方法：</p>
 <ul>
-<li><p>JSONP：不需要过多了解</p></li>
-<li><p>CORS：服务端设置 Access-Control-Allow-Origin 就可以开启 CORS。
-该属性表示哪些域名可以访问资源，如果设置通配符则表示所有网站都可以访问资源。</p></li>
-<li><p>nginx反向代理；</p></li>
+<li>
+<p>JSONP：不需要过多了解</p>
+</li>
+<li>
+<p>CORS：服务端设置 Access-Control-Allow-Origin 就可以开启 CORS。 该属性表示哪些域名可以访问资源，如果设置通配符则表示所有网站都可以访问资源。</p>
+</li>
+<li>
+<p>nginx反向代理；</p>
+</li>
 </ul>
-<p><a
-target="_blank" rel="noopener" href="https://github.com/ljianshu/Blog/issues/55">https://github.com/ljianshu/Blog/issues/55</a></p>
-<h3 id="在项目里使用了nginx说一下正向代理和反向代理的区别">2.
-在项目里使用了nginx，说一下正向代理和反向代理的区别？</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/ljianshu/Blog/issues/55">https://github.com/ljianshu/Blog/issues/55</a></p>
+<h3 id="2-在项目里使用了nginx，说一下正向代理和反向代理的区别？">2. 在项目里使用了nginx，说一下正向代理和反向代理的区别？</h3>
 <p>正向代理：<strong>内网client</strong>通过<strong>代理proxy</strong>访问<strong>外网server</strong></p>
 <ul>
-<li>访问原来无法访问的资源，比如说使用VPN(virtual private
-network)访问google</li>
+<li>访问原来无法访问的资源，比如说使用VPN(virtual private network)访问google</li>
 <li>作为缓存，加速资源访问速度</li>
 <li>对内记录用户访问信息，对外隐藏用户记录</li>
 <li>对客户端访问授权，上网进行认证</li>
@@ -400,7 +397,7 @@ network)访问google</li>
 <li>负载均衡，通过反向代理服务器来优化网站的负载。</li>
 </ul>
 <p>简单来说，正向代理服务器是和客户端一体的；反向代理服务器是和服务器一体的。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1350514/201903/1350514-20190313105516378-237949533.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" style="zoom:67%;" /></p>
+<img src="https://img2018.cnblogs.com/blog/1350514/201903/1350514-20190313105516378-237949533.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
 
                 
               </div>

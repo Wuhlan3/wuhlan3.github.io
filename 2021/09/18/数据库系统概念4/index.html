@@ -310,7 +310,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="中级sql">中级SQL</h1>
+                <h1>中级SQL</h1>
 <h2 id="其他连接谓词">其他连接谓词</h2>
 <p>除了自然连接外，SQL还提供了连接运算的其他形式，能够包含被自然连接排除在外的元组。</p>
 <h3 id="连接条件on">连接条件on</h3>
@@ -332,7 +332,7 @@
 <h3 id="视图使用方法">视图使用方法</h3>
 <p>1.创建faculty(院、系)视图（<strong>隐藏老师的工资</strong>）：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> faculty <span class="hljs-keyword">as</span><br><span class="hljs-keyword">select</span> ID,name,dept_name<br><span class="hljs-keyword">from</span> instructor;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210918101515642.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210918101515642" style="zoom: 67%;" /></p>
+<img src="image-20210918101515642.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210918101515642" style="zoom: 67%;" />
 <p>2.找出所有生物系老师的名字：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> name <span class="hljs-keyword">from</span> faculty <span class="hljs-keyword">where</span> dept_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Biology&#x27;</span>;<br></code></pre></td></tr></table></figure>
 <h3 id="视图属性名指定">视图属性名指定</h3>
@@ -359,20 +359,15 @@
 <ul>
 <li>from子句中只有一个数据库关系</li>
 <li>select子句中只包含关系的属性名，不包含任何表达式、聚集或distinct声明</li>
-<li>任何没有出现在select子句中的属性可以取空值；即没有not
-null约束，也不构成主码一部分</li>
+<li>任何没有出现在select子句中的属性可以取空值；即没有not null约束，也不构成主码一部分</li>
 <li>查询中不包含<code>group by</code>或<code>having</code>子句</li>
 </ul>
 <p>这样的视图允许<code>update</code>、<code>insert</code>、<code>delete</code></p>
 <p><strong>课上一个有趣的问题</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> history_instructors <span class="hljs-keyword">as</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> instructor<br><span class="hljs-keyword">where</span> dept_name<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;History&#x27;</span>;<br><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> history_instructors <span class="hljs-keyword">values</span>(<span class="hljs-string">&#x27;25566&#x27;</span>, <span class="hljs-string">&#x27;Brown&#x27;</span>, <span class="hljs-string">&#x27;Biology&#x27;</span>, <span class="hljs-number">100000</span>) ;<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="image-20210918104943894.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210918104943894" />
-<figcaption aria-hidden="true">image-20210918104943894</figcaption>
-</figure>
+<p><img src="image-20210918104943894.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210918104943894"></p>
 <h3 id="物化视图">物化视图</h3>
-<p><strong>物化视图(materialized
-view)</strong>：创建一个物理表，其中包含定义视图的查询结果中的所有元组</p>
+<p><strong>物化视图(materialized view)</strong>：创建一个物理表，其中包含定义视图的查询结果中的所有元组</p>
 <p><strong>物化视图维护</strong>/<strong>视图维护</strong>：保持物化视图一直在最新状态的过程。</p>
 <p>为什么需要将视图实例化呢？当然是因为创建一个表之后，查询效率会更高。但是为了保证视图处于最新状态，需要进行维护。</p>
 <h2 id="事务">事务</h2>
@@ -382,8 +377,7 @@ view)</strong>：创建一个物理表，其中包含定义视图的查询结果
 <li>Rollback work：回滚当前事务</li>
 </ul>
 <h2 id="完整性约束">完整性约束</h2>
-<p><strong>完整性约束(Integrity
-Constraints)</strong>：保证授权用户对数据库所做的修改不会破坏数据的一致性。完整性约束防止的是对数据的意外破坏。</p>
+<p><strong>完整性约束(Integrity Constraints)</strong>：保证授权用户对数据库所做的修改不会破坏数据的一致性。完整性约束防止的是对数据的意外破坏。</p>
 <ul>
 <li>教师的名字不能为null</li>
 <li>任意两位教师不能有相同的标识</li>
@@ -394,11 +388,10 @@ Constraints)</strong>：保证授权用户对数据库所做的修改不会破�
 <ul>
 <li>not null</li>
 <li>unique</li>
-<li>check(<谓词>)</li>
+<li>check(&lt;谓词&gt;)</li>
 </ul>
 <h3 id="参照完整性">参照完整性</h3>
-<p>参照完整性(referential
-integrity)即保证一个关系中给定属性集上的取值，也在另一个关系的特定属性集的取值中出现。</p>
+<p>参照完整性(referential integrity)即保证一个关系中给定属性集上的取值，也在另一个关系的特定属性集的取值中出现。</p>
 <p><code>foreign key</code>中的约束：</p>
 <ul>
 <li><code>on delete cascade</code>：级联删除</li>
@@ -407,12 +400,12 @@ integrity)即保证一个关系中给定属性集上的取值，也在另一个�
 <li><code>set default</code>：</li>
 </ul>
 <p>一个复杂的问题：</p>
-<p><img src="image-20210918112333270.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210918112333270" style="zoom: 50%;" /></p>
+<img src="image-20210918112333270.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210918112333270" style="zoom: 50%;" />
 <h3 id="复杂check条件">复杂check条件</h3>
 <p>……</p>
 <h3 id="断言">断言</h3>
 <p>……</p>
-<h2 id="sql的数据类型">SQL的数据类型</h2>
+<h2 id="SQL的数据类型">SQL的数据类型</h2>
 <h3 id="时间">时间</h3>
 <p>与日期时间的数据类型：</p>
 <ul>
@@ -461,7 +454,7 @@ integrity)即保证一个关系中给定属性集上的取值，也在另一个�
 <p>角色链</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">teaching_assistance ——<span class="hljs-operator">&gt;</span> instructor<br>instructor ——<span class="hljs-operator">&gt;</span> dean<br></code></pre></td></tr></table></figure>
 <p>这样角色dean就继承了所有被授予给角色instructor和teaching_assistance的权限，还包括直接赋给dean的权限。</p>
-<p><img src="image-20210922150258206.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210922150258206" style="zoom:80%;" /></p>
+<img src="image-20210922150258206.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210922150258206" style="zoom:80%;" />
 
                 
               </div>
