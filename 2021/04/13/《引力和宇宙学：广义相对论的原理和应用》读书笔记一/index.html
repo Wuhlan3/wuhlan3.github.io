@@ -266,7 +266,7 @@
         
         
         
-          11 mins
+          12 mins
         
       </span>
     
@@ -308,114 +308,118 @@
             
               <div class="markdown-body">
                 
-                <h2 id="《引力和宇宙学：广义相对论的原理和应用》读书笔记（一）">《引力和宇宙学：广义相对论的原理和应用》读书笔记（一）</h2>
-<h3 id="作者：二噁英">作者：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/355605435?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=681547072679972864&amp;utm_content=group3_article&amp;utm_campaign=shareopn">二噁英</a></h3>
-<p>背景嘛，发现宇宙学方向的课题挺好玩的，而且当前学习阶段用到张量内容也挺多的，就学着玩玩，做专栏以勉励自己吧！翻阅图书馆关于宇宙学的书，，里面40%民科书，50%科普书，正儿八经的的中文教材少得可怜。而图书馆的广义相对论的书也多是老旧书籍，但是这本新出版的《引力与宇宙学》真的让我眼前一亮。在学习这本书的时候，我还会辅以其他的书比如梁老先生的《微分几何与广义相对论》、<em>A First Course in GENERAL RELATIVITY</em> 等，希望能降低学习曲线吧（苦笑），毕竟知识水平有限。</p>
+                <h2
+id="引力和宇宙学广义相对论的原理和应用读书笔记一">《引力和宇宙学：广义相对论的原理和应用》读书笔记（一）</h2>
+<h3 id="作者二噁英">作者：<a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/355605435?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=681547072679972864&amp;utm_content=group3_article&amp;utm_campaign=shareopn">二噁英</a></h3>
+<p>背景嘛，发现宇宙学方向的课题挺好玩的，而且当前学习阶段用到张量内容也挺多的，就学着玩玩，做专栏以勉励自己吧！翻阅图书馆关于宇宙学的书，，里面40%民科书，50%科普书，正儿八经的的中文教材少得可怜。而图书馆的广义相对论的书也多是老旧书籍，但是这本新出版的《引力与宇宙学》真的让我眼前一亮。在学习这本书的时候，我还会辅以其他的书比如梁老先生的《微分几何与广义相对论》、<em>A
+First Course in GENERAL RELATIVITY</em>
+等，希望能降低学习曲线吧（苦笑），毕竟知识水平有限。</p>
 <blockquote>
 <p>“但是，历史故事构成了紧靠时间之河的一道非常坚固的堡垒，在一定程度上控制着它不可抗拒的流淌和在前间的所作的一切，由于历史的尽力管控，它得以安全合流，不致跌入被遗忘的深渊。”</p>
-<div align="right">——安娜 科穆宁，《阿列克塞传》</div>
+<div data-align="right">
+——安娜 科穆宁，《阿列克塞传》
+</div>
 </blockquote>
 <p>翻开书的第一章就看到了这段话，之前常看稚嫩的魔法师做的视频，看到《阿莱克修斯传》出现在第一章扉页，感觉有种现实和想象融为一体的震撼感！</p>
 <p>发完感慨后，直接从第二章开始吧！</p>
-<p><img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210413124415963"></p>
+<figure>
+<img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210413124415963" />
+<figcaption aria-hidden="true">image-20210413124415963</figcaption>
+</figure>
 <p>光速是一个常数，取光速为1，做无量纲化，虽然初次接触会有些不适，但是用多了就会习惯区别于SI的量纲。</p>
 <p>牛顿运动定律对伽利略变换不变，但麦克斯韦方程组伽利略变换则会有矛盾。而在洛伦兹变化下，这一矛盾被解决了。</p>
-<p>洛伦兹变换具有如下形式<br>
-$$<br>
-x<sup>{'\alpha}=\Lambda</sup>{\alpha}<em>{\beta}x<sup>{\beta}+a</sup>{\alpha} \tag{1}\<br>
-$$<br>
-其中 $a^{\alpha}$ 与 $\Lambda^{\alpha}</em>{\beta}$ 为常数，且满足<br>
-$$<br>
-\Lambda<sup>{\alpha}_{\gamma}\Lambda</sup>{\beta}<em>{\delta}\eta</em>{\alpha\beta}=\eta_{\gamma\delta}\tag{2}\<br>
-$$</p>
-<p>其中<br>
-$$<br>
-\eta_{\alpha\beta}=\left{ \begin{aligned}  1&amp; &amp; \alpha=\beta\neq0\ -1&amp; &amp; \alpha=\beta=0\ 0&amp;&amp;\alpha\neq\beta\ \end{aligned} \right.\<br>
-$$<br>
-$x^0$ 代表时间t。</p>
-<p>定义任一矢量<strong>v</strong>,指标在上 $V^{\alpha}$ 为逆变矢量，指标在下为协变矢量  $V_{\alpha}$，矢量视为一阶张量，则逆变张量和协变张量的定义一致</p>
+<p>洛伦兹变换具有如下形式 <span class="math display">\[
+x^{&#39;\alpha}=\Lambda^{\alpha}_{\beta}x^{\beta}+a^{\alpha} \tag{1}\\
+\]</span> 其中 <span class="math inline">\(a^{\alpha}\)</span> 与 <span
+class="math inline">\(\Lambda^{\alpha}_{\beta}\)</span> 为常数，且满足
+<span class="math display">\[
+\Lambda^{\alpha}_{\gamma}\Lambda^{\beta}_{\delta}\eta_{\alpha\beta}=\eta_{\gamma\delta}\tag{2}\\
+\]</span></p>
+<p>其中 <span class="math display">\[
+\eta_{\alpha\beta}=\left\{ \begin{aligned}  1&amp; &amp;
+\alpha=\beta\neq0\\ -1&amp; &amp; \alpha=\beta=0\\
+0&amp;&amp;\alpha\neq\beta\\ \end{aligned} \right.\\
+\]</span> <span class="math inline">\(x^0\)</span> 代表时间t。</p>
+<p>定义任一矢量<strong>v</strong>,指标在上 <span
+class="math inline">\(V^{\alpha}\)</span> 为逆变矢量，指标在下为协变矢量
+<span
+class="math inline">\(V_{\alpha}\)</span>，矢量视为一阶张量，则逆变张量和协变张量的定义一致</p>
 <p>任何指标一次在上，一次在下则理解为求和，遍历不同指标。</p>
 <p>如</p>
-<p>$$<br>
-x<sup>{'\alpha}=\Lambda</sup>{\alpha}<em>{\beta}x<sup>{\beta}+a</sup>{\alpha}=\Lambda<sup>{\alpha}_{0}x_{0}+\Lambda</sup>{\alpha}</em>{1}x_{1}+\Lambda<sup>{\alpha}_{2}x_{2}+\Lambda</sup>{\alpha}<em>{3}x</em>{3}+a_{\alpha} \<br>
-$$<br>
-洛伦兹变换的重要标志是它保持固有时不变</p>
-<p>$$<br>
-d \tau^{2}=d t<sup>{2}-\sum_{i}dx_{i}</sup>{2}=-\eta_{\alpha\beta}dx<sup>{\alpha}dx</sup>{\beta}\tag{3}\<br>
-$$<br>
-洛伦兹变换后的固有时</p>
-<p>$$<br>
-d\tau<sup>{'2}=-\eta_{\alpha\beta}\Lambda</sup>{\alpha}_{\gamma}\Lambda<sup>{\beta}_{\delta}dx</sup>{\gamma}dx<sup>{\delta}=-\eta_{\gamma\delta}dx</sup>{\gamma}dx<sup>{\delta}=d\tau</sup>{2}\<br>
-$$<br>
-固有时的导入解释了光速在全部惯性系中数值相同的现象</p>
+<p><span class="math display">\[
+x^{&#39;\alpha}=\Lambda^{\alpha}_{\beta}x^{\beta}+a^{\alpha}=\Lambda^{\alpha}_{0}x_{0}+\Lambda^{\alpha}_{1}x_{1}+\Lambda^{\alpha}_{2}x_{2}+\Lambda^{\alpha}_{3}x_{3}+a_{\alpha}
+\\
+\]</span> 洛伦兹变换的重要标志是它保持固有时不变</p>
+<p><span class="math display">\[
+d \tau^{2}=d
+t^{2}-\sum_{i}dx_{i}^{2}=-\eta_{\alpha\beta}dx^{\alpha}dx^{\beta}\tag{3}\\
+\]</span> 洛伦兹变换后的固有时</p>
+<p><span class="math display">\[
+d\tau^{&#39;2}=-\eta_{\alpha\beta}\Lambda^{\alpha}_{\gamma}\Lambda^{\beta}_{\delta}dx^{\gamma}dx^{\delta}=-\eta_{\gamma\delta}dx^{\gamma}dx^{\delta}=d\tau^{2}\\
+\]</span> 固有时的导入解释了光速在全部惯性系中数值相同的现象</p>
 <p>以上内容看起来有点像是逻辑上的循环论证，但是关于狭义相对论的具体导出，在大一力学和电磁学都有导出过几次，这里就不再赘述。</p>
-<p>我们假定一个观测者在O观测到一个粒子静止，而在 $O’$ 中以V的速度运动<br>
-$$<br>
-dx<sup>{'\alpha}=\Lambda</sup>{\alpha}<em>{0}dx^{0}\  dt<sup>{'}=\Lambda</sup>{\alpha}</em>{0}dt<br>
-$$<br>
-注意到 $dt=dx^0$ 做个简单的除法会有<br>
-$$<br>
-v_{i}\Lambda<sup>{0}_{0}=\Lambda</sup>{i}_{0}\tag{4}\<br>
-$$<br>
-(2)式取$\gamma和{\delta}$为0会有</p>
-<p>$$<br>
-\Lambda_{0}<sup>{\alpha}\Lambda</sup>{\beta}<em>{0}\eta</em>{\alpha\beta}=\sum_{i=1,2,3}(\Lambda<sup>{i}_{0})</sup>{2}-(\Lambda<sup>{0}_{0})</sup>{2}=-1\<br>
-$$<br>
-代入(4)式，会有</p>
-<p>$$<br>
-\begin{align} \Lambda<sup>{0}_{0}=\frac{1}{\sqrt{1-v</sup>{2}}}\ \Lambda<sup>{i}_{0}=\frac{v_{i}}{\sqrt{1-v</sup>{2}}}\ \end{align}\<br>
-$$<br>
-定义 $\gamma=\frac{1}{\sqrt{1-v^{2}}}$ ,我们就导出了洛伦兹变换群的一点特征。</p>
-<p>正其次的洛伦兹变换有子群是由转动构成的。 $\Lambda^{\alpha}_{\beta}$ 把一个粒子从静止变为速度v，则有任意转动矩阵R使粒子由静止变为速度v</p>
-<p>我们会有<br>
-$$<br>
-\begin{align} \Lambda<sup>{i}_{j}&amp;=\delta_{ij}+v_{i}v_{j}\frac{(\gamma-1)}{v</sup>{2}}\ \Lambda^{0}<em>{j}&amp;=\gamma v</em>{j} \end{align}\<br>
-$$<br>
-我们考虑一个只沿x方向的粒子<br>
-$$<br>
-\Lambda = \left(<br>
-\begin{array}{l}<br>
-\gamma&amp;{\gamma}v&amp;0&amp;0\<br>
-{\gamma}v&amp;{\gamma}&amp;0&amp;0\<br>
-0&amp;0&amp;1&amp;0\<br>
-0&amp;0&amp;0&amp;1<br>
-\end{array}<br>
-\right)<br>
-$$<br>
-先引入能量-动量四维矢量<br>
-$$<br>
-p<sup>{\alpha}=m\frac{dx</sup>{\alpha}}{d\tau}\tag{5}<br>
-$$<br>
-牛二可以写成<br>
-$$<br>
-\frac{dp<sup>{\alpha}}{d\tau}=f</sup>{\alpha}\<br>
-$$</p>
-<p>$$<br>
-p^{\alpha}空间分量构成空间动量 \p=m\gamma v<br>
-$$</p>
-<p>$$<br>
-p^{\alpha}的时间分量即为能量\ p^{0}=m\gamma<br>
-$$</p>
-<p>$$<br>
-E(p)=\sqrt{p<sup>{2}c</sup>{2}+m<sup>{2}c</sup>{4}}\<br>
-$$</p>
-<p>对于无质量粒子来说 $E=pc$</p>
-<p>注意到(5)式，有<br>
-$$<br>
-\eta_{\alpha\beta}p<sup>{\alpha}p</sup>{\beta}=-m^{2}<br>
-$$<br>
-由能量-动量四维矢量，引出其密度和流密度<br>
-$$<br>
-T<sup>{\alpha\beta}(x)=\sum_{n}p_{n}</sup>{\alpha}\frac{dx_{n}<sup>{\beta}}{dt}\delta</sup>{3}(x-x_n(t))\tag{6}\<br>
-$$<br>
-由 $p_{n}<sup>{\beta}=E_{n}v_{n}</sup>\beta$ (6)可以写成<br>
-$$<br>
-T<sup>{\alpha\beta}(x)=\sum_{n}\frac{p_{n}</sup>{\alpha}p_{n}<sup>{\beta}}{E_n}\delta</sup>{3}(x-x_n(t))\<br>
-$$<br>
-导出力密度<br>
-$$<br>
-\frac{\partial}{\partial x<sup>\beta}T</sup>{\alpha\beta}=G^{\alpha}\<br>
-$$</p>
+<p>我们假定一个观测者在O观测到一个粒子静止，而在 <span
+class="math inline">\(O&#39;\)</span> 中以V的速度运动 <span
+class="math display">\[
+dx^{&#39;\alpha}=\Lambda^{\alpha}_{0}dx^{0}\\  dt^{&#39;}=\Lambda^{\alpha}_{0}dt
+\]</span> 注意到 <span class="math inline">\(dt=dx^0\)</span>
+做个简单的除法会有 <span class="math display">\[
+v_{i}\Lambda^{0}_{0}=\Lambda^{i}_{0}\tag{4}\\
+\]</span> (2)式取<span
+class="math inline">\(\gamma和{\delta}\)</span>为0会有</p>
+<p><span class="math display">\[
+\Lambda_{0}^{\alpha}\Lambda^{\beta}_{0}\eta_{\alpha\beta}=\sum_{i=1,2,3}(\Lambda^{i}_{0})^{2}-(\Lambda^{0}_{0})^{2}=-1\\
+\]</span> 代入(4)式，会有</p>
+<p><span class="math display">\[
+\begin{align} \Lambda^{0}_{0}=\frac{1}{\sqrt{1-v^{2}}}\\
+\Lambda^{i}_{0}=\frac{v_{i}}{\sqrt{1-v^{2}}}\\ \end{align}\\
+\]</span> 定义 <span
+class="math inline">\(\gamma=\frac{1}{\sqrt{1-v^{2}}}\)</span>
+,我们就导出了洛伦兹变换群的一点特征。</p>
+<p>正其次的洛伦兹变换有子群是由转动构成的。 <span
+class="math inline">\(\Lambda^{\alpha}_{\beta}\)</span>
+把一个粒子从静止变为速度v，则有任意转动矩阵R使粒子由静止变为速度v</p>
+<p>我们会有 <span class="math display">\[
+\begin{align}
+\Lambda^{i}_{j}&amp;=\delta_{ij}+v_{i}v_{j}\frac{(\gamma-1)}{v^{2}}\\
+\Lambda^{0}_{j}&amp;=\gamma v_{j} \end{align}\\
+\]</span> 我们考虑一个只沿x方向的粒子 <span class="math display">\[
+\Lambda = \left(
+\begin{array}{l}
+\gamma&amp;{\gamma}v&amp;0&amp;0\\
+{\gamma}v&amp;{\gamma}&amp;0&amp;0\\
+0&amp;0&amp;1&amp;0\\
+0&amp;0&amp;0&amp;1
+\end{array}
+\right)
+\]</span> 先引入能量-动量四维矢量 <span class="math display">\[
+p^{\alpha}=m\frac{dx^{\alpha}}{d\tau}\tag{5}
+\]</span> 牛二可以写成 <span class="math display">\[
+\frac{dp^{\alpha}}{d\tau}=f^{\alpha}\\
+\]</span></p>
+<p><span class="math display">\[
+p^{\alpha}空间分量构成空间动量 \\p=m\gamma v
+\]</span></p>
+<p><span class="math display">\[
+p^{\alpha}的时间分量即为能量\\ p^{0}=m\gamma
+\]</span></p>
+<p><span class="math display">\[
+E(p)=\sqrt{p^{2}c^{2}+m^{2}c^{4}}\\
+\]</span></p>
+<p>对于无质量粒子来说 <span class="math inline">\(E=pc\)</span></p>
+<p>注意到(5)式，有 <span class="math display">\[
+\eta_{\alpha\beta}p^{\alpha}p^{\beta}=-m^{2}
+\]</span> 由能量-动量四维矢量，引出其密度和流密度 <span
+class="math display">\[
+T^{\alpha\beta}(x)=\sum_{n}p_{n}^{\alpha}\frac{dx_{n}^{\beta}}{dt}\delta^{3}(x-x_n(t))\tag{6}\\
+\]</span> 由 <span
+class="math inline">\(p_{n}^{\beta}=E_{n}v_{n}^\beta\)</span>
+(6)可以写成 <span class="math display">\[
+T^{\alpha\beta}(x)=\sum_{n}\frac{p_{n}^{\alpha}p_{n}^{\beta}}{E_n}\delta^{3}(x-x_n(t))\\
+\]</span> 导出力密度 <span class="math display">\[
+\frac{\partial}{\partial x^\beta}T^{\alpha\beta}=G^{\alpha}\\
+\]</span></p>
 
                 
               </div>

@@ -308,7 +308,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="从hello，world开始">从hello，world开始</h2>
+                <h2 id="从helloworld开始">从hello，world开始</h2>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;omp.h&gt;</span></span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Hello</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span>&#123;<br>    <span class="hljs-type">int</span> thread_count = strtol(argv[<span class="hljs-number">1</span>],<span class="hljs-literal">NULL</span>,<span class="hljs-number">10</span>);		<span class="hljs-comment">//10表示十进制</span><br>    <br>    <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel num_threads(thread_count);</span><br>    Hello();<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-type">void</span> <span class="hljs-title function_">Hello</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;<br>    <span class="hljs-type">int</span> my_rank = omp_get_thread_num();		<span class="hljs-comment">//获取线程号</span><br>    <span class="hljs-type">int</span> thread_count = omp_get_num_threads();	<span class="hljs-comment">//获取线程总数</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello from thread %d of %d\n&quot;</span>, my_rank, thread_count);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>使用parallel是用来表明之后的<strong>结构化代码块</strong>（<strong>基本块</strong>）应该被多个线程并行执行。</p>
 <p>后面跟着的叫做<strong>子句</strong>，比如<code>num_threads</code>是用来指定执行后代码块的线程数的</p>
@@ -325,7 +325,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">global_result = <span class="hljs-number">0.0</span>;<br><span class="hljs-meta"># <span class="hljs-keyword">pragma</span> omp parallel num_threads(thread_count) \ </span><br>    reduction(+: global_result)<br>global_result += Local_trap(<span class="hljs-type">double</span> a, <span class="hljs-type">double</span> b, <span class="hljs-type">int</span> n);    <br></code></pre></td></tr></table></figure>
 <p>代码明确了global_result是一个<strong>归约变量</strong>，加号表示<strong>归约操作符</strong>是加法。</p>
 <div class="note note-success">
-            <p>注意一下：根据不同的归约操作符，私有变量会初始化为不同的值。</p><p>加法：一般初始化为0；乘法：一般初始化为1</p>
+            <p>注意一下：根据不同的归约操作符，私有变量会初始化为不同的值。</p><p>加法：一般初始化为0；乘法：一般初始化为1</p>
           </div>
 <h2 id="for指令">for指令</h2>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">h = (b-a)/n;<br>approx = (f(a)+f(b))/<span class="hljs-number">2.0</span>;<br><span class="hljs-meta"># <span class="hljs-keyword">pragma</span> omp parallel for num_threads(thread_count)\</span><br><span class="hljs-meta">    reduction(+: approx)	</span><br><span class="hljs-keyword">for</span>(i = <span class="hljs-number">1</span>; i &lt;= n<span class="hljs-number">-1</span>; i++)<br>    approx+= f(a+i*h);<br>approx = h*approx;<br></code></pre></td></tr></table></figure>
@@ -335,13 +335,15 @@
 <h3 id="数据依赖性">数据依赖性</h3>
 <p>一般情况下，上述不能并行的for语句，编译器是会直接报错的。但是有更加隐匿的问题——数据依赖性。</p>
 <ul>
-<li>OpenMP编译器不会检查parallel for指令并行化的循环所包含的依赖关系，需要程序员自己来识别</li>
+<li>OpenMP编译器不会检查parallel
+for指令并行化的循环所包含的依赖关系，需要程序员自己来识别</li>
 <li>一个或更多个迭代结果依赖于其他迭代的循环，一般不能被正确并行化</li>
 </ul>
 <p>以斐波那契数列为例：</p>
 <ul>
 <li>fib[6]和fib[5]计算间的依赖关系称为 <strong>数据依赖</strong></li>
-<li>由于fibo[5]的值在一个迭代中计算，其结果在之后的迭代中使用，所以也称为 <strong>循环依赖</strong></li>
+<li>由于fibo[5]的值在一个迭代中计算，其结果在之后的迭代中使用，所以也称为
+<strong>循环依赖</strong></li>
 </ul>
 <div class="note note-success">
             <p>考点：判断有无数据依赖性！！！</p>
@@ -367,7 +369,7 @@
 <p>其中runtime允许在运行时确定调度类型，因此实际调度策略只有前面三种。</p>
 <p>一般OpenMP实现的缺省调度为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">schedule (<span class="hljs-type">static</span>, total_iterations/thread_count)<br></code></pre></td></tr></table></figure>
-<img src="image-20210711103038725.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210711103038725" style="zoom: 80%;" />
+<p><img src="image-20210711103038725.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210711103038725" style="zoom: 80%;" /></p>
 <h2 id="路障">路障</h2>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta"># <span class="hljs-keyword">pragma</span> omp barrier</span><br></code></pre></td></tr></table></figure>
 <h2 id="原子操作">原子操作</h2>
@@ -379,26 +381,20 @@
 </ul>
 <p>简单锁的函数定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">omp_init_lock</span><span class="hljs-params">(<span class="hljs-type">omp_lock_t</span>* lock_P)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">omp_set_lock</span><span class="hljs-params">(<span class="hljs-type">omp_lock_t</span>* lock_p)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">omp_unset_lock</span><span class="hljs-params">(<span class="hljs-type">omp_lock_t</span>* lock_p)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">omp_destroy_lock</span><span class="hljs-params">(<span class="hljs-type">omp_lock_t</span>* lock_p)</span>;<br></code></pre></td></tr></table></figure>
-<h3 id="critical、atomic、lock的区别：">critical、atomic、lock的区别：</h3>
-<ol>
+<h3 id="criticalatomiclock的区别">critical、atomic、lock的区别：</h3>
+<ol type="1">
 <li>critical易使用，一般情况下都可以考虑</li>
 <li>atomic可能会把两个变量不一样的语句也强制进行互斥，比如说<code>x++</code>和<code>y++</code>，需要注意</li>
 <li>锁机制适用于需要互斥的是某个数据结构而不是代码块的情况。</li>
 </ol>
 <p>互斥需要非常谨慎：</p>
 <ul>
-<li>
-<p>对同一个临界区，不能混合使用不同的互斥技术</p>
-</li>
-<li>
-<p>互斥不能保证公平性，可能会有一个线程一直被阻塞</p>
-</li>
-<li>
-<p>嵌套互斥可能会产生意想不到的结果：</p>
+<li><p>对同一个临界区，不能混合使用不同的互斥技术</p></li>
+<li><p>互斥不能保证公平性，可能会有一个线程一直被阻塞</p></li>
+<li><p>嵌套互斥可能会产生意想不到的结果：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//该程序会进入死锁状态</span><br><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp critical</span><br>    y = f(x)l<br>    ...<br>    <br><span class="hljs-type">double</span> f(<span class="hljs-type">double</span> x)&#123;<br>    <span class="hljs-meta"># <span class="hljs-keyword">pragma</span> omp critical</span><br>    z = g(x);<br>&#125;    <br></code></pre></td></tr></table></figure>
 <p>解决方法，是命名临界区：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//命名临界区</span><br><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp critical(one)</span><br>    y = f(x)l<br>    ...<br>    <br><span class="hljs-type">double</span> f(<span class="hljs-type">double</span> x)&#123;<br>    <span class="hljs-meta"># <span class="hljs-keyword">pragma</span> omp critical(two)</span><br>    z = g(x);<br>&#125;    <br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//命名临界区</span><br><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp critical(one)</span><br>    y = f(x)l<br>    ...<br>    <br><span class="hljs-type">double</span> f(<span class="hljs-type">double</span> x)&#123;<br>    <span class="hljs-meta"># <span class="hljs-keyword">pragma</span> omp critical(two)</span><br>    z = g(x);<br>&#125;    <br></code></pre></td></tr></table></figure></li>
 </ul>
 
                 

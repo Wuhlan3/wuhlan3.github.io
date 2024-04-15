@@ -27,11 +27,11 @@
 <meta property="article:published_time" content="2021-08-10T09:45:25.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.425Z">
 <meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
-<meta property="article:tag" content="Web">
-<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/linuxweb.jpg">
   
@@ -312,54 +312,65 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、C-S模型的基本逻辑">一、C/S模型的基本逻辑</h2>
-<img src="image-20210811135202511.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811135202511" style="zoom:80%;" />
+                <h2 id="一cs模型的基本逻辑">一、C/S模型的基本逻辑</h2>
+<p><img src="image-20210811135202511.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811135202511" style="zoom:80%;" /></p>
 <p>C/S模型比较适合资源集中的场合。但是缺点就是当客户端过多的时候，可能响应得比较慢。</p>
-<h2 id="二、P2P模型">二、P2P模型</h2>
-<p><img src="image-20210811135501386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811135501386"></p>
+<h2 id="二p2p模型">二、P2P模型</h2>
+<figure>
+<img src="image-20210811135501386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811135501386" />
+<figcaption aria-hidden="true">image-20210811135501386</figcaption>
+</figure>
 <p>伴随的问题是，用户之间的请求过多时，网络负载加重；同时主机与主机之间很难相互发现。从本质上来说，P2P模型就是每台主机既可以当客户端又可以当服务端。所以我们可以选择C/S模型进行深入探讨。</p>
-<h2 id="三、服务器的基本框架">三、服务器的基本框架</h2>
-<p><img src="image-20210811141453128.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811141453128"></p>
+<h2 id="三服务器的基本框架">三、服务器的基本框架</h2>
+<figure>
+<img src="image-20210811141453128.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811141453128" />
+<figcaption aria-hidden="true">image-20210811141453128</figcaption>
+</figure>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>单元</th>
 <th>功能</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>I/O处理单元</td>
 <td>服务器管理客户连接的模块。它通常要完成以下工作：等待并接受新的客户连接，接收客户数据，将服务器响应数据返回给客户端。</td>
 </tr>
-<tr>
+<tr class="even">
 <td>逻辑单元</td>
 <td>通常是一个进程或线程。然后将结果传递给I/O处理单元或者直接发送给客户端。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>网络存储单元</td>
 <td>是数据库、缓存和文件，或是一台独立的服务器。它不是必须的，比如ssh、telnet等登录服务就不需要这个单元。</td>
 </tr>
-<tr>
+<tr class="even">
 <td>请求队列</td>
 <td>是各单元之间的通信方式的抽象。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="四、I-O模型">四、I/O模型</h2>
-<p><a href="https://wuhlan3.gitee.io/wuhlan3/2021/08/04/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E5%85%AD%EF%BC%89/">I/O模型</a>在前面提到过。在这再强调一些概念。</p>
+<h2 id="四io模型">四、I/O模型</h2>
+<p><a
+href="https://wuhlan3.gitee.io/wuhlan3/2021/08/04/UNIX网络编程（六）/">I/O模型</a>在前面提到过。在这再强调一些概念。</p>
 <p><strong>阻塞I/O</strong>：阻塞的文件描述符。可能因为无法立即完成而被操作系统挂起，直到等待的事件发生为止。</p>
 <p><strong>非阻塞I/O</strong>：非阻塞的文件描述符。执行的系统调用则总是立即返回，而不管事件是否已经发生。</p>
 <p><strong>I/O复用</strong>：应用程序通过I/O复用函数向内核<strong>注册</strong>一组事件，内核通过I/O复用函数把其中<strong>就绪的事件</strong>通知给应用程序。I/O复用函数本身是阻塞的，它们能提高程序效率的原因在于它们具有同时监听多个I/O事件的能力。</p>
 <p><strong>SIGIO信号</strong>：当目标文件描述符上有事件发生时，SIGIO信号的信号处理函数将被触发。</p>
 <p><strong>异步I/O</strong>：当一个异步过程调用发出后，调用者不能立刻得到结果。</p>
 <div class="note note-primary">
-            <p>问：同步与异步有什么不同？</p><p>答：<strong>同步</strong>指的是用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪；<strong>异步</strong>是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知。</p>
+            <p>问：同步与异步有什么不同？</p><p>答：<strong>同步</strong>指的是用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪；<strong>异步</strong>是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知。</p>
           </div>
-<h2 id="五、两种高效的事件处理模式">五、两种高效的事件处理模式</h2>
+<h2 id="五两种高效的事件处理模式">五、两种高效的事件处理模式</h2>
 <p>同步I/O模型通常用于实现<strong>Reactor模式</strong>，异步I/O模型则用于实现<strong>Proactor模式</strong>。</p>
-<h3 id="Reactor模式">Reactor模式</h3>
-<p><img src="image-20210811144454499.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811144454499"></p>
+<h3 id="reactor模式">Reactor模式</h3>
+<figure>
+<img src="image-20210811144454499.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811144454499" />
+<figcaption aria-hidden="true">image-20210811144454499</figcaption>
+</figure>
 <p>使用同步I/O模型（以epoll_wait为例）实现的Reactor模式的工作流程是：</p>
 <p>1）主线程往epoll内核事件表中注册socket上的<strong>读就绪事件</strong>。</p>
 <p>2）主线程调用epoll_wait<strong>等待</strong>socket上有数据<strong>可读</strong>。</p>
@@ -368,8 +379,11 @@
 <p>5）主线程调用epoll_wait<strong>等待</strong>socket<strong>可写</strong>。</p>
 <p>6）当socket可写时，epoll_wait通知主线程。主线程将socket可写事件放入请求队列。</p>
 <p>7）睡眠在请求队列上的某个工作线程被唤醒，它往socket上写入服务器处理客户请求的结果。</p>
-<h3 id="Proactor模式">Proactor模式</h3>
-<p><img src="image-20210811145249396.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811145249396"></p>
+<h3 id="proactor模式">Proactor模式</h3>
+<figure>
+<img src="image-20210811145249396.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811145249396" />
+<figcaption aria-hidden="true">image-20210811145249396</figcaption>
+</figure>
 <p>使用异步I/O模型（以aio_read和aio_write为例）实现的Proactor模式的工作流程是：</p>
 <p>1）主线程调用aio_read函数向内核注册socket上的读完成事件，并告诉内核用户读缓冲区的位置，以及读操作完成时如何通知应用程序（这里以信号为例，详情请参考sigevent的man手册）。</p>
 <p>2）<strong>主线程继续处理其他逻辑。</strong> （重点！！！）</p>
@@ -381,52 +395,61 @@
 <div class="note note-success">
             <p>Reactor和Proactor模式的主要区别就是<strong>真正的读取和写入操作</strong>是有谁来完成的，Reactor中需要应用程序自己读取或者写入数据，而Proactor模式中，应用程序不需要进行实际的读写过程，它只需要从缓存区读取或者写入即可，操作系统会读取缓存区或者写入缓存区到真正的IO设备.</p>
           </div>
-<h3 id="模拟Proactor模式">模拟Proactor模式</h3>
-<p><img src="image-20210811151005315.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811151005315"></p>
+<h3 id="模拟proactor模式">模拟Proactor模式</h3>
+<figure>
+<img src="image-20210811151005315.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811151005315" />
+<figcaption aria-hidden="true">image-20210811151005315</figcaption>
+</figure>
 <p>1）主线程往epoll内核事件表中注册socket上的读就绪事件。</p>
 <p>2）主线程调用epoll_wait等待socket上有数据可读。</p>
 <p>3）当socket上有数据可读时，epoll_wait通知主线程。主线程从socket循环读取数据，直到没有更多数据可读，然后将读取到的数据<strong>封装成一个请求对象并插入请求队列。</strong></p>
 <p>4）睡眠在请求队列上的某个工作线程被唤醒，它获得请求对象并处理客户请求，然后往epoll内核事件表中<strong>注册</strong>socket上的<strong>写就绪事件</strong>。</p>
 <p>5）主线程调用epoll_wait等待socket可写。</p>
 <p>6）当socket可写时，epoll_wait通知主线程。主线程往socket上写入服务器处理客户请求的结果。</p>
-<h2 id="六、两种高效的并发模式">六、两种高效的并发模式</h2>
+<h2 id="六两种高效的并发模式">六、两种高效的并发模式</h2>
 <p>计算密集型：并发程序没有优势，任务的切换会使效率降低；</p>
 <p>I/O密集型：并发会使得CPU效率提高</p>
-<p>服务 器主要有两种并发编程模式：半同步/半异步（half-sync/half-async）模式和领导者/追随者（Leader/Followers）模式。</p>
-<h3 id="半同步-半异步模式">半同步/半异步模式</h3>
+<p>服务
+器主要有两种并发编程模式：半同步/半异步（half-sync/half-async）模式和领导者/追随者（Leader/Followers）模式。</p>
+<h3 id="半同步半异步模式">半同步/半异步模式</h3>
 <div class="note note-primary">
-            <p>问：这里的“同步”与“异步”和之前提到的I/O的同步和异步是一个东西吗？</p><p>答：不是。在I/O模型中，“同步”和“异步”区分的是内核向应用程序通知的是<strong>何种I/O事件</strong>（是就绪事件还是完成事件），以及该<strong>由谁来完成I/O读写</strong>（是应用程序还是内核）。在并发模式中，“同步”指的是<strong>程序完全按照代码序列的顺序执行</strong>；“异步”指的是<strong>程序的执行需要由系统事件来驱动</strong>。常见的系统事件包括中断、信号等。</p>
+            <p>问：这里的“同步”与“异步”和之前提到的I/O的同步和异步是一个东西吗？</p><p>答：不是。在I/O模型中，“同步”和“异步”区分的是内核向应用程序通知的是<strong>何种I/O事件</strong>（是就绪事件还是完成事件），以及该<strong>由谁来完成I/O读写</strong>（是应用程序还是内核）。在并发模式中，“同步”指的是<strong>程序完全按照代码序列的顺序执行</strong>；“异步”指的是<strong>程序的执行需要由系统事件来驱动</strong>。常见的系统事件包括中断、信号等。</p>
           </div>
-<img src="image-20210811155911769.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811155911769" style="zoom: 50%;" />
+<p><img src="image-20210811155911769.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811155911769" style="zoom: 50%;" /></p>
 <p><strong>同步线程</strong>：按照同步方式运行的线程。执行效率低，实时性差。但逻辑简单。</p>
 <p><strong>异步线程</strong>：按照异步方式运行的线程。执行效率高，实时性强。但是较复杂，难于调试，不适合大量的并发。</p>
 <p>服务器既要有较好的<strong>实时性</strong>，又要有较好的<strong>并发性</strong>。所以，使用半同步/半异步模式。</p>
-<img src="image-20210811160446605.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811160446605" style="zoom:67%;" />
+<p><img src="image-20210811160446605.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811160446605" style="zoom:67%;" /></p>
 <p>同步线程用于逻辑处理单元，异步线程用于I/O单元。</p>
 <p>此外还有半同步/半异步模式的变体——<strong>半同步/半反应堆模式</strong>：</p>
-<img src="image-20210811160654469.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811160654469" style="zoom:67%;" />
+<p><img src="image-20210811160654469.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811160654469" style="zoom:67%;" /></p>
 <p>半同步/半反应堆模式存在如下缺点：</p>
 <p>❑主线程和工作线程共享请求队列。主线程往请求队列中添加任务，或者工作线程从请求队列中取出任务，都需要对请求队列加锁保护，从而白白耗费CPU时间。</p>
 <p>❑每个工作线程在同一时间只能处理一个客户请求。如果客户数量较多，而工作线程较少，则请求队列中将堆积很多任务对象，客户端的响应速度将越来越慢。</p>
 <p>还有一种相对高效的半同步/半异步模式，它的每个工作线程都能同时处理多个客户连接：</p>
-<img src="image-20210811161019631.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811161019631" style="zoom:50%;" />
-<h3 id="领导者-追随者模式">领导者/追随者模式</h3>
+<p><img src="image-20210811161019631.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811161019631" style="zoom:50%;" /></p>
+<h3 id="领导者追随者模式">领导者/追随者模式</h3>
 <p>先略过</p>
-<h2 id="七、有限状态机">七、有限状态机</h2>
+<h2 id="七有限状态机">七、有限状态机</h2>
 <p>有限状态机是应用于逻辑的单元内部的一种高效编程方法。</p>
 <p>下面展示一个简单的带状态转移的状态机：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">STATE_MACHINE</span>()<br>&#123;<br>    State cur_State=type_A; 	<span class="hljs-comment">//初始状态为A</span><br>    <span class="hljs-keyword">while</span>(cur_State!=type_C) 	<span class="hljs-comment">//当状态为C时退出</span><br>    &#123;<br>        Package_pack=<span class="hljs-built_in">getNewPackage</span>(); <br>        <span class="hljs-keyword">switch</span>(cur_State) <br>        &#123;<br>            <span class="hljs-keyword">case</span> type_A: 		<span class="hljs-comment">//A状态变为B状态</span><br>            <span class="hljs-built_in">process_package_state_A</span>(_pack); <br>            cur_State=type_B; <br>            <span class="hljs-keyword">break</span>; <br>            <span class="hljs-keyword">case</span> type_B: 		<span class="hljs-comment">//B状态变为C状态</span><br>            <span class="hljs-built_in">process_package_state_B</span>(_pack);<br>            cur_State=type_C; <br>            <span class="hljs-keyword">break</span>; <br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210811164732483.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811164732483"></p>
-<p>关于HTTP请求的读取和分析的代码可以看这边：<a href="https://wuhlan3.gitee.io/wuhlan3/2021/08/11/HTTP%E7%8A%B6%E6%80%81%E6%9C%BA/">HTTP状态机</a>（太长啦，放不下）（捂脸.jpg，想起那个：“你现在已经学会了1+1了，下面来试试这个吧！”）</p>
-<img src="image-20210812105731734.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210812105731734" style="zoom: 50%;" />
-<h2 id="八、其他注意的点">八、其他注意的点</h2>
+<figure>
+<img src="image-20210811164732483.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210811164732483" />
+<figcaption aria-hidden="true">image-20210811164732483</figcaption>
+</figure>
+<p>关于HTTP请求的读取和分析的代码可以看这边：<a
+href="https://wuhlan3.gitee.io/wuhlan3/2021/08/11/HTTP%E7%8A%B6%E6%80%81%E6%9C%BA/">HTTP状态机</a>（太长啦，放不下）（捂脸.jpg，想起那个：“你现在已经学会了1+1了，下面来试试这个吧！”）</p>
+<p><img src="image-20210812105731734.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210812105731734" style="zoom: 50%;" /></p>
+<h2 id="八其他注意的点">八、其他注意的点</h2>
 <h3 id="池">池</h3>
 <p><strong>池</strong>是一组资源的集合，这组资源在服务器启动之初就被完全创建好并初始化，这称为静态资源分配。池相当于服务器管理系统资源的应用层设施，它避免了服务器对内核的频繁访问。池可分为多种，常见的有内存池、进程池、线程池和连接池。</p>
 <h3 id="数据复制">数据复制</h3>
 <p>高性能服务器应该避免不必要的数据复制，尤其是当数据复制发生在<strong>用户代码</strong>和<strong>内核</strong>之间的时候。</p>
 <p>比如：<strong>ftp服务器</strong>，当客户请求一个文件时，服务器只需要检测目标文件是否存在，以及客户是否有读取它的权限，而绝对不会关心文件的具体内容。这样的话，ftp服务器就无须把目标文件的内容完整地读入到应用程序缓冲区中并调用send函数来发送，而是可以使用“零拷贝”函数sendfile来直接将其发送给客户端。</p>
 <h3 id="上下文切换和锁">上下文切换和锁</h3>
-<p>上下文切换（context switch）的问题，即进程切换或线程切换导致的的系统开销。即使是I/O密集型的服务器，也不应该使用过多的工作线程（或工作进程，下同），否则线程间的切换将占用大量的CPU时间，服务器真正用于处理业务逻辑的CPU时间的比重就显得不足了。<strong>半同步/半异步模式</strong>是一种比较合理的解决方案，它允许一个线程同时处理多个客户连接。</p>
+<p>上下文切换（context
+switch）的问题，即进程切换或线程切换导致的的系统开销。即使是I/O密集型的服务器，也不应该使用过多的工作线程（或工作进程，下同），否则线程间的切换将占用大量的CPU时间，服务器真正用于处理业务逻辑的CPU时间的比重就显得不足了。<strong>半同步/半异步模式</strong>是一种比较合理的解决方案，它允许一个线程同时处理多个客户连接。</p>
 <p>另外一个问题是共享资源的加锁保护。<strong>锁</strong>通常被认为是导致服务器效率低下的一个因素，因为由它引入的代码不仅不处理任何业务逻辑，而且需要访问内核资源。两种想法：减少锁的使用；减小锁的粒度</p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] 《Linux高性能服务器》游双</p>
@@ -442,15 +465,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+      
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
-      
-        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
-      
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   

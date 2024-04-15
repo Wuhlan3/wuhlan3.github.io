@@ -266,7 +266,7 @@
         
         
         
-          17 mins
+          18 mins
         
       </span>
     
@@ -308,20 +308,20 @@
             
               <div class="markdown-body">
                 
-                <h2 id="从Hello-world开始">从Hello,world开始</h2>
+                <h2 id="从helloworld开始">从Hello,world开始</h2>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;mpi.h&gt;</span></span><br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> MAX_STRING = <span class="hljs-number">100</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>   <span class="hljs-type">char</span> greeting[MAX_STRING]; <br>   <span class="hljs-type">int</span>  comm_sz;        <span class="hljs-comment">//进程的数量</span><br>   <span class="hljs-type">int</span>  my_rank;        <span class="hljs-comment">//进程的编号</span><br><br>   MPI_Init(<span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);    <span class="hljs-comment">//MPI_Init(int* argc_p, char*** argv_p); argc_p和argv_p是指向参数argc和argv的指针</span><br>   MPI_Comm_size(MPI_COMM_WORLD, &amp;comm_sz);        <span class="hljs-comment">//第一个参数是通信子，是MPI为通信子定义的特殊类型</span><br>   MPI_Comm_rank(MPI_COMM_WORLD, &amp;my_rank);<br><br>   <span class="hljs-keyword">if</span>(my_rank != <span class="hljs-number">0</span>)<br>   &#123;<br>        <span class="hljs-built_in">sprintf</span>(greeting, <span class="hljs-string">&quot;Greetings from process %d of %d!&quot;</span>, my_rank, comm_sz);<br>        MPI_Send(greeting, <span class="hljs-built_in">strlen</span>(greeting)+<span class="hljs-number">1</span>, MPI_CHAR, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, MPI_COMM_WORLD); <br>   &#125;<br>   <span class="hljs-keyword">else</span><br>   &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Greetings from process %d of %d!\n&quot;</span>, my_rank, comm_sz);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> q=<span class="hljs-number">1</span>; q&lt;comm_sz; q++)<br>        &#123;<br>             MPI_Recv(greeting, MAX_STRING, MPI_CHAR, q, <span class="hljs-number">0</span>,   MPI_COMM_WORLD, MPI_STATUS_IGNORE);<br>             <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, greeting);<br>        &#125;    <br>   &#125;<br><br>   MPI_Finalize();        <span class="hljs-comment">//MPI使用完毕时，可以进行释放</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="编译与运行方法">编译与运行方法</h3>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cmd">编译：<br>$ mpicc -g -Wall -o 执行文件名 C文件名<br>$ mpicc -g -Wall -o main main.c<br>运行：<br>$ mpiexec -n 线程数 ./执行文件名<br>$ mpiexec -n <span class="hljs-number">4</span> ./main<br></code></pre></td></tr></table></figure>
-<p>简单回顾一下上面出现的函数：<br>
+<p>简单回顾一下上面出现的函数：
 <code>MPI_Init()</code>、<code>MPI_Finalize()</code>、<code>MPI_Comm_size()</code>、<code>MPI_Comm_rank()</code>、<code>MPI_Send()</code>、<code>MPI_Recv()</code></p>
 <div class="note note-success">
-            <p><strong>通信子</strong>指的是一组可以互相发送消息的进程集合</p><p>注意：<code>MPI_COMM_WORLD</code>是<code>MPI_Comm</code>类型的变量，即MPI通信子（communicator），不需要额外定义。或者可以理解为一个通信域，你的进程都在这个域里面，里面包含了进程数和进程号等信息。</p><p>此外，通信子里面的<code>comm_sz</code>表示进程的数量，<code>my_rank</code>表示进程号，是以指针的形式传递</p>
+            <p><strong>通信子</strong>指的是一组可以互相发送消息的进程集合</p><p>注意：<code>MPI_COMM_WORLD</code>是<code>MPI_Comm</code>类型的变量，即MPI通信子（communicator），不需要额外定义。或者可以理解为一个通信域，你的进程都在这个域里面，里面包含了进程数和进程号等信息。</p><p>此外，通信子里面的<code>comm_sz</code>表示进程的数量，<code>my_rank</code>表示进程号，是以指针的形式传递</p>
           </div>
 <p><strong>通信</strong>相关的函数：</p>
 <p><code>MPI_Send()</code>、<code>MPI_Recv()</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Send</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			msg_buf_p,		</span><br><span class="hljs-params">    <span class="hljs-type">int</span>   			msg_size,		</span><br><span class="hljs-params">    MPI_Datatype	msg_type,		<span class="hljs-comment">//前三个参数定义了消息的内容</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dest,			<span class="hljs-comment">//目的进程号</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				tag,			<span class="hljs-comment">//小标签，用于区分看上去完全一样的消息</span></span><br><span class="hljs-params">    MPI_Comm		communicator)</span>;  <span class="hljs-comment">//通信子</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Recv</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			msg_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				buf_size,</span><br><span class="hljs-params">    MPI_Datatype	buf_type,		<span class="hljs-comment">//前三个参数定义了接收消息的内容</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				source,			<span class="hljs-comment">//消息来自哪个进程</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			tag,</span><br><span class="hljs-params">    MPI_Comm		communicator,	<span class="hljs-comment">//后三个参数用来识别消息</span></span><br><span class="hljs-params">    MPI_Status*		status_p)</span>;		<span class="hljs-comment">//大部分不使用该参数，只需赋予特殊常量MPI_STATUS_IGNORE</span><br></code></pre></td></tr></table></figure>
-<img src="image-20210323225734248.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210323225734248" style="zoom:50%;" />
+<p><img src="image-20210323225734248.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210323225734248" style="zoom:50%;" /></p>
 <p>特殊常量：<code>MPI_ANY_TAG</code>，可以将它传给<code>MPI_Recv</code>的参数tag。称为<strong>通配符</strong>（wildcard）。可以使一个进程接收多条来自另一个进程的有着不同标签的消息。</p>
 <h3 id="关于发送和接收消息的过程">关于发送和接收消息的过程</h3>
 <p>MPI_Send有两种可能：缓冲与阻塞</p>
@@ -329,37 +329,32 @@
 <li>缓冲：即消息会存放在一个发送缓冲区中，而MPI_Send函数立即返回</li>
 <li>阻塞：即系统将发生阻塞，一直等待，直到开始发送消息</li>
 </ul>
-<p>出现哪一种情况一般取决于默认的消息<strong>截止大小</strong>（“cutoff” message size）。如果消息的大小小于截止大小，则它会被缓冲；如果消息的大小大于截止大小，函数将会被阻塞</p>
+<p>出现哪一种情况一般取决于默认的消息<strong>截止大小</strong>（"cutoff"
+message
+size）。如果消息的大小小于截止大小，则它会被缓冲；如果消息的大小大于截止大小，函数将会被阻塞</p>
 <p>MPI_Recv则只有一种可能——阻塞。只有当收到一条匹配消息的时候，才会返回。</p>
-<h3 id="MPI消息的特性">MPI消息的特性</h3>
+<h3 id="mpi消息的特性">MPI消息的特性</h3>
 <p><strong>不可超越性</strong>（nonovertaking），即一个q进程发送两条消息给r进程，这两条消息一定是按顺序的。</p>
 <p>而多个进程发送消息则会出现<strong>异步性</strong></p>
 <h2 id="集合通信">集合通信</h2>
 <p>集合通信相关函数：<code>MPI_Reduce()</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Reduce</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			input_data_p,		</span><br><span class="hljs-params">    <span class="hljs-type">void</span>*			output_data_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				count,				<span class="hljs-comment">//若count大于1，则MPI_Reduce函数可以应用到数组上，对向量进行运算</span></span><br><span class="hljs-params">    MPI_Datatype	datatype,</span><br><span class="hljs-params">    MPI_Op			operator,			<span class="hljs-comment">//关键参数，类型是MPI_Op，有多个预定义值</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dest_process,</span><br><span class="hljs-params">    MPI_comm		comm)</span>;<br></code></pre></td></tr></table></figure>
-<p><img src="image-20210323225622760.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210323225622760"></p>
+<figure>
+<img src="image-20210323225622760.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210323225622760" />
+<figcaption aria-hidden="true">image-20210323225622760</figcaption>
+</figure>
 <h3 id="关于集合通信">关于集合通信</h3>
 <p>一般情况下，count设置为1，用于一个变量的集体运算，如：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">MPI_Reduce(&amp;local_int, &amp;total_int, <span class="hljs-number">1</span> ,MPI_DOUBLE, MPI_SUM, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
 <p>如果设置count&gt;1，则是对一个向量的运算，如：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> local_x[N], sum[N];<br><br>MPI_Reduce(local_x, sum, N, MPI_DOUBLE, MPI_SUM, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
 <h3 id="集合通信的特点">集合通信的特点</h3>
-<ol>
-<li>
-<p>通信子中的所有进程必须调用相同的集合通信函数</p>
-</li>
-<li>
-<p>每个进程传递给MPI集合通信函数的参数必须是“相容的”。比如，dest_process的值应该是相同的</p>
-</li>
-<li>
-<p>参数<code>output_data_p</code>虽然只作用在目的进程中，但是其他进程也需要写上这个参数，会被置为NULL</p>
-</li>
-<li>
-<p>集合通信不使用标签，只通过通信子和调用的顺序进行匹配。具体可看书本p69。</p>
-</li>
-<li>
-<p>禁止使input_data_p和output_data_p使用同一个缓冲区，这将会不可预测。</p>
-</li>
+<ol type="1">
+<li><p>通信子中的所有进程必须调用相同的集合通信函数</p></li>
+<li><p>每个进程传递给MPI集合通信函数的参数必须是“相容的”。比如，dest_process的值应该是相同的</p></li>
+<li><p>参数<code>output_data_p</code>虽然只作用在目的进程中，但是其他进程也需要写上这个参数，会被置为NULL</p></li>
+<li><p>集合通信不使用标签，只通过通信子和调用的顺序进行匹配。具体可看书本p69。</p></li>
+<li><p>禁止使input_data_p和output_data_p使用同一个缓冲区，这将会不可预测。</p></li>
 </ol>
 <h3 id="蝶形结构">蝶形结构</h3>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_AllReduce</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			input_data_p,		</span><br><span class="hljs-params">    <span class="hljs-type">void</span>*			output_data_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				count,				<span class="hljs-comment">//若count大于1，则MPI_Reduce函数可以应用到数组上，对向量进行运算</span></span><br><span class="hljs-params">    MPI_Datatype	datatype,</span><br><span class="hljs-params">    MPI_Op			operator,			<span class="hljs-comment">//关键参数，类型是MPI_Op，有多个预定义值</span></span><br><span class="hljs-params">    MPI_comm		comm)</span>;<br></code></pre></td></tr></table></figure>
@@ -369,7 +364,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Bcast</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			data_p,		<span class="hljs-comment">//广播进程发送的数据，接收进程接收的数据</span></span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			count,		<span class="hljs-comment">//数组的大小</span></span><br><span class="hljs-params">    MPI_Datatype	datatype,</span><br><span class="hljs-params">    <span class="hljs-type">int</span> 			source_proc,</span><br><span class="hljs-params">    MPI_Comm		comm)</span>;<br></code></pre></td></tr></table></figure>
 <h3 id="数据分发">数据分发</h3>
 <p>划分的方式：</p>
-<ol>
+<ol type="1">
 <li>块划分</li>
 <li>循环划分</li>
 <li>块-循环划分</li>
@@ -377,7 +372,7 @@
 <p><strong>散射</strong>：用于0号进程读入整个向量，但只将分量发送给需要分量的其他进程：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Scatter</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			send_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span></span><br><span class="hljs-params">    MPI_Datatype	send_type,</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			recv_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span></span><br><span class="hljs-params">    MPI_Datatype	recv_type,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				src_proc,</span><br><span class="hljs-params">    MPI_Comm		comm)</span>;<br></code></pre></td></tr></table></figure>
 <div class="note note-success">
-            <p>MPI_Scatter只适用于<strong>块划分法</strong></p><p>需要注意的是，发送的向量大小不是send_buf_p的大小，而是和recv_count一样的，真正发送出去的大小</p>
+            <p>MPI_Scatter只适用于<strong>块划分法</strong></p><p>需要注意的是，发送的向量大小不是send_buf_p的大小，而是和recv_count一样的，真正发送出去的大小</p>
           </div>
 <p><strong>聚集</strong>：将向量的所有分量都收集到0号进程上，然后0号进程再进行输出</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">MPI_Gather</span><span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			send_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span></span><br><span class="hljs-params">    MPI_Datatype	send_type,</span><br><span class="hljs-params">    <span class="hljs-type">void</span>* 			recv_buf_p,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span></span><br><span class="hljs-params">    MPI_Datatype	recv_type,</span><br><span class="hljs-params">    <span class="hljs-type">int</span>				dst_proc,</span><br><span class="hljs-params">    MPI_Comm		comm)</span>;<br></code></pre></td></tr></table></figure>
@@ -385,18 +380,25 @@
 <p><strong>全局聚集</strong>：将向量的所有分量都收集后，再分发到所有的进程上</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-type">int</span> <span class="hljs-built_in">MPI_AllGather</span>(<br>    <span class="hljs-type">void</span>* 			send_buf_p,<br>    <span class="hljs-type">int</span>				send_count,		<span class="hljs-comment">//发送的向量大小，注意这里的大小是本地大小</span><br>    <span class="hljs-built_in">MPI_Datatype</span>	send_type,<br>    <span class="hljs-type">void</span>* 			recv_buf_p,<br>    <span class="hljs-type">int</span>				recv_count,		<span class="hljs-comment">//接收的向量大小</span><br>    <span class="hljs-built_in">MPI_Datatype</span>	recv_type,<br>    <span class="hljs-built_in">MPI_Comm</span>		comm);<br></code></pre></td></tr></table></figure>
 <p>好图，总结一下：</p>
-<table><tr>
-    <td><img src="image-20210710185133518.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185133518" style="zoom:67%;" /></td>
-<td><img src="image-20210710185200310.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185200310" style="zoom: 67%;" /></td>
-    </tr>
-    <tr>
-    <td><img src="image-20210710185248694.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185248694" style="zoom:67%;" /></td>
-<td><img src="image-20210710185101011.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185101011" style="zoom: 67%;" /></td>
-    </tr>
+<table>
+<tr>
+<td>
+<img src="image-20210710185133518.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185133518" style="zoom:67%;" />
+</td>
+<td>
+<img src="image-20210710185200310.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185200310" style="zoom: 67%;" />
+</td>
+</tr>
+<pre><code class="hljs">&lt;tr&gt;
+&lt;td&gt;&lt;img src=&quot;image-20210710185248694.png&quot; alt=&quot;image-20210710185248694&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/td&gt;</code></pre>
+<td>
+<img src="image-20210710185101011.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210710185101011" style="zoom: 67%;" />
+</td>
+<pre><code class="hljs">&lt;/tr&gt;</code></pre>
 </table>
 <h2 id="派生数据类型">派生数据类型</h2>
 <p>由于发送消息耗费的时间巨大，我们要尽可能地减少消息的发送。具体有三种方法：</p>
-<ol>
+<ol type="1">
 <li>通信函数中的count参数</li>
 <li>派生数据类型</li>
 <li>MPI_Pack/Unpack函数</li>

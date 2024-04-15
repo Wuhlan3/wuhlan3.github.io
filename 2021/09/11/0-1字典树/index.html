@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          395 words
+          396 words
         
       </span>
     
@@ -308,26 +308,38 @@
             
               <div class="markdown-body">
                 
-                <h2 id="不含连续1的非负整数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/">不含连续1的非负整数</a></h2>
-<p>在该链接的基础上添加自己的理解<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/">https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/</a></p>
-<p><img src="image-20210911231521950.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210911231521950"></p>
+                <h2 id="不含连续1的非负整数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/">不含连续1的非负整数</a></h2>
+<p>在该链接的基础上添加自己的理解<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/">https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/</a></p>
+<figure>
+<img src="image-20210911231521950.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210911231521950" />
+<figcaption aria-hidden="true">image-20210911231521950</figcaption>
+</figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findIntegers</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-comment">//初始化一棵树，直接使用动态规划计算每一层的 所求整数</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-number">31</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>] = dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; <span class="hljs-number">31</span>; ++i) &#123;<br>            dp[i] = dp[i - <span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">2</span>];<br>        &#125;<br>        <span class="hljs-comment">//pre用于记录上一层的值:0或1</span><br>        <span class="hljs-comment">//res用于返回</span><br>        <span class="hljs-type">int</span> pre = <span class="hljs-number">0</span>, res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">29</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;<br>            <span class="hljs-type">int</span> val = <span class="hljs-number">1</span> &lt;&lt; i;    <span class="hljs-comment">//取某一位</span><br>            <span class="hljs-keyword">if</span> ((n &amp; val) != <span class="hljs-number">0</span>) &#123;    <span class="hljs-comment">//判断是否与这一位有关，即该层是否有右子树</span><br>                <br>                n -= val;    <span class="hljs-comment">//清除这一位</span><br>                res += dp[i + <span class="hljs-number">1</span>];    <span class="hljs-comment">//有右子树的时候，把左子树的相关值添加到res</span><br>                <br>                <span class="hljs-comment">//如果上一层为1且该层为1，则直接结束遍历</span><br>                <span class="hljs-keyword">if</span> (pre == <span class="hljs-number">1</span>) &#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                pre = <span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;        <span class="hljs-comment">//若无右子树，则进入左子树，到下一层继续判断</span><br>                pre = <span class="hljs-number">0</span>;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>) &#123;<br>                ++res;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h2 id="关于如何使用graphviz绘制二叉树">关于如何使用graphviz绘制二叉树</h2>
+<h2
+id="关于如何使用graphviz绘制二叉树">关于如何使用graphviz绘制二叉树</h2>
 <h3 id="下载方式">下载方式</h3>
 <p>linux:</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> install graphviz<br></code></pre></td></tr></table></figure>
 <p>windows:</p>
-<p><a target="_blank" rel="noopener" href="https://www.graphviz.org/download/">https://www.graphviz.org/download/</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.graphviz.org/download/">https://www.graphviz.org/download/</a></p>
 <h3 id="绘制方式">绘制方式</h3>
 <p>测试程序：</p>
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xl">digraph binaryTree&#123;<br>    node[shape=<span class="hljs-built_in">circle</span>,<span class="hljs-built_in">color</span>=red,fontcolor=blue,fontsize=<span class="hljs-number">10</span>];<br>    root[<span class="hljs-built_in">color</span>=blue,fontcolor=black,fontsize=<span class="hljs-number">20</span>];<br>    <span class="hljs-function"><span class="hljs-title">root</span>-&gt;</span>a[style=dotted];<br>    <span class="hljs-function"><span class="hljs-title">root</span>-&gt;</span>b;<br>    <span class="hljs-function"><span class="hljs-title">a</span>-&gt;</span>c;<br>    <span class="hljs-function"><span class="hljs-title">a</span>-&gt;</span>d;<br>    <span class="hljs-function"><span class="hljs-title">b</span>-&gt;</span>e;<br>    <span class="hljs-function"><span class="hljs-title">b</span>-&gt;</span>f;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>linux直接在终端输入/windows需要加入环境变量，在cmd输入：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">dot -Tpng -o <span class="hljs-built_in">tree</span>.png test.dot<br></code></pre></td></tr></table></figure>
 <h3 id="生成效果">生成效果</h3>
-<p><img src="tree.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="tree"></p>
+<figure>
+<img src="tree.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="tree" />
+<figcaption aria-hidden="true">tree</figcaption>
+</figure>
 <h2 id="参考资料">参考资料</h2>
-<p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62777936">https://zhuanlan.zhihu.com/p/62777936</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/">https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62777936">https://zhuanlan.zhihu.com/p/62777936</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/">https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/</a></p>
 
                 
               </div>

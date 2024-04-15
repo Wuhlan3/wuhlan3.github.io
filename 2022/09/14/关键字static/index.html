@@ -308,58 +308,59 @@
             
               <div class="markdown-body">
                 
-                <h1>关键字static</h1>
+                <h1 id="关键字static">关键字static</h1>
 <blockquote>
 <p>最近的面试都有涉及到，所以来深入汇总一下它的特点</p>
 </blockquote>
-<ol>
+<ol type="1">
 <li>三大特性</li>
 <li>生命周期</li>
 <li>作用范围</li>
 <li>类中的特点</li>
 </ol>
-<h2 id="1-三大特性">1. 三大特性</h2>
-<h4 id="1-1-隐藏">1.1 隐藏</h4>
+<h2 id="三大特性">1. 三大特性</h2>
+<h4 id="隐藏">1.1 隐藏</h4>
 <blockquote>
 <p>const关键字也和static一样，有隐藏的作用。仅作用于本文件，避免同名的冲突。</p>
 </blockquote>
 <p>当同时编译多个文件时，所有未加static前缀的全局变量和函数都具有全局可见性。</p>
-<h4 id="1-2-初始化为0">1.2 初始化为0</h4>
+<h4 id="初始化为0">1.2 初始化为0</h4>
 <p>其实全局变量也具备这一属性，因为全局变量也存储在静态数据区。在静态数据区，内存中所有的字节默认值都是0x00，某些时候这一特点可以减少程序员的工作量。</p>
-<h4 id="1-3-持久化">1.3 持久化</h4>
+<h4 id="持久化">1.3 持久化</h4>
 <p>（static变量中的记忆功能和全局生存期）存储在静态数据区的变量会在程序刚开始运行时就完成初始化，也是唯一的一次初始化。共有两种变量存储在<strong>静态存储区</strong>：全局变量和static变量，只不过和全局变量比起来，static可以控制变量的可见范围，说到底static还是用来隐藏的。</p>
-<h2 id="2-生命周期">2. 生命周期</h2>
+<h2 id="生命周期">2. 生命周期</h2>
 <ul>
 <li><strong>非静态局部变量</strong>的生命周期是：进入作用域生命周期开始，出作用域生命周期结束</li>
 <li><strong>全局变量</strong>和<strong>静态变量</strong>的生命周期是：整个程序的生命周期</li>
 </ul>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>生命周期</th>
 <th>无static</th>
 <th>有static</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>局部变量</td>
 <td>进入作用域生命周期开始，出作用域生命周期结束</td>
 <td>整个程序的生命周期</td>
 </tr>
-<tr>
+<tr class="even">
 <td>全局变量</td>
 <td>整个程序的生命周期</td>
 <td>整个程序的生命周期</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>类中成员变量</td>
 <td>每个对象都有一份拷贝</td>
 <td>属于整个类所有，所有对象只有一份拷贝</td>
 </tr>
 </tbody>
 </table>
-<h2 id="3-作用范围">3. 作用范围</h2>
+<h2 id="作用范围">3. 作用范围</h2>
 <ul>
 <li>静态与非静态局部变量限制在局部范围内，</li>
 <li>非静态全局变量作用于整个工程，静态全局变量作用于当前文件；</li>
@@ -367,44 +368,45 @@
 </ul>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>作用范围</th>
 <th>无static</th>
 <th>有static</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>局部变量</td>
 <td>局部范围</td>
 <td>局部范围</td>
 </tr>
-<tr>
+<tr class="even">
 <td>全局变量</td>
 <td>整个工程</td>
 <td>当前文件</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>函数</td>
 <td>可在其他文件中引用</td>
 <td>仅在当前文件中使用</td>
 </tr>
-<tr>
+<tr class="even">
 <td>类成员变量</td>
 <td>与对象绑定</td>
 <td>可直接调用，不需要new一个对象</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>类成员函数</td>
 <td>与对象绑定</td>
 <td>可直接调用，不需要new一个对象</td>
 </tr>
 </tbody>
 </table>
-<h2 id="4-类中的static其他特性">4. 类中的static其他特性</h2>
-<ol>
+<h2 id="类中的static其他特性">4. 类中的static其他特性</h2>
+<ol type="1">
 <li>static<strong>类成员变量</strong>必须要在类外进行初始化，static修饰的变量先于对象存在，所以static修饰的变量要在类外初始化；</li>
-<li>由于static修饰的<strong>类成员函数</strong>属于类，不属于对象，因此static类成员函数是没有this指针的，this指针是指向本对象的指针。<strong>正因为没有this指针，所以static类成员函数不能访问非static的类成员，只能访问 static修饰的类成员</strong>；非static函数，既可以访问非static成员也可以访问static成员</li>
+<li>由于static修饰的<strong>类成员函数</strong>属于类，不属于对象，因此static类成员函数是没有this指针的，this指针是指向本对象的指针。<strong>正因为没有this指针，所以static类成员函数不能访问非static的类成员，只能访问
+static修饰的类成员</strong>；非static函数，既可以访问非static成员也可以访问static成员</li>
 <li>static<strong>类成员函数</strong>不能被virtual修饰，static成员不属于任何对象或实例，所以加上virtual没有任何实际意义；静态成员函数没有this指针，虚函数的实现是为每一个对象分配一个vptr指针，而vptr是通过this指针调用的，所以不能为virtual；虚函数的调用关系，<code>this-&gt;vptr-&gt;ctable-&gt;virtual function</code></li>
 </ol>
 <p>可以看一下static典型的使用例子，饿汉式的单例模式：</p>

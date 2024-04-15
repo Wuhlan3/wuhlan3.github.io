@@ -27,10 +27,10 @@
 <meta property="article:published_time" content="2021-07-29T06:24:50.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.499Z">
 <meta property="article:author" content="Wuhlan3">
+<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
-<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -311,70 +311,49 @@
             
               <div class="markdown-body">
                 
-                <h2 id="传输层：TCP、IP、SCTP">传输层：TCP、IP、SCTP</h2>
-<img src="image-20210729144500849.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729144500849" style="zoom:50%;" />
+                <h2 id="传输层tcpipsctp">传输层：TCP、IP、SCTP</h2>
+<p><img src="image-20210729144500849.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729144500849" style="zoom:50%;" /></p>
 <h3 id="术语解释">术语解释</h3>
 <ul>
-<li>
-<p>IPv4：网际协议版本4。给TCP、UDP、SCTP、ICMP和IGMP提供分组递送服务</p>
-</li>
-<li>
-<p>IPv6：网际协议版本6。给TCP、UDP、SCTP、ICMPv6提供分组递送服务</p>
-</li>
-<li>
-<p>TCP：传输控制协议。为用户进程提供可靠的全双工字节流。TCP套接字是一种<strong>流套接字</strong>（stream socket）。TCP关心<strong>确认</strong>、<strong>超时</strong>和<strong>重传</strong>之类的细节。</p>
-</li>
-<li>
-<p>UDP：用户数据报协议。是一个无连接协议。UDP套接字是一种<strong>数据报套接字</strong>（datagram socket）。UDP数据报不能保证最终达到它们的目的地。</p>
-</li>
-<li>
-<p>SCTP：流控制传输协议。提供可靠全双工<strong>关联</strong>的面向连接的协议。使用“关联”来指称SCTP的连接，因为SCTP是<strong>多宿</strong>的，从而每个关联的两端均涉及一组IP地址和端口号。提供<strong>消息服务</strong>，维护来自应用层的记录边界。</p>
-<p>关联：两个系统间的一次通信，可能因为支持多宿而涉及不止两个地址。</p>
-</li>
-<li>
-<p>ICMP：网际控制消息协议。处理在路由器和主机之间流通的错误和控制消息。ping和traceroute同样使用ICMP。</p>
-</li>
-<li>
-<p>IGMP：网际组管理协议。IGMP用于多播，在IPv4中是可选的。</p>
-</li>
-<li>
-<p>ARP：地址解析协议。ARP将IPv4地址映射成一个硬件地址。</p>
-</li>
-<li>
-<p>RARP：反向地址解析协议。把一个硬件地址解析成一个IPv4地址。</p>
-</li>
-<li>
-<p>ICMPv6：ICMPv6综合了ICMPv4、IGMP和ARP的功能。</p>
-</li>
-<li>
-<p>BPF：BSD分组过滤器（BSD packet filter）。该接口也提供了对于数据链路层的访问能力，通常在Berkeley的内核中找到。</p>
-</li>
-<li>
-<p>DLPI：数据链路提供者接口（datalink provider interface）。该接口也提供数据链路层的访问能力，通常随SVR4的内核提供。</p>
-</li>
-<li>
-<p>RFC：请求评注 Request for Comments。所有网际协议都有RFC的文档来定义，这些RFC就是它们的正式规范。</p>
-</li>
-<li>
-<p>双栈主机：或者说IPv4/IPv6主机，表示同时支持IPv4和IPv6的主机</p>
-</li>
+<li><p>IPv4：网际协议版本4。给TCP、UDP、SCTP、ICMP和IGMP提供分组递送服务</p></li>
+<li><p>IPv6：网际协议版本6。给TCP、UDP、SCTP、ICMPv6提供分组递送服务</p></li>
+<li><p>TCP：传输控制协议。为用户进程提供可靠的全双工字节流。TCP套接字是一种<strong>流套接字</strong>（stream
+socket）。TCP关心<strong>确认</strong>、<strong>超时</strong>和<strong>重传</strong>之类的细节。</p></li>
+<li><p>UDP：用户数据报协议。是一个无连接协议。UDP套接字是一种<strong>数据报套接字</strong>（datagram
+socket）。UDP数据报不能保证最终达到它们的目的地。</p></li>
+<li><p>SCTP：流控制传输协议。提供可靠全双工<strong>关联</strong>的面向连接的协议。使用“关联”来指称SCTP的连接，因为SCTP是<strong>多宿</strong>的，从而每个关联的两端均涉及一组IP地址和端口号。提供<strong>消息服务</strong>，维护来自应用层的记录边界。</p>
+<p>关联：两个系统间的一次通信，可能因为支持多宿而涉及不止两个地址。</p></li>
+<li><p>ICMP：网际控制消息协议。处理在路由器和主机之间流通的错误和控制消息。ping和traceroute同样使用ICMP。</p></li>
+<li><p>IGMP：网际组管理协议。IGMP用于多播，在IPv4中是可选的。</p></li>
+<li><p>ARP：地址解析协议。ARP将IPv4地址映射成一个硬件地址。</p></li>
+<li><p>RARP：反向地址解析协议。把一个硬件地址解析成一个IPv4地址。</p></li>
+<li><p>ICMPv6：ICMPv6综合了ICMPv4、IGMP和ARP的功能。</p></li>
+<li><p>BPF：BSD分组过滤器（BSD packet
+filter）。该接口也提供了对于数据链路层的访问能力，通常在Berkeley的内核中找到。</p></li>
+<li><p>DLPI：数据链路提供者接口（datalink provider
+interface）。该接口也提供数据链路层的访问能力，通常随SVR4的内核提供。</p></li>
+<li><p>RFC：请求评注 Request for
+Comments。所有网际协议都有RFC的文档来定义，这些RFC就是它们的正式规范。</p></li>
+<li><p>双栈主机：或者说IPv4/IPv6主机，表示同时支持IPv4和IPv6的主机</p></li>
 </ul>
 <h3 id="三次握手">三次握手</h3>
-<img src="image-20210729160341386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729160341386" style="zoom: 80%;" />
-<ol>
+<p><img src="image-20210729160341386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729160341386" style="zoom: 80%;" /></p>
+<ol type="1">
 <li>服务器准备接受外来连接，<code>socket、bind、litsen</code>。该过程称为<strong>被动打开</strong></li>
 <li>客户端通过调用<code>connect</code>发起<strong>主动打开</strong>。发送SYN报文，告诉对方初始序号。（SYN报文不携带数据，其所在的IP数据报仅包含一个IP首部，一个TCP首部和可能有的TCP选项）</li>
 <li>服务器发送ACK+SYN。</li>
 <li>客户端确认SYN，发送ACK。</li>
 </ol>
 <div class="note note-success">
-            <p><strong>TCP选项</strong>：</p><ul><li>MSS选项：告知对端，我的最大报文段大小</li><li>窗口规模选项：指定TCP首部中通告窗口必须左移扩大的位数</li><li>时间戳选项：防止失而复现的分组可能造成的数据损坏</li></ul><p>后两个选项也可以称为<strong>长肥管道选项</strong></p>
+            <p><strong>TCP选项</strong>：</p><ul><li>MSS选项：告知对端，我的最大报文段大小</li><li>窗口规模选项：指定TCP首部中通告窗口必须左移扩大的位数</li><li>时间戳选项：防止失而复现的分组可能造成的数据损坏</li></ul><p>后两个选项也可以称为<strong>长肥管道选项</strong></p>
           </div>
 <h3 id="四次握手">四次握手</h3>
-<img src="image-20210729172057463.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729172057463" style="zoom: 60%;" />
-<ol>
-<li>应用进程首先调用<code>close</code>，该过程为<strong>主动关闭</strong>(passive close)。该端的TCP发送一个FIN报文段</li>
-<li>接收到FIN的对端执行<strong>被动关闭</strong>(passive close)。要进行ACK确认，同时要想应用程序传递一个文件结束符(EOF)。</li>
+<p><img src="image-20210729172057463.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729172057463" style="zoom: 60%;" /></p>
+<ol type="1">
+<li>应用进程首先调用<code>close</code>，该过程为<strong>主动关闭</strong>(passive
+close)。该端的TCP发送一个FIN报文段</li>
+<li>接收到FIN的对端执行<strong>被动关闭</strong>(passive
+close)。要进行ACK确认，同时要想应用程序传递一个文件结束符(EOF)。</li>
 <li>一段时间后，应用进程将会调用<code>close</code>关闭套接字。同时发送一个FIN。</li>
 <li>接收到FIN的对端，将会进行ACK确认。</li>
 </ol>
@@ -383,26 +362,23 @@
           </div>
 <h3 id="状态转换图">状态转换图</h3>
 <p>状态转换图给出了11种TCP状态的名称。这些状态可以使用<code>netstat</code>显示，它是一个在调试客户/服务器应用时很有用的工具。</p>
-<img src="image-20210729172013939.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729172013939" style="zoom:67%;" />
-<h3 id="TIME-WAIT状态">TIME_WAIT状态</h3>
+<p><img src="image-20210729172013939.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210729172013939" style="zoom:67%;" /></p>
+<h3 id="time_wait状态">TIME_WAIT状态</h3>
 <p>停留在这个状态的持续时间是<strong>最长报文段生命期</strong>（MSL）的两倍，也称2MSL。</p>
-<p>TCP的实现要为MSL选择一个值。RFC 1122的建议是2分钟，而传统上使用30秒。所以TIME_WAIT状态的持续时间一般在1分钟~4分钟之间。具有最大的跳限的报文段在网络中的存在时间不应该超过MSL秒。</p>
+<p>TCP的实现要为MSL选择一个值。RFC
+1122的建议是2分钟，而传统上使用30秒。所以TIME_WAIT状态的持续时间一般在1分钟~4分钟之间。具有最大的跳限的报文段在网络中的存在时间不应该超过MSL秒。</p>
 <div class="note note-success">
-            <p>什么是<strong>迷途的重复分组</strong>（lost duplicate）或<strong>漫游的重复分组</strong>（wandering duplicate）？</p><p>当两个路由器之间链路断开或者某个路由器崩溃后，路由协议需要数秒钟或数分钟才能稳定并找出一条新的通路。这个时间段内就有可能发生路由循环。发送端TCP发现该报文段超时，就会重传该报文段，重传的报文段会选择某条候选路径到达目的地。但是若是路由循环突然修复了，那这个早先迷失在循环中的报文段也会被送到目的地。</p>
+            <p>什么是<strong>迷途的重复分组</strong>（lostduplicate）或<strong>漫游的重复分组</strong>（wanderingduplicate）？</p><p>当两个路由器之间链路断开或者某个路由器崩溃后，路由协议需要数秒钟或数分钟才能稳定并找出一条新的通路。这个时间段内就有可能发生路由循环。发送端TCP发现该报文段超时，就会重传该报文段，重传的报文段会选择某条候选路径到达目的地。但是若是路由循环突然修复了，那这个早先迷失在循环中的报文段也会被送到目的地。</p>
           </div>
 <p>TIME_WAIT状态存在的两个理由：</p>
-<ol>
-<li>
-<p>可靠地实现TCP全双工连接的终止</p>
-<p>保证客户端发送的最后一个ACK报文能够到达服务器，因为这个ACK报文可能丢失，站在服务器的角度看来，我已经发送了FIN+ACK报文请求断开了，客户端还没有给我回应，应该是我发送的请求断开报文它没有收到，于是服务器又会重新发送一次，而客户端就能在这个2MSL时间段内收到这个重传的报文，接着给出回应报文，并且会重启2MSL计时器。</p>
-</li>
-<li>
-<p>允许老的重复报文段在网络中消逝</p>
-<p>防止类似与“三次握手”中提到了的“已经失效的连接请求报文段”出现在本连接中。客户端发送完最后一个确认报文后，在这个2MSL时间中，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</p>
-</li>
+<ol type="1">
+<li><p>可靠地实现TCP全双工连接的终止</p>
+<p>保证客户端发送的最后一个ACK报文能够到达服务器，因为这个ACK报文可能丢失，站在服务器的角度看来，我已经发送了FIN+ACK报文请求断开了，客户端还没有给我回应，应该是我发送的请求断开报文它没有收到，于是服务器又会重新发送一次，而客户端就能在这个2MSL时间段内收到这个重传的报文，接着给出回应报文，并且会重启2MSL计时器。</p></li>
+<li><p>允许老的重复报文段在网络中消逝</p>
+<p>防止类似与“三次握手”中提到了的“已经失效的连接请求报文段”出现在本连接中。客户端发送完最后一个确认报文后，在这个2MSL时间中，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</p></li>
 </ol>
 <h3 id="端口号">端口号</h3>
-<ol>
+<ol type="1">
 <li>0~1023：知名端口号</li>
 <li>1024~49151：注册端口号</li>
 <li>49152~65535：动态端口号/私有端口号</li>
@@ -412,10 +388,10 @@
 <h3 id="并发服务器">并发服务器</h3>
 <p><strong>监听套接字</strong>：外地IP地址和外地端口没有指定，我们用<code>*:*</code>来表示。</p>
 <p>其中，星号称为通配符(wildcard)</p>
-<img src="image-20210730100838061.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730100838061" style="zoom:60%;" />
-<img src="image-20210730102137041.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730102137041" style="zoom:60%;" />
-<img src="image-20210730102235665.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730102235665" style="zoom:60%;" />
-<img src="image-20210730102254290.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730102254290" style="zoom:60%;" />
+<p><img src="image-20210730100838061.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730100838061" style="zoom:60%;" /></p>
+<p><img src="image-20210730102137041.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730102137041" style="zoom:60%;" /></p>
+<p><img src="image-20210730102235665.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730102235665" style="zoom:60%;" /></p>
+<p><img src="image-20210730102254290.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210730102254290" style="zoom:60%;" /></p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] 《UNIX网络编程_卷1》</p>
 
@@ -430,13 +406,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+      
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
-      
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   

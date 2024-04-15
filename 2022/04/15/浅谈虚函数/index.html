@@ -23,17 +23,11 @@
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="C++虚函数">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426230451120.png">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426232955582.png">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426232515628.png">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426235419862.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200405145546581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0phY2tzcWg=,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2022-04-15T15:53:00.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.794Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426230451120.png">
   
   
   
@@ -259,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          518 words
+          525 words
         
       </span>
     
@@ -312,17 +306,17 @@
             
               <div class="markdown-body">
                 
-                <h1>浅谈虚函数</h1>
-<h3 id="1-虚函数含义">1.虚函数含义</h3>
+                <h1 id="浅谈虚函数">浅谈虚函数</h1>
+<h3 id="虚函数含义">1.虚函数含义</h3>
 <p>用virtual声明类的成员函数，称之为虚函数</p>
-<h3 id="2-虚函数作用">2.虚函数作用</h3>
+<h3 id="虚函数作用">2.虚函数作用</h3>
 <p>一句话：实现多态的基石</p>
-<ol>
+<ol type="1">
 <li>存在继承关系 子类继承父类</li>
 <li>子类重写父类的virtual function</li>
 <li>子类以父类的指针或者是引用的身份出现</li>
 </ol>
-<h3 id="3-实现原理-多态的实现原理">3.实现原理/多态的实现原理</h3>
+<h3 id="实现原理多态的实现原理">3.实现原理/多态的实现原理</h3>
 <p>两个关键点，虚函数表指针和虚函数表</p>
 <blockquote>
 <p>问题一、虚函数指针在哪里？干什么用的？</p>
@@ -337,15 +331,40 @@
 </blockquote>
 <p>使用gdb查看一个类的内存布局。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">g++ -g demo<span class="hljs-selector-class">.cpp</span><br>gdb <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.out</span><br>list  #列出函数<br><span class="hljs-selector-tag">b</span> <span class="hljs-number">14</span>  #在十四行打一个断点，b是break的意思<br><span class="hljs-selector-tag">p</span> <span class="hljs-selector-tag">b</span>   #显示内存布局<br></code></pre></td></tr></table></figure>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426230451120.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220426230451120"></p>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220426230451120.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220426230451120" />
+<figcaption aria-hidden="true">image-20220426230451120</figcaption>
+</figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">Base</span>() : <span class="hljs-built_in">m_num</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">m_ch</span>(<span class="hljs-string">&#x27; &#x27;</span>)&#123;&#125;;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;Base virtual print()&quot;</span>&lt;&lt;endl;&#125;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;Base print()&quot;</span>&lt;&lt;endl;&#125;<br>    <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> m_num;<br>        <span class="hljs-type">char</span> m_ch;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    Base b;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426232955582.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220426232955582"></p>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426232515628.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220426232515628"></p>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220426232955582.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220426232955582" />
+<figcaption aria-hidden="true">image-20220426232955582</figcaption>
+</figure>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220426232515628.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220426232515628" />
+<figcaption aria-hidden="true">image-20220426232515628</figcaption>
+</figure>
 <p>如上面类中的首个位置保存的是虚函数指针，指针的值为0x4009c0，这个地址就是虚函数表的地址。再看，虚函数表中存放的是函数的指针，指向了类的虚函数。注意，虚函数表里只存放了虚函数的指针，没有普通函数的指针喔！</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">Base</span>() : <span class="hljs-built_in">m_num</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">m_ch</span>(<span class="hljs-string">&#x27; &#x27;</span>)&#123;&#125;;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;Base virtual print()&quot;</span>&lt;&lt;endl;&#125;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;Base print()&quot;</span>&lt;&lt;endl;&#125;<br>    <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> m_num;<br>        <span class="hljs-type">char</span> m_ch;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Derived</span>: <span class="hljs-keyword">public</span> Base&#123;<br>    <span class="hljs-keyword">private</span>:<br>        <span class="hljs-type">int</span> m_name;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    Base b;<br>    Derived d;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220426235419862.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220426235419862"></p>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220426235419862.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220426235419862" />
+<figcaption aria-hidden="true">image-20220426235419862</figcaption>
+</figure>
 <p>注意注意！！！子类和父类不共用虚函数表</p>
-<p><img src="https://img-blog.csdnimg.cn/20200405145546581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0phY2tzcWg=,size_16,color_FFFFFF,t_70" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img
+src="https://img-blog.csdnimg.cn/20200405145546581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0phY2tzcWg=,size_16,color_FFFFFF,t_70" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 
                 
               </div>

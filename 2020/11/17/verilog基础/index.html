@@ -322,9 +322,11 @@
             
               <div class="markdown-body">
                 
-                <h1>Verilog HDL基础</h1>
-<p>​	硬件描述语言HDL（Hardware Description Language）是硬件设计人员和电子自动化（EDA）工具之间的接口，其主要目的是用来编写设计文件，建立电子系统行为级的仿真模型。</p>
-<p>​	硬件描述语言利用计算机的强大功能对用HDL建模的复杂数字逻辑进行仿真，然后自动综合以生成符合要求且再电路结构上可以实现的数字逻辑网表（Netlist），根据网表和某种工艺的器件自动生成具体电路然后生成该工艺条件下这种具体电路的延时模型。仿真验证无误后用于制造ASIC芯片或写入CPLD和FPGA器件中。</p>
+                <h1 id="verilog-hdl基础">Verilog HDL基础</h1>
+<p>​ 硬件描述语言HDL（Hardware Description
+Language）是硬件设计人员和电子自动化（EDA）工具之间的接口，其主要目的是用来编写设计文件，建立电子系统行为级的仿真模型。</p>
+<p>​
+硬件描述语言利用计算机的强大功能对用HDL建模的复杂数字逻辑进行仿真，然后自动综合以生成符合要求且再电路结构上可以实现的数字逻辑网表（Netlist），根据网表和某种工艺的器件自动生成具体电路然后生成该工艺条件下这种具体电路的延时模型。仿真验证无误后用于制造ASIC芯片或写入CPLD和FPGA器件中。</p>
 <p>这种特殊结构能够：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">1.描述电路的连接<br>2.描述电路的功能<br>3.在不同抽象级上描述电路<br>4.描述电路的时序<br>5.表达具有并行性<br></code></pre></td></tr></table></figure>
 <p>HDL主要有两种：Verilog 和 VHDL</p>
@@ -332,174 +334,193 @@
 <p>行为级的抽象：</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gcode">·系统级<span class="hljs-comment">(system)</span><br>·算法级<span class="hljs-comment">(algorithm)</span><br>·寄存器传输级<span class="hljs-comment">(RTL)</span><span class="hljs-comment">(Register Transfer Level)</span><br>·逻辑门级<span class="hljs-comment">(gate)</span><br>·开关电路级<span class="hljs-comment">(switch)</span><br></code></pre></td></tr></table></figure>
 <p>对于这些，较适合使用Verilog设计；对于特大型（千万门级以上）的系统级设计，则VHDL比较合适。</p>
-<h3 id="Verilog的设计方法">Verilog的设计方法</h3>
-<ol>
+<h3 id="verilog的设计方法">Verilog的设计方法</h3>
+<ol type="1">
 <li>自顶向下（top-down）（与模拟电路自底向上相对）</li>
 </ol>
-<p><img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
-<ol start="2">
-<li>
-<p>模块设计流程：</p>
-<p><img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
-</li>
+<figure>
+<img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<ol start="2" type="1">
+<li><p>模块设计流程：</p>
+<figure>
+<img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
 </ol>
 <p><strong>需求分析</strong></p>
-<p>工作人员需要对用户提出的功能要求进行分析理解，做出电路系统的整体规划，形成详细的技术指标，确定初步方案。例如，要设计一个电子屏，需要考虑供电方式、工作频率、产品体积、成本、功耗等，电路实现采用 ASIC 还是选用 FPGA/CPLD 器件等。</p>
+<p>工作人员需要对用户提出的功能要求进行分析理解，做出电路系统的整体规划，形成详细的技术指标，确定初步方案。例如，要设计一个电子屏，需要考虑供电方式、工作频率、产品体积、成本、功耗等，电路实现采用
+ASIC 还是选用 FPGA/CPLD 器件等。</p>
 <p><strong>功能划分</strong></p>
 <p>正确地分析了用户的电路需求后，就可以进行逻辑功能的总体设计，设计整个电路的功能、接口和总体结构，考虑功能模块的划分和设计思路，各子模块的接口和时序（包括接口时序和内部信号的时序）等，向项目组成员合理分配子模块设计任务。</p>
 <p><strong>文本描述</strong></p>
-<p>可以用任意的文本编辑器，也可以用专用的 HDL 编辑环境，对所需求的数字电路进行设计建模，保存为 <strong>.v</strong> 文件。</p>
+<p>可以用任意的文本编辑器，也可以用专用的 HDL
+编辑环境，对所需求的数字电路进行设计建模，保存为 <strong>.v</strong>
+文件。</p>
 <p><strong>功能仿真（前仿真）</strong></p>
 <p>对建模文件进行编译，对模型电路进行功能上的仿真验证，查找设计的错误并修正。</p>
-<p>此时的仿真验证并没有考虑到信号的延迟等一些 timing 因素，只是验证逻辑上的正确性。</p>
+<p>此时的仿真验证并没有考虑到信号的延迟等一些 timing
+因素，只是验证逻辑上的正确性。</p>
 <p><strong>逻辑综合</strong></p>
-<p>综合（synthesize），就是在标准单元库和特定的设计约束的基础上，将设计的高层次描述（Verilog 建模）转换为门级网表的过程。逻辑综合的目的是产生物理电路门级结构，并在逻辑、时序上进行一定程度的优化，寻求逻辑、面积、功耗的平衡，增强电路的可测试性。</p>
+<p>综合（synthesize），就是在标准单元库和特定的设计约束的基础上，将设计的高层次描述（Verilog
+建模）转换为门级网表的过程。逻辑综合的目的是产生物理电路门级结构，并在逻辑、时序上进行一定程度的优化，寻求逻辑、面积、功耗的平衡，增强电路的可测试性。</p>
 <p>但不是所有的 Verilog 语句都是可以综合成逻辑单元的，例如时延语句。</p>
 <p><strong>布局布线</strong></p>
-<p>根据逻辑综合出的网表与约束文件，利用厂家提供的各种基本标准单元库，对门级电路进行布局布线。至此，已经将 Verilog 设计的数字电路，设计成由标准单元库组成的数字电路。</p>
+<p>根据逻辑综合出的网表与约束文件，利用厂家提供的各种基本标准单元库，对门级电路进行布局布线。至此，已经将
+Verilog 设计的数字电路，设计成由标准单元库组成的数字电路。</p>
 <p><strong>时序仿真（后仿真）</strong></p>
-<p>布局布线后，电路模型中已经包含了时延信息。利用在布局布线中获得的精确参数，用仿真软件验证电路的时序。单元器件的不同、布局布线方案都会给电路的时序造成影响，严重时会出现错误。出错后可能就需要重新修改 RTL（寄存器传输级描述，即 Verilog 初版描述），重复后面的步骤。这样的过程可能反复多次，直至错误完全排除。</p>
+<p>布局布线后，电路模型中已经包含了时延信息。利用在布局布线中获得的精确参数，用仿真软件验证电路的时序。单元器件的不同、布局布线方案都会给电路的时序造成影响，严重时会出现错误。出错后可能就需要重新修改
+RTL（寄存器传输级描述，即 Verilog
+初版描述），重复后面的步骤。这样的过程可能反复多次，直至错误完全排除。</p>
 <p><strong>FPGA/CPLD 下载或 ASIC 制造工艺生产</strong></p>
-<p>完成上面所有步骤后，就可以通过开发工具将设计的数字电路目标文件下载到 FPGA/CPLD 芯片中，然后在电路板上进行调试、验证。</p>
-<p>如果要在 ASIC 上实现，则需要制造芯片。一般芯片制造时，也需要先在 FPGA 板卡上进行逻辑功能的验证。</p>
+<p>完成上面所有步骤后，就可以通过开发工具将设计的数字电路目标文件下载到
+FPGA/CPLD 芯片中，然后在电路板上进行调试、验证。</p>
+<p>如果要在 ASIC 上实现，则需要制造芯片。一般芯片制造时，也需要先在 FPGA
+板卡上进行逻辑功能的验证。</p>
 <h3 id="基础语法">基础语法</h3>
 <h4 id="多路选择器">多路选择器</h4>
 <p>（没有考虑延时问题）</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> muxtwo(out, a, b, s1);    <span class="hljs-comment">//该模块中包含这些变量</span><br>    <span class="hljs-keyword">input</span> a,b,s1;<br>    <span class="hljs-keyword">output</span> out;<br>    <span class="hljs-keyword">reg</span> out;<br>    <span class="hljs-keyword">always</span> @(s1 <span class="hljs-keyword">or</span> a <span class="hljs-keyword">or</span> b)        <span class="hljs-comment">//当sl或a或b发生变化时，执行下列语句</span><br>    <span class="hljs-keyword">if</span> (! s1) out = a;<br>    <span class="hljs-keyword">else</span> out = b;<br>    <span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
-<p><img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201109201401720"></p>
+<figure>
+<img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201109201401720" />
+<figcaption aria-hidden="true">image-20201109201401720</figcaption>
+</figure>
 <p>结构级描述（描述中含有传输延时）</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> twomux(out,a,b,s1);<br>    <span class="hljs-keyword">input</span> a,b,s1;<br>    <span class="hljs-keyword">output</span> out;<br>    <span class="hljs-keyword">not</span> u1(ns1, s1);            <span class="hljs-comment">//ns1 非门</span><br>    <span class="hljs-keyword">and</span> #<span class="hljs-number">1</span> u2(se1a, a, ns1);    <span class="hljs-comment">//se1a se1b 与门a和b</span><br>    <span class="hljs-keyword">and</span> #<span class="hljs-number">1</span> u3(se1b, b, s1);<br>    <span class="hljs-keyword">or</span>    #<span class="hljs-number">2</span> u4(out, se1a, se1b);<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
 <h4 id="三位加法器">三位加法器</h4>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> adder(count, sum, a, b, cin);<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] a,b;<span class="hljs-comment">//分配三位</span><br>    <span class="hljs-keyword">input</span> cin;		<span class="hljs-comment">//输入进位</span><br>    <span class="hljs-keyword">output</span> cout;	<span class="hljs-comment">//输出进位</span><br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] sum;<br>    <span class="hljs-keyword">assign</span> &#123;cout, sum&#125; = a+b+cin; <br>    <span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
 <h4 id="两位比较器">两位比较器</h4>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> compare(equal,a,b);<br>    <span class="hljs-keyword">output</span> equal;<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>]a,b;<br>    <span class="hljs-keyword">assign</span> equal=(a==b) ? <span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
-<h2 id="三、模块">三、模块</h2>
+<h2 id="三模块">三、模块</h2>
 <p>模块分为两部分：一、描述接口；二、描述逻辑功能</p>
 <p>声明输入输出口：<code>module 模块名(口1,口2,口3,……)</code></p>
-<h5 id="1-I-O说明：">1.I/O说明：</h5>
+<h5 id="io说明">1.I/O说明：</h5>
 <p>输入口：<code>input[信号位宽-1:0]端口名</code></p>
 <p>输出口：<code>output[信号位宽-1:0]端口名</code></p>
 <p>输入/输出口：<code>inout[信号位宽-1:0]端口名</code></p>
 <p>也可以卸载端口声明中：<code>module module_name(input port1, input port2,output port1, output port2……)</code></p>
-<h5 id="2-内部信号说明：">2.内部信号说明：</h5>
+<h5 id="内部信号说明">2.内部信号说明：</h5>
 <p>在模块内用到的和与端口有关的wire和 reg 类型变量的声明。</p>
 <p>如<code>reg[width-1:0]R变量1,R变量2……;</code></p>
 <p><code>wire[width-1:0]W变量1,W变量2……;</code></p>
-<h5 id="3-功能定义">3.功能定义</h5>
+<h5 id="功能定义">3.功能定义</h5>
 <p>（1）<code>assign</code>声明，如<code>assign a = b &amp; c;</code></p>
-<p>（2）用实例元件，如<code>and #2 ul(q,a,b);</code>	（ul是与门的名，#2指输出延迟两个单位时间，输入a,b，输出q）</p>
+<p>（2）用实例元件，如<code>and #2 ul(q,a,b);</code>
+（ul是与门的名，#2指输出延迟两个单位时间，输入a,b，输出q）</p>
 <p>（3）<code>always</code>块，如</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">posedge</span> clr);<br><span class="hljs-keyword">begin</span> <br>    <span class="hljs-keyword">if</span>(clr) q&lt;= <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(en) q&lt;=d;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p><strong>注意：上述3种例子是同时执行的（并发），顺序不会影响功能的实现；但是在always模块内，逻辑是按照指定顺序执行</strong></p>
-<p><img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145325925"></p>
-<p><img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145339991"></p>
+<figure>
+<img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145325925" />
+<figcaption aria-hidden="true">image-20201115145325925</figcaption>
+</figure>
+<figure>
+<img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145339991" />
+<figcaption aria-hidden="true">image-20201115145339991</figcaption>
+</figure>
 <h4 id="数据类型及其常量和变量">数据类型及其常量和变量</h4>
-<p><img src="6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145641460"></p>
-<p><img src="7.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145742133"></p>
-<p><img src="9.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145844734"></p>
-<p><img src="10.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145903038"></p>
-<h5 id="变量：">变量：</h5>
-<ol>
-<li>
-<p>wire型</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> a;            <span class="hljs-comment">//定义一个1位wire数据</span><br><span class="hljs-keyword">wire</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]b;        <span class="hljs-comment">//定义一个8位wire数据</span><br><span class="hljs-keyword">wire</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]c,d;    <span class="hljs-comment">//定义两个4位wire数据</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>reg型</p>
+<figure>
+<img src="6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145641460" />
+<figcaption aria-hidden="true">image-20201115145641460</figcaption>
+</figure>
+<figure>
+<img src="7.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145742133" />
+<figcaption aria-hidden="true">image-20201115145742133</figcaption>
+</figure>
+<figure>
+<img src="9.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145844734" />
+<figcaption aria-hidden="true">image-20201115145844734</figcaption>
+</figure>
+<figure>
+<img src="10.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115145903038" />
+<figcaption aria-hidden="true">image-20201115145903038</figcaption>
+</figure>
+<h5 id="变量">变量：</h5>
+<ol type="1">
+<li><p>wire型</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> a;            <span class="hljs-comment">//定义一个1位wire数据</span><br><span class="hljs-keyword">wire</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]b;        <span class="hljs-comment">//定义一个8位wire数据</span><br><span class="hljs-keyword">wire</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]c,d;    <span class="hljs-comment">//定义两个4位wire数据</span><br></code></pre></td></tr></table></figure></li>
+<li><p>reg型</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> rega;            <span class="hljs-comment">//定义一个1位reg数据</span><br><span class="hljs-keyword">reg</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]regb;        <span class="hljs-comment">//定义一个8位reg数据</span><br><span class="hljs-keyword">reg</span>[<span class="hljs-number">4</span>:<span class="hljs-number">1</span>]regc,regd;    <span class="hljs-comment">//定义两个4位reg数据</span><br></code></pre></td></tr></table></figure>
-<p><img src="11.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115150754701"></p>
-</li>
-<li>
-<p>memory型</p>
+<figure>
+<img src="11.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115150754701" />
+<figcaption aria-hidden="true">image-20201115150754701</figcaption>
+</figure></li>
+<li><p>memory型</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>] mema[<span class="hljs-number">255</span>,<span class="hljs-number">0</span>];    <span class="hljs-comment">//一个名为mema的存储器，有256个8位的寄存器</span><br></code></pre></td></tr></table></figure>
 <p>区别：</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] rega;    <span class="hljs-comment">//一个n位寄存器</span><br><span class="hljs-keyword">reg</span> mema [n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>];    <span class="hljs-comment">//一个n个1位寄存器构成的存储器</span><br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] rega;    <span class="hljs-comment">//一个n位寄存器</span><br><span class="hljs-keyword">reg</span> mema [n-<span class="hljs-number">1</span>:<span class="hljs-number">0</span>];    <span class="hljs-comment">//一个n个1位寄存器构成的存储器</span><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="四、运算符">四、运算符</h2>
-<p><img src="12.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115151500409"></p>
-<h4 id="Verilog特殊运算符">Verilog特殊运算符</h4>
-<ol>
+<h2 id="四运算符">四、运算符</h2>
+<figure>
+<img src="12.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115151500409" />
+<figcaption aria-hidden="true">image-20201115151500409</figcaption>
+</figure>
+<h4 id="verilog特殊运算符">Verilog特殊运算符</h4>
+<ol type="1">
 <li><code>===</code>和<code>!==</code></li>
 </ol>
-<p><img src="13.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115204158446"></p>
-<ol start="2">
-<li>
-<p>位拼接运算符</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog">&#123;a,b[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>],w,<span class="hljs-number">3&#x27;b101</span>&#125;<br>等于：&#123;a,b[<span class="hljs-number">3</span>],b[<span class="hljs-number">2</span>],b[<span class="hljs-number">1</span>],b[<span class="hljs-number">0</span>],w,<span class="hljs-number">1&#x27;b1</span>,<span class="hljs-number">1&#x27;b0</span>,<span class="hljs-number">1&#x27;b1</span>&#125;<br><br>&#123;<span class="hljs-number">4</span>&#123;w&#125;&#125;        <span class="hljs-comment">//等同于&#123;w,w,w,w&#125;</span><br>&#123;b,<span class="hljs-number">3</span>&#123;a,b&#125;&#125;    <span class="hljs-comment">//可嵌套，等同于&#123;b,a,b,a,b,a,b&#125;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>缩减运算符</p>
+<figure>
+<img src="13.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115204158446" />
+<figcaption aria-hidden="true">image-20201115204158446</figcaption>
+</figure>
+<ol start="2" type="1">
+<li><p>位拼接运算符</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog">&#123;a,b[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>],w,<span class="hljs-number">3&#x27;b101</span>&#125;<br>等于：&#123;a,b[<span class="hljs-number">3</span>],b[<span class="hljs-number">2</span>],b[<span class="hljs-number">1</span>],b[<span class="hljs-number">0</span>],w,<span class="hljs-number">1&#x27;b1</span>,<span class="hljs-number">1&#x27;b0</span>,<span class="hljs-number">1&#x27;b1</span>&#125;<br><br>&#123;<span class="hljs-number">4</span>&#123;w&#125;&#125;        <span class="hljs-comment">//等同于&#123;w,w,w,w&#125;</span><br>&#123;b,<span class="hljs-number">3</span>&#123;a,b&#125;&#125;    <span class="hljs-comment">//可嵌套，等同于&#123;b,a,b,a,b,a,b&#125;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>缩减运算符</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] B;<br><span class="hljs-keyword">reg</span> C;<br>    C = &amp;B;<br><span class="hljs-comment">//相当于</span><br>    C = ((B[<span class="hljs-number">0</span>]&amp;B[<span class="hljs-number">1</span>])&amp;B[<span class="hljs-number">2</span>])&amp;[<span class="hljs-number">3</span>]<br></code></pre></td></tr></table></figure>
-<p><img src="14.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115205211934"></p>
-</li>
+<figure>
+<img src="14.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115205211934" />
+<figcaption aria-hidden="true">image-20201115205211934</figcaption>
+</figure></li>
 </ol>
 <h4 id="赋值语句">赋值语句</h4>
-<ol>
-<li>
-<p>非阻塞赋值<code>a &lt;= b</code></p>
+<ol type="1">
+<li><p>非阻塞赋值<code>a &lt;= b</code></p>
 <p>(1)在语句块中，上述语句所赋的变量值不能立即为下面的语句所用</p>
 <p>(2)块结束之后才能完成本次操作，而所赋的值是上次赋值得到的</p>
-<p>(3)在编写可综合的时序逻辑模块时，这是最常用的赋值方法</p>
-</li>
-<li>
-<p>阻塞赋值<code>a = b</code></p>
+<p>(3)在编写可综合的时序逻辑模块时，这是最常用的赋值方法</p></li>
+<li><p>阻塞赋值<code>a = b</code></p>
 <p>(1)赋值语句执行完后，块才结束</p>
 <p>(2)b的值在赋值语句执行完后，立刻就能改变</p>
-<p>(3)在时序逻辑中使用，可能会出现意想不到的效果（贬义）</p>
-</li>
+<p>(3)在时序逻辑中使用，可能会出现意想不到的效果（贬义）</p></li>
 </ol>
 <p>简单理解</p>
-<p>​	1.非阻塞赋值：</p>
+<p>​ 1.非阻塞赋值：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk)<br>    <span class="hljs-keyword">begin</span> <br>        b &lt;= a;<br>        c &lt;= b;<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p><img src="15.png" srcset="/wuhlan3/img/loading.gif" lazyload alt=""></p>
-<ol start="2">
+<p><img src="15.png" srcset="/wuhlan3/img/loading.gif" lazyload /></p>
+<ol start="2" type="1">
 <li>阻塞赋值：</li>
 </ol>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk)<br>    <span class="hljs-keyword">begin</span> <br>        b = a;<br>        c = b;<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p><img src="16.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115211628565"></p>
+<figure>
+<img src="16.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20201115211628565" />
+<figcaption aria-hidden="true">image-20201115211628565</figcaption>
+</figure>
 <h4 id="块语句">块语句</h4>
-<ol>
-<li>
-<p>顺序块</p>
+<ol type="1">
+<li><p>顺序块</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span><br>    语句<span class="hljs-number">1</span>；<br>    语句<span class="hljs-number">2</span>；<br>    ……<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span>:块名<br>    语句<span class="hljs-number">1</span>；<br>    语句<span class="hljs-number">2</span>；<br>    ……<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>并行块</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">begin</span>:块名<br>    语句<span class="hljs-number">1</span>；<br>    语句<span class="hljs-number">2</span>；<br>    ……<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+<li><p>并行块</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span><br>    语句<span class="hljs-number">1</span>：<br>    语句<span class="hljs-number">2</span>：<br>    ……<br><span class="hljs-keyword">join</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span>:块名<br>    语句<span class="hljs-number">1</span>：<br>    语句<span class="hljs-number">2</span>：<br>    ……<br><span class="hljs-keyword">join</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>起始时间和结束时间</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">fork</span>:块名<br>    语句<span class="hljs-number">1</span>：<br>    语句<span class="hljs-number">2</span>：<br>    ……<br><span class="hljs-keyword">join</span><br></code></pre></td></tr></table></figure></li>
+<li><p>起始时间和结束时间</p>
 <p>顺序块：起始时间就是第一条语句开始被执行的时间，结束时间就是最后一条语句执行完的时间</p>
-<p>并行块：起始时间对于所有块来说是相同的，结束时间是按时间排序在最后的语句执行结束的时间。</p>
-</li>
+<p>并行块：起始时间对于所有块来说是相同的，结束时间是按时间排序在最后的语句执行结束的时间。</p></li>
 </ol>
 <p>分支与循环</p>
-<ol>
-<li>
-<p>if 没啥好说的</p>
-</li>
-<li>
-<p>case：</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] rega;<br><span class="hljs-keyword">reg</span>[<span class="hljs-number">9</span>:<span class="hljs-number">0</span>]  result;<br><span class="hljs-keyword">case</span>(rega)<br>    <span class="hljs-number">16&#x27;d0</span>: result = <span class="hljs-number">10&#x27;b0111_1111_11</span><br>    <span class="hljs-number">16&#x27;d1</span>: result = <span class="hljs-number">10&#x27;b1011_1111_11</span><br>    <span class="hljs-number">16&#x27;d2</span>: result = <span class="hljs-number">10&#x27;b1101_1111_11</span><br>    <span class="hljs-number">16&#x27;d3</span>: result = <span class="hljs-number">10&#x27;b1110_1111_11</span><br>    <span class="hljs-number">16&#x27;d4</span>: result = <span class="hljs-number">10&#x27;b1111_0111_11</span><br>    <span class="hljs-number">16&#x27;d5</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d6</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d7</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d8</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d9</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-keyword">default</span>: result = <span class="hljs-number">10&#x27;bx</span><br><span class="hljs-keyword">endcase</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>forever（多用于产生周期性波形）</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">forever</span> 语句；<br>或：<br><span class="hljs-keyword">forever</span><br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>repeat（后常接常量表达式）</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">repeat</span>(表达式) 语句；<br>或：<br><span class="hljs-keyword">repeat</span>（表达式）<br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>while</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">while</span>(表达式) 语句；<br>或：<br><span class="hljs-keyword">while</span>（表达式）<br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>for 没啥好说的</p>
-</li>
+<ol type="1">
+<li><p>if 没啥好说的</p></li>
+<li><p>case：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span>[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] rega;<br><span class="hljs-keyword">reg</span>[<span class="hljs-number">9</span>:<span class="hljs-number">0</span>]  result;<br><span class="hljs-keyword">case</span>(rega)<br>    <span class="hljs-number">16&#x27;d0</span>: result = <span class="hljs-number">10&#x27;b0111_1111_11</span><br>    <span class="hljs-number">16&#x27;d1</span>: result = <span class="hljs-number">10&#x27;b1011_1111_11</span><br>    <span class="hljs-number">16&#x27;d2</span>: result = <span class="hljs-number">10&#x27;b1101_1111_11</span><br>    <span class="hljs-number">16&#x27;d3</span>: result = <span class="hljs-number">10&#x27;b1110_1111_11</span><br>    <span class="hljs-number">16&#x27;d4</span>: result = <span class="hljs-number">10&#x27;b1111_0111_11</span><br>    <span class="hljs-number">16&#x27;d5</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d6</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d7</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d8</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-number">16&#x27;d9</span>: result = <span class="hljs-number">10&#x27;b1111_1111_11</span><br>    <span class="hljs-keyword">default</span>: result = <span class="hljs-number">10&#x27;bx</span><br><span class="hljs-keyword">endcase</span><br></code></pre></td></tr></table></figure></li>
+<li><p>forever（多用于产生周期性波形）</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">forever</span> 语句；<br>或：<br><span class="hljs-keyword">forever</span><br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+<li><p>repeat（后常接常量表达式）</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">repeat</span>(表达式) 语句；<br>或：<br><span class="hljs-keyword">repeat</span>（表达式）<br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+<li><p>while</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">while</span>(表达式) 语句；<br>或：<br><span class="hljs-keyword">while</span>（表达式）<br>    <span class="hljs-keyword">begin</span><br>        多条语句<br>    <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+<li><p>for 没啥好说的</p></li>
 </ol>
 
                 

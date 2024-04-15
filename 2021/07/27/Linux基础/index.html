@@ -308,52 +308,38 @@
             
               <div class="markdown-body">
                 
-                <h1>Linux</h1>
-<h4 id="一些名词：">一些名词：</h4>
+                <h1 id="linux">Linux</h1>
+<h4 id="一些名词">一些名词：</h4>
 <ul>
-<li>
-<p>Unix：</p>
-</li>
-<li>
-<p>Minix：</p>
-</li>
-<li>
-<p>GNU：GNU是&quot;GNU’s Not Unix&quot;的递归缩写</p>
+<li><p>Unix：</p></li>
+<li><p>Minix：</p></li>
+<li><p>GNU：GNU是"GNU's Not Unix"的递归缩写</p>
 <p>GNU几个重要的软件：</p>
 <ul>
 <li>Emacs</li>
 <li>GNU C（GCC）</li>
 <li>GNU C Library （glibc）</li>
 <li>Bash shell</li>
-</ul>
-</li>
-<li>
-<p>FSF：自由软件基金会（FSF, Free Software Foundation）</p>
-</li>
-<li>
-<p>GPL：通用公共许可证（General Public License, GPL）</p>
-</li>
-<li>
-<p>LGPL：(GNU Lesser General Public License) <em>LGPL</em>是GPL的一个为主要为类库使用设计的开源协议。</p>
-</li>
-<li>
-<p>Open source：</p>
-</li>
-<li>
-<p>POSIX：可携式操作系统接口（Portable Operating System Interface）的缩写，重点在 规范核心与应用程序之间的接口</p>
-</li>
-<li>
-<p>Linux distribution：（Kernel + Softwares + Tools + 可完整安装程序）</p>
-</li>
-<li>
-<p>问：发展Linux distributions的公司那么多，是否每一个都不相同呢？</p>
-<p>答：这就不需要担心了，因为每个Linux distributions使用的kernel都是http://www.kernel.org所释出的，而他们所选择的软件，几乎都是目前很知名的软件，重复性相当的高， 例如网页服务器的Apache，电子邮件服务器的Postfix/sendmail，文件服务器的Samba等等。</p>
-</li>
-<li>
-<p>distributions的分类：</p>
+</ul></li>
+<li><p>FSF：自由软件基金会（FSF, Free Software Foundation）</p></li>
+<li><p>GPL：通用公共许可证（General Public License, GPL）</p></li>
+<li><p>LGPL：(GNU Lesser General Public License)
+<em>LGPL</em>是GPL的一个为主要为类库使用设计的开源协议。</p></li>
+<li><p>Open source：</p></li>
+<li><p>POSIX：可携式操作系统接口（Portable Operating System
+Interface）的缩写，重点在 规范核心与应用程序之间的接口</p></li>
+<li><p>Linux distribution：（Kernel + Softwares + Tools +
+可完整安装程序）</p></li>
+<li><p>问：发展Linux
+distributions的公司那么多，是否每一个都不相同呢？</p>
+<p>答：这就不需要担心了，因为每个Linux
+distributions使用的kernel都是http://www.kernel.org所释出的，而他们所选择的软件，几乎都是目前很知名的软件，重复性相当的高，
+例如网页服务器的Apache，电子邮件服务器的Postfix/sendmail，文件服务器的Samba等等。</p></li>
+<li><p>distributions的分类：</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th></th>
 <th>RPM软件管理</th>
 <th><strong>DPKG</strong> 软件管理</th>
@@ -361,24 +347,22 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>商业公司</td>
 <td>RHEL (Red Hat 公司) SuSE (Micro Focus)</td>
 <td>Ubuntu (CanonicalLtd.)</td>
 <td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>社群单位</td>
 <td>Fedora CentOS OpenSuSE</td>
 <td>Debian B2D</td>
 <td>Gentoo</td>
 </tr>
 </tbody>
-</table>
-</li>
-<li>
-<p>X Window System：X Window即X Window图形用户接口，是一种计算机软件系统和网络协议，提供了一个基础的图形用户界面（GUI）和丰富的输入设备能力联网计算机。</p>
-</li>
+</table></li>
+<li><p>X Window System：X Window即X
+Window图形用户接口，是一种计算机软件系统和网络协议，提供了一个基础的图形用户界面（GUI）和丰富的输入设备能力联网计算机。</p></li>
 </ul>
 <h2 id="文件权限">文件权限</h2>
 <h3 id="查看权限">查看权限</h3>
@@ -394,56 +378,41 @@
 <p>这三个文件 可以说是Linux系统里面帐号、密码、群组信息的集中地。</p>
 <p>使用<code>ls -al</code>可以查看文件的权限信息：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cmd">/*类型与权限(permission) 连结数 文件拥有者 文件所属群组 文件大小 最后修改时间 文件名*/<br>wuhlan3@wuhlan3-VMware-Virtual-Platform:~/桌面$ sudo ls -al<br>[sudo] wuhlan3 的密码：<br>总用量 <span class="hljs-number">3768</span><br>drwxr-xr-x  <span class="hljs-number">3</span> wuhlan3 wuhlan3    <span class="hljs-number">4096</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">15</span>:<span class="hljs-number">20</span>  .<br>drwx------ <span class="hljs-number">22</span> wuhlan3 wuhlan3    <span class="hljs-number">4096</span> <span class="hljs-number">7</span>月  <span class="hljs-number">27</span> <span class="hljs-number">11</span>:<span class="hljs-number">08</span>  ..<br>-rw-rw-r--  <span class="hljs-number">1</span> wuhlan3 wuhlan3 <span class="hljs-number">3240860</span> <span class="hljs-number">7</span>月  <span class="hljs-number">23</span> <span class="hljs-number">16</span>:<span class="hljs-number">28</span>  <span class="hljs-number">666</span>.mp4<br>drwx------ <span class="hljs-number">16</span> wuhlan3 wuhlan3    <span class="hljs-number">4096</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">11</span>:<span class="hljs-number">18</span>  ffmpeg-<span class="hljs-number">3</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span><br>-rw-rw-r--  <span class="hljs-number">1</span> wuhlan3 wuhlan3  <span class="hljs-number">226961</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">10</span>:<span class="hljs-number">39</span>  index.html<br>-rw-rw-r--  <span class="hljs-number">1</span> wuhlan3 wuhlan3  <span class="hljs-number">368871</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">13</span>:<span class="hljs-number">58</span>  output.mp4<br>lrwxrwxrwx  <span class="hljs-number">1</span> wuhlan3 wuhlan3      <span class="hljs-number">37</span> <span class="hljs-number">7</span>月  <span class="hljs-number">26</span> <span class="hljs-number">15</span>:<span class="hljs-number">20</span> &#x27; qtcreator&#x27; -&gt; /opt/Qt/Tools/QtCreator/bin/qtcreator<br></code></pre></td></tr></table></figure>
-<ol>
-<li>
-<p>第一栏：<strong>类型与权限</strong>，总共有十个字符，第一个字符表示目录、文件或链接文件等：</p>
+<ol type="1">
+<li><p>第一栏：<strong>类型与权限</strong>，总共有十个字符，第一个字符表示目录、文件或链接文件等：</p>
 <ul>
-<li>
-<p>当为[ d ]则是<strong>目录</strong>，例如上表文件名为“.config”的那一行；</p>
-</li>
-<li>
-<p>当为[ - ]则是<strong>文件</strong>，例如上表文件名为“initial-setup-ks.cfg”那一行；</p>
-</li>
-<li>
-<p>若是[ l ]则表示为<strong>链接文件</strong>（link file）；</p>
-</li>
-<li>
-<p>若是[ b ]则表示为设备文件里面的可供<strong>储存</strong>的周边<strong>设备</strong>（可随机存取设备）；</p>
-</li>
-<li>
-<p>若是[ c ]则表示为设备文件里面的<strong>序列埠</strong>(bu)/<strong>串行端口</strong>设备，例如键盘、鼠标（一次性读取设 备）。</p>
-</li>
+<li><p>当为[ d
+]则是<strong>目录</strong>，例如上表文件名为“.config”的那一行；</p></li>
+<li><p>当为[ -
+]则是<strong>文件</strong>，例如上表文件名为“initial-setup-ks.cfg”那一行；</p></li>
+<li><p>若是[ l ]则表示为<strong>链接文件</strong>（link
+file）；</p></li>
+<li><p>若是[ b
+]则表示为设备文件里面的可供<strong>储存</strong>的周边<strong>设备</strong>（可随机存取设备）；</p></li>
+<li><p>若是[ c
+]则表示为设备文件里面的<strong>序列埠</strong>(bu)/<strong>串行端口</strong>设备，例如键盘、鼠标（一次性读取设
+备）。</p></li>
 </ul>
-<p>接下来的字符均为“rwx” 的三个参数的组合。其中，[ r ]代表<strong>可读</strong>、[ w ]代表<strong>可写</strong>、[ x ]代表<strong>可执行</strong>。</p>
-<p>第一组为user，第二组为group，第三组为others</p>
-</li>
-<li>
-<p>第二栏：表示有多少文件名链接到此节点（<strong>i-node</strong>）</p>
-</li>
-<li>
-<p>第三栏：表示这个文件（或目录）的“拥有者帐号”</p>
-</li>
-<li>
-<p>第四栏：表示这个文件的所属群组</p>
-</li>
-<li>
-<p>第五栏：为这个文件的容量大小，默认单位为Bytes</p>
-</li>
-<li>
-<p>第六栏：为这个文件的创建日期或者是最近的修改日期</p>
-</li>
-<li>
-<p>第七栏：为这个文件的文件名</p>
-</li>
+<p>接下来的字符均为“rwx” 的三个参数的组合。其中，[ r
+]代表<strong>可读</strong>、[ w ]代表<strong>可写</strong>、[ x
+]代表<strong>可执行</strong>。</p>
+<p>第一组为user，第二组为group，第三组为others</p></li>
+<li><p>第二栏：表示有多少文件名链接到此节点（<strong>i-node</strong>）</p></li>
+<li><p>第三栏：表示这个文件（或目录）的“拥有者帐号”</p></li>
+<li><p>第四栏：表示这个文件的所属群组</p></li>
+<li><p>第五栏：为这个文件的容量大小，默认单位为Bytes</p></li>
+<li><p>第六栏：为这个文件的创建日期或者是最近的修改日期</p></li>
+<li><p>第七栏：为这个文件的文件名</p></li>
 </ol>
 <h3 id="修改权限">修改权限</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">chgrp ：改变文件所属群组<br>chown ：改变文件拥有者<br>chmod ：改变文件的权限, SUID, SGID, SBIT等等的特性    change file mode bits<br></code></pre></td></tr></table></figure>
-<p>由于权限是三个三个一组的，所以我们可以用二进制再转为十进制表示：<code>&gt; r:4 &gt; w:2 &gt; x:1 </code></p>
+<p>由于权限是三个三个一组的，所以我们可以用二进制再转为十进制表示：<code>&gt; r:4 &gt; w:2 &gt; x:1</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> [-R] xyz 文件或目录</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">其中-R用来表示对该目录下的所有文件进行递归地修改权限（Recursive）</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">xyz 写做777时，全部权限开启</span><br></code></pre></td></tr></table></figure>
-<h4 id="权限对于文件和文件夹的意义：">权限对于文件和文件夹的意义：</h4>
+<h4 id="权限对于文件和文件夹的意义">权限对于文件和文件夹的意义：</h4>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>类型</th>
 <th>内容</th>
 <th>r</th>
@@ -452,14 +421,14 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>文件</td>
 <td>详细数据</td>
 <td>读取文件内容</td>
 <td>修改文件内容</td>
 <td>执行文件内容</td>
 </tr>
-<tr>
+<tr class="even">
 <td>文件夹（目录）</td>
 <td>文件名</td>
 <td>读取文件名</td>
@@ -468,57 +437,57 @@
 </tr>
 </tbody>
 </table>
-<h4 id="文件类型：">文件类型：</h4>
+<h4 id="文件类型">文件类型：</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>文件类型</th>
 <th>细分</th>
 <th>备注</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>正规文件（regular file ）</td>
 <td>纯文本文件（ASCII）</td>
 <td>[ - ]</td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
 <td>二进制档（binary）</td>
 <td>[ - ]</td>
 </tr>
-<tr>
+<tr class="odd">
 <td></td>
 <td>数据格式文件（data）</td>
 <td>[ - ]</td>
 </tr>
-<tr>
+<tr class="even">
 <td>目录（directory）</td>
 <td></td>
 <td>[ d ]</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>链接文件（link）</td>
 <td></td>
 <td>[ l ]</td>
 </tr>
-<tr>
+<tr class="even">
 <td>设备与设备文件（device）</td>
 <td>区块（block）设备文件</td>
 <td>[ b ]</td>
 </tr>
-<tr>
+<tr class="odd">
 <td></td>
 <td>字符（character）设备文件</td>
 <td>[ c ]</td>
 </tr>
-<tr>
+<tr class="even">
 <td>数据接口文件（sockets）</td>
 <td></td>
 <td>[ s ]</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>数据输送档（FIFO, pipe）</td>
 <td></td>
 <td>[ p ]</td>
@@ -529,31 +498,33 @@
             <p>Linux的文件是没有所谓的“扩展名”的，一个Linux文件能不能被执行，与他的第一栏的十个属性有关，与文件名根本一点关系都没有。具有“可执行的权限”以及“具有可执行的程序码”是两回事！</p>
           </div>
 <h3 id="目录配置">目录配置</h3>
-<p>FHS：Filesystem Hierarchy Standard 。FHS的重点在于规范每个特定的目录下应该要 放置什么样的数据而已。主要分为四种交互作用的形态：shareable, unshareable, static, variable</p>
-<p>事实上，FHS针对目录树架构仅定义出三层目录下面应该放置什么数据而已，分别是下面这 三个目录的定义：</p>
+<p>FHS：Filesystem Hierarchy Standard
+。FHS的重点在于规范每个特定的目录下应该要
+放置什么样的数据而已。主要分为四种交互作用的形态：shareable,
+unshareable, static, variable</p>
+<p>事实上，FHS针对目录树架构仅定义出三层目录下面应该放置什么数据而已，分别是下面这
+三个目录的定义：</p>
 <ul>
-<li>
-<p>/       （root, 根目录）：与开机系统有关；</p>
-</li>
-<li>
-<p>/usr （unix software resource）：与软件安装/执行有关；</p>
-</li>
-<li>
-<p>/var （variable）：与系统运行过程有关。</p>
-</li>
+<li><p>/ （root, 根目录）：与开机系统有关；</p></li>
+<li><p>/usr （unix software resource）：与软件安装/执行有关；</p></li>
+<li><p>/var （variable）：与系统运行过程有关。</p></li>
 </ul>
-<img src="image-20210728103045651.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210728103045651" style="zoom:100%;" />
+<p><img src="image-20210728103045651.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210728103045651" style="zoom:100%;" /></p>
 <p>详情可回顾《鸟哥的linux私房菜 第四版》p282</p>
 <h4 id="绝对路径与相对路径">绝对路径与相对路径</h4>
-<p>绝对路径：由根目录<code>/</code>开始写起的文件名或目录名称， 例如 <code>/home/dmtsai/.bashrc</code>；</p>
-<p>相对路径：相对于目前路径的文件名写法。 例如 <code>./home/dmtsai</code> 或 <code>../../home/dmtsai/ </code>等 等。反正开头不是 / 就属于相对路径的写法</p>
+<p>绝对路径：由根目录<code>/</code>开始写起的文件名或目录名称， 例如
+<code>/home/dmtsai/.bashrc</code>；</p>
+<p>相对路径：相对于目前路径的文件名写法。 例如
+<code>./home/dmtsai</code> 或 <code>../../home/dmtsai/</code>等
+等。反正开头不是 / 就属于相对路径的写法</p>
 <h2 id="目录">目录</h2>
 <h4 id="特殊的目录">特殊的目录</h4>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">.             </span>代表此层目录 <br><span class="hljs-bullet">..             </span>代表上一层目录 <br><span class="hljs-bullet">-             </span>代表前一个工作目录 <br>~             代表“目前使用者身份”所在的主文件夹 <br>~account     代表 account 这个使用者的主文件夹（account是个帐号名称）<br></code></pre></td></tr></table></figure>
 <h4 id="处理目录">处理目录</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span>：变换目录<br><span class="hljs-built_in">pwd</span>：显示目前的目录<br><span class="hljs-built_in">mkdir</span>：创建一个新的目录<br><span class="hljs-built_in">rmdir</span>：删除一个空的目录<br></code></pre></td></tr></table></figure>
-<h4 id="环境变量PATH">环境变量PATH</h4>
-<p>如下，可以显示当前的所有路径。（PATH 前面加的 $ 表示后面接的是变量，所以会显示出目前的 PATH）</p>
+<h4 id="环境变量path">环境变量PATH</h4>
+<p>如下，可以显示当前的所有路径。（PATH 前面加的 $
+表示后面接的是变量，所以会显示出目前的 PATH）</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">wuhlan3@wuhlan3-VMware-Virtual-Platform:~/桌面$ <span class="hljs-built_in">echo</span> $<span class="hljs-built_in">PATH</span><br>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games<br></code></pre></td></tr></table></figure>
 <p>环境变量配置：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ <span class="hljs-built_in">PATH</span>=&quot;$&#123;<span class="hljs-built_in">PATH</span>&#125;:路径名&quot;<br></code></pre></td></tr></table></figure>

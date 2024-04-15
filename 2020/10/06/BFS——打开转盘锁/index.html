@@ -306,12 +306,22 @@
             
               <div class="markdown-body">
                 
-                <h2 id="752-打开转盘锁"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/open-the-lock/">752. 打开转盘锁</a></h2>
+                <h2 id="打开转盘锁"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/open-the-lock/">752.
+打开转盘锁</a></h2>
 <h3 id="题意解析">题意解析</h3>
-<p>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： <code>'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'</code> 。每个拨轮可以自由旋转：例如把 <code>'9'</code> 变为 <code>'0'</code>，<code>'0'</code> 变为 <code>'9'</code> 。每次旋转都只能旋转一个拨轮的一位数字。</p>
-<p>锁的初始数字为 <code>'0000'</code> ，一个代表四个拨轮的数字的字符串。</p>
-<p>列表 <code>deadends</code> 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。</p>
-<p>字符串 <code>target</code> 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。</p>
+<p>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字：
+<code>'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'</code>
+。每个拨轮可以自由旋转：例如把 <code>'9'</code> 变为
+<code>'0'</code>，<code>'0'</code> 变为 <code>'9'</code>
+。每次旋转都只能旋转一个拨轮的一位数字。</p>
+<p>锁的初始数字为 <code>'0000'</code>
+，一个代表四个拨轮的数字的字符串。</p>
+<p>列表 <code>deadends</code>
+包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。</p>
+<p>字符串 <code>target</code>
+代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回
+-1。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs clean">输入：deadends = [<span class="hljs-string">&quot;0201&quot;</span>,<span class="hljs-string">&quot;0101&quot;</span>,<span class="hljs-string">&quot;0102&quot;</span>,<span class="hljs-string">&quot;1212&quot;</span>,<span class="hljs-string">&quot;2002&quot;</span>], target = <span class="hljs-string">&quot;0202&quot;</span><br>输出：<span class="hljs-number">6</span><br>解释：<br>可能的移动序列为 <span class="hljs-string">&quot;0000&quot;</span> -&gt; <span class="hljs-string">&quot;1000&quot;</span> -&gt; <span class="hljs-string">&quot;1100&quot;</span> -&gt; <span class="hljs-string">&quot;1200&quot;</span> -&gt; <span class="hljs-string">&quot;1201&quot;</span> -&gt; <span class="hljs-string">&quot;1202&quot;</span> -&gt; <span class="hljs-string">&quot;0202&quot;</span>。<br>注意 <span class="hljs-string">&quot;0000&quot;</span> -&gt; <span class="hljs-string">&quot;0001&quot;</span> -&gt; <span class="hljs-string">&quot;0002&quot;</span> -&gt; <span class="hljs-string">&quot;0102&quot;</span> -&gt; <span class="hljs-string">&quot;0202&quot;</span> 这样的序列是不能解锁的，<br>因为当拨动到 <span class="hljs-string">&quot;0102&quot;</span> 时这个锁就会被锁定。<br></code></pre></td></tr></table></figure>
 <p><strong>示例 2:</strong></p>
@@ -321,10 +331,14 @@
 <p><strong>示例 4:</strong></p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">输入: deadends = [<span class="hljs-string">&quot;0000&quot;</span>], <span class="hljs-keyword">target</span> = <span class="hljs-string">&quot;8888&quot;</span><br>输出：-<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 <p><strong>提示：</strong></p>
-<ol>
-<li>死亡列表 <code>deadends</code> 的长度范围为 <code>[1, 500]</code>。</li>
-<li>目标数字 <code>target</code> 不会在 <code>deadends</code> 之中。</li>
-<li>每个 <code>deadends</code> 和 <code>target</code> 中的字符串的数字会在 10,000 个可能的情况 <code>'0000'</code> 到 <code>'9999'</code> 中产生。</li>
+<ol type="1">
+<li>死亡列表 <code>deadends</code> 的长度范围为
+<code>[1, 500]</code>。</li>
+<li>目标数字 <code>target</code> 不会在 <code>deadends</code>
+之中。</li>
+<li>每个 <code>deadends</code> 和 <code>target</code>
+中的字符串的数字会在 10,000 个可能的情况 <code>'0000'</code> 到
+<code>'9999'</code> 中产生。</li>
 </ol>
 <h3 id="解题思路">解题思路</h3>
 <p>广度优先搜索，从“0000”开始，对每一位进行+1或-1（八种情况）然后入队，如果遇到死亡数字，则不再令他入队。当出现target时，返回步数。</p>

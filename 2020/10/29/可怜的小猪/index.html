@@ -253,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          326 words
+          327 words
         
       </span>
     
@@ -307,19 +307,25 @@
               <div class="markdown-body">
                 
                 <h5 id="题目">题目</h5>
-<p>有 1000 只水桶，其中有且只有一桶装的含有毒药，其余装的都是水。它们从外观看起来都一样。如果小猪🐷喝了毒药，它会在 15 分钟内死去。</p>
+<p>有 1000
+只水桶，其中有且只有一桶装的含有毒药，其余装的都是水。它们从外观看起来都一样。如果小猪:pig:喝了毒药，它会在
+15 分钟内死去。</p>
 <p>问题来了，如果需要你在一小时内，弄清楚哪只水桶含有毒药，你最少需要多少只猪？</p>
 <p>回答这个问题，并为下列的进阶问题编写一个通用算法。</p>
 <h5 id="进阶">进阶:</h5>
-<p>假设有 n 只水桶，猪饮水中毒后会在 m 分钟内死亡，你需要多少猪（x）就能在 p 分钟内找出 “有毒” 水桶？这 n 只水桶里有且仅有一只有毒的桶。</p>
-<h5 id="提示：">提示：</h5>
-<p>可以允许小猪同时饮用任意数量的桶中的水，并且该过程不需要时间。<br>
-小猪喝完水后，必须有 m 分钟的冷却时间。在这段时间里，只允许观察，而不允许继续饮水。<br>
+<p>假设有 n 只水桶，猪饮水中毒后会在 m
+分钟内死亡，你需要多少猪（x）就能在 p 分钟内找出 “有毒” 水桶？这 n
+只水桶里有且仅有一只有毒的桶。</p>
+<h5 id="提示">提示：</h5>
+<p>可以允许小猪同时饮用任意数量的桶中的水，并且该过程不需要时间。
+小猪喝完水后，必须有 m
+分钟的冷却时间。在这段时间里，只允许观察，而不允许继续饮水。
 任何给定的桶都可以无限次采样（无限数量的猪）。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">poorPigs</span><span class="hljs-params">(<span class="hljs-type">int</span> buckets, <span class="hljs-type">int</span> minutesToDie, <span class="hljs-type">int</span> minutesToTest)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>(buckets == <span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> matrixsize = minutesToTest / minutesToDie +<span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> pigsnum = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> max = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>(max &lt; buckets)&#123;<br>        pigsnum++;<br>        max = <span class="hljs-built_in">pow</span>(matrixsize,pigsnum);<br>    &#125;<br>    <span class="hljs-keyword">return</span> pigsnum;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>或：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">poorPigs</span><span class="hljs-params">(<span class="hljs-type">int</span> buckets, <span class="hljs-type">int</span> minutesToDie, <span class="hljs-type">int</span> minutesToTest)</span> </span>&#123;<br>        <span class="hljs-type">int</span> states = minutesToTest / minutesToDie + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">ceil</span>(<span class="hljs-built_in">log</span>(buckets) / <span class="hljs-built_in">log</span>(states));<br>    &#125;<br></code></pre></td></tr></table></figure>
-<p>详细思路可看：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/poor-pigs/solution/ke-lian-de-xiao-zhu-by-leetcode/">https://leetcode-cn.com/problems/poor-pigs/solution/ke-lian-de-xiao-zhu-by-leetcode/</a></p>
+<p>详细思路可看：<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/poor-pigs/solution/ke-lian-de-xiao-zhu-by-leetcode/">https://leetcode-cn.com/problems/poor-pigs/solution/ke-lian-de-xiao-zhu-by-leetcode/</a></p>
 
                 
               </div>

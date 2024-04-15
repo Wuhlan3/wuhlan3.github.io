@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="第四章课后习题 4.12 对于图4-11中的数据库，写出一个查询来找到那些没有经理的雇员。注意一个雇员可能只是没有列出其经理，或者可能又null经理。使用外连接书写查询，然后不用外连接再重写查询。  12345678910111213# 使用外连接select employee_name from employee left outer join manages where manager_nam">
+    <meta name="description" content="第四章课后习题 4.12 对于图4-11中的数据库，写出一个查询来找到那些没有经理的雇员。注意一个雇员可能只是没有列出其经理，或者可能又null经理。使用外连接书写查询，然后不用外连接再重写查询。  12345678910111213# 使用外连接select employee_name from employee left outer join manages where manager">
 <meta property="og:type" content="article">
 <meta property="og:title" content="databasehomework3">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/19/databasehomework3/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="第四章课后习题 4.12 对于图4-11中的数据库，写出一个查询来找到那些没有经理的雇员。注意一个雇员可能只是没有列出其经理，或者可能又null经理。使用外连接书写查询，然后不用外连接再重写查询。  12345678910111213# 使用外连接select employee_name from employee left outer join manages where manager_nam">
+<meta property="og:description" content="第四章课后习题 4.12 对于图4-11中的数据库，写出一个查询来找到那些没有经理的雇员。注意一个雇员可能只是没有列出其经理，或者可能又null经理。使用外连接书写查询，然后不用外连接再重写查询。  12345678910111213# 使用外连接select employee_name from employee left outer join manages where manager">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-19T07:44:09.000Z">
@@ -310,18 +310,19 @@
             
               <div class="markdown-body">
                 
-                <h1>第四章课后习题</h1>
-<h2 id="4-12">4.12</h2>
+                <h1 id="第四章课后习题">第四章课后习题</h1>
+<h2 id="section">4.12</h2>
 <p>对于图4-11中的数据库，写出一个查询来找到那些没有经理的雇员。注意一个雇员可能只是没有列出其经理，或者可能又null经理。使用外连接书写查询，然后不用外连接再重写查询。</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109251701204.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210925142822891" style="zoom: 150%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109251701204.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210925142822891" style="zoom: 150%;" /></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 使用外连接<br><span class="hljs-keyword">select</span> employee_name <br><span class="hljs-keyword">from</span> employee <br><span class="hljs-keyword">left</span> <span class="hljs-keyword">outer</span> <span class="hljs-keyword">join</span> manages <br><span class="hljs-keyword">where</span> manager_name <span class="hljs-keyword">is</span> <span class="hljs-keyword">null</span>;<br><br># 不使用外连接<br><span class="hljs-keyword">select</span> employee_name<br><span class="hljs-keyword">from</span> employee <br><span class="hljs-keyword">where</span> employee_name <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> (<span class="hljs-keyword">select</span> employee_name <br>                        <span class="hljs-keyword">from</span> manages <br>                        <span class="hljs-keyword">where</span> manages.employee_name <span class="hljs-operator">=</span> employee.employee_name <br>                            <span class="hljs-keyword">and</span> manager_name <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>);<br></code></pre></td></tr></table></figure>
-<h2 id="4-14">4.14</h2>
-<p>给定学生每年修到的学分总数，如何定义视图 <code>tot_credits(year, num_credits)</code></p>
+<h2 id="section-1">4.14</h2>
+<p>给定学生每年修到的学分总数，如何定义视图
+<code>tot_credits(year, num_credits)</code></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> tot_credits <span class="hljs-keyword">as</span>  <br>  <span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>,<span class="hljs-built_in">sum</span>(credits) num_credits<br> <span class="hljs-keyword">from</span> takes <br> <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span> course <br> <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">year</span>;<br></code></pre></td></tr></table></figure>
-<h2 id="4-18">4.18</h2>
+<h2 id="section-2">4.18</h2>
 <p>假定用户A拥有关系r上的所有权限，该用户把关系r上的查询权限以及授予该权限的权限授予给public。假定用户B将r上的查询权限授予A。这是否会导致授权图中的环？解释原因。</p>
 <p>答：会导致授权图。我画了一个简单的图，如下。此时B拥有授予权限的权限，所以，B又可以将read授予给A。这就形成了一个环。可能会在权限撤回的时候出现问题。</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109251701510.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210925152337824" style="zoom:100%;" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109251701510.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210925152337824" style="zoom:100%;" /></p>
 
                 
               </div>

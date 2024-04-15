@@ -310,16 +310,21 @@
             
               <div class="markdown-body">
                 
-                <h1>微服务与RPC问题汇总</h1>
-<h2 id="1-什么是微服务？">1. 什么是微服务？</h2>
+                <h1 id="微服务与rpc问题汇总">微服务与RPC问题汇总</h1>
+<h2 id="什么是微服务">1. 什么是微服务？</h2>
 <blockquote>
-<p>wiki:<strong>微服务</strong>（英语：Microservices）是一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84">软件架构风格</a>，它是以专注于单一责任与功能的小型功能区块 (Small Building Blocks) 为基础，利用模块化的方式组合出复杂的大型应用程序，各功能区块使用与语言无关 (Language-Independent/Language agnostic）的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3">API</a>集相互通信。</p>
+<p>wiki:<strong>微服务</strong>（英语：Microservices）是一种<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/软件架构">软件架构风格</a>，它是以专注于单一责任与功能的小型功能区块
+(Small Building Blocks)
+为基础，利用模块化的方式组合出复杂的大型应用程序，各功能区块使用与语言无关
+(Language-Independent/Language agnostic）的<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/应用程序接口">API</a>集相互通信。</p>
 </blockquote>
 <p>简单来说，微服务的架构风格就是将单个应用程序作为一组小型服务来开发，每个服务程序都在自己的进程中运行，并以轻量级通信方式进行通信。这些服务可以使用不同的编程语言编写，使用不同的数据存储技术，并尽量不用集中式方式进行管理。</p>
 <p>用一句话来概括就是“分而治之，合而用之”。</p>
-<h2 id="2-微服务与单体架构的对比？">2. 微服务与单体架构的对比？</h2>
+<h2 id="微服务与单体架构的对比">2. 微服务与单体架构的对比？</h2>
 <p>单体架构的缺点如下：</p>
-<ol>
+<ol type="1">
 <li>复杂度随时间不断变大，代码量到几十万行的大项目难以维护；</li>
 <li>技术债务逐渐上升，留下的bug越来越多；</li>
 <li>耦合度太高，维护成本大——修复bug的时候引入新的bug；</li>
@@ -328,45 +333,47 @@
 <li>可扩展性差。</li>
 </ol>
 <p>微服务架构的<strong>优点</strong>如下：</p>
-<ol>
+<ol type="1">
 <li><strong>单一职责</strong>。每个服务都有自己独立的业务逻辑，是一个高内聚、低耦合、单一原则的单元。</li>
 <li><strong>轻量级通信</strong>。服务之间用过轻量级的通信机制实现互联互通，通常是语言无关、平台无关的交互方式；</li>
 <li><strong>独立性</strong>。每个服务可以独立地进行开发、测试和部署；</li>
 <li><strong>进程隔离</strong>。每个服务高度自治，可以部署到不同的主机上。当其中一个服务挂掉时，不会影响其他服务。</li>
 </ol>
 <p>当然，微服务也有它的<strong>不足之处</strong>：</p>
-<ol>
+<ol type="1">
 <li><strong>运行维护困难</strong>，任意一个模块的问题，可能会影响整个项目，debug困难；</li>
 <li><strong>分布式的复杂性</strong>。会使得项目变得更复杂；</li>
 <li><strong>接口成本高</strong>，若接口发生大变动，所有依赖的微服务都要发生调整；</li>
 <li><strong>重复劳动</strong>。某段业务多个模块共同使用，如果是单体架构，可以抽象为一个工具类。但是微服务架构中每个服务都可能需要，会导致代码重复；</li>
 <li><strong>业务不好分离</strong>。程序员对业务理解可能不同。</li>
 </ol>
-<h2 id="3-什么是RPC？">3. 什么是RPC？</h2>
-<p>RPC(Remote Procedure Call Protocol)是远程过程调用的缩写。它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的思想。</p>
+<h2 id="什么是rpc">3. 什么是RPC？</h2>
+<p>RPC(Remote Procedure Call
+Protocol)是远程过程调用的缩写。它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的思想。</p>
 <p>比如，我们写这样一个代码：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Result</span> := Add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
 <p>它会调用远程的（另一个进程，很可能在另一台服务器上）函数：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Add</span><span class="hljs-params">(a <span class="hljs-type">int</span>, b <span class="hljs-type">int</span>)</span></span><span class="hljs-type">int</span>&#123;<br>    <span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="4-为什么微服务需要RPC">4. 为什么微服务需要RPC</h2>
+<h2 id="为什么微服务需要rpc">4. 为什么微服务需要RPC</h2>
 <p>使用微服务的一个好处就是，不限定服务的提供方使用什么技术选型，能够实现公司跨团队的技术解耦。但是这样子，如果没有一个统一的服务框架——RPC框架，则各个团队需要各自实现一套序列化、反序列化、网络框架、连接池、收发线程、超时处理等业务之外的重复技术劳动。统一RPC框架将上述的劳动进行了统一处理。</p>
-<h2 id="5-RPC的底层原理">5. RPC的底层原理</h2>
-<h3 id="一个完整的RPC主要包括三部分">一个完整的RPC主要包括三部分:</h3>
-<ol>
-<li>
-<p><strong>服务注册中心</strong>（Registry），负责将本地服务发布成远程服务，管理远程服务，提供给服务消费者使用。</p>
-</li>
-<li>
-<p><strong>服务提供者</strong>（RPC Server），负责提供服务接口定义与服务实现类。</p>
-</li>
-<li>
-<p><strong>服务消费者</strong>（RPC Client），负责通过远程代理对象调用远程服务。</p>
-</li>
+<h2 id="rpc的底层原理">5. RPC的底层原理</h2>
+<h3 id="一个完整的rpc主要包括三部分">一个完整的RPC主要包括三部分:</h3>
+<ol type="1">
+<li><p><strong>服务注册中心</strong>（Registry），负责将本地服务发布成远程服务，管理远程服务，提供给服务消费者使用。</p></li>
+<li><p><strong>服务提供者</strong>（RPC
+Server），负责提供服务接口定义与服务实现类。</p></li>
+<li><p><strong>服务消费者</strong>（RPC
+Client），负责通过远程代理对象调用远程服务。</p></li>
 </ol>
 <p>服务提供者（Server）启动后主动向服务注册中心（Registry）注册机器IP、端口以及提供的服务列表；服务消费者（Client）启动时向服务注册中心（Registry）获取服务提供方地址列表；服务注册中心（Registry）可实现负载均衡和故障切换。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/972efe01322d49e5be8a42c2959438bc.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img"></p>
-<h3 id="RPC调用过程为：">RPC调用过程为：</h3>
-<ol>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/972efe01322d49e5be8a42c2959438bc.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="rpc调用过程为">RPC调用过程为：</h3>
+<ol type="1">
 <li>客户端想要发起一个远程过程调用，首先通过调用本地客户端Stub程序的方式调用想要使用的功能方法名；</li>
 <li>客户端Stub程序接收到了客户端的功能调用请求，将客户端请求调用的方法名，携带的参数等信息做序列化操作，并打包成数据包。</li>
 <li>客户端Stub查找到远程服务器程序的IP地址，调用Socket通信协议，通过网络发送给服务端。</li>
@@ -377,106 +384,105 @@
 <li>客户端Stub程序接收到服务端Stub发送的返回数据，对数据进行反序列化操作，并将调用返回的数据传递给客户端请求发起者。</li>
 <li>客户端请求发起者得到调用结果，整个RPC调用过程结束。</li>
 </ol>
-<h3 id="RPC要面临的三个问题">RPC要面临的三个问题:</h3>
-<p>（1）<strong>Call ID映射</strong>。本地调用中，函数体是直接通过函数指针来指定的，调用函数时，编译器会自动调用它相应的函数指针。但在远程调用中，函数指针是不行的，因为两个进程的地址空间完全不一样。所以，在RPC中所有的函数都必须有自己的一个ID。这个ID在所有进程中都是唯一确定的。客户端在做远程过程调用时，必须附上这个ID。然后我们还需要在客户端和服务端分别维护一个 {函数 ：Call ID} 的对应表。两者的表不一定需要完全相同，但相同的函数对应的Call ID必须相同。当客户端需要进行远程调用时，它就查该表，找出相应的Call ID，然后把它传给服务端，服务端也通过查表，来确定客户端需要调用的函数，然后执行相应函数的代码。</p>
+<h3 id="rpc要面临的三个问题">RPC要面临的三个问题:</h3>
+<p>（1）<strong>Call
+ID映射</strong>。本地调用中，函数体是直接通过函数指针来指定的，调用函数时，编译器会自动调用它相应的函数指针。但在远程调用中，函数指针是不行的，因为两个进程的地址空间完全不一样。所以，在RPC中所有的函数都必须有自己的一个ID。这个ID在所有进程中都是唯一确定的。客户端在做远程过程调用时，必须附上这个ID。然后我们还需要在客户端和服务端分别维护一个
+{函数 ：Call ID}
+的对应表。两者的表不一定需要完全相同，但相同的函数对应的Call
+ID必须相同。当客户端需要进行远程调用时，它就查该表，找出相应的Call
+ID，然后把它传给服务端，服务端也通过查表，来确定客户端需要调用的函数，然后执行相应函数的代码。</p>
 <p>（2）<strong>序列化和反序列化</strong>。客户端如何将参数值传给远程的函数就成了一个问题在本地调用中，只需要把参数压到栈里，函数自己去栈里读即可。在远程过程调用时，客户端跟服务端是不同的进程，不能通过内存来传递参数。甚至有时候客户端和服务端使用的都不是同一种语言（比如服务端用C++，客户端用Java或者Python）。这时需要客户端把参数先转成一个字节流，传给服务端后，再把字节流转成自己能读取的格式。这个过程叫序列化和反序列化（也叫编码和解码）。同理，从服务端返回的值也需要序列化反序列化的过程。</p>
-<p>（3）<strong>网络传输</strong>。远程调用往往用在网络上，客户端和服务端是通过网络连接的。所有的数据都需要通过网络传输，因此就需要有一个网络传输层。网络传输层需要把Call ID和序列化后的参数字节流传给服务端，然后再把序列化后的调用结果传回客户端。只要能完成这两者的，都可以作为传输层使用。因此，它所使用的协议其实是不限的，能完成传输就行。尽管大部分RPC框架都使用TCP协议，但其实UDP也可以，而gRPC干脆就用了HTTP2，Java的Netty也属于这层的东西。</p>
-<h3 id="RPC与HTTP协议的对比">RPC与HTTP协议的对比</h3>
+<p>（3）<strong>网络传输</strong>。远程调用往往用在网络上，客户端和服务端是通过网络连接的。所有的数据都需要通过网络传输，因此就需要有一个网络传输层。网络传输层需要把Call
+ID和序列化后的参数字节流传给服务端，然后再把序列化后的调用结果传回客户端。只要能完成这两者的，都可以作为传输层使用。因此，它所使用的协议其实是不限的，能完成传输就行。尽管大部分RPC框架都使用TCP协议，但其实UDP也可以，而gRPC干脆就用了HTTP2，Java的Netty也属于这层的东西。</p>
+<h3 id="rpc与http协议的对比">RPC与HTTP协议的对比</h3>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th></th>
 <th>RPC</th>
 <th>HTTP</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>传输协议</td>
 <td>可以基于TCP协议，也可以基于HTTP协议</td>
 <td>基于HTTP协议</td>
 </tr>
-<tr>
+<tr class="even">
 <td>传输效率</td>
 <td>RPC使用自定义的TCP协议，可以让请求报文体积更小，或者使用HTTP2协议，也可以很好的减少报文的体积，提高传输效率</td>
 <td>如果是基于HTTP1.1的协议，请求中会包含很多无用的内容，如果是基于HTTP2.0，那么简单的封装一下是可以作为一个RPC来使用的，这时标准RPC框架更多的是服务治理</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>性能消耗</td>
 <td>可以基于thrift实现高效的二进制传输</td>
 <td>大部分是通过json来实现的，字节大小和序列化耗时都比thrift要更消耗性能</td>
 </tr>
-<tr>
+<tr class="even">
 <td>负载均衡</td>
 <td>基本都自带了负载均衡策略</td>
 <td>需要配置Nginx，HAProxy来实现</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>服务治理</td>
 <td>能做到自动通知，不影响上游</td>
 <td>需要事先通知，修改Nginx/HAProxy配置</td>
 </tr>
-<tr>
+<tr class="even">
 <td>总结</td>
 <td>主要用于公司内部的服务调用，性能消耗低，传输效率高，服务治理方便。</td>
 <td>主要用于对外的异构环境，浏览器接口调用，APP接口调用，第三方接口调用等。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="6-什么是ProtoBuf">6. 什么是ProtoBuf</h2>
-<p><strong>Protocol Buffers</strong> (Protobuf) 是一种谷歌开发的二进制通信格式，用于序列化结构数据，截至目前，谷歌使用 protobuf 已经超过十年了。<br>
-Protobuf 的出现并不是为了解决新的问题，而是<strong>用更加现代的方式让网络传输更加高效</strong>，总的来说它有如下几个特点：</p>
-<ol>
-<li>是<strong>二进制格式</strong>，而不是像 JSON 与 XML 是基于文本的，因此非常节省空间。</li>
+<h2 id="什么是protobuf">6. 什么是ProtoBuf</h2>
+<p><strong>Protocol Buffers</strong> (Protobuf)
+是一种谷歌开发的二进制通信格式，用于序列化结构数据，截至目前，谷歌使用
+protobuf 已经超过十年了。 Protobuf
+的出现并不是为了解决新的问题，而是<strong>用更加现代的方式让网络传输更加高效</strong>，总的来说它有如下几个特点：</p>
+<ol type="1">
+<li>是<strong>二进制格式</strong>，而不是像 JSON 与 XML
+是基于文本的，因此非常节省空间。</li>
 <li>对各种模式丰富且易上手的支持。</li>
 <li>支持多种语言下的解析。</li>
 </ol>
 <p><strong>原理</strong>：</p>
 <ul>
-<li>
-<p>使用varint来表示数字，越小的数字占用越少的字节数。</p>
-</li>
-<li>
-<p>使用msb（最高有效位）来进行标识，当msb为1时，下一个字节继续表示这个数字；当msb为0时，这是最后一个字节。</p>
-</li>
-<li>
-<p>对于字符串而言，不需要msb，因为有表示string长度的字段。</p>
-</li>
+<li><p>使用varint来表示数字，越小的数字占用越少的字节数。</p></li>
+<li><p>使用msb（最高有效位）来进行标识，当msb为1时，下一个字节继续表示这个数字；当msb为0时，这是最后一个字节。</p></li>
+<li><p>对于字符串而言，不需要msb，因为有表示string长度的字段。</p></li>
 </ul>
 <p><strong>具体流程</strong>（以数字2009为例）：</p>
-<ol>
-<li>
-<p>将2009 转换为二进制 11111011001</p>
-</li>
-<li>
-<p>将其分割为 0001111 1011001</p>
-</li>
-<li>
-<p>反转其顺序 1011001 0001111</p>
-</li>
-<li>
-<p>添加 MSB 标识为 01011001 00001111</p>
-</li>
-<li>
-<p>设置MSB ，11011001 00001111</p>
-</li>
+<ol type="1">
+<li><p>将2009 转换为二进制 11111011001</p></li>
+<li><p>将其分割为 0001111 1011001</p></li>
+<li><p>反转其顺序 1011001 0001111</p></li>
+<li><p>添加 MSB 标识为 01011001 00001111</p></li>
+<li><p>设置MSB ，11011001 00001111</p></li>
 </ol>
 <p>最后用16进制表示为 D9 0F</p>
 <p><strong>小结</strong>：</p>
-<ol>
-<li>在微服务之间通信时，protobuf 更合适，在公开 API 或与浏览器通信时JSON 与 xml 更合适。</li>
+<ol type="1">
+<li>在微服务之间通信时，protobuf 更合适，在公开 API 或与浏览器通信时JSON
+与 xml 更合适。</li>
 <li>protobuf 更加节省空间，高效。</li>
 <li>protobuf 放弃了可读性。</li>
 <li>protobuf 使用的编码方式可以使数据更加紧凑。</li>
-<li>protobuf 依赖生成的代码，需要一个protobuf 编译器根据你编写的 .proto 定义的数据生成，也称作消息。</li>
+<li>protobuf 依赖生成的代码，需要一个protobuf 编译器根据你编写的 .proto
+定义的数据生成，也称作消息。</li>
 <li>你可以根据生成的代码初始化或解析发生的数据或接受的数据。</li>
 </ol>
-<h2 id="7-几种框架的对比">7. 几种框架的对比</h2>
+<h2 id="几种框架的对比">7. 几种框架的对比</h2>
 <p>待续</p>
-<h1>参考资料</h1>
-<p>[1] <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46742102/article/details/112169275">https://blog.csdn.net/weixin_46742102/article/details/112169275</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41667472/article/details/124703669">https://blog.csdn.net/weixin_41667472/article/details/124703669</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E5%BE%AE%E6%9C%8D%E5%8B%99">https://zh.wikipedia.org/zh-cn/%E5%BE%AE%E6%9C%8D%E5%8B%99</a></p>
+<h1 id="参考资料">参考资料</h1>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46742102/article/details/112169275">https://blog.csdn.net/weixin_46742102/article/details/112169275</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41667472/article/details/124703669">https://blog.csdn.net/weixin_41667472/article/details/124703669</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E5%BE%AE%E6%9C%8D%E5%8B%99">https://zh.wikipedia.org/zh-cn/%E5%BE%AE%E6%9C%8D%E5%8B%99</a></p>
 
                 
               </div>

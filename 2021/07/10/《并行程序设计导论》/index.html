@@ -308,8 +308,8 @@
             
               <div class="markdown-body">
                 
-                <h1>并行程序设计导论</h1>
-<h2 id="一、为什么需要并行计算">一、为什么需要并行计算</h2>
+                <h1 id="并行程序设计导论">并行程序设计导论</h1>
+<h2 id="一为什么需要并行计算">一、为什么需要并行计算</h2>
 <h3 id="基本术语">基本术语</h3>
 <p><strong>多核处理器</strong>：单个芯片上多个相对简单的处理器</p>
 <p><strong>单核系统</strong>：只有一个CPU的处理器</p>
@@ -332,7 +332,7 @@
 <li>每个助教负责给一个问题打分（任务并行）“执行不同的指令”</li>
 <li>试卷分为5叠，每个助教负责一叠试卷（数据并行）“对相似的数据进行评分”</li>
 </ul>
-<h2 id="二、并行硬件和并行软件">二、并行硬件和并行软件</h2>
+<h2 id="二并行硬件和并行软件">二、并行硬件和并行软件</h2>
 <p>冯·诺依曼结构：<strong>主存</strong>、<strong>中央处理器</strong>（算术逻辑单元ALU+控制单元）、主存和CPU之间的<strong>互连结构</strong>（总线）</p>
 <p>主存和CPU之间的分离，称为<strong>冯·诺依曼瓶颈</strong>。因为互连结构限定了指令和数据访问的速率。（CPU执行指令的速度远远大于从主存中取指令的速度！！！）</p>
 <p><strong>进程</strong>：运行着的程序的一个实例。包括以下实体：</p>
@@ -345,36 +345,42 @@
 </ul>
 <p>大多数现代操作系统都是<strong>多任务</strong>的。即操作系统提供对同时运行多个程序的支持。这对单核系统也是可行的，使用时间片轮转的技术即可。</p>
 <p>线程：线程间的切换比进程间的切换更快，是“轻量级”的。线程包含在进程中，所以线程可以使用相同的可执行代码，共享相同的内存和相同的I/O设备。两个线程之间最大的差别是，他们各自需要一个<strong>私有的程序计数器</strong>和<strong>函数调用栈</strong>，使他们能够独立运行。</p>
-<p>如果进程是执行的“主线程”，其他线程由主线程启动和停止。开始时，子线程从进程中**派生（fork）<strong>出来；一个进程结束后，它会</strong>合并（join）**到进程中。</p>
+<p>如果进程是执行的“主线程”，其他线程由主线程启动和停止。开始时，子线程从进程中<strong>派生（fork）</strong>出来；一个进程结束后，它会<strong>合并（join）</strong>到进程中。</p>
 <p>对冯诺依曼模型的改进有三种措施：</p>
-<ol>
+<ol type="1">
 <li>缓存（caching）</li>
 <li>虚拟存储器</li>
 <li>低层次并行</li>
 </ol>
-<h4 id="1-Cache基础知识">1.Cache基础知识</h4>
-<p>高速缓冲存储器（cache）：访问时间比其它存储区域的访问时间短。本书谈到缓存，一般指CPU缓存（CPU Cache）</p>
+<h4 id="cache基础知识">1.Cache基础知识</h4>
+<p>高速缓冲存储器（cache）：访问时间比其它存储区域的访问时间短。本书谈到缓存，一般指CPU缓存（CPU
+Cache）</p>
 <p>在访问完一个内存区域，程序在不久的将来（<strong>时间局部性</strong>），访问邻近的区域（<strong>空间局部性</strong>）</p>
 <p>运用局部性原理，系统使用<strong>更宽</strong>的互连结构（总线）来访问数据和指令。也就是：一次内存访问能存取一整块代码和数据，而不是单条指令和单条数据。这些块称为高速缓冲块或高速缓存行。</p>
 <p>Cache本身也分为三层：第一层（L1）最小但最快、更高层Cache（L2、L3）更大但相对较慢。当CPU访问指令或数据时，它会沿着Cache的层次结构向下查询：首先是L1，接着L2。。。最后是主存。</p>
 <p><strong>命中</strong>与<strong>缺失</strong>是相对Cache层而言的。</p>
 <p><strong>写直达</strong>：当CPU向Cache写数据时，高速缓存行会立即写入主存中</p>
-<p><strong>写回</strong>：数据不是立即更新到主存中，而是将发生数据更新的高速缓存行标记成 <strong>脏（dirty）</strong></p>
+<p><strong>写回</strong>：数据不是立即更新到主存中，而是将发生数据更新的高速缓存行标记成
+<strong>脏（dirty）</strong></p>
 <p>全相联映射：</p>
 <p>直接映射：</p>
 <p>n路组相联：</p>
-<h4 id="2-性能">2.性能</h4>
-<p><strong>线性加速比</strong>：$T_{并行} = \frac{1}{p}T_{串行}，假设并行为p核系统上进行的$</p>
-<p><strong>加速比</strong>：$S=\frac{T_{串行}}{T_{并行}}$</p>
-<p><strong>效率</strong>：$E=\frac{S}{p}=\frac{T_{串行}}{p*T_{并行}}$</p>
-<p><strong>并行开销</strong>：$T_{并行} = \frac{1}{p}T_{串行} + T_{开销}$</p>
+<h4 id="性能">2.性能</h4>
+<p><strong>线性加速比</strong>：<span class="math inline">\(T_{并行} =
+\frac{1}{p}T_{串行}，假设并行为p核系统上进行的\)</span></p>
+<p><strong>加速比</strong>：<span
+class="math inline">\(S=\frac{T_{串行}}{T_{并行}}\)</span></p>
+<p><strong>效率</strong>：<span
+class="math inline">\(E=\frac{S}{p}=\frac{T_{串行}}{p*T_{并行}}\)</span></p>
+<p><strong>并行开销</strong>：<span class="math inline">\(T_{并行} =
+\frac{1}{p}T_{串行} + T_{开销}\)</span></p>
 <p>阿姆达尔定律：大致上，除非一个串行程序的执行几乎全部都并行化，否则，不论有多少可以利用的核，通过并行化产生的加速比都会是受限的。</p>
 <p><strong>可扩展性</strong>：如果增加程序的进程数/线程数，在输入规模也以相应增长率增加的情况下，该程序的效率一直是E。</p>
 <p><strong>强可扩展</strong>：进程线程数增加，不增加问题规模，却可以维持固定的效率。（线程++，问题—，E—）</p>
 <p><strong>弱可扩展</strong>：进程线程数增加，需要增加问题规模，才可以维持固定的效率。（线程++，问题++，E—）</p>
-<h4 id="3-计时">3.计时</h4>
+<h4 id="计时">3.计时</h4>
 <p>我们需要记录的是什么时间呢？</p>
-<ol>
+<ol type="1">
 <li>对程序从开始到结束的时间不感兴趣，而对程序的某个部分感兴趣</li>
 <li>对所谓的“CPU时间”不感兴趣。<strong>CPU时间</strong>代表的是程序执行代码的总时间，但是它不包括程序空闲状态的时间！！！</li>
 <li>我们通常使用的是<strong>墙上时钟时间</strong>，即某段代码从开始到结束总耗费的时间。</li>
@@ -388,25 +394,29 @@
 <p>问题三：<strong>易变性</strong>（variability）</p>
 <p>多次执行同一个程序时，每次运行所花费的时间可能是不同的。看起来最好的方法是平均数或中位数，实则不然。</p>
 <p>由于不可能存在某些外部事件使得程序的运行时间少于它可能的最短运行时间，所以我们的报告通常写上<strong>最短的运行时间</strong>。</p>
-<h4 id="4-并行化过程">4.并行化过程</h4>
+<h4 id="并行化过程">4.并行化过程</h4>
 <p>Foster方法：</p>
-<ol>
+<ol type="1">
 <li>划分（partitioning）：将要执行的指令核数据按照计算部分拆分成多个小任务</li>
 <li>通信（communication）：确定上一步所识别出来的任务之间需要执行哪些通信</li>
-<li>凝聚或聚合（agglomeration / aggregation）：将第一步所确定的任务与通信结合成更大的任务</li>
+<li>凝聚或聚合（agglomeration /
+aggregation）：将第一步所确定的任务与通信结合成更大的任务</li>
 <li>分配（mapping）：将上一步聚合好的任务分配到进程/线程中</li>
 </ol>
-<h4 id="5-编译过程">5.编译过程</h4>
+<h4 id="编译过程">5.编译过程</h4>
 <ul>
 <li><code>-g</code> 表示允许使用调试器</li>
 <li><code>-Wall</code> 显示警告</li>
 <li><code>-o&lt;outfile&gt;</code>编译出可执行文件的文件名outfile</li>
 </ul>
-<h2 id="三、用MPI进行分布式内存编程">三、用MPI进行分布式内存编程</h2>
-<p><a href="https://wuhlan3.gitee.io/wuhlan3/2021/03/23/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
-<h2 id="四、用Pthreads进行共享内存编程">四、用Pthreads进行共享内存编程</h2>
-<p><a href="https://wuhlan3.gitee.io/wuhlan3/2021/03/22/Pthreads%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
-<h2 id="五、用OpenMP进行共享内存编程">五、用OpenMP进行共享内存编程</h2>
+<h2 id="三用mpi进行分布式内存编程">三、用MPI进行分布式内存编程</h2>
+<p><a
+href="https://wuhlan3.gitee.io/wuhlan3/2021/03/23/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
+<h2
+id="四用pthreads进行共享内存编程">四、用Pthreads进行共享内存编程</h2>
+<p><a
+href="https://wuhlan3.gitee.io/wuhlan3/2021/03/22/Pthreads%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
+<h2 id="五用openmp进行共享内存编程">五、用OpenMP进行共享内存编程</h2>
 <p><a href="">点我点我</a></p>
 
                 

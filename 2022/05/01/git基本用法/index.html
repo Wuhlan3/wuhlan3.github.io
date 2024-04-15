@@ -308,17 +308,17 @@
             
               <div class="markdown-body">
                 
-                <h1>git基本用法</h1>
-<h2 id="一、本地仓库操作">一、本地仓库操作</h2>
-<h3 id="1-仓库初始化">1.仓库初始化</h3>
+                <h1 id="git基本用法">git基本用法</h1>
+<h2 id="一本地仓库操作">一、本地仓库操作</h2>
+<h3 id="仓库初始化">1.仓库初始化</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> gitTraining<br><span class="hljs-built_in">cd</span> gitTraining<br>git init<br></code></pre></td></tr></table></figure>
-<h3 id="2-将修改保存到暂存区">2.将修改保存到暂存区</h3>
+<h3 id="将修改保存到暂存区">2.将修改保存到暂存区</h3>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment">#添加所有修改  </span><br>git <span class="hljs-built_in">add</span> .  <br><span class="hljs-comment">#添加hello.txt文件  </span><br>git <span class="hljs-built_in">add</span> hello.txt <br></code></pre></td></tr></table></figure>
 <p>查看暂存区状态</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git status</span><br></code></pre></td></tr></table></figure>
 <p>但是如果你不小心把不想添加的东西添加到暂存区，或者想丢弃已经添加的内容，这个时候你该怎么办呢？不用着急，这个时候<code>git checkout</code>命令就可以大显身手了。丢弃添加的内容：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> checkout hello.txt  <br></code></pre></td></tr></table></figure>
-<h3 id="3-将修改提交到本地仓库">3.将修改提交到本地仓库</h3>
+<h3 id="将修改提交到本地仓库">3.将修改提交到本地仓库</h3>
 <p>当执行完<code>git commit</code>后，如果你试着执行以下<code>git log</code>你可能会得到如下的输出：</p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">commit <span class="hljs-number">37302</span>ce99137cf30fabc14784d23ea63cadb928b  <br><span class="hljs-symbol">Author:</span> educoder &lt;educoder<span class="hljs-subst">@163</span>.com&gt;  <br><span class="hljs-symbol">Date:</span>   Sun <span class="hljs-keyword">Dec</span> <span class="hljs-number">24</span> <span class="hljs-number">23</span>:<span class="hljs-number">35</span>:<span class="hljs-number">48</span> <span class="hljs-number">2017</span> +<span class="hljs-number">0800</span>    <br><br>添加helloGit.txt<br></code></pre></td></tr></table></figure>
 <p>其中：</p>
@@ -328,12 +328,17 @@
 <li>最后输出的<code>“添加helloGit.txt”</code>，是我们在提交时添加的信息。</li>
 </ul>
 <p>如果有多次提交即<code>commit</code>，在执行<code>git log</code>时，会输出每一次的提交的具体信息。这样的话，什么时候（<code>Date</code>）由什么人（<code>Author</code>）提交了什么内容（“添加<code>helloGit.txt</code>”）就一目了然了。</p>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220504195643301.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504195643301"></p>
-<h2 id="二、远程仓库操作">二、远程仓库操作</h2>
-<h3 id="1-克隆远程版本库">1.克隆远程版本库</h3>
+<figure>
+<img
+src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220504195643301.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220504195643301" />
+<figcaption aria-hidden="true">image-20220504195643301</figcaption>
+</figure>
+<h2 id="二远程仓库操作">二、远程仓库操作</h2>
+<h3 id="克隆远程版本库">1.克隆远程版本库</h3>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-comment">##克隆到当前路径</span><br>git <span class="hljs-keyword">clone</span> <span class="hljs-title">xxx</span>.git<br><span class="hljs-comment">##也可以指定克隆到某个目录</span><br>git <span class="hljs-keyword">clone</span> <span class="hljs-title">xxx</span>.git <span class="hljs-string">&quot;指定目录&quot;</span>  <br></code></pre></td></tr></table></figure>
-<p>在团队开发中，<strong>我们必须选用一台主机做为<code>Git</code>服务器来存放远程版本库。<strong>这样团队中的每个开发者，就可以基于一个共同的远程版本库进行开发。目前提供代码托管（即可以将远程版本库存放于其上的）的平台有<code>Github</code>、<code>Gitee</code>等，同时我们也可以</strong>搭建一台私有的运行<code>Git</code>的服务器</strong>，来做为远程<code>Git</code>服务器。<code>Github</code>等平台的使用，及本地<code>Git</code>服务器的搭建，会在后续的实训中具体介绍。本地<code>Git</code>服务器，可以配置不同的连接方式，如<code>shell</code>、<code>git</code>或<code>bash</code>。为了给挑战者提供一个便利的实训环境，我们为每个人配置了一台本地<code>Git</code>服务器，并允许以<code>bash</code>方式进行操作，即可以通过类似于<code>/home/sample.git</code>这种形式的地址，做为远程仓库地址进行操作，而不是像<code>https://sample.git</code>这种形式。</p>
-<h3 id="2-添加到远程版本库">2.添加到远程版本库</h3>
+<p>在团队开发中，<strong>我们必须选用一台主机做为<code>Git</code>服务器来存放远程版本库。</strong>这样团队中的每个开发者，就可以基于一个共同的远程版本库进行开发。目前提供代码托管（即可以将远程版本库存放于其上的）的平台有<code>Github</code>、<code>Gitee</code>等，同时我们也可以<strong>搭建一台私有的运行<code>Git</code>的服务器</strong>，来做为远程<code>Git</code>服务器。<code>Github</code>等平台的使用，及本地<code>Git</code>服务器的搭建，会在后续的实训中具体介绍。本地<code>Git</code>服务器，可以配置不同的连接方式，如<code>shell</code>、<code>git</code>或<code>bash</code>。为了给挑战者提供一个便利的实训环境，我们为每个人配置了一台本地<code>Git</code>服务器，并允许以<code>bash</code>方式进行操作，即可以通过类似于<code>/home/sample.git</code>这种形式的地址，做为远程仓库地址进行操作，而不是像<code>https://sample.git</code>这种形式。</p>
+<h3 id="添加到远程版本库">2.添加到远程版本库</h3>
 <blockquote>
 <p>现在你要自己启动一个项目了，你需要将你的代码保存到远程版本中。那么你要做的第一件事就是，需要为你的本地版本库添加一个远程仓库，然后整个团队才能基于这个远程版本库进行协同开发。</p>
 </blockquote>
@@ -341,13 +346,14 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">git remote <span class="hljs-built_in">add</span> “远程仓库名” “远程仓库地址”  <br></code></pre></td></tr></table></figure>
 <p>使用示例如下：</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">git</span> remote <span class="hljs-keyword">add</span> origin https:<span class="hljs-comment">//sample.git  </span><br></code></pre></td></tr></table></figure>
-<p>这样就将<code>https://sample.git</code>添加为远程仓库，并将其命名为<code>origin</code>。   ###编程要求<br>
+<p>这样就将<code>https://sample.git</code>添加为远程仓库，并将其命名为<code>origin</code>。
+###编程要求
 本关的编程任务是，补全右侧代码片段中<code>Begin</code>至<code>End</code>中间的脚本。通过执行你所编写的脚本，来完成为本地仓库添加远程仓库的任务。远程仓库的地址为<code>/tmp/sample.git</code>。具体要求如下：</p>
 <ul>
 <li>创建一个本地版本库；</li>
 <li>为创建的本地仓库添加远程仓库，且将其命名为<code>git</code>。</li>
 </ul>
-<h3 id="3-推送本地仓库到远程仓库">3.推送本地仓库到远程仓库</h3>
+<h3 id="推送本地仓库到远程仓库">3.推送本地仓库到远程仓库</h3>
 <p>推送本地内容时，会将所有未推送至远程仓库的内容，都提到远程仓库。它用到的命令是<code>git push</code>，使用方法如下：</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">git <span class="hljs-built_in">push</span> 远程仓库名 本地分支名 远程分支名  <br></code></pre></td></tr></table></figure>
 <p>具体的使用方法如下：</p>
@@ -358,7 +364,7 @@
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">git <span class="hljs-built_in">push</span> -u 远程仓库名 本地分支名 远程分支名  <br></code></pre></td></tr></table></figure>
 <p><code>-u</code>参数的作用是，建立起本地<code>master</code>分支和远程<code>master</code>分支之间的对应关系，下一次如果再推送<code>master</code>分支，就可以忽略远程分支名了，如下所示：</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-comment">#初次推送  </span><br>git push -u origin <span class="hljs-keyword">master</span> <span class="hljs-title">master</span>  <br><span class="hljs-comment">#再次推送  </span><br>git push origin <span class="hljs-keyword">master</span>  <span class="hljs-title"></span><br></code></pre></td></tr></table></figure>
-<h3 id="4-拉取远程分支到本地">4.拉取远程分支到本地</h3>
+<h3 id="拉取远程分支到本地">4.拉取远程分支到本地</h3>
 <p>拉取远程仓库的内容到本地，需要使用<code>git pull</code>命令，其命令格式为：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> pull 远程主机名 远程分支名 本地分支名  <br></code></pre></td></tr></table></figure>
 <p>其使用示例如下：</p>
@@ -368,76 +374,75 @@
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> pull 远程主机名 远程分支名 本地分支名 -f  <br></code></pre></td></tr></table></figure>
 <p>具体的使用示例如下：</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-comment">#将远程仓库origin的master分支的内容拉取到本地master分支  </span><br>git pull origin <span class="hljs-literal">master</span>:<span class="hljs-keyword">master</span> <span class="hljs-title">-f</span>  <br></code></pre></td></tr></table></figure>
-<h2 id="三、分支管理">三、分支管理</h2>
-<h3 id="1-创建-切换本地分支">1.创建/切换本地分支</h3>
+<h2 id="三分支管理">三、分支管理</h2>
+<h3 id="创建切换本地分支">1.创建/切换本地分支</h3>
 <blockquote>
 <p>当你进入一个团队，在获得产品的完整代码之后，你首先要做的就是，在本地创建一个属于自己的分支，然后才能在自己的分支上进行开发。</p>
 </blockquote>
-<p>我们在<code>master</code>分支上，进行了<code>C1</code>、<code>C2</code>、<code>C3</code>三次提交，且当前指针指向<code>C3</code>提交。<br>
+<p>我们在<code>master</code>分支上，进行了<code>C1</code>、<code>C2</code>、<code>C3</code>三次提交，且当前指针指向<code>C3</code>提交。
 一般情况下，我们只会将已经成熟的代码存放到<code>master</code>分支，而将正在开发的代码或者测试版的代码放到其他分支。这时，我们就需要新建分支，以在该分支进行开发。如下图：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504204122931.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504204122931"></p>
-<p>当我们在主分支进行了<code>C2</code>提交后，新建了<code>develop</code>分支，并在其上进行了两次提交。此时，工作区指针<code>HEAD</code>指向<code>develop</code>分支。<br>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504204122931.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220504204122931" />
+<figcaption aria-hidden="true">image-20220504204122931</figcaption>
+</figure>
+<p>当我们在主分支进行了<code>C2</code>提交后，新建了<code>develop</code>分支，并在其上进行了两次提交。此时，工作区指针<code>HEAD</code>指向<code>develop</code>分支。
 创建本地分支用到的命令是<code>git branch</code>，而分支切换用到的命令是<code>git checkout</code>。<code>git checkout</code>是有很多用途的命令，在这里我们只讲它在分支操作中的使用。下面我们详细介绍这两个命令的使用。</p>
 <ul>
-<li>
-<p><strong>分支切换</strong><br>
-可以使用<code>git checkout</code> 命令切换到其他分支。如你本地有<code>master</code>分支和<code>develop</code>分支，目前你正处于<code>develop</code>分支进行开发，现在你想切换到<code>master</code>去，则可以执行下面的操作：<br>
-<code>git checkout master</code><br>
-这样就能切换到<code>master</code>分支继续进行开发。</p>
-</li>
-<li>
-<p><strong>创建新的分支</strong></p>
+<li><p><strong>分支切换</strong> 可以使用<code>git checkout</code>
+命令切换到其他分支。如你本地有<code>master</code>分支和<code>develop</code>分支，目前你正处于<code>develop</code>分支进行开发，现在你想切换到<code>master</code>去，则可以执行下面的操作：
+<code>git checkout master</code>
+这样就能切换到<code>master</code>分支继续进行开发。</p></li>
+<li><p><strong>创建新的分支</strong></p>
 <p>当你需要创建一个新的分支的时候，可以使用<code>git branch</code>命令，其具体使用格式为：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">git <span class="hljs-keyword">branch </span>新的分支名字<br></code></pre></td></tr></table></figure>
 <p>使用示例如下：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta">#创建名为new_branch的新分支  git branch new_branch  </span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>创建新分支的同时切换</strong><br>
-切换到一个新的分支，有一个更为简洁的命令：<code>git checkout -b</code>，它的使用格式为：<br>
-<code>git checkout -b 新的分支 名字</code><br>
-其具体使用方法如下：<br>
-<code>git checkout -b new_branch</code><br>
-这样就可以创建，并切换到了<code>new_branch</code>分支。</p>
-</li>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta">#创建名为new_branch的新分支  git branch new_branch  </span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>创建新分支的同时切换</strong>
+切换到一个新的分支，有一个更为简洁的命令：<code>git checkout -b</code>，它的使用格式为：
+<code>git checkout -b 新的分支 名字</code> 其具体使用方法如下：
+<code>git checkout -b new_branch</code>
+这样就可以创建，并切换到了<code>new_branch</code>分支。</p></li>
 </ul>
-<h3 id="2-删除本地分支">2.删除本地分支</h3>
+<h3 id="删除本地分支">2.删除本地分支</h3>
 <p>在开发过程中，很可能出现的一个情况是：你为了解决一个紧急<code>bug</code>，而临时创建了一个分支或者分支过于混乱需要丢弃。这时你就需要进行分支删除操作。</p>
 <p>本关任务：删除本地分支。</p>
 <h4 id="相关知识">相关知识</h4>
 <p>现在我们来看一个实际的例子。请看下图：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504210335362.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504210335362" style="zoom:67%;" />  
-<p>首先，我们在<code>master</code>工作到 <code>C1</code>，然后开始一个新分支<code>develop</code>分支，做为测试版的代码分支。提交到<code>C5</code>的时候，又需要临时解决一个问题，于是从<code>C5</code>的地方又分出一个分支<code>issue</code>。提交到<code>C7</code>的时候，该<code>issue</code>被解决。<code>issue</code>分支已经失去其意义，则需要将其删除，以保持本地版本库分支树的干净。我们将<code>issue</code>分支上的代码，合并到<code>develop</code>上之后，就可将<code>issue</code>分支删除。删除<code>issue</code>分支后的分支树如下：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504210346301.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504210346301" style="zoom:67%;" />  
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504210335362.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504210335362" style="zoom:67%;" /></p>
+<p>首先，我们在<code>master</code>工作到
+<code>C1</code>，然后开始一个新分支<code>develop</code>分支，做为测试版的代码分支。提交到<code>C5</code>的时候，又需要临时解决一个问题，于是从<code>C5</code>的地方又分出一个分支<code>issue</code>。提交到<code>C7</code>的时候，该<code>issue</code>被解决。<code>issue</code>分支已经失去其意义，则需要将其删除，以保持本地版本库分支树的干净。我们将<code>issue</code>分支上的代码，合并到<code>develop</code>上之后，就可将<code>issue</code>分支删除。删除<code>issue</code>分支后的分支树如下：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504210346301.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504210346301" style="zoom:67%;" /></p>
 <p>其中，<code>C8</code>为合并<code>issue</code>分支所进行的提交。</p>
-<p>删除本地分支，需要用到<code>git branch</code>命令，且需要<code>-D</code>参数，具体命令格式为：</p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-variable">git</span> <span class="hljs-variable">branch</span> <span class="hljs-operator">-</span><span class="hljs-built_in">D</span> 需要删除的分支的名字<br></code></pre></td></tr></table></figure>
+<p>删除本地分支，需要用到<code>git branch</code>命令，且需要<code>-D</code>参数，具体命令格式为：
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-variable">git</span> <span class="hljs-variable">branch</span> <span class="hljs-operator">-</span><span class="hljs-built_in">D</span> 需要删除的分支的名字<br></code></pre></td></tr></table></figure></p>
 <p>具体使用示例如下：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment">#删除develop分支  </span><br>git <span class="hljs-keyword">branch </span>-D develop  <br></code></pre></td></tr></table></figure>
 <p>示例中的命令，能够将本地分支<code>develop</code>删除。</p>
-<h3 id="3-删除远程分支">3.删除远程分支</h3>
+<h3 id="删除远程分支">3.删除远程分支</h3>
 <blockquote>
 <p>在开发过程中，有时可能由于产品变更，或者版本变更，而需要丢弃远程版本库中某个分支的内容。这个时候，你就需要一系列操作，来确保安全有效地删除远程分支。</p>
 </blockquote>
 <h4 id="两种删除方法">两种删除方法</h4>
 <p>删除分支用到的<code>git</code>命令是<code>git push</code>，在具体的使用过程中有不同的用法。</p>
-<ol>
+<ol type="1">
 <li><strong>通过推送空分支到远程分支，实现删除</strong>：</li>
 </ol>
-<p>一个删除远程分支的方法是，推送一个空分支到远程指定分支，以实现删除。推送本地分支到远程分支的方法是：<br>
+<p>一个删除远程分支的方法是，推送一个空分支到远程指定分支，以实现删除。推送本地分支到远程分支的方法是：
 <code>git push 远程主机名 本地分支:远程分支</code></p>
-<p>与之类似，推送空分支实现删除的方法是：<br>
-　　<code>git push 远程主机名 :远程分支</code><br>
+<p>与之类似，推送空分支实现删除的方法是：
+　　<code>git push 远程主机名 :远程分支</code>
 即<code>：</code>前没有指定本地分支名。具体的使用示例如下：</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">#删除远程develop分支，其中<span class="hljs-built_in">origin</span>为远程仓库名  <br>git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> :develop  <br></code></pre></td></tr></table></figure>
-<ol start="2">
+<ol start="2" type="1">
 <li><strong>通过<code>delete</code>参数删除远程分支</strong>：</li>
 </ol>
 <p>除了推送空分支到远程分支外，也可以通过<code>delete</code>参数实现删除。具体的命令格式为：</p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">git <span class="hljs-keyword">push</span> 远程主机名 --<span class="hljs-keyword">delete</span> 远程分支名<br></code></pre></td></tr></table></figure>
 <p>具体使用示例如下：</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">#删除远程develop分支,其中<span class="hljs-built_in">origin</span>为远程主机名  <br>git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> --<span class="hljs-built_in">delete</span> develop  <br></code></pre></td></tr></table></figure>
-<h3 id="4-本地分支合并">4.本地分支合并</h3>
+<h3 id="本地分支合并">4.本地分支合并</h3>
 <blockquote>
 <p>在协作开发中，团队中每个人可能都只负责一个模块。所以，很有可能，你在开发过程中，需要用到别人所开发的功能。这个时候就需要将别人分支的内容，合并到你自己的分支；或者，<code>develop</code>分支或者<code>master</code>分支有更新，你也需要将它们的修改，合并到你的分支，以跟上产品开发进程；也有可能你为了解决一个<code>bug</code>，创建临时分支，完成开发后，需要将其合并到你的分支。这些都需要分支合并的知识。</p>
 </blockquote>
@@ -451,94 +456,113 @@
 </ul>
 <p>具体命令如下：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">git <span class="hljs-built_in">merge</span> <span class="hljs-comment">--no-ff develop</span><br></code></pre></td></tr></table></figure>
-<p>默认情况下，<code>Git</code>执行&quot;快进式合并&quot;，即<code>fast-farward merge</code>，会直接将被合并的分支指向需要合并的分支。如下图：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504211936606.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504211936606" style="zoom: 50%;" />
+<p>默认情况下，<code>Git</code>执行"快进式合并"，即<code>fast-farward merge</code>，会直接将被合并的分支指向需要合并的分支。如下图：</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504211936606.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504211936606" style="zoom: 50%;" /></p>
 <ul>
 <li><strong>正常合并</strong></li>
 </ul>
 <p>命令具体如下：</p>
 <figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cos">git <span class="hljs-keyword">merge</span> develop<br></code></pre></td></tr></table></figure>
 <p>正常合并的方式如下图：</p>
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220504212319049.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504212319049" style="zoom:50%;" />
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220504212319049.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504212319049" style="zoom:50%;" /></p>
 <p>如图所示，<code>Master</code>分支上产生了一次新的提交，也就是说生成一个新节点完成了合并，这样的话，版本演进更清晰。</p>
 <h4 id="示例">示例</h4>
 <p>下面我们以一个具体的例子，来演示一下这两种合并方式的区别：</p>
-<ol>
+<ol type="1">
 <li>创建<code>master</code>分支，并在其上提交<code>hello</code>文件；</li>
 <li>从<code>master</code>分支切换到新分支<code>develop</code>，并进行两次提交，分别将<code>hello1</code>、<code>hello2</code>两个文件提交到<code>develop</code>分支；</li>
 <li>切换回<code>master</code>分支，执行<code>git merge develop</code>进行快进式合并，然后查看<code>master</code>分支的日志，得到如下提示信息：</li>
 </ol>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504212558452.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504212558452"></p>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504212558452.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220504212558452" />
+<figcaption aria-hidden="true">image-20220504212558452</figcaption>
+</figure>
 <p>如上图可知，<code>master</code>分支多了<code>develop</code>分支上的两次提交信息。</p>
-<ol start="4">
+<ol start="4" type="1">
 <li>将<code>master</code>分支回退到合并前状态，再次执行<code>git merge --no-ff develop</code>，进行非快进式合并，然后再次查看日志：</li>
 </ol>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504212613766.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220504212613766"></p>
-<h2 id="四、日志与版本回退">四、日志与版本回退</h2>
-<h3 id="1-回到前一次提交">1.回到前一次提交</h3>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220504212613766.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20220504212613766" />
+<figcaption aria-hidden="true">image-20220504212613766</figcaption>
+</figure>
+<h2 id="四日志与版本回退">四、日志与版本回退</h2>
+<h3 id="回到前一次提交">1.回到前一次提交</h3>
 <blockquote>
 <p>如果提交到本地仓库中的代码发现了<code>bug</code>，就必须将代码回到上一个版本。而在<code>Git</code>中，一次提交就对应着一个版本，因此可以根据日志信息进行版本回退。</p>
 </blockquote>
 <h4 id="日志的基本用法">日志的基本用法</h4>
 <p>在之前，我们已经介绍了<code>git log</code>的基本使用方法，这里我们要进一步介绍<code>git log</code>的使用。</p>
 <ul>
-<li>查看提交的内容差异<br>
+<li>查看提交的内容差异
 <code>git log</code>提供了<code>-p</code>参数，用于查看每次提交之间的内容差异。<code>git log -p</code>即可显示每次提交之间的变化。</li>
 <li>而如果想限制显示的范围，则可以再添加参数用于限定：<code>git log -p -2</code>这样，则仅显示最近的两次更新。</li>
 <li>其他<code>git log</code>选项：
-<ol>
-<li>单词层面对比<br>
+<ol type="1">
+<li>单词层面对比
 <code>Git</code>提供了<code>--word-diff</code>选项，可以显示单词层面的差异。当需要在书籍、论文这种很大的文本文件上，进行对比的时候，这个功能就非常有用。</li>
-<li>显示简要的增改行数<br>
+<li>显示简要的增改行数
 <code>Git</code>提供了<code>--stat</code>选项，则可以仅显示增加或者减少了多少行。</li>
-<li><code>pretty</code>选项<br>
-使用<code>--pretty</code> 选项选项，可以指定不同的显示属性，如<code>oneline</code> 将每个提交放在一行显示。 <code>short</code>，<code>full</code> 和 <code>fuller</code> 可以指定展示的信息的多少。</li>
-</ol>
-</li>
+<li><code>pretty</code>选项 使用<code>--pretty</code>
+选项选项，可以指定不同的显示属性，如<code>oneline</code>
+将每个提交放在一行显示。 <code>short</code>，<code>full</code> 和
+<code>fuller</code> 可以指定展示的信息的多少。</li>
+</ol></li>
 </ul>
 <h4 id="git-revert实现版本回退">git revert实现版本回退</h4>
-<p>版本回退可以用<code>git revert</code>命令。<code>git revert</code>撤销提交时，会保留所撤销的提交的记录和历史，并将撤销操作做为一次新的提交。即提交一个新的版本，将需要<code>revert</code>的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。其具体的使用方法如下：<br>
-* git revert HEAD          撤销前一次 commit<br>
-* git revert HEAD^         撤销前前一次 commit<br>
-* git revert commit （比如：fa042ce57ebbe5b）撤销指定的版本，撤销也会作为一次提交进行保存</p>
+<p>版本回退可以用<code>git revert</code>命令。<code>git revert</code>撤销提交时，会保留所撤销的提交的记录和历史，并将撤销操作做为一次新的提交。即提交一个新的版本，将需要<code>revert</code>的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。其具体的使用方法如下：
+* git revert HEAD 撤销前一次 commit * git revert HEAD^ 撤销前前一次
+commit * git revert commit
+（比如：fa042ce57ebbe5b）撤销指定的版本，撤销也会作为一次提交进行保存</p>
 <h4 id="git-reset实现版本回退">git reset实现版本回退</h4>
-<p><code>git reset</code>也能实现版本回退，但是<code>git revert</code> 和 <code>git reset</code>也存在一定的区别 ：</p>
+<p><code>git reset</code>也能实现版本回退，但是<code>git revert</code>
+和 <code>git reset</code>也存在一定的区别 ：</p>
 <ul>
 <li><code>git revert</code>是用一次新的<code>commit</code>来回滚之前的<code>commit</code>，<code>git reset</code>是直接删除指定的<code>commit</code>；</li>
 <li>在回滚这一操作上看，效果差不多。但是，在日后继续<code>merge</code>以前的老版本时有区别。因为<code>git revert</code>是用一次逆向的<code>commit</code>，“中和”之前的提交，因此日后合并老的<code>branch</code>时，导致这部分改变不会再次出现。但是<code>git reset</code>是把某些<code>commit</code>在某个<code>branch</code>上删除，因而和老的<code>branch</code>再次<code>merge</code>时，这些被回滚的<code>commit</code>应该还会被引入；</li>
-<li><code>git reset</code> 是把<code>HEAD</code>向后移动了一下，而<code>git revert</code>是<code>HEAD</code>继续前进，只是新的<code>commit</code>的内容和要<code>revert</code>的内容正好相反，能够抵消要被<code>revert</code>的内容。</li>
+<li><code>git reset</code>
+是把<code>HEAD</code>向后移动了一下，而<code>git revert</code>是<code>HEAD</code>继续前进，只是新的<code>commit</code>的内容和要<code>revert</code>的内容正好相反，能够抵消要被<code>revert</code>的内容。</li>
 </ul>
 <p><code>git reset</code>用法如下：</p>
 <ul>
-<li><code>git reset HEAD</code><br>
-回到前一次 <code>commit</code>。也可以用于将错误的文件添加进暂存区后，想回退取消，如：<br>
-　　<code>git reset HEAD 文件名</code></li>
-<li><code>git reset HEAD^</code><br>
-回到前前一次 <code>commit</code>。</li>
-<li><code>git reset commit</code><br>
+<li><code>git reset HEAD</code> 回到前一次
+<code>commit</code>。也可以用于将错误的文件添加进暂存区后，想回退取消，如：
+　　<code>git reset HEAD 文件名</code><br />
+</li>
+<li><code>git reset HEAD^</code> 回到前前一次
+<code>commit</code>。<br />
+</li>
+<li><code>git reset commit</code>
 比如：<code>commit = fa042ce57ebbe5b</code>，回到指定的版本，撤销也会作为一次提交进行保存。</li>
 </ul>
-<p>另外<code>git reset</code>也可以指定<code>reset</code>的模式：<code>hard</code>、<code>soft</code>、<code>mixed</code>、<code>merged</code>、<code>keep</code>。   这几种模式的差别如下：</p>
+<p>另外<code>git reset</code>也可以指定<code>reset</code>的模式：<code>hard</code>、<code>soft</code>、<code>mixed</code>、<code>merged</code>、<code>keep</code>。
+这几种模式的差别如下：</p>
 <ul>
 <li><code>--soft</code> 缓存区和工作目录都不会被改变；</li>
-<li><code>--mixed</code> – 默认选项。缓存区和你指定的提交同步，但工作目录不受影响；</li>
+<li><code>--mixed</code> –
+默认选项。缓存区和你指定的提交同步，但工作目录不受影响；</li>
 <li><code>--hard</code> – 缓存区和工作目录，都同步到你指定的提交。</li>
 </ul>
 <p>几种模式的具体使用方法如下：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-comment">#直接丢弃工作区和暂存区的修改  </span><br>git reset <span class="hljs-comment">--hard HEAD  </span><br><span class="hljs-comment">#暂存区内容保留，工作区修改丢弃  </span><br>git reset <span class="hljs-comment">--mixed HEAD  </span><br><span class="hljs-comment">#暂存区和工作区内容都保留  </span><br>git reset <span class="hljs-comment">--soft HEAD  </span><br></code></pre></td></tr></table></figure>
-<h3 id="2-删除文件">2.删除文件</h3>
+<h3 id="删除文件">2.删除文件</h3>
 <blockquote>
 <p>在Git使用过程中，涉及到撤回的操作，还有从暂存区或者分支删除文件。比如你错误地将测试过程中产生的日志文件提交到了暂存区或者分支上面去了，那么你可能就需要删除文件。</p>
 </blockquote>
-<p>删除文件需要用到的命令是<code>git rm</code>，且<code>git rm</code>有参数<code>--cached</code>。   当我们需要删除暂存区或分支上的文件，同时工作区也不再需要这个文件了，可以使用：<br>
-<code>git rm 文件路径</code><br>
-当我们需要删除暂存区或分支上的文件，<strong>但本地又需要使用</strong>， 只是不希望这个文件被提交到版本库，可以使用：<br>
+<p>删除文件需要用到的命令是<code>git rm</code>，且<code>git rm</code>有参数<code>--cached</code>。
+当我们需要删除暂存区或分支上的文件，同时工作区也不再需要这个文件了，可以使用：
+<code>git rm 文件路径</code>
+当我们需要删除暂存区或分支上的文件，<strong>但本地又需要使用</strong>，
+只是不希望这个文件被提交到版本库，可以使用：
 <code>git rm --cached 文件路径</code></p>
 <blockquote>
-<p>简单来说就是，一般情况下使用<code>git rm 文件路径</code>；想要保留工作区（本地）的时候，添加–cached。</p>
+<p>简单来说就是，一般情况下使用<code>git rm 文件路径</code>；想要保留工作区（本地）的时候，添加--cached。</p>
 </blockquote>
-<h2 id="五、标签">五、标签</h2>
-<h2 id="六、高阶操作">六、高阶操作</h2>
+<h2 id="五标签">五、标签</h2>
+<h2 id="六高阶操作">六、高阶操作</h2>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] https://www.educoder.net/paths/41</p>
 

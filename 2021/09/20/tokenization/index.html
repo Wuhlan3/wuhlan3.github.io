@@ -309,11 +309,13 @@
             
               <div class="markdown-body">
                 
-                <h1>Introduction</h1>
-<p>自然语言处理（Natural language processing，NLP）是<strong>语言学</strong>、<strong>计算机科学</strong>和<strong>人工智能</strong>的一个分支领域，研究计算机与人类语言之间的关系、相互作用，特别是如何编程计算机来<strong>处理</strong>和<strong>分析自然语言数据</strong>。</p>
-<p>目标：使计算机能够理解文本的内容，包括上下文之间的细微差别(contextual nuances)</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261720623.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926171930451" style="zoom:80%;box-shadow: none" />
-<h2 id="NLP的一些难题">NLP的一些难题</h2>
+                <h1 id="introduction">Introduction</h1>
+<p>自然语言处理（Natural language
+processing，NLP）是<strong>语言学</strong>、<strong>计算机科学</strong>和<strong>人工智能</strong>的一个分支领域，研究计算机与人类语言之间的关系、相互作用，特别是如何编程计算机来<strong>处理</strong>和<strong>分析自然语言数据</strong>。</p>
+<p>目标：使计算机能够理解文本的内容，包括上下文之间的细微差别(contextual
+nuances)</p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261720623.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926171930451" style="zoom:80%;box-shadow: none" /></p>
+<h2 id="nlp的一些难题">NLP的一些难题</h2>
 <p>Difficulty 1: Ambiguty</p>
 <ul>
 <li>Lexical ambiguity：词汇歧义——门把手弄坏了</li>
@@ -326,7 +328,7 @@
 <li>新的含义——苹果、凡尔赛</li>
 <li>新的语法——百度一下、Google it</li>
 </ul>
-<h2 id="NLP的应用场景">NLP的应用场景</h2>
+<h2 id="nlp的应用场景">NLP的应用场景</h2>
 <ul>
 <li>Information Retrieval：百度、Google、Bing</li>
 <li>Text Generation :九歌——人工智能诗歌写作系统</li>
@@ -335,9 +337,9 @@
 <li>Knowledge Graph</li>
 <li>Automatic Summarization</li>
 <li>Sentiment Analysis</li>
-<li>…</li>
+<li>...</li>
 </ul>
-<h2 id="Corpora">Corpora</h2>
+<h2 id="corpora">Corpora</h2>
 <p>corpora语料库，是可以是单个文档或多个文档的集合</p>
 <p>一个text是由这些组成的：</p>
 <ul>
@@ -348,29 +350,29 @@
 <li>特定的功能</li>
 </ul>
 <p>语言不是凭空出现的，所以我们需要语料库来进行学习。</p>
-<h2 id="Text-Normalization">Text Normalization</h2>
+<h2 id="text-normalization">Text Normalization</h2>
 <p>所有自然语言处理都涉及到文本的规范化：</p>
 <ul>
 <li>Tokenizing words</li>
 <li>Normalizing word formats</li>
 <li>Segmenting sentences</li>
 </ul>
-<h3 id="Tokenization">Tokenization</h3>
+<h3 id="tokenization">Tokenization</h3>
 <p>简单的方法：</p>
-<ol>
+<ol type="1">
 <li>根据space characters来划分</li>
 </ol>
 <p>使用Unix/Linux的工具来进行space-based tokenization</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">tr -sc ’A Za z’ ’ n’ &lt; shakes.txt | head<br>tr ‘A Z’ ‘a z ’ &lt; shakes.txt | tr sc ‘A Za z’ ‘ n’ | sort | uniq c<br>tr ‘A Z’ ‘a z ’ &lt; shakes.txt | tr sc ‘A Za z’ ‘ n’ | sort | uniq c | sort n r<br></code></pre></td></tr></table></figure>
-<ol start="2">
+<ol start="2" type="1">
 <li>当然，不能仅仅依靠标点符号来划分</li>
 </ol>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261826405.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926182526049" style="zoom:80%;box-shadow: none" />
-<ol start="3">
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261826405.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926182526049" style="zoom:80%;box-shadow: none" /></p>
+<ol start="3" type="1">
 <li>还有很多语言，比如说中文和日文是不使用空格来分隔单词的，那么又该如何划分呢？</li>
 </ol>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261845190.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926184536649" style="zoom:80%;box-shadow: none" />
-<ol start="4">
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261845190.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926184536649" style="zoom:80%;box-shadow: none" /></p>
+<ol start="4" type="1">
 <li>使用数据来进行划分</li>
 </ol>
 <p>常用算法有：</p>
@@ -380,30 +382,29 @@
 <li>WordPiece (Schuster and Nakajima,</li>
 </ul>
 <p>它们都具有两个部分：</p>
-<ol>
+<ol type="1">
 <li>token learner：以一套原始的语料库进行学习并生成一个词汇表</li>
 <li>token segmenter：根据词汇表来对一个测试句子进行划分</li>
 </ol>
-<h3 id="BPE-token-learner">BPE token learner</h3>
+<h3 id="bpe-token-learner">BPE token learner</h3>
 <p>基本步骤：</p>
-<ol>
+<ol type="1">
 <li>词汇表记录所有的单独的字符</li>
 <li>循环：
 <ul>
-<li>选择两个在训练语料库中出现频率最高的相邻符号（say ‘A’,‘B’）</li>
-<li>将一个新的’AB’加入词汇表</li>
-<li>取代所有相邻的’A’和’B’</li>
-</ul>
-</li>
+<li>选择两个在训练语料库中出现频率最高的相邻符号（say 'A','B'）</li>
+<li>将一个新的'AB'加入词汇表</li>
+<li>取代所有相邻的'A'和'B'</li>
+</ul></li>
 <li>直到有k个合并完成</li>
 </ol>
-<p>由于大部分subword算法都是基于空格的划分，所以我们常常先向词汇表加入一个符号’_’</p>
+<p>由于大部分subword算法都是基于空格的划分，所以我们常常先向词汇表加入一个符号'_'</p>
 <h3 id="例子">例子</h3>
-<img src="image-20210926185638796.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926185638796" style="zoom:80%;box-shadow: none" />
-<img src="image-20210926185728642.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none" />
-<img src="image-20210926185744391.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none" />
-<img src="image-20210926185803240.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none;"/>
-<h3 id="Normalizing-word-formats">Normalizing word formats</h3>
+<p><img src="image-20210926185638796.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926185638796" style="zoom:80%;box-shadow: none" /></p>
+<p><img src="image-20210926185728642.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none" /></p>
+<p><img src="image-20210926185744391.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none" /></p>
+<p><img src="image-20210926185803240.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none;"/></p>
+<h3 id="normalizing-word-formats">Normalizing word formats</h3>
 <ul>
 <li>U.S.A. or USA</li>
 <li>uhhuh or uh-huh</li>
@@ -413,15 +414,17 @@
 <p>Lemmatization：转换为lemma词根</p>
 <p>Stemming：将单词后缀删去，化繁为简</p>
 <h2 id="小项目">小项目</h2>
-<p>使用python进行网页的爬取、分词、写入excel表格。<br>
-URL: <a target="_blank" rel="noopener" href="https://news.ifeng.com/c/89TNORdIths">https://news.ifeng.com/c/89TNORdIths</a><br>
-Crawler: <a href="www.topcoder.com/thrive/articles/web">www.topcoder.com/thrive/articles/web</a> crawler in python<br>
-Chinese word tokenization: <a target="_blank" rel="noopener" href="https://github.com/fxsjy/jieba">https://github.com/fxsjy/jieba</a></p>
+<p>使用python进行网页的爬取、分词、写入excel表格。 URL: <a
+target="_blank" rel="noopener" href="https://news.ifeng.com/c/89TNORdIths">https://news.ifeng.com/c/89TNORdIths</a>
+Crawler: <a
+href="www.topcoder.com/thrive/articles/web">www.topcoder.com/thrive/articles/web</a>
+crawler in python Chinese word tokenization: <a
+target="_blank" rel="noopener" href="https://github.com/fxsjy/jieba">https://github.com/fxsjy/jieba</a></p>
 <p>总体来说不算难，根据爬虫和结巴两个包的示范代码，进行稍微的修改就可以实现了。</p>
-<h3 id="代码：">代码：</h3>
+<h3 id="代码">代码：</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> lxml<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><span class="hljs-keyword">from</span> xlwt <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> jieba<br>workbook = Workbook(encoding = <span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>table = workbook.add_sheet(<span class="hljs-string">&#x27;data&#x27;</span>)<br>table.write(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;URL&#x27;</span>)<br>table.write(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Title&#x27;</span>)<br>table.write(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Content&#x27;</span>)<br>url = <span class="hljs-string">&quot;https://news.ifeng.com/c/89TNORdIths&quot;</span><br>headers = &#123;<br>  <span class="hljs-string">&#x27;User-Agent&#x27;</span>: <span class="hljs-string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36&#x27;</span><br>&#125;<br>f = requests.get(url, headers = headers)<br><span class="hljs-comment">#开始获取html</span><br>soup = BeautifulSoup(f.content, <span class="hljs-string">&#x27;lxml&#x27;</span>)<br><span class="hljs-comment">#往excel写入URL</span><br>table.write(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, url)<br><span class="hljs-comment">#获取标题</span><br>heading = soup.find(<span class="hljs-string">&#x27;h1&#x27;</span>, &#123;<br>    <span class="hljs-string">&#x27;class&#x27;</span>: <span class="hljs-string">&#x27;topic-2Eq5D0Zm&#x27;</span><br>  &#125;)<br>head_list = jieba.cut(heading.string.strip(<span class="hljs-string">&#x27;&lt;h1&gt;&#x27;</span>), cut_all=<span class="hljs-literal">False</span>)<br>token_heading = <span class="hljs-string">&quot;/ &quot;</span>.join(head_list)<br><span class="hljs-built_in">print</span>(token_heading)  <br>table.write(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, token_heading)<br><span class="hljs-comment">#获取文章</span><br>article = <span class="hljs-string">&quot;&quot;</span> <br>paragraphs = soup.find(<span class="hljs-string">&#x27;div&#x27;</span>, &#123;<br>    <span class="hljs-string">&#x27;class&#x27;</span>: <span class="hljs-string">&#x27;main_content-28C-Fj2p&#x27;</span><br>  &#125;).find_all(<span class="hljs-string">&#x27;p&#x27;</span>)<br>num = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> paragraph <span class="hljs-keyword">in</span> paragraphs:<br>  article = article + paragraph.string.strip(<span class="hljs-string">&#x27;&lt;p&gt;&#x27;</span>)<br>seg_list = jieba.cut(article, cut_all=<span class="hljs-literal">False</span>)<br>token_article = <span class="hljs-string">&quot;/ &quot;</span>.join(seg_list)<br><span class="hljs-built_in">print</span>(token_article) <br>table.write(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, token_article)<br>workbook.save(<span class="hljs-string">&#x27;text_token.xls&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<h3 id="运行结果：">运行结果：</h3>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261914148.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926191356508" style="zoom:80%;box-shadow: none" />
+<h3 id="运行结果">运行结果：</h3>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261914148.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926191356508" style="zoom:80%;box-shadow: none" /></p>
 
                 
               </div>

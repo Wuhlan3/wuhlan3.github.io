@@ -310,11 +310,13 @@
             
               <div class="markdown-body">
                 
-                <h1>高性能计算 lab2</h1>
+                <h1 id="高性能计算-lab2">高性能计算 lab2</h1>
 <p>！！！</p>
-<p>源代码可以参考这个仓库喔<a target="_blank" rel="noopener" href="https://gitee.com/Wuhlan3/hpc">https://gitee.com/Wuhlan3/hpc</a></p>
+<p>源代码可以参考这个仓库喔<a
+target="_blank" rel="noopener" href="https://gitee.com/Wuhlan3/hpc">https://gitee.com/Wuhlan3/hpc</a></p>
 <p>！！！</p>
-<h2 id="一、基于MPI点对点通信的矩阵乘法">一、基于MPI点对点通信的矩阵乘法</h2>
+<h2
+id="一基于mpi点对点通信的矩阵乘法">一、基于MPI点对点通信的矩阵乘法</h2>
 <h3 id="基本思路">基本思路</h3>
 <p>我们可以将矩阵B分配给所有的进程，并将矩阵A进行划分，将每一部分分配给对应的进程。在每个进程完成自己那一部分的计算之后，汇总到主进程，组合成最终目标矩阵C。</p>
 <p>其中涉及到的主要的MPI函数包括：</p>
@@ -344,8 +346,8 @@
 <h3 id="运行结果">运行结果</h3>
 <table>
 <thead>
-<tr>
-<th>核数\矩阵大小</th>
+<tr class="header">
+<th>核数</th>
 <th>512</th>
 <th>1024</th>
 <th>1536</th>
@@ -353,28 +355,28 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>1</td>
 <td>0.810431</td>
 <td>11.400184</td>
 <td>54.643829</td>
 <td>166.500494</td>
 </tr>
-<tr>
+<tr class="even">
 <td>2</td>
 <td>0.503364</td>
 <td>5.933909</td>
 <td>27.939495</td>
 <td>83.671942</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>4</td>
 <td>0.608522</td>
 <td>6.119340</td>
 <td>28.566730</td>
 <td>85.674031</td>
 </tr>
-<tr>
+<tr class="even">
 <td>8</td>
 <td>0.675070</td>
 <td>6.000397</td>
@@ -383,9 +385,14 @@
 </tr>
 </tbody>
 </table>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109281529906.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928152819031"></p>
-<h2 id="二、基于MPI集合通信的矩阵乘法">二、基于MPI集合通信的矩阵乘法</h2>
-<h3 id="基本思路-2">基本思路</h3>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109281529906.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20210928152819031" />
+<figcaption aria-hidden="true">image-20210928152819031</figcaption>
+</figure>
+<h2 id="二基于mpi集合通信的矩阵乘法">二、基于MPI集合通信的矩阵乘法</h2>
+<h3 id="基本思路-1">基本思路</h3>
 <p>基本流程同一类似。只不过改用集合通信函数，可以更加方便地进行进程间的通信，而不需要使用for循环、关注进程的编号等等。集合通信函数可以自行划分内存块。感觉用到类型派生的函数的话反而变得更加麻烦，所以在另一个文件中使用了一下，权当练习练习，可以查看文件<code>mpi_matrix_mul3.cpp</code>。</p>
 <p>其中涉及到的主要的MPI函数包括：</p>
 <ul>
@@ -401,13 +408,13 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">MPI_Gather</span>(&amp;buf_C[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], C_size, MPI_DOUBLE, &amp;C[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], C_size, MPI_DOUBLE, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
 <p><strong>详情可以参考文件中的源码<code>mpi_matrix_mul2.cpp</code></strong></p>
-<h3 id="编译与运行-2">编译与运行</h3>
+<h3 id="编译与运行-1">编译与运行</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mpicxx -g -Wall -o m1 mpi_matrix_mul2.cpp<br>mpiexec -oversubscribe  -n 4 ./m2<br></code></pre></td></tr></table></figure>
-<h3 id="运行结果-2">运行结果</h3>
+<h3 id="运行结果-1">运行结果</h3>
 <table>
 <thead>
-<tr>
-<th>核数\矩阵大小</th>
+<tr class="header">
+<th>核数</th>
 <th>512</th>
 <th>1024</th>
 <th>1536</th>
@@ -415,28 +422,28 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>1</td>
 <td>0.914887</td>
 <td>15.457199</td>
 <td>89.563702</td>
 <td>232.458000</td>
 </tr>
-<tr>
+<tr class="even">
 <td>2</td>
 <td>0.555392</td>
 <td>9.096576</td>
 <td>51.484947</td>
 <td>134.997501</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>4</td>
 <td>0.502040</td>
 <td>9.375724</td>
 <td>51.218516</td>
 <td>149.110322</td>
 </tr>
-<tr>
+<tr class="even">
 <td>8</td>
 <td>0.617615</td>
 <td>11.616788</td>
@@ -445,30 +452,29 @@
 </tr>
 </tbody>
 </table>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109281529243.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928152915051"></p>
+<figure>
+<img
+src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109281529243.png" srcset="/wuhlan3/img/loading.gif" lazyload
+alt="image-20210928152915051" />
+<figcaption aria-hidden="true">image-20210928152915051</figcaption>
+</figure>
 <h3 id="两种通信方式的比较">两种通信方式的比较</h3>
 <p>可以很明显地看到，集合通信方式比点对点通信方式慢上许多，集合通信的运行时长多了接近一倍。这貌似与预先设想的不太一样。具体原因可能在于，在进行点对点通信的时候，我也对矩阵进行了手动的平均划分，而集合通信的过程很可能需要函数内部进行自己判断如何平均划分。所以虽然集合通信写起来更加方便，但性能比不上点对点的通信方式。</p>
-<h2 id="三、定义自己的MPI类型">三、定义自己的MPI类型</h2>
+<h2 id="三定义自己的mpi类型">三、定义自己的MPI类型</h2>
 <h3 id="基本步骤">基本步骤</h3>
-<ol>
-<li>
-<p>定义一个结构体</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span><br>&#123;<br>    <span class="hljs-type">double</span> A[SIZE][SIZE];<br>    <span class="hljs-type">double</span> B[SIZE][SIZE];<br>&#125; AandB;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>使用MPI_Type_create_struct函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> count = <span class="hljs-number">2</span>;<span class="hljs-comment">//块数</span><br>    <span class="hljs-type">int</span> blocklengths[count] = &#123;m * n, n * k&#125;;<span class="hljs-comment">//每个块的长度</span><br>    MPI_Aint offsets[count];<span class="hljs-comment">//块偏移量</span><br>    <span class="hljs-built_in">MPI_Get_address</span>(aandb.A, &amp;offsets[<span class="hljs-number">0</span>]);<br>    <span class="hljs-built_in">MPI_Get_address</span>(aandb.B, &amp;offsets[<span class="hljs-number">1</span>]);<br>    offsets[<span class="hljs-number">1</span>] = offsets[<span class="hljs-number">1</span>] - offsets[<span class="hljs-number">0</span>];<br>    offsets[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>    MPI_Datatype types[count] = &#123;MPI_DOUBLE, MPI_DOUBLE&#125;;<span class="hljs-comment">//块类型</span><br>    MPI_Datatype aandbtype;<span class="hljs-comment">//自定义MPI类型</span><br>    <span class="hljs-built_in">MPI_Type_create_struct</span>(count, blocklengths, offsets, types, &amp;aandbtype);<span class="hljs-comment">//创造属于自己的类型</span><br>    <span class="hljs-built_in">MPI_Type_commit</span>(&amp;aandbtype);<span class="hljs-comment">//提交，使得该类型可以被使用</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在集合通信中的使用。发送给所有进程</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">MPI_Bcast</span>(&amp;aandb, <span class="hljs-number">1</span>, aandbtype, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
-</li>
+<ol type="1">
+<li><p>定义一个结构体</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span><br>&#123;<br>    <span class="hljs-type">double</span> A[SIZE][SIZE];<br>    <span class="hljs-type">double</span> B[SIZE][SIZE];<br>&#125; AandB;<br></code></pre></td></tr></table></figure></li>
+<li><p>使用MPI_Type_create_struct函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> count = <span class="hljs-number">2</span>;<span class="hljs-comment">//块数</span><br>    <span class="hljs-type">int</span> blocklengths[count] = &#123;m * n, n * k&#125;;<span class="hljs-comment">//每个块的长度</span><br>    MPI_Aint offsets[count];<span class="hljs-comment">//块偏移量</span><br>    <span class="hljs-built_in">MPI_Get_address</span>(aandb.A, &amp;offsets[<span class="hljs-number">0</span>]);<br>    <span class="hljs-built_in">MPI_Get_address</span>(aandb.B, &amp;offsets[<span class="hljs-number">1</span>]);<br>    offsets[<span class="hljs-number">1</span>] = offsets[<span class="hljs-number">1</span>] - offsets[<span class="hljs-number">0</span>];<br>    offsets[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>    MPI_Datatype types[count] = &#123;MPI_DOUBLE, MPI_DOUBLE&#125;;<span class="hljs-comment">//块类型</span><br>    MPI_Datatype aandbtype;<span class="hljs-comment">//自定义MPI类型</span><br>    <span class="hljs-built_in">MPI_Type_create_struct</span>(count, blocklengths, offsets, types, &amp;aandbtype);<span class="hljs-comment">//创造属于自己的类型</span><br>    <span class="hljs-built_in">MPI_Type_commit</span>(&amp;aandbtype);<span class="hljs-comment">//提交，使得该类型可以被使用</span><br></code></pre></td></tr></table></figure></li>
+<li><p>在集合通信中的使用。发送给所有进程</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">MPI_Bcast</span>(&amp;aandb, <span class="hljs-number">1</span>, aandbtype, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure></li>
 </ol>
 <p><strong>详情可以参考文件中的源码<code>mpi_matrix_mul3.cpp</code></strong></p>
-<h3 id="编译与运行-3">编译与运行</h3>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301551742.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210930143230675" style="zoom:80%;box-shadow:none" />
+<h3 id="编译与运行-2">编译与运行</h3>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301551742.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210930143230675" style="zoom:80%;box-shadow:none" /></p>
 <p>结果正确。</p>
-<h2 id="四、改造Lab1成矩阵乘法库函数">四、改造Lab1成矩阵乘法库函数</h2>
+<h2 id="四改造lab1成矩阵乘法库函数">四、改造Lab1成矩阵乘法库函数</h2>
 <h3 id="动态链接库">动态链接库</h3>
 <p>动态链接库提供了<strong>Lab1</strong>中三种矩阵的乘法函数：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> MATRIXMUL_H__</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MATRIXMUL_H__</span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">void</span> <span class="hljs-title function_">Strassen</span><span class="hljs-params">(<span class="hljs-type">int</span> N, <span class="hljs-type">double</span>** MatrixA, <span class="hljs-type">double</span>** MatrixB, <span class="hljs-type">double</span>** MatrixC)</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">void</span> <span class="hljs-title function_">based_on_software_mul</span><span class="hljs-params">(<span class="hljs-type">double</span>** A, <span class="hljs-type">double</span> ** B, <span class="hljs-type">double</span> ** C, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">void</span> <span class="hljs-title function_">general_mul</span><span class="hljs-params">(<span class="hljs-type">double</span>** A, <span class="hljs-type">double</span> ** B, <span class="hljs-type">double</span> ** C, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">void</span> <span class="hljs-title function_">cout_matrix</span><span class="hljs-params">(<span class="hljs-type">double</span> ** C, <span class="hljs-type">int</span> row, <span class="hljs-type">int</span> col)</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">void</span> <span class="hljs-title function_">cin_matrix</span><span class="hljs-params">(<span class="hljs-type">double</span> ** A, <span class="hljs-type">int</span> row, <span class="hljs-type">int</span> col)</span>;<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
@@ -477,16 +483,19 @@
 <h3 id="makefile文件">makefile文件</h3>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-comment">#######################</span><br><span class="hljs-comment"># Makefile</span><br><span class="hljs-comment">#######################</span><br><br><span class="hljs-comment"># compile and lib parameter</span><br>CC      := g++<br>LIBS    := <br>LDFLAGS := <br>DEFINES :=<br>INCLUDE := -I/home/wuhlan3/Desktop/mpi/matrixmul.h<br>CFLAGS  := <br>CXXFLAGS:= <br><br><span class="hljs-comment"># link parameter</span><br>LIB := libmatrixmul.so<br><br><span class="hljs-comment">#link</span><br><span class="hljs-variable">$(LIB)</span>:matrixmul.o<br>    <span class="hljs-variable">$(CC)</span> -shared -o -fPIC -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$^</span><br><br><span class="hljs-comment">#compile</span><br><span class="hljs-section">matrixmul.o:matrixmul.cpp</span><br>    <span class="hljs-variable">$(CC)</span> -c -fPIC <span class="hljs-variable">$^</span> -o <span class="hljs-variable">$@</span> <br><br><span class="hljs-comment"># clean</span><br><span class="hljs-section">clean:</span><br>    rm -fr *.o<br></code></pre></td></tr></table></figure>
 <p>使用后生成<code>.so</code>文件：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301552957.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928142657323" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301552957.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928142657323" style="zoom:80%;box-shadow:none" /></p>
 <p>编译main文件可以正常运行：</p>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301551113.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928142817059" style="zoom:80%;box-shadow:none" />
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109301551113.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928142817059" style="zoom:80%;box-shadow:none" /></p>
 <h2 id="遇到的问题">遇到的问题</h2>
-<h3 id="1-内存不足">1.内存不足</h3>
-<p>对于点对点通信，一开始我使用的是一维数组存储矩阵的方式，我想着一维数组寻址会更加方便，使用<code>MPI_Send()</code>和<code>MPI_Recv()</code>函数时也会更加方便。小于512的矩阵还是能够正常计算的，但是当大小足够大时就会出现报错了。这是因为<code>double A[1024*1024]</code>这样的数组很可能已经超过了数组的上限（其中double是8字节的）。 只好改成二维数组的方式来存储。但是静态分配内存还是会出现segment fault的错误。最终只能使用动态分配内存。</p>
+<h3 id="内存不足">1.内存不足</h3>
+<p>对于点对点通信，一开始我使用的是一维数组存储矩阵的方式，我想着一维数组寻址会更加方便，使用<code>MPI_Send()</code>和<code>MPI_Recv()</code>函数时也会更加方便。小于512的矩阵还是能够正常计算的，但是当大小足够大时就会出现报错了。这是因为<code>double A[1024*1024]</code>这样的数组很可能已经超过了数组的上限（其中double是8字节的）。
+只好改成二维数组的方式来存储。但是静态分配内存还是会出现segment
+fault的错误。最终只能使用动态分配内存。</p>
 <p>此外，我还发现在mpi中使用malloc很容易出现错误，实在搞不明白具体原因。在经过大半天的调试后仍然失败。最后使用c++中的new和delete组合，就成功了。</p>
-<h3 id="2-编译遇到的问题">2.编译遇到的问题</h3>
+<h3 id="编译遇到的问题">2.编译遇到的问题</h3>
 <p>在linux上编译可能需要添加oversubscribe</p>
-<h3 id="3-二维矩阵在集合通信函数中的使用">3.二维矩阵在集合通信函数中的使用</h3>
+<h3
+id="二维矩阵在集合通信函数中的使用">3.二维矩阵在集合通信函数中的使用</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">MPI_Scatter</span>(&amp;A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, &amp;buf_A[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], A_size, MPI_DOUBLE, <span class="hljs-number">0</span>, MPI_COMM_WORLD);<br></code></pre></td></tr></table></figure>
 <p>比如说，假设A矩阵有8行，有4个进程。那么这种写法，是能够将其中的每两行分配个对应的进程的。</p>
 

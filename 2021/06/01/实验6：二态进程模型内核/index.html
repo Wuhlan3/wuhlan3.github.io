@@ -317,7 +317,7 @@
             
               <div class="markdown-body">
                 
-                <h1>实验6：二态进程模型内核</h1>
+                <h1 id="实验6二态进程模型内核">实验6：二态进程模型内核</h1>
 <h3 id="实验目的">实验目的</h3>
 <p>1、学习多道程序与CPU分时技术</p>
 <p>2、掌握操作系统内核的二态进程模型设计与实现方法</p>
@@ -330,74 +330,71 @@
 <p>4、设计实现时间片轮转调度算法，每次时钟中断，就切换进程，实现进程轮流运行。</p>
 <p>5、修改save()和restart()两个汇编过程，利用进程控制块保存当前被中断进程的现场，并从进程控制块恢复下一个进程的现场。</p>
 <p>6、编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</p>
-<p><img src="v2-c7b1619e9ee778610063a2129f3176f1_r.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="fly"></p>
+<figure>
+<img src="v2-c7b1619e9ee778610063a2129f3176f1_r.jpg" srcset="/wuhlan3/img/loading.gif" lazyload alt="fly" />
+<figcaption aria-hidden="true">fly</figcaption>
+</figure>
 <h3 id="实验内容">实验内容</h3>
-<ol>
-<li>
-<p>修改实验5的内核代码，内核执行期间，关中断，实现内核不可再入。</p>
-</li>
-<li>
-<p>修改实验5的内核代码，定义进程控制块，包括进程号、程序名、进程内存地址信息、CPU寄存器保存区、进程状态等必要数据项。</p>
-</li>
-<li>
-<p>扩展实验五的的内核程序，增加一条命令可同时执行多个用户程序，内核加载这些程序，创建多个进程，实现分时运行</p>
-</li>
-<li>
-<p>修改时钟中断处理程序，保留无敌风火轮显示，而且增加调用进程调度过程</p>
-</li>
-<li>
-<p>内核增加进程调度过程:每次调度，将当前进程转入就绪状态，选择下一个进程运行，如此反复轮流运行。</p>
-</li>
-<li>
-<p>修改save()和restart()两个汇编过程，利用进程控制块保存当前被中断进程的现场，并从进程控制块恢复下一个进程的运行。</p>
-</li>
-<li>
-<p>实验5的内核其他功能，如果不必要，可暂时取消服务。</p>
-</li>
+<ol type="1">
+<li><p>修改实验5的内核代码，内核执行期间，关中断，实现内核不可再入。</p></li>
+<li><p>修改实验5的内核代码，定义进程控制块，包括进程号、程序名、进程内存地址信息、CPU寄存器保存区、进程状态等必要数据项。</p></li>
+<li><p>扩展实验五的的内核程序，增加一条命令可同时执行多个用户程序，内核加载这些程序，创建多个进程，实现分时运行</p></li>
+<li><p>修改时钟中断处理程序，保留无敌风火轮显示，而且增加调用进程调度过程</p></li>
+<li><p>内核增加进程调度过程:每次调度，将当前进程转入就绪状态，选择下一个进程运行，如此反复轮流运行。</p></li>
+<li><p>修改save()和restart()两个汇编过程，利用进程控制块保存当前被中断进程的现场，并从进程控制块恢复下一个进程的运行。</p></li>
+<li><p>实验5的内核其他功能，如果不必要，可暂时取消服务。</p></li>
 </ol>
-<p><img src="image-20210516201332886.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210516201332886"></p>
+<figure>
+<img src="image-20210516201332886.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210516201332886" />
+<figcaption aria-hidden="true">image-20210516201332886</figcaption>
+</figure>
 <h3 id="实验环境">实验环境</h3>
-<h5 id="1-系统与虚拟机">1.系统与虚拟机</h5>
+<h5 id="系统与虚拟机">1.系统与虚拟机</h5>
 <ul>
 <li>Windows 10 - x64 18363.1139</li>
 <li>VMware Workstation 16 Player：用于跑ubuntu虚拟机</li>
 <li>Ubuntu 20.04.2 LTS</li>
 <li>VirtualBox-6.1.18-142142-Win：用于运行.img文件</li>
-<li>DOSBox DOS Emulator 0,74,0,0：用于tcc和tasm编译，并且运行.com文件</li>
+<li>DOSBox DOS Emulator
+0,74,0,0：用于tcc和tasm编译，并且运行.com文件</li>
 </ul>
-<h5 id="2-windows上的相关软件、编译器等">2.windows上的相关软件、编译器等</h5>
+<h5
+id="windows上的相关软件编译器等">2.windows上的相关软件、编译器等</h5>
 <ul>
-<li>NASM version 2.10.07 compiled on Jan  2 2013</li>
+<li>NASM version 2.10.07 compiled on Jan 2 2013</li>
 <li>TCC.EXE：用于16位C语言编程</li>
 <li>TLINK.EXE：用于C语言与汇编语言链接</li>
 <li>TASM.EXE：用于.asm文件的汇编</li>
 </ul>
-<h5 id="3-Ubuntu上的相关软件、编译器等">3.Ubuntu上的相关软件、编译器等</h5>
+<h5 id="ubuntu上的相关软件编译器等">3.Ubuntu上的相关软件、编译器等</h5>
 <ul>
 <li>NASM version 2.14.02</li>
 <li>makefile：GNU Make 4.2.1</li>
 </ul>
 <h3 id="实验基本架构">实验基本架构</h3>
-<p><img src="WuhlanOS6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="Wuhlan OS6"></p>
+<figure>
+<img src="WuhlanOS6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="Wuhlan OS6" />
+<figcaption aria-hidden="true">Wuhlan OS6</figcaption>
+</figure>
 <h3 id="实验过程">实验过程</h3>
-<h4 id="1-载入内存函数的修改">1.载入内存函数的修改</h4>
+<h4 id="载入内存函数的修改">1.载入内存函数的修改</h4>
 <p>对载入内存函数<code>loadProgram</code>进行修改，添加多几个参数。因为多进程同时运行的时候，是需要几个用户程序载入内存的不同位置，段地址和偏移量不再像之前那样定死了。同时由于过去常常出现磁头号和载入扇区数等错误，所以把这两个参数也引入，使得更加灵活，减少错误的发生。</p>
 <p>参数从右往左依次入栈，使用bp来进行寻址</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs asm">public _loadProgram    ;extern int loadBlock(int es, int bx, char sector, int num, int head);从右往左依次入栈<br>_loadProgram proc near<br><br>    push bp			;head/num/sector/bx/es/ip/bp<br>    mov bp,sp<br>    <br>    push ax<br>    push bx<br>    push cx<br>    push dx<br>    push es<br><br>    mov ax,[bp+4]			;段地址 es<br>    mov es,ax<br>    mov bx,[bp+6]			;偏移量 bx<br>    mov ah,2<br>    mov al,[bp+10]			;扇区数	num<br>    mov ch,0<br>    mov cl,[bp+8]			;扇区	sector<br>    mov dl,0	<br>    mov dh,[bp+12]			;磁头号 head<br>    int 13h<br><br>    pop es<br>    pop dx<br>    pop cx<br>    pop bx<br>    pop ax<br>    pop bp<br>    <br>    ret<br>_loadProgram endp<br></code></pre></td></tr></table></figure>
-<h4 id="2-save和restart的修改">2.save和restart的修改</h4>
+<h4 id="save和restart的修改">2.save和restart的修改</h4>
 <p>只需要在上一个实验的基础上进行小修改，<code>_cpuReg——&gt;_curPCB</code>，即可：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs asm">;保护现场，此时栈顶/flags/cs/int ip/save ip*************<br>_save proc near<br>    push ds								;/flags/cs/ip/ip/ds<br>    push cs<br>    pop ds								;ds=cs<br>    <br>    push si								;/flags/cs/ip/ip/ds/si<br>    <br>    mov si,word ptr DGROUP:_curPCB		;此时si是PCB结构体的地址<br>    pop word ptr [si+16]				;si存入结构体,/flags/cs/ip/ip/ds<br>    pop word ptr [si+14]				;ds存入结构体,/flags/cs/ip/ip<br>    <br>    lea si,ret_temp						;这个ip指的是save的返回地址<br>    pop word ptr [si]					;ip存入ret_temp中,/flags/cs/ip<br>    <br>    mov si,word ptr DGROUP:_curPCB<br>    pop word ptr [si+22]				;ip存入结构体，/flags/cs<br>    pop word ptr [si+24]				;cs存入结构体，/flags<br>    pop word ptr [si+26]				;flags存入结构体，/，栈为空<br>        <br>    mov [si+18],ss						;ss存入结构体<br>    mov [si+20],sp						;sp存入结构体<br>    <br>    mov si,ds<br>    mov ss,si							;将栈修改为内核栈<br>    <br>    mov sp,word ptr DGROUP:_curPCB<br>    add sp,14							;此时指向PCB结构体的<br>    <br>    push es								<br>    push bp<br>    push di<br>    push dx<br>    push cx<br>    push bx<br>    push ax								;PCB结构体保存es/bp/di/dx/cx/bx/ax<br>    <br>    mov si,word ptr DGROUP:_kernelPCB<br>    mov sp,[si+20]						;sp变为内核态<br>    mov ax,cs							<br>    mov es,ax							;cs变为内核态<br>    <br>    lea si,ret_temp<br>    mov ax,[si]<br>    jmp ax								;返回call _save的位置<br>_save endp<br>;********************************************************<br></code></pre></td></tr></table></figure>
 <p>只需要在上一个实验的基础上进行小修改，<code>_cpuReg——&gt;_curPCB</code>，即可：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs asm">;恢复现场********************************************<br>_restart proc near<br>    mov si,word ptr DGROUP:_kernelPCB<br>    mov [si+20],sp<br>    ;lea sp,_curPCB<br>    mov sp,word ptr DGROUP:_curPCB		;将栈指针指向PCB结构体，对前7个寄存器进行出栈<br>    pop ax<br>    pop bx<br>    pop cx<br>    pop dx<br>    pop di<br>    pop bp<br>    pop es<br>                                        ;结构体中/flags/cs/ip/sp/ss/si/ds<br>    lea si,ds_temp						;使用一个临时变量存储ds,/flags/cs/ip/sp/ss/si<br>    pop word ptr [si]					;结构体中/flags/cs/ip/sp/ss/si<br>    lea si,si_temp						;使用一个临时变量存储si<br>    pop word ptr [si]					;结构体中/flags/cs/ip/sp/ss<br>    <br>    lea si,bx_temp<br>    mov [si],bx							;保护一下bx<br><br>    pop bx								;结构体中/flags/cs/ip/sp<br>    mov ss,bx							;bx为原来的栈地址<br>    mov bx,sp<br>    mov sp,[bx]							;bx此时是结构体中sp的地址，恢复栈的sp<br>    <br>    add bx,2							;使bx指向ip	<br>    <br>    push word ptr [bx+4]				;原来的栈中：/flags<br>    push word ptr [bx+2]				;原来的栈中：/flags/cs<br>    push word ptr [bx]					;原来的栈中：/flags/cs/ip<br>    <br>    push ax								;原来的栈中：/flags/cs/ip/ax<br>    push word ptr [si]					;原来的栈中：/flags/cs/ip/ax/bx<br>    lea si,ds_temp<br>    mov ax,[si]<br>    lea si,si_temp<br>    mov bx,[si]<br>    mov ds,ax							;恢复ds<br>    mov si,bx							;恢复si<br>    <br>    pop bx								;原来的栈中：/flags/cs/ip/ax<br>    pop ax								;原来的栈中：/flags/cs/ip<br>    <br>    iret<br>    <br>_restart endp<br></code></pre></td></tr></table></figure>
-<h4 id="3-进程控制块">3.进程控制块</h4>
+<h4 id="进程控制块">3.进程控制块</h4>
 <p>在实验五的基础上，将寄存器结构体修改为进程控制块，额外添加几个变量作为控制信息。其中0代表新建态；1代表运行态；2代表阻塞态。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>    <span class="hljs-comment">/*寄存器*/</span><br>    <span class="hljs-type">int</span> ax;<br>    <span class="hljs-type">int</span> bx;<br>    <span class="hljs-type">int</span> cx;<br>    <span class="hljs-type">int</span> dx;<br>    <span class="hljs-type">int</span> di;<br>    <span class="hljs-type">int</span> bp;<br>    <span class="hljs-type">int</span> es;<br>    <br>    <span class="hljs-type">int</span> ds;<br>    <span class="hljs-type">int</span> si;<br>    <span class="hljs-type">int</span> ss;<br>    <span class="hljs-type">int</span> sp;<br>    <span class="hljs-type">int</span> ip;<br>    <span class="hljs-type">int</span> cs;<br>    <span class="hljs-type">int</span> flags;<br>    <span class="hljs-comment">/*其他信息*/</span><br>    <span class="hljs-type">int</span> pid;<br>    <span class="hljs-type">char</span> name[<span class="hljs-number">10</span>];	<span class="hljs-comment">/*貌似没有起到作用，不过老师写了就跟着写*/</span><br>    <span class="hljs-type">int</span> status;	<span class="hljs-comment">/*新建态/结束态：0，运行：1，阻塞：2*/</span><br>&#125;PCB;<br></code></pre></td></tr></table></figure>
 <p>同时声明PCB序列，并记录当前的PCB和内核的PCB</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">PCB PCBList[processNum];                   <span class="hljs-comment">/*PCB序列，存储所有进程的信息*/</span><br>PCB *curPCB = &amp;PCBList[processNum - <span class="hljs-number">1</span>];       <span class="hljs-comment">/*当前的PCB，一开始默认为内核PCB*/</span><br>PCB *kernelPCB = &amp;PCBList[processNum - <span class="hljs-number">1</span>]; <span class="hljs-comment">/*把最后一个PCB作为内核的PCB*/</span><br></code></pre></td></tr></table></figure>
-<h4 id="4-进程初始化">4.进程初始化</h4>
+<h4 id="进程初始化">4.进程初始化</h4>
 <p>将所有进程的状态置为空闲，并把内核的状态设置为运行态。在操作系统刚开始运行的时候，就需要进行初始化。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">initProcess</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">int</span> i;<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; processNum; i++)&#123;<br>        PCBList[i].status = <span class="hljs-number">0</span>;<br>    &#125;<br>    kernelPCB-&gt;pid = processNum - <span class="hljs-number">1</span>;<br>    kernelPCB-&gt;status = <span class="hljs-number">1</span>;<br>    <span class="hljs-built_in">strcpy</span>(kernelPCB-&gt;name, <span class="hljs-string">&quot;kernel&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="5-进程创建">5.进程创建</h4>
+<h4 id="进程创建">5.进程创建</h4>
 <p>为什么flags需要初始化为512呢？是因为只需要把中断响应置为1即可，后文会详细讲述。</p>
 <p>该函数的主要步骤为：</p>
 <ul>
@@ -408,7 +405,7 @@
 <li>修改进程状态为阻塞态</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">createProcess</span><span class="hljs-params">(<span class="hljs-type">int</span> cs, <span class="hljs-type">int</span> ip, <span class="hljs-type">int</span> sector, <span class="hljs-type">int</span> num, <span class="hljs-type">int</span> head)</span>&#123;<br>    <span class="hljs-type">int</span> cur;<br>    <span class="hljs-keyword">for</span> (cur = <span class="hljs-number">0</span>; cur &lt; processNum; cur++)&#123;<br>        <span class="hljs-keyword">if</span> (PCBList[cur].status == <span class="hljs-number">0</span>)<span class="hljs-keyword">break</span>;<br>    &#125;<br>    PCBList[cur].ax = <span class="hljs-number">0</span>;<br>    PCBList[cur].bx = <span class="hljs-number">0</span>;<br>    PCBList[cur].cx = <span class="hljs-number">0</span>;<br>    PCBList[cur].dx = <span class="hljs-number">0</span>;<br>    PCBList[cur].si = <span class="hljs-number">0</span>;<br>    PCBList[cur].bp = <span class="hljs-number">0</span>;<br>    PCBList[cur].di = <span class="hljs-number">0</span>;<br>    PCBList[cur].cs = cs;<br>    PCBList[cur].ds = cs;<br>    PCBList[cur].es = cs;<br>    PCBList[cur].ip = ip;<br>    PCBList[cur].ss = cs;<br>    PCBList[cur].sp = savePSPadd(cs);				<br>    PCBList[cur].flags = <span class="hljs-number">512</span>;<br>    PCBList[cur].pid = cur;<br>    PCBList[cur].name[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;0&#x27;</span> + cur;				<br>    PCBList[cur].name[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br>    LoadPSP(cs);<br>    loadProgram(cs, ip, sector, num, head);	<span class="hljs-comment">/*sector:扇区，num:扇区数，head:磁头号*/</span><br>    PCBList[cur].status = <span class="hljs-number">2</span>;<br>    runningNum ++;<br>    <span class="hljs-keyword">return</span> ;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="6-进程切换">6.进程切换</h4>
+<h4 id="进程切换">6.进程切换</h4>
 <p>进程切换，需要考虑以下几种情况：</p>
 <ul>
 <li>若正在运行的程序数<code>runningNum</code>为0，则将进程切换或保持为内核</li>
@@ -416,14 +413,13 @@
 <ul>
 <li>若找到了阻塞态的，则将其修改为运行态；并把当前的状态（运行态的时候才改）改为阻塞态</li>
 <li>若找不到，则继续运行当前进程</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span>  <span class="hljs-title function_">scheduleProcess</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">int</span> i;<br>    <span class="hljs-keyword">if</span> (runningNum == <span class="hljs-number">0</span>)&#123;<br>        curPCB = &amp;PCBList[processNum - <span class="hljs-number">1</span>];<br>        curPCB-&gt;status = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (i = curPCB-&gt;pid + <span class="hljs-number">1</span>; <span class="hljs-number">1</span>; i++)&#123;<br>        i = i % processNum;<br>        <span class="hljs-keyword">if</span>(i == curPCB-&gt;pid)<span class="hljs-keyword">break</span>;		<span class="hljs-comment">/*遍历了一遍都没有发现阻塞态的进程，则保持当前的继续运行*/</span><br>        <span class="hljs-keyword">if</span> (PCBList[i].status == <span class="hljs-number">2</span>)&#123;<br>            <span class="hljs-keyword">if</span>(curPCB-&gt;status == <span class="hljs-number">1</span>)curPCB-&gt;status = <span class="hljs-number">2</span>;		<span class="hljs-comment">/*只有当状态为运行态，才修改为阻塞态*/</span><br>            PCBList[i].status = <span class="hljs-number">1</span>;<br>            curPCB = &amp;PCBList[i];<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>修改时钟中断，使每一个时间片结束时，进行进程切换。</p>
 <p>在合适的地方添加下面的语句即可：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">call _scheduleProcess<br></code></pre></td></tr></table></figure>
-<h4 id="7-进程结束">7.进程结束</h4>
+<h4 id="进程结束">7.进程结束</h4>
 <p>用户程序是使用<code>ret</code>来返回操作系统的，我们该如何判断用户程序什么时候返回呢？</p>
 <p>当用户程序运行到<code>ret</code>语句的时候，会弹出用户栈里的两个数据，作为段地址和偏移量。我们在之前将栈初始化——保存了<code>cs</code>和<code>0</code>在栈顶。所以用户程序会跳转到PSP的段首，这里我们预先存放了<code>int 20h</code>，所以会调用20h中断。20h的主要作用是跳转并执行<code>endProcess</code>函数。</p>
 <p>20h的中断修改如下：</p>
@@ -436,28 +432,25 @@
 <li>循环等待，直到时间片结束</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">endProcess</span><span class="hljs-params">()</span>&#123;<br>    curPCB-&gt;status = <span class="hljs-number">0</span>;<br>    runningNum--;<br>    STI();<br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="8-具体在main中新建进程">8.具体在main中新建进程</h4>
+<h4 id="具体在main中新建进程">8.具体在main中新建进程</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(isstr_eql(str,<span class="hljs-string">&quot;programs&quot;</span>))&#123;<br>            createProcess(<span class="hljs-number">0x2000</span>, <span class="hljs-number">0x8c00</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);		<span class="hljs-comment">/*四个程序载入的内存地址要不同*/</span><br>            createProcess(<span class="hljs-number">0x3000</span>, <span class="hljs-number">0x8c00</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>            createProcess(<span class="hljs-number">0x4000</span>, <span class="hljs-number">0x8c00</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>            createProcess(<span class="hljs-number">0x5000</span>, <span class="hljs-number">0x8c00</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">while</span> (runningNum);		<span class="hljs-comment">/*当还有用户程序正在运行，则阻塞在此处。*/</span><br>            cls();<br>    &#125;<br></code></pre></td></tr></table></figure>
 <h3 id="实验结果">实验结果</h3>
 <p>开机动画正常运作</p>
-<img src="image-20210515224730500.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515224730500" style="zoom: 67%;" />
+<p><img src="image-20210515224730500.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210515224730500" style="zoom: 67%;" /></p>
 <p>可以注意到，右下角的风火轮可以正常转动，同时新增了一条指令<code>programs</code>可以同时运行4个用户程序：</p>
-<img src="image-20210525144610900.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144610900" style="zoom:67%;" />
+<p><img src="image-20210525144610900.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144610900" style="zoom:67%;" /></p>
 <p>int22可以正常显示：</p>
-<img src="image-20210525144816988.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144816988" style="zoom:67%;" />
+<p><img src="image-20210525144816988.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144816988" style="zoom:67%;" /></p>
 <p>int21执行如下：</p>
-<img src="image-20210525144757838.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144757838" style="zoom:67%;" />
+<p><img src="image-20210525144757838.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144757838" style="zoom:67%;" /></p>
 <p>使用新的指令<code>programs</code>同时运行四个字符反射的用户程序，我们会发现，当其中一个进程运行结束后，其他进程的运行速度会变快，到最后只剩下A进程的时候，他的运行速度就和之前一样了。这说明进程在运行结束后，正确地变为空闲状态。当所有用户程序运行结束后，会自动返回操作系统。如下：</p>
-<img src="image-20210525144507172.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144507172" style="zoom:67%;" />
+<p><img src="image-20210525144507172.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210525144507172" style="zoom:67%;" /></p>
 <h3 id="问题与解决方式">问题与解决方式</h3>
-<ol>
-<li>
-<p>当多个用户程序同时运行的时候，有的程序运行的快，有的程序运行的慢。当其中一个程序运行结束后就会直接清屏，不能等待其他程序运行完成。这里使用一个循环语句来<strong>同步</strong>——当所有用户程序都运行完成时，才能结束循环。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">while (runningNum);<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>纠结了一下，flag标志寄存器该初始化位多少？</p>
-<img src="20201024133042782.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" style="zoom: 33%;" />
+<ol type="1">
+<li><p>当多个用户程序同时运行的时候，有的程序运行的快，有的程序运行的慢。当其中一个程序运行结束后就会直接清屏，不能等待其他程序运行完成。这里使用一个循环语句来<strong>同步</strong>——当所有用户程序都运行完成时，才能结束循环。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">while (runningNum);<br></code></pre></td></tr></table></figure></li>
+<li><p>纠结了一下，flag标志寄存器该初始化位多少？</p>
+<p><img src="20201024133042782.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="img" style="zoom: 33%;" /></p>
 <p>上图中，灰色的为保留位，白色的为各种类型的标志。</p>
 <p>x86架构CPU中，标志寄存器主要有3种作用：</p>
 <ul>
@@ -465,21 +458,21 @@
 <li>执行相关指令时，提供行为依据，例如执行<code>JE</code>指令时会读取ZF的值，来决定是否进行跳转。</li>
 <li>控制CPU的工作方式，例如IF（是否响应中断）、VM、TF等标志位。</li>
 </ul>
-<p>因此我们只需要将<code>flag</code>初始化为512，9号位置1，使其具有中断处理的功能即可</p>
-</li>
-<li>
-<p>关于<code>int 20h</code>的中断问题。</p>
+<p>因此我们只需要将<code>flag</code>初始化为512，9号位置1，使其具有中断处理的功能即可</p></li>
+<li><p>关于<code>int 20h</code>的中断问题。</p>
 <p>上网查阅资料发现，一般情况下是不使用<code>int 20h</code>这个中断的。这是因为本中断的入口参数为：<strong>CS=程序PSP的段地址</strong>，使用起来常常会有些错误。一般会使用<code>int 21h</code>。</p>
 <p>那么在有多个进程交替运行的时候，如何<strong>在不修改原有用户程序</strong>的情况下，判断进程已经运行结束呢。由于一般用户程序最后使用<code>ret</code>进行返回。所以，我们只需要使栈的顶分别为段地址<code>cs</code>和偏移量<code>0</code>，那么<code>cs:0</code>指向的就是PSP代码前缀。PSP是DOS用来和被加载的程序进行通信的，它的结构如下：</p>
-<p><img src="image-20210531232853188.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210531232853188"></p>
+<figure>
+<img src="image-20210531232853188.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210531232853188" />
+<figcaption aria-hidden="true">image-20210531232853188</figcaption>
+</figure>
 <p>所以，我们将<code>int 20H</code>存放到PSP的0号位置。</p>
-<p>所以我们只需要在运行程序之前，对用户栈进行初始化，添加<code>cs</code>和<code>0</code>，就能保证用户程序在ret的时候跳转到PSP并调用<code>int 20h</code>，然后根据我们自己写的<code>int 20h</code>就能在程序结束之后，对进程的PCB进行修改与调整。</p>
-</li>
+<p>所以我们只需要在运行程序之前，对用户栈进行初始化，添加<code>cs</code>和<code>0</code>，就能保证用户程序在ret的时候跳转到PSP并调用<code>int 20h</code>，然后根据我们自己写的<code>int 20h</code>就能在程序结束之后，对进程的PCB进行修改与调整。</p></li>
 </ol>
 <h3 id="实验总结">实验总结</h3>
 <p>其实进程控制块PCB处理起来并不复杂，毕竟这次实验进程只需要有新建态、阻塞态、运行态，况且我用查找方式、排队方式仅仅是从头到尾的慢慢遍历，并没有用到非常复杂的算法。所以C程序部分的代码还是非常显然的，只需要用心理清代码逻辑即可。</p>
 <p>而汇编模块的程序还是比较麻烦。需要对<code>save</code>、<code>restart</code>两个模块进行修改，对几个中断进行修改，这里涉及到汇编和C程序之间的相互调用，另外加深了我对汇编语言的各个寄存器的认识。如对FLAG寄存器各个位的作用的认识。同时了解到PSP段的使用方式，并运用到用户进程的返回当中。</p>
-<p>虽然操作系统实验占用了我课余蛮多的时间，但是我还是想说：我爱OS！🐶</p>
+<p>虽然操作系统实验占用了我课余蛮多的时间，但是我还是想说：我爱OS！:dog:</p>
 
                 
               </div>
