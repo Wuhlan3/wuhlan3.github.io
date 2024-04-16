@@ -118,7 +118,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -314,37 +316,25 @@
 <h3 id="定义1">定义1</h3>
 <p>我们定义一个符号<span class="math inline">\(argmax\)</span>： $x ^ ∗
 argmax f(x)_ {x∈X} ⇐⇒ f(x ^ ∗) = max_{x∈X}f(x) $</p>
-<p>注意这里左侧用到的是属于<span
-class="math inline">\(\in\)</span>，而不是等号=，因为有可能不止一个值可以使<span
-class="math inline">\(f(x)\)</span>为最大值。所以这里<span
-class="math inline">\(argmax\)</span>不是一个函数，更准确的说法是一个对应关系(correspondence)</p>
+<p>注意这里左侧用到的是属于<span class="math inline">\(\in\)</span>，而不是等号=，因为有可能不止一个值可以使<span class="math inline">\(f(x)\)</span>为最大值。所以这里<span class="math inline">\(argmax\)</span>不是一个函数，更准确的说法是一个对应关系(correspondence)</p>
 <h3 id="定义2">定义2</h3>
 <p>最简单的情况是当环境中没有随机性时，一旦做出选择，结果是肯定的。
-单个决策问题中的行为选择称为<strong>行动</strong>（action）。可用的替代动作集将表示为A。这将是一个离散集，如<span
-class="math inline">\(\{a_1,a_2,a_3,…\}\)</span>，或一个连续集，如[0,1]。</p>
-<p><strong>回报</strong>（payoff）是一个函数<span
-class="math inline">\(\pi:A→ R\)</span>，它将一个数值与每个动作<span
-class="math inline">\(a\in A\)</span>相关联.</p>
+单个决策问题中的行为选择称为<strong>行动</strong>（action）。可用的替代动作集将表示为A。这将是一个离散集，如<span class="math inline">\(\{a_1,a_2,a_3,…\}\)</span>，或一个连续集，如[0,1]。</p>
+<p><strong>回报</strong>（payoff）是一个函数<span class="math inline">\(\pi:A→ R\)</span>，它将一个数值与每个动作<span class="math inline">\(a\in A\)</span>相关联.</p>
 <h2 id="making-decisions">Making Decisions</h2>
 <h3 id="定义3">定义3</h3>
-<p>一个决策a*，被称为<strong>最佳决策</strong>，当<span
-class="math inline">\(\pi (a^*) ≥ \pi (a) ∀a\in A\)</span></p>
+<p>一个决策a*，被称为<strong>最佳决策</strong>，当<span class="math inline">\(\pi (a^*) ≥ \pi (a) ∀a\in A\)</span></p>
 <p>也可以等价的写成：<span class="math inline">\(a ^ * \in argmax_{a \in
 A} \pi (a)\)</span></p>
 <p>简单来说一个optimal
 action（最佳决策）就是能带来最大回报的决策。如果多个决策都能带来最大回报，那么选择任意一个都是可以的。</p>
-<p>例子：比如说找工作的两种策略，一种是薪酬是$15000，另一种薪酬是$17000，那么<span
-class="math inline">\(\pi (a_1) = 15000\)</span>，<span
-class="math inline">\(\pi (a_2) =
-17000\)</span>，所以<strong>最佳决策</strong>是<span
-class="math inline">\(a ^ * = a_2\)</span></p>
+<p>例子：比如说找工作的两种策略，一种是薪酬是$15000，另一种薪酬是$17000，那么<span class="math inline">\(\pi (a_1) = 15000\)</span>，<span class="math inline">\(\pi (a_2) =
+17000\)</span>，所以<strong>最佳决策</strong>是<span class="math inline">\(a ^ * = a_2\)</span></p>
 <p>其中，我们将薪酬的单位变换，或将每种策略都给多$1000，并不会改变最佳决策。因为这属于仿射变换(affine
 transformations)——指在几何中，一个向量空间进行一次线性变换并接上一个平移，变换为另一个向量空间。</p>
 <h3 id="定义4">定义4</h3>
-<p>仿射变换(affine transformations)，值通过下列变换得到<span
-class="math inline">\(\pi&#39; (a)\)</span>： <span
-class="math display">\[
-\pi&#39; (a) = \alpha \pi (a) + \beta
+<p>仿射变换(affine transformations)，值通过下列变换得到<span class="math inline">\(\pi' (a)\)</span>： <span class="math display">\[
+\pi' (a) = \alpha \pi (a) + \beta
 \]</span> 当回报进行仿射变换时，最佳决策是不会被改变的。</p>
 <h2 id="modelling-rational-behaviour">Modelling Rational Behaviour</h2>
 <p>最大化预期货币价值(EMV, maximizing expected
@@ -353,33 +343,21 @@ monetary)是人们一定会选择的吗？有一些原因可能导致人们不�
 <p>假设一组可能的结果：<span class="math inline">\(\Omega =
 \{w_1,w_2,w_3...\}\)</span>。那么：</p>
 <ul>
-<li>严格偏好：如果一个人相比于<span
-class="math inline">\(w_2\)</span>更喜欢<span
-class="math inline">\(w_1\)</span>，写作$w_1 w_2 $</li>
-<li>弱偏好：如果一个人相比于<span
-class="math inline">\(w_2\)</span>更喜欢<span
-class="math inline">\(w_1\)</span>一点点，写作$w_1 w_2 $</li>
-<li>无差异：如果一个人对于<span
-class="math inline">\(w_1\)</span>、<span
-class="math inline">\(w_2\)</span>无所谓，写作$w_1 w_2 $</li>
+<li>严格偏好：如果一个人相比于<span class="math inline">\(w_2\)</span>更喜欢<span class="math inline">\(w_1\)</span>，写作$w_1 w_2 $</li>
+<li>弱偏好：如果一个人相比于<span class="math inline">\(w_2\)</span>更喜欢<span class="math inline">\(w_1\)</span>一点点，写作$w_1 w_2 $</li>
+<li>无差异：如果一个人对于<span class="math inline">\(w_1\)</span>、<span class="math inline">\(w_2\)</span>无所谓，写作$w_1 w_2 $</li>
 </ul>
 <p>一个人的行为会被认为是<strong>rational under
 certainty</strong>，当满足如下条件：</p>
 <ul>
-<li>完整性(Completeness)，要么$w_1 w_2 <span
-class="math inline">\(，要么\)</span>w_2 w_1 $，不能同时出现</li>
-<li>传递性(Transitivity)，如果$w_1 w_2 <span
-class="math inline">\(且\)</span>w_2 w_3 <span
-class="math inline">\(，那么\)</span>w_1 w_3 $</li>
+<li>完整性(Completeness)，要么$w_1 w_2 <span class="math inline">\(，要么\)</span>w_2 w_1 $，不能同时出现</li>
+<li>传递性(Transitivity)，如果$w_1 w_2 <span class="math inline">\(且\)</span>w_2 w_3 <span class="math inline">\(，那么\)</span>w_1 w_3 $</li>
 </ul>
 <p>一个人的行为会被认为是<strong>rational under
 uncertainty</strong>或<strong>rational</strong>，当满足如下条件：</p>
 <ul>
-<li>完整性(Completeness)，要么$w_1 w_2 <span
-class="math inline">\(，要么\)</span>w_2 w_1 $，不能同时出现</li>
-<li>传递性(Transitivity)，如果$w_1 w_2 <span
-class="math inline">\(且\)</span>w_2 w_3 <span
-class="math inline">\(，那么\)</span>w_1 w_3 $</li>
+<li>完整性(Completeness)，要么$w_1 w_2 <span class="math inline">\(，要么\)</span>w_2 w_1 $，不能同时出现</li>
+<li>传递性(Transitivity)，如果$w_1 w_2 <span class="math inline">\(且\)</span>w_2 w_3 <span class="math inline">\(，那么\)</span>w_1 w_3 $</li>
 <li>单调性(Monotonicity)</li>
 <li>连续性(Continuity)</li>
 <li>独立性(Independence)</li>
@@ -389,18 +367,13 @@ class="math inline">\(，那么\)</span>w_1 w_3 $</li>
 function</strong>)的定义如下： <span class="math display">\[
 u(w_1)&gt;u(w_2) \longleftrightarrow w_1 \succ w_2\\
 u(w_1)=u(w_2) \longleftrightarrow w_1 \sim w_2
-\]</span> <div class="note note-success">
+\]</span> </p><div class="note note-success">
             <p>著宝宝解释的非常好，效用与w之间是怎么建立联系的。就是因为效用大所以才会<strong>偏好</strong>其中的一种w</p>
-          </div></p>
+          </div><p></p>
 <h3 id="定义7">定义7</h3>
 <p>当我们知道每个结果出现的概率时，我们称其为简单彩票。</p>
-<p><strong>简单彩票</strong>(<strong>simple lottery</strong>)，<span
-class="math inline">\(\lambda\)</span>，指的是一个结果<span
-class="math inline">\(w\in
-\Omega\)</span>出现概率的集合。每一个结果<span
-class="math inline">\(w\)</span>出现的概率是<span
-class="math inline">\(p(w|\lambda)\)</span>。所有可能的彩票表示为<span
-class="math inline">\(A\)</span>。</p>
+<p><strong>简单彩票</strong>(<strong>simple lottery</strong>)，<span class="math inline">\(\lambda\)</span>，指的是一个结果<span class="math inline">\(w\in
+\Omega\)</span>出现概率的集合。每一个结果<span class="math inline">\(w\)</span>出现的概率是<span class="math inline">\(p(w|\lambda)\)</span>。所有可能的彩票表示为<span class="math inline">\(A\)</span>。</p>
 <h3 id="定义8">定义8</h3>
 <p><strong>期望效用定理</strong>(Expected Utility
 Theorem)：如果一个人是理性的，在最大化回报的行为下，得到的期望效用为：
@@ -408,15 +381,12 @@ Theorem)：如果一个人是理性的，在最大化回报的行为下，得到
 \pi (a) = \sum_{w\in \Omega} p (w|\lambda(a))u(w)
 \]</span></p>
 <figure>
-<img
-src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210920162350051.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20210920162350051" />
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210920162350051.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210920162350051">
 <figcaption aria-hidden="true">image-20210920162350051</figcaption>
 </figure>
 <h1 id="simple-decision-processes">Simple Decision Processes</h1>
 <p>strategy：在可能必须做出决定的每一点上，选择一种行动的规则</p>
-<p>pure strategy：没有随机性的策略。所有可能的纯策略的集合用<span
-class="math inline">\(S\)</span>来表示。</p>
+<p>pure strategy：没有随机性的策略。所有可能的纯策略的集合用<span class="math inline">\(S\)</span>来表示。</p>
 <p>纯策略通过决策树选择一条从起点到终点的路径。然而，纯策略不仅仅是通过决策树的路径：纯策略指定了每个决策节点将采取的操作，包括如果遵循该策略将无法达到的操作。换句话说，观察到的个人行为只为我们提供了策略本身的一部分。</p>
 <h2 id="randomizing-strategies">Randomizing Strategies</h2>
 <p>假设动作（或纯策略）集为{a1，a2}。一般行为规定使用概率为p的a1和概率为1−

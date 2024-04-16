@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="引言 什么是数据库 数据库管理系统(DBMS)：一个互相关联的数据集合和一组用于访问这些数据的程序组成。 数据库(DB)：其中的数据集合称为数据库              为什么不使用传统的文件处理系统？数据的冗余和不一致(data redundancy and inconsistency)数据访问困难(difficulty in accessing data)：手工提取列表很麻烦">
+    <meta name="description" content="引言 什么是数据库 数据库管理系统(DBMS)：一个互相关联的数据集合和一组用于访问这些数据的程序组成。 数据库(DB)：其中的数据集合称为数据库              为什么不使用传统的文件处理系统？  数据的冗余和不一致(data redundancy and inconsistency) 数据访问困难(difficulty in accessing data)：手工提取列表很麻烦 数据孤">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念——引言">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B51/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="引言 什么是数据库 数据库管理系统(DBMS)：一个互相关联的数据集合和一组用于访问这些数据的程序组成。 数据库(DB)：其中的数据集合称为数据库              为什么不使用传统的文件处理系统？数据的冗余和不一致(data redundancy and inconsistency)数据访问困难(difficulty in accessing data)：手工提取列表很麻烦">
+<meta property="og:description" content="引言 什么是数据库 数据库管理系统(DBMS)：一个互相关联的数据集合和一组用于访问这些数据的程序组成。 数据库(DB)：其中的数据集合称为数据库              为什么不使用传统的文件处理系统？  数据的冗余和不一致(data redundancy and inconsistency) 数据访问困难(difficulty in accessing data)：手工提取列表很麻烦 数据孤">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-04T14:02:06.000Z">
@@ -119,7 +119,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -315,7 +317,18 @@
 <p><strong>数据库管理系统</strong>(DBMS)：一个互相关联的数据集合和一组用于访问这些数据的程序组成。</p>
 <p><strong>数据库</strong>(DB)：其中的数据集合称为数据库</p>
 <div class="note note-success">
-            <p>为什么不使用传统的<strong>文件处理系统</strong>？</p><ul><li>数据的冗余和不一致(data redundancy and inconsistency)</li><li>数据访问困难(difficulty in accessing data)：手工提取列表很麻烦</li><li>数据孤立(data isolation)：数据分散在不同文件中，检索困难</li><li>完整性问题(integrity problem)：一些值要满足一致性约束</li><li>原子性问题(atomicityproblem)：如转账操作，要么全部发生，要么不发生</li><li>并发访问异常(concurrent-accessanomaly)：并发的更新操作可能导致数据不一致</li><li>安全性问题(security problem)：类似于用户权限</li></ul>
+            <p>为什么不使用传统的<strong>文件处理系统</strong>？</p>
+<ul>
+<li>数据的冗余和不一致(data redundancy and inconsistency)</li>
+<li>数据访问困难(difficulty in accessing data)：手工提取列表很麻烦</li>
+<li>数据孤立(data isolation)：数据分散在不同文件中，检索困难</li>
+<li>完整性问题(integrity problem)：一些值要满足一致性约束</li>
+<li>原子性问题(atomicity
+problem)：如转账操作，要么全部发生，要么不发生</li>
+<li>并发访问异常(concurrent-access
+anomaly)：并发的更新操作可能导致数据不一致</li>
+<li>安全性问题(security problem)：类似于用户权限</li>
+</ul>
           </div>
 <h2 id="三层抽象">三层抽象</h2>
 <p>DBMS的一个主要任务是要提供给用户数据的抽象视图（隐藏关于数据存储与维护的某些细节）</p>
@@ -326,7 +339,8 @@
 <li>视图层：只描述了用户关心的某个部分</li>
 </ul>
 <div class="note note-success">
-            <p>为什么要划分出这样的层次模型？</p><p><strong>物理数据独立性</strong>：应用程序不依赖于物理模式，即使物理模式改变了它们无需重写。即修改物理层，应用程序不受影响。</p>
+            <p>为什么要划分出这样的层次模型？</p>
+<p><strong>物理数据独立性</strong>：应用程序不依赖于物理模式，即使物理模式改变了它们无需重写。即修改物理层，应用程序不受影响。</p>
           </div>
 <p><strong>实例</strong>(instance)：特定时刻存储在数据库中的信息的集合</p>
 <p><strong>模式</strong>(schema)：数据库的总体设计</p>
@@ -369,7 +383,7 @@
 <p>实体集：同一类型的所有实体的集合</p>
 <p>映射基数：某个联系集能与一实体进行关联的实体数目</p>
 <p>实体-联系图(entity-relationship diagram E-R图)：</p>
-<p><img src="image-20210905151315800.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom: 50%;" /></p>
+<p><img src="image-20210905151315800.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom: 50%;"></p>
 <h2 id="存储管理">存储管理</h2>
 <p>存储管理器：数据库系统中负责在数据库中存储的<strong>底层数据</strong>与应用程序以及向系统提交的查询之间<strong>提供接口</strong>的部件。</p>
 <p>存储管理部件包括：</p>
@@ -398,7 +412,7 @@
 <p>事务管理器：包括<strong>并发控制管理器</strong>和<strong>恢复管理器</strong></p>
 <h2 id="体系结构">体系结构</h2>
 <figure>
-<img src="image-20210905152448072.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210905152448072" />
+<img src="image-20210905152448072.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210905152448072">
 <figcaption aria-hidden="true">image-20210905152448072</figcaption>
 </figure>
 

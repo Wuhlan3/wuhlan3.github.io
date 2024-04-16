@@ -123,7 +123,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -261,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k words
+          3.7k words
         
       </span>
     
@@ -315,10 +317,8 @@
               <div class="markdown-body">
                 
                 <h1 id="抖声项目汇总">抖声项目汇总</h1>
-<p>单体架构仓库：<a
-target="_blank" rel="noopener" href="https://github.com/Wuhlan3/dousheng">https://github.com/Wuhlan3/dousheng</a></p>
-<p>微服务架构仓库：<a
-target="_blank" rel="noopener" href="https://github.com/Wuhlan3/kitexdousheng">https://github.com/Wuhlan3/kitexdousheng</a></p>
+<p>单体架构仓库：<a target="_blank" rel="noopener" href="https://github.com/Wuhlan3/dousheng">https://github.com/Wuhlan3/dousheng</a></p>
+<p>微服务架构仓库：<a target="_blank" rel="noopener" href="https://github.com/Wuhlan3/kitexdousheng">https://github.com/Wuhlan3/kitexdousheng</a></p>
 <h2 id="一简单介绍一下你的项目">一、简单介绍一下你的项目？</h2>
 <p>本项目的一些素材来源于字节跳动后端训练营，他们提供了一个抖声客户端，并且规范了可以实现的一些接口，包括用户登陆与注册、视频流、评论功能、点赞功能、关注功能等等。在训练营期间，我曾担任小组的队长，由于同小组有较多大一大二的同学，所以负责了该项目单体架构的设计、数据库表的设计、大部分接口的功能实现。最终该项目取得了较好的成绩。之后，我和舍友也尝试使用在青训营所学的知识，使用字节跳动的微服务架构KiteX框架来重新实现该项目，并且完善缓存机制、单元测试，完善了视频流的一些功能包括使用使用FFmpeg截取视频的封面、将视频通过存储桶来进行管理等等。</p>
 <h2 id="二你主要做了哪些工作呢">二、你主要做了哪些工作呢？</h2>
@@ -329,8 +329,7 @@ target="_blank" rel="noopener" href="https://github.com/Wuhlan3/kitexdousheng">h
 <li>视频流的相关实现计包括将视频和封面上传到腾讯云COS对象存储桶，使用FFmpeg截取视频的封面；</li>
 <li>使用Redis来减少访问数据库的次数</li>
 </ol>
-<h2
-id="三本项目你遇到的最大困难是什么如何解决的">三、本项目你遇到的最大困难是什么，如何解决的？</h2>
+<h2 id="三本项目你遇到的最大困难是什么如何解决的">三、本项目你遇到的最大困难是什么，如何解决的？</h2>
 <p>我认为本项目最复杂的、也是最有必要认真实现的模块就是视频流的设计。</p>
 <ol type="1">
 <li>视频封面的获取，ffmpeg；</li>
@@ -408,8 +407,7 @@ thrift仅40W结果，邮件列表不怎么活跃</td>
 </tbody>
 </table>
 </blockquote>
-<h2
-id="七微服务架构相比于单体架构优点体现在哪里">七、微服务架构相比于单体架构，优点体现在哪里？</h2>
+<h2 id="七微服务架构相比于单体架构优点体现在哪里">七、微服务架构相比于单体架构，优点体现在哪里？</h2>
 <p>微服务架构的优点如下：</p>
 <ol type="1">
 <li><strong>单一职责</strong>。每个服务都有自己独立的业务逻辑，是一个高内聚、低耦合、单一原则的单元。</li>
@@ -421,8 +419,7 @@ id="七微服务架构相比于单体架构优点体现在哪里">七、微服�
 <h2 id="八etcd是什么">八、ETCD是什么？</h2>
 <p>ETCD是Go语言开发的一个开源的、高可用的分布式key-value存储系统。</p>
 <p>微服务在ETCD注册中心中注册好自己的相关信息，之后api层可以通过ETCD来获取相应微服务的ip地址和端口号，从而发起RPC调用。</p>
-<h2
-id="九有没有对该项目的性能进行测试">九、有没有对该项目的性能进行测试？</h2>
+<h2 id="九有没有对该项目的性能进行测试">九、有没有对该项目的性能进行测试？</h2>
 <p>由于环境的限制，在两核2G的小型云服务器环境下，在30秒内5000个客户端的情况下，可以处理40000个请求。之后还会继续完善测试。</p>
 <h2 id="十jwt相关原理">十、JWT相关原理</h2>
 <p>是作为中间件来使用的，大部分的HTTP接口都需要JWT校验通过之后，才能够进行下一步的业务逻辑处理。</p>
@@ -443,16 +440,14 @@ id="九有没有对该项目的性能进行测试">九、有没有对该项目�
 </ul>
 </blockquote>
 <h2 id="十一rpc的原理">十一、RPC的原理</h2>
-<p>参考：<a
-href="https://wuhlan3.gitee.io/wuhlan3/2022/08/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">https://wuhlan3.gitee.io/wuhlan3/2022/08/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</a></p>
+<p>参考：<a href="https://wuhlan3.gitee.io/wuhlan3/2022/08/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">https://wuhlan3.gitee.io/wuhlan3/2022/08/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</a></p>
 <h2 id="十二gin有什么特点">十二、Gin有什么特点？</h2>
 <ol type="1">
 <li>路由</li>
 <li>context上下文，方便传递</li>
 <li></li>
 </ol>
-<h2
-id="十三你的项目中使用到了什么设计模式">十三、你的项目中使用到了什么设计模式？</h2>
+<h2 id="十三你的项目中使用到了什么设计模式">十三、你的项目中使用到了什么设计模式？</h2>
 <ol type="1">
 <li><p>在repository层使用了<strong>单例模式</strong>。比如说我们给UserDao绑定了Query、Update等方法，在每次调用的时候，我们都返回userDao这个单例对象，而避免重复生成，消耗额外的资源。（对于每个线程，可共享一个实例）</p></li>
 <li><p>在service层，我们使用了<strong>简单工厂模式</strong>，比如说对于userlogin这个模块，我们定义了一个UserLoginFlow的对象，每次调用它的方法，我们首先要根据所需的参数new出这一个对象，之后做参数校验、逻辑处理等工作。简单工厂模式可以确保我们创建的实例具有需要的参数，进而保证实例的方法可以按预期执行</p>
@@ -466,7 +461,7 @@ id="十三你的项目中使用到了什么设计模式">十三、你的项目�
 </blockquote></li>
 </ol>
 <h2 id="十四代码行数">十四、代码行数</h2>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//算上kitexgen自动生生成的有9218行</span><br>find . <span class="hljs-string">&quot;(&quot;</span> -name <span class="hljs-string">&quot;*.go&quot;</span>  <span class="hljs-string">&quot;)&quot;</span> -print | xargs wc -l<br><span class="hljs-comment">//如果不算，有3702行</span><br>find cmd config pkg <span class="hljs-string">&quot;(&quot;</span> -name <span class="hljs-string">&quot;*.go&quot;</span>  <span class="hljs-string">&quot;)&quot;</span> -print | xargs wc -l<br></code></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//算上kitexgen自动生生成的有9218行</span><br>find . <span class="hljs-string">"("</span> -name <span class="hljs-string">"*.go"</span>  <span class="hljs-string">")"</span> -print | xargs wc -l<br><span class="hljs-comment">//如果不算，有3702行</span><br>find cmd config pkg <span class="hljs-string">"("</span> -name <span class="hljs-string">"*.go"</span>  <span class="hljs-string">")"</span> -print | xargs wc -l<br></code></pre></td></tr></tbody></table></figure>
 <h2 id="十五怎么测试抖音">十五、怎么测试抖音</h2>
 <blockquote>
 <p>基本思路：</p>
@@ -522,8 +517,7 @@ Namespaces，cgroup，具有逻辑上独立文件系统，网络的一个进程�
 <li>docker的隔离性更弱、安全性也更弱。属于进程之间的隔离。虚拟机可实现系统级别的隔离。docker与宿主机共享内核、文件系统等资源，更有可能对其他容器、宿主机造成影响。</li>
 </ol>
 <h2 id="十九dockerfile怎么写">十九、Dockerfile怎么写</h2>
-<h2
-id="二十密码怎么加密的使用了什么算法">二十、密码怎么加密的，使用了什么算法</h2>
+<h2 id="二十密码怎么加密的使用了什么算法">二十、密码怎么加密的，使用了什么算法</h2>
 <p>使用的是bcrypt中的一个库函数。就是一个加盐的过程。先生成一个随机数salt，然后和password一起进行hash。</p>
 <blockquote>
 <p>对同一个密码，每次生成的hash不一样，这是因为hash中包含了salt（hash产生过程：先随机生成salt，salt跟password进行hash）；

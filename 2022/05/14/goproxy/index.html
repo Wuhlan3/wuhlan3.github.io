@@ -118,7 +118,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -256,7 +258,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k words
+          1.5k words
         
       </span>
     
@@ -318,7 +320,7 @@ Secure”的缩写。</p>
 </blockquote>
 <p>防火墙内的客户端想要访问外部的服务器时，会跟SOCKS代理服务器进行连接。客户端的请求会通过代理服务器发送到外部的服务器，最终响应也会通过代理服务器发送回客户端。</p>
 <h3 id="基本模型">基本模型</h3>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220424129.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220424129" style="zoom: 50%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220424129.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220424129" style="zoom: 50%;"></p>
 <h3 id="协商过程认证">协商过程（认证）</h3>
 <p>SOCKS5比SOCKS4a多了验证、IPv6、UDP支持。</p>
 <p>建立与SOCKS5服务器的TCP连接后客户端需要先发送请求来确认协议版本及认证方式，格式为（以字节为单位）：</p>
@@ -463,8 +465,7 @@ Secure”的缩写。</p>
 </ul>
 <h2 id="二前置知识bufio包的使用">二、前置知识：bufio包的使用</h2>
 <p>bufio是有缓存的io，避免因为多次写操作而降低程序的性能。</p>
-<p>具体可以参考这个文章：<a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129781512">https://zhuanlan.zhihu.com/p/129781512</a></p>
+<p>具体可以参考这个文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129781512">https://zhuanlan.zhihu.com/p/129781512</a></p>
 <p>有时间，再自己总结吧...</p>
 <h2 id="三代码实现">三、代码实现</h2>
 <h3 id="v1简易的echo-server">1. v1：简易的echo server</h3>
@@ -474,49 +475,46 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129781512">htt
 <li>调用server.Accept()等待并建立连接；</li>
 <li>当有连接建立之后，启动一个协程，来处理这个连接的数据</li>
 </ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">//process部分就不放出了，就是一个简单的数据读取和输出的过程</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   server, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;127.0.0.1:1080&quot;</span>)<br>   <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>      <span class="hljs-built_in">panic</span>(err)<br>   &#125;<br>   <span class="hljs-keyword">for</span> &#123;<br>      client, err := server.Accept()<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         log.Printf(<span class="hljs-string">&quot;Accept failed %v&quot;</span>, err)<br>         <span class="hljs-keyword">continue</span><br>      &#125;<br>      <span class="hljs-keyword">go</span> process(client)<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>nc安装教程如下：<a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/linyufeng/p/13206252.html">https://www.cnblogs.com/linyufeng/p/13206252.html</a></p>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">//process部分就不放出了，就是一个简单的数据读取和输出的过程</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {<br>   server, err := net.Listen(<span class="hljs-string">"tcp"</span>, <span class="hljs-string">"127.0.0.1:1080"</span>)<br>   <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {<br>      <span class="hljs-built_in">panic</span>(err)<br>   }<br>   <span class="hljs-keyword">for</span> {<br>      client, err := server.Accept()<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {<br>         log.Printf(<span class="hljs-string">"Accept failed %v"</span>, err)<br>         <span class="hljs-keyword">continue</span><br>      }<br>      <span class="hljs-keyword">go</span> process(client)<br>   }<br>}<br></code></pre></td></tr></tbody></table></figure>
+<p>nc安装教程如下：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/linyufeng/p/13206252.html">https://www.cnblogs.com/linyufeng/p/13206252.html</a></p>
 <p>使用nc命令可以直接和一个ip端口建立tcp连接。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514214450225.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514214450225" style="zoom:100%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514214450225.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514214450225" style="zoom:100%;"></p>
 <h3 id="v2协商阶段">2. v2：协商阶段</h3>
 <p>main函数不需要修改，在process函数中新增鉴权的部分：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">//新增的鉴权过程</span><br>err := auth(reader, conn)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>   log.Printf(<span class="hljs-string">&quot;client %v auth failed:%v&quot;</span>, conn.RemoteAddr(), err)<br>   <span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">//新增的鉴权过程</span><br>err := auth(reader, conn)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {<br>   log.Printf(<span class="hljs-string">"client %v auth failed:%v"</span>, conn.RemoteAddr(), err)<br>   <span class="hljs-keyword">return</span><br>}<br></code></pre></td></tr></tbody></table></figure>
 <p>auth函数的实现流程如下：</p>
 <ol type="1">
 <li>使用reader.ReadByte将版本号读取出来；</li>
 <li>使用reader.ReadByte将mthodsize读取出来，并建立相应大小的method数组；</li>
 <li>使用io.ReadFull将method填充完全；</li>
-<li>往连接中写入版本号和方法<code>conn.Write([]byte&#123;socks5Ver, 0x00&#125;)</code></li>
+<li>往连接中写入版本号和方法<code>conn.Write([]byte{socks5Ver, 0x00})</code></li>
 </ol>
 <p>运行程序后，在终端执行<code>curl --socks5 127.0.0.1:1080 -v http://www.qq.com</code>，可以显示出版本号、method和认证成功。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220635063.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220635063" style="zoom: 80%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220635063.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220635063" style="zoom: 80%;"></p>
 <h3 id="v3请求阶段">3. v3：请求阶段</h3>
 <p>我们在auth下面再实现一个connect函数，该函数用于读取客户端发送的数据，然后与服务器进行tcp连接；之后将连接的信息发送回给客户端。</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Perl">err = <span class="hljs-keyword">connect</span>(reader, conn)<br><span class="hljs-keyword">if</span> err != nil &#123;<br>   log.Printf(<span class="hljs-string">&quot;client %v auth failed:%v&quot;</span>, conn.RemoteAddr(), err)<br>   <span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Perl">err = <span class="hljs-keyword">connect</span>(reader, conn)<br><span class="hljs-keyword">if</span> err != nil {<br>   log.Printf(<span class="hljs-string">"client %v auth failed:%v"</span>, conn.RemoteAddr(), err)<br>   <span class="hljs-keyword">return</span><br>}<br></code></pre></td></tr></tbody></table></figure>
 <p>读取客户端的数据主要包括版本号Ver、命令码CMD、保留字RSB、ATYP目标地址类型、DST.ADDR
 一个可变长度的值、DST.PORT 目标端口。</p>
 <p>写回给客户端的过程属性类似，略。</p>
 <p>运行程序后，可以正确返回ip地址和端口号：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220524235.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220524235" style="zoom:80%;" /></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220512876.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220512876" style="zoom:80%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220524235.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220524235" style="zoom:80%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220512876.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220512876" style="zoom:80%;"></p>
 <h3 id="v4relay阶段">4. v4：relay阶段</h3>
 <p>将客户端的请求发送到服务器，将服务器的响应发送回给客户端。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//使用ctx机制来进行同步</span><br>ctx, cancel := context.WithCancel(context.Background())<br><span class="hljs-keyword">defer</span> cancel()<br><br><span class="hljs-comment">//使用io.Copy——死循环将src中的数据读取到dest中</span><br><span class="hljs-comment">//两个goroutine的方向不一样，一个是从浏览器拷贝到服务器，一个是从服务器拷贝到浏览器</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>    _, _ = io.Copy(dest, reader)<br>    cancel()<br>&#125;()<br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>    _, _ = io.Copy(conn, dest)<br>    cancel()<br>&#125;()<br><br><span class="hljs-comment">//使用ctx的机制，来进行同步一下</span><br>    &lt;-ctx.Done()<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//使用ctx机制来进行同步</span><br>ctx, cancel := context.WithCancel(context.Background())<br><span class="hljs-keyword">defer</span> cancel()<br><br><span class="hljs-comment">//使用io.Copy——死循环将src中的数据读取到dest中</span><br><span class="hljs-comment">//两个goroutine的方向不一样，一个是从浏览器拷贝到服务器，一个是从服务器拷贝到浏览器</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {<br>    _, _ = io.Copy(dest, reader)<br>    cancel()<br>}()<br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {<br>    _, _ = io.Copy(conn, dest)<br>    cancel()<br>}()<br><br><span class="hljs-comment">//使用ctx的机制，来进行同步一下</span><br>    &lt;-ctx.Done()<br></code></pre></td></tr></tbody></table></figure>
 <p>运行程序如下所示：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215014797.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215014797" style="zoom: 80%;" /></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220556547.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220556547" style="zoom:50%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215014797.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215014797" style="zoom: 80%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220556547.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220556547" style="zoom:50%;"></p>
 <h3 id="使用插件进行测试">5.使用插件进行测试</h3>
 <p>可以使用Proxy SwitchyOmega插件。</p>
 <p>该软件本身不提供给代理服务器，需要连接我们自己的代理服务器。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215111141.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215111141" style="zoom: 33%;" /><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215047480.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215047480" style="zoom:67%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215111141.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215111141" style="zoom: 33%;"><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215047480.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215047480" style="zoom:67%;"></p>
 <p>在启动右上角的小圈圈后，浏览器访问的网页都会经过我们的代理服务器。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215030250.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215030250" style="zoom:50%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215030250.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215030250" style="zoom:50%;"></p>
 <h2 id="参考资料">参考资料</h2>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129781512">https://zhuanlan.zhihu.com/p/129781512</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-hans/SOCKS">https://zh.m.wikipedia.org/zh-hans/SOCKS</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129781512">https://zhuanlan.zhihu.com/p/129781512</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-hans/SOCKS">https://zh.m.wikipedia.org/zh-hans/SOCKS</a></p>
 <p>[3] 字节青训营《Go语言上手 - 基础语言》</p>
 
                 

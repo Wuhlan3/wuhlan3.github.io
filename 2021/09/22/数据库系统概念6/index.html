@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="关系代数 关系代数是一种过程化查询语言。 选择 对应于SQL中的where  可以在选择谓词中进行比较 可以使用and、or、not，将多个谓词合并为一个大的谓词 可以对两个属性进行比较。比如，找出系名和楼名相同的系。  投影 对应于SQL中的select。 由于关系是一个集合，所有重复行均会被去除。 \[ \Pi_{ID,name,salary}(instructor)">
+    <meta name="description" content="关系代数 关系代数是一种过程化查询语言。 选择 对应于SQL中的where  可以在选择谓词中进行比较 可以使用and、or、not，将多个谓词合并为一个大的谓词 可以对两个属性进行比较。比如，找出系名和楼名相同的系。  投影 对应于SQL中的select。 由于关系是一个集合，所有重复行均会被去除。 \[ \Pi_{ID,name,salary}(instructor) \] 并运算 对应于SQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念6">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B56/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="关系代数 关系代数是一种过程化查询语言。 选择 对应于SQL中的where  可以在选择谓词中进行比较 可以使用and、or、not，将多个谓词合并为一个大的谓词 可以对两个属性进行比较。比如，找出系名和楼名相同的系。  投影 对应于SQL中的select。 由于关系是一个集合，所有重复行均会被去除。 \[ \Pi_{ID,name,salary}(instructor)">
+<meta property="og:description" content="关系代数 关系代数是一种过程化查询语言。 选择 对应于SQL中的where  可以在选择谓词中进行比较 可以使用and、or、not，将多个谓词合并为一个大的谓词 可以对两个属性进行比较。比如，找出系名和楼名相同的系。  投影 对应于SQL中的select。 由于关系是一个集合，所有重复行均会被去除。 \[ \Pi_{ID,name,salary}(instructor) \] 并运算 对应于SQ">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-22T07:19:23.000Z">
@@ -119,7 +119,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -257,7 +259,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          462 words
+          454 words
         
       </span>
     
@@ -321,8 +323,7 @@
 </ul>
 <h2 id="投影">投影</h2>
 <p>对应于SQL中的select。</p>
-<p>由于关系是一个集合，所有<strong>重复行均会被去除</strong>。 <span
-class="math display">\[
+<p>由于关系是一个集合，所有<strong>重复行均会被去除</strong>。 <span class="math display">\[
 \Pi_{ID,name,salary}(instructor)
 \]</span></p>
 <h2 id="并运算">并运算</h2>
@@ -334,17 +335,17 @@ s\)</span>有意义，要求以下两个条件成立：</p>
 <li>对所有的i，r的第i个属性的域必须和s的第i个属性的域相同。</li>
 </ol>
 <p><span class="math display">\[
-\Pi_{course-id}(\sigma_{section =\ &quot;Fall&quot;}(section))\\
+\Pi_{course-id}(\sigma_{section =\ "Fall"}(section))\\
 \cup\\
-\Pi_{course-id}(\sigma_{section =\ &quot;Spring&quot;\  }(section))
+\Pi_{course-id}(\sigma_{section =\ "Spring"\  }(section))
 \]</span></p>
 <h2 id="集合差运算">集合差运算</h2>
 <p>对应于SQL中的except</p>
 <p>与并运算一样，必须保证关系是<strong>相容的</strong>，即同元且域相同。
 <span class="math display">\[
-\Pi_{course-id}(\sigma_{section =\ &quot;Fall&quot;}(section))\\
+\Pi_{course-id}(\sigma_{section =\ "Fall"}(section))\\
 -\\
-\Pi_{course-id}(\sigma_{section =\ &quot;Spring&quot;\  }(section))
+\Pi_{course-id}(\sigma_{section =\ "Spring"\  }(section))
 \]</span></p>
 <h2 id="笛卡儿积运算">笛卡儿积运算</h2>
 <p>需要注意的是，笛卡尔积可能导致相同的属性名同时出现。这就要用到更名运算。</p>
@@ -360,8 +361,7 @@ s\)</span>有意义，要求以下两个条件成立：</p>
 \]</span></p>
 <h2 id="集合交运算">集合交运算</h2>
 <p>相当于SQL中的intersect</p>
-<p>不是基本运算，不能增强关系代数的表达能力。但写<span
-class="math inline">\(r \cap s\)</span>比<span class="math inline">\(r -
+<p>不是基本运算，不能增强关系代数的表达能力。但写<span class="math inline">\(r \cap s\)</span>比<span class="math inline">\(r -
 (r - s)\)</span>更加方便。</p>
 <h2 id="自然连接运算">自然连接运算</h2>
 <h1 id="元组关系演算">元组关系演算</h1>

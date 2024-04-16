@@ -117,7 +117,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -255,7 +257,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          965 words
+          957 words
         
       </span>
     
@@ -266,7 +268,7 @@
         
         
         
-          9 mins
+          8 mins
         
       </span>
     
@@ -410,7 +412,7 @@ static修饰的类成员</strong>；非static函数，既可以访问非static�
 <li>static<strong>类成员函数</strong>不能被virtual修饰，static成员不属于任何对象或实例，所以加上virtual没有任何实际意义；静态成员函数没有this指针，虚函数的实现是为每一个对象分配一个vptr指针，而vptr是通过this指针调用的，所以不能为virtual；虚函数的调用关系，<code>this-&gt;vptr-&gt;ctable-&gt;virtual function</code></li>
 </ol>
 <p>可以看一下static典型的使用例子，饿汉式的单例模式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span>&#123;<br>    <span class="hljs-function"><span class="hljs-type">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>&#123;	<span class="hljs-comment">//static成员函数只能够访问static成员变量</span><br>        <span class="hljs-keyword">return</span> &amp;s_instance;<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">Singleton</span>()&#123;&#125;<br>    ~<span class="hljs-built_in">Singleton</span>()&#123;&#125;<br>    <span class="hljs-built_in">Singleton</span>(<span class="hljs-type">const</span> Singleton &amp;) = <span class="hljs-keyword">delete</span>;<br>       Singleton&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> Singleton &amp;) = <span class="hljs-keyword">delete</span>;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">static</span> Singleton s_instance;<br>&#125;;<br><br>Singleton Singleton::s_instance;    <span class="hljs-comment">//在程序入口之前就完成单例对象的初始化</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span>{<br>    <span class="hljs-function"><span class="hljs-type">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>{	<span class="hljs-comment">//static成员函数只能够访问static成员变量</span><br>        <span class="hljs-keyword">return</span> &amp;s_instance;<br>    }<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">Singleton</span>(){}<br>    ~<span class="hljs-built_in">Singleton</span>(){}<br>    <span class="hljs-built_in">Singleton</span>(<span class="hljs-type">const</span> Singleton &amp;) = <span class="hljs-keyword">delete</span>;<br>       Singleton&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> Singleton &amp;) = <span class="hljs-keyword">delete</span>;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">static</span> Singleton s_instance;<br>};<br><br>Singleton Singleton::s_instance;    <span class="hljs-comment">//在程序入口之前就完成单例对象的初始化</span><br></code></pre></td></tr></tbody></table></figure>
 
                 
               </div>

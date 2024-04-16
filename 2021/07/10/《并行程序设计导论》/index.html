@@ -117,7 +117,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -368,10 +370,8 @@ Cache）</p>
 <h4 id="性能">2.性能</h4>
 <p><strong>线性加速比</strong>：<span class="math inline">\(T_{并行} =
 \frac{1}{p}T_{串行}，假设并行为p核系统上进行的\)</span></p>
-<p><strong>加速比</strong>：<span
-class="math inline">\(S=\frac{T_{串行}}{T_{并行}}\)</span></p>
-<p><strong>效率</strong>：<span
-class="math inline">\(E=\frac{S}{p}=\frac{T_{串行}}{p*T_{并行}}\)</span></p>
+<p><strong>加速比</strong>：<span class="math inline">\(S=\frac{T_{串行}}{T_{并行}}\)</span></p>
+<p><strong>效率</strong>：<span class="math inline">\(E=\frac{S}{p}=\frac{T_{串行}}{p*T_{并行}}\)</span></p>
 <p><strong>并行开销</strong>：<span class="math inline">\(T_{并行} =
 \frac{1}{p}T_{串行} + T_{开销}\)</span></p>
 <p>阿姆达尔定律：大致上，除非一个串行程序的执行几乎全部都并行化，否则，不论有多少可以利用的核，通过并行化产生的加速比都会是受限的。</p>
@@ -388,9 +388,9 @@ class="math inline">\(E=\frac{S}{p}=\frac{T_{串行}}{p*T_{并行}}\)</span></p>
 <p>不同的API使用的获取时间函数是不一样的</p>
 <p>问题一：<strong>分辨率resolution</strong>：是指计时器的时间测量单位问题，即最短的非零时间跨度。</p>
 <p>问题二：线程的<strong>同步</strong>问题</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> start, finish;<br>start = Get_current_time();<br><span class="hljs-comment">/*执行的代码*/</span><br>finish = Get_current_time();<br>elapsed = finish - start;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> start, finish;<br>start = Get_current_time();<br><span class="hljs-comment">/*执行的代码*/</span><br>finish = Get_current_time();<br>elapsed = finish - start;<br></code></pre></td></tr></tbody></table></figure>
 <p>这样的代码可能会输出多个时间，可以使用<code>barrier</code>函数来进行同步，并且取出运行时间的最大值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++">shared <span class="hljs-type">double</span> global_elapsed;<br><span class="hljs-keyword">private</span> <span class="hljs-type">double</span> my_start, my_finish, my_elapsed;<br><br><span class="hljs-built_in">Barrier</span>();    <span class="hljs-comment">//路障，用于使所有进程同时开始</span><br>my_start = <span class="hljs-built_in">Get_current_time</span>();<br><span class="hljs-comment">/*执行的代码*/</span><br>my_finish = <span class="hljs-built_in">Get_current_time</span>();<br>my_elapsed = my_finish - my_start;<br><br>global_elapsed = <span class="hljs-built_in">Global_max</span>(myelapsed);    <span class="hljs-comment">//取出所有进程运行时间的最大值</span><br><span class="hljs-keyword">if</span>(my_rank == <span class="hljs-number">0</span>)    <span class="hljs-comment">//主进程负责输出时间</span><br>    cout&lt;&lt;global_elapsed&lt;&lt;endl;	<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++">shared <span class="hljs-type">double</span> global_elapsed;<br><span class="hljs-keyword">private</span> <span class="hljs-type">double</span> my_start, my_finish, my_elapsed;<br><br><span class="hljs-built_in">Barrier</span>();    <span class="hljs-comment">//路障，用于使所有进程同时开始</span><br>my_start = <span class="hljs-built_in">Get_current_time</span>();<br><span class="hljs-comment">/*执行的代码*/</span><br>my_finish = <span class="hljs-built_in">Get_current_time</span>();<br>my_elapsed = my_finish - my_start;<br><br>global_elapsed = <span class="hljs-built_in">Global_max</span>(myelapsed);    <span class="hljs-comment">//取出所有进程运行时间的最大值</span><br><span class="hljs-keyword">if</span>(my_rank == <span class="hljs-number">0</span>)    <span class="hljs-comment">//主进程负责输出时间</span><br>    cout&lt;&lt;global_elapsed&lt;&lt;endl;	<br></code></pre></td></tr></tbody></table></figure>
 <p>问题三：<strong>易变性</strong>（variability）</p>
 <p>多次执行同一个程序时，每次运行所花费的时间可能是不同的。看起来最好的方法是平均数或中位数，实则不然。</p>
 <p>由于不可能存在某些外部事件使得程序的运行时间少于它可能的最短运行时间，所以我们的报告通常写上<strong>最短的运行时间</strong>。</p>
@@ -410,12 +410,9 @@ aggregation）：将第一步所确定的任务与通信结合成更大的任务
 <li><code>-o&lt;outfile&gt;</code>编译出可执行文件的文件名outfile</li>
 </ul>
 <h2 id="三用mpi进行分布式内存编程">三、用MPI进行分布式内存编程</h2>
-<p><a
-href="https://wuhlan3.gitee.io/wuhlan3/2021/03/23/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
-<h2
-id="四用pthreads进行共享内存编程">四、用Pthreads进行共享内存编程</h2>
-<p><a
-href="https://wuhlan3.gitee.io/wuhlan3/2021/03/22/Pthreads%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
+<p><a href="https://wuhlan3.gitee.io/wuhlan3/2021/03/23/MPI%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
+<h2 id="四用pthreads进行共享内存编程">四、用Pthreads进行共享内存编程</h2>
+<p><a href="https://wuhlan3.gitee.io/wuhlan3/2021/03/22/Pthreads%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BC%96%E7%A8%8B/">点我点我</a></p>
 <h2 id="五用openmp进行共享内存编程">五、用OpenMP进行共享内存编程</h2>
 <p><a href="">点我点我</a></p>
 

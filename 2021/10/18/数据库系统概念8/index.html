@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="关系数据库设计 范式是符合某一种级别的关系模式的集合。关系数据库中的关系必须满足一定的要求，满足不同程度要求的为不同范式。 本章介绍基于函数依赖概念的关系数据库设计的规范方法。然后根据函数依赖及其其他类型的数据依赖来定义范式。 1.好的关系设计 更大的模式  冗余，可能会导致数据的重复。 其他问题，比如创建一个新的系，但是因为还没有教师，所以无法表示新成立的系的信息。（如果使用空值，">
+    <meta name="description" content="关系数据库设计 范式是符合某一种级别的关系模式的集合。关系数据库中的关系必须满足一定的要求，满足不同程度要求的为不同范式。 本章介绍基于函数依赖概念的关系数据库设计的规范方法。然后根据函数依赖及其其他类型的数据依赖来定义范式。 1.好的关系设计 更大的模式  冗余，可能会导致数据的重复。 其他问题，比如创建一个新的系，但是因为还没有教师，所以无法表示新成立的系的信息。（如果使用空值，可能会造成更多">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念8">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/10/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B58/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="关系数据库设计 范式是符合某一种级别的关系模式的集合。关系数据库中的关系必须满足一定的要求，满足不同程度要求的为不同范式。 本章介绍基于函数依赖概念的关系数据库设计的规范方法。然后根据函数依赖及其其他类型的数据依赖来定义范式。 1.好的关系设计 更大的模式  冗余，可能会导致数据的重复。 其他问题，比如创建一个新的系，但是因为还没有教师，所以无法表示新成立的系的信息。（如果使用空值，">
+<meta property="og:description" content="关系数据库设计 范式是符合某一种级别的关系模式的集合。关系数据库中的关系必须满足一定的要求，满足不同程度要求的为不同范式。 本章介绍基于函数依赖概念的关系数据库设计的规范方法。然后根据函数依赖及其其他类型的数据依赖来定义范式。 1.好的关系设计 更大的模式  冗余，可能会导致数据的重复。 其他问题，比如创建一个新的系，但是因为还没有教师，所以无法表示新成立的系的信息。（如果使用空值，可能会造成更多">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-10-18T02:13:12.000Z">
@@ -119,7 +119,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -329,9 +331,7 @@ dept\_name \rightarrow budget
 <p>比如下图中，分解之后，就无法区分哪个Kim是哪个Kim：</p>
 </blockquote>
 <figure>
-<img
-src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011900897.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211018102824040" />
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011900897.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211018102824040">
 <figcaption aria-hidden="true">image-20211018102824040</figcaption>
 </figure>
 <h2 id="原子域和第一范式">2.原子域和第一范式</h2>
@@ -352,24 +352,12 @@ alt="image-20211018102824040" />
 <p><strong>候选码</strong>：超码的任意真子集都不能成为超码，这样的最小超码称为候选码。</p>
 <p>候选码K可以这样表示：<span class="math inline">\(for\ no\ \alpha
 \subset K, \alpha \rightarrow R\)</span></p>
-<p><strong>函数依赖</strong>：考虑一个关系模式<span
-class="math inline">\(r(R)\)</span>，令<span
-class="math inline">\(\alpha \subseteq R\)</span>且<span
-class="math inline">\(\beta \subseteq R\)</span>：</p>
+<p><strong>函数依赖</strong>：考虑一个关系模式<span class="math inline">\(r(R)\)</span>，令<span class="math inline">\(\alpha \subseteq R\)</span>且<span class="math inline">\(\beta \subseteq R\)</span>：</p>
 <ul>
-<li>给定<span
-class="math inline">\(r(R)\)</span>的一个实例，我们呢说这个实例满足函数依赖<span
-class="math inline">\(\alpha \rightarrow
-\beta\)</span>的条件是：对实例中所有元组对<span
-class="math inline">\(t_1\)</span>和<span
-class="math inline">\(t_2\)</span>，若<span
-class="math inline">\(t_1[\alpha] = t_2[\alpha]\)</span>，则<span
-class="math inline">\(t_1[\beta] = t_2[\beta]\)</span>。</li>
-<li>如果在<span
-class="math inline">\(r(R)\)</span>的每个合法实例中都满足函数依赖<span
-class="math inline">\(\alpha \rightarrow
-\beta\)</span>，则我们说该函数依赖在模式<span
-class="math inline">\(r(R)\)</span>上成立</li>
+<li>给定<span class="math inline">\(r(R)\)</span>的一个实例，我们呢说这个实例满足函数依赖<span class="math inline">\(\alpha \rightarrow
+\beta\)</span>的条件是：对实例中所有元组对<span class="math inline">\(t_1\)</span>和<span class="math inline">\(t_2\)</span>，若<span class="math inline">\(t_1[\alpha] = t_2[\alpha]\)</span>，则<span class="math inline">\(t_1[\beta] = t_2[\beta]\)</span>。</li>
+<li>如果在<span class="math inline">\(r(R)\)</span>的每个合法实例中都满足函数依赖<span class="math inline">\(\alpha \rightarrow
+\beta\)</span>，则我们说该函数依赖在模式<span class="math inline">\(r(R)\)</span>上成立</li>
 </ul>
 <p>我们将以两种方式来使用函数依赖：</p>
 <ul>
@@ -382,18 +370,11 @@ class="math inline">\(r(R)\)</span>上成立</li>
 则\alpha \rightarrow \beta是平凡的 \\\\
 比如说 A \rightarrow A， AB \rightarrow A
 \]</span></p>
-<p><strong>闭包</strong>：<span
-class="math inline">\(F^{+}\)</span>表示<span
-class="math inline">\(F\)</span>集合的闭包(closure)，也就是能够从给定<span
-class="math inline">\(F\)</span>集合推导出的所有函数依赖的集合。显然，<span
-class="math inline">\(F^{+}\)</span>包含<span
-class="math inline">\(F\)</span>中所有的函数依赖。</p>
+<p><strong>闭包</strong>：<span class="math inline">\(F^{+}\)</span>表示<span class="math inline">\(F\)</span>集合的闭包(closure)，也就是能够从给定<span class="math inline">\(F\)</span>集合推导出的所有函数依赖的集合。显然，<span class="math inline">\(F^{+}\)</span>包含<span class="math inline">\(F\)</span>中所有的函数依赖。</p>
 <h2 id="boyce-codd范式">4.Boyce-Codd范式</h2>
 <p>Boyce-Codd范式（BCNF），它消除所有基于函数依赖能够发现的冗余。</p>
 <h4 id="判断某关系模式r是否为bc范式">判断某关系模式R是否为BC范式</h4>
-<p>具有函数依赖集F的关系模式R属于BCNF的条件是，对于<span
-class="math inline">\(F^*\)</span>中所有形如<span
-class="math inline">\(\alpha \rightarrow
+<p>具有函数依赖集F的关系模式R属于BCNF的条件是，对于<span class="math inline">\(F^*\)</span>中所有形如<span class="math inline">\(\alpha \rightarrow
 \beta\)</span>的函数依赖，其中<span class="math inline">\(\alpha
 \subseteq R \&amp;\&amp;\beta \subseteq
 R\)</span>,下面至少有一项成立：</p>
@@ -407,18 +388,14 @@ R\)</span>,下面至少有一项成立：</p>
 <p>一个数据库设计属于BCNF的条件是，构成该设计的关系模式集中的每个模式都属于BCNF。</p>
 </blockquote>
 <h4 id="判断不为bc范式的一般规则">判断不为BC范式的一般规则</h4>
-<p>设R为不属于BCNF的一个模式，则存在至少一个非平凡的函数依赖<span
-class="math inline">\(\alpha \rightarrow \beta\)</span>，其中<span
-class="math inline">\(\alpha\)</span>不是R的超码。</p>
+<p>设R为不属于BCNF的一个模式，则存在至少一个非平凡的函数依赖<span class="math inline">\(\alpha \rightarrow \beta\)</span>，其中<span class="math inline">\(\alpha\)</span>不是R的超码。</p>
 <p>非BCNF模式转换为BCNF的分解过程——可以考虑用两种方式来取代R：</p>
 <ul>
 <li><span class="math inline">\((\alpha \cup \beta)\)</span></li>
 <li><span class="math inline">\((R-(\beta - \alpha))\)</span></li>
 </ul>
 <figure>
-<img
-src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011859366.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211101184820414" />
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011859366.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101184820414">
 <figcaption aria-hidden="true">image-20211101184820414</figcaption>
 </figure>
 <div class="note note-success">
@@ -429,12 +406,9 @@ preserving)。为了保持依赖，我们考虑另外一种比BCNF弱的范式�
 <h2 id="第三范式">5.第三范式</h2>
 <blockquote>
 <p>BCNF要求所有非平凡函数依赖都形如<span class="math inline">\(\alpha
-\rightarrow \beta\)</span>，其中<span
-class="math inline">\(\alpha\)</span>为一个超码。第三范式相比于BCNF稍微放宽了条件，它允许作词不是超码的某些非平凡函数依赖。</p>
+\rightarrow \beta\)</span>，其中<span class="math inline">\(\alpha\)</span>为一个超码。第三范式相比于BCNF稍微放宽了条件，它允许作词不是超码的某些非平凡函数依赖。</p>
 </blockquote>
-<p>具有函数依赖集F的关系模式R属于BCNF的条件是，对于<span
-class="math inline">\(F^*\)</span>中所有形如<span
-class="math inline">\(\alpha \rightarrow
+<p>具有函数依赖集F的关系模式R属于BCNF的条件是，对于<span class="math inline">\(F^*\)</span>中所有形如<span class="math inline">\(\alpha \rightarrow
 \beta\)</span>的函数依赖，其中<span class="math inline">\(\alpha
 \subseteq R \&amp;\&amp;\beta \subseteq
 R\)</span>,下面至少有一项成立：</p>
@@ -442,34 +416,21 @@ R\)</span>,下面至少有一项成立：</p>
 <li><span class="math inline">\(\alpha \rightarrow
 \beta\)</span>是平凡的函数依赖。</li>
 <li><span class="math inline">\(\alpha\)</span>是模式R的一个超码。</li>
-<li><span class="math inline">\(\beta - \alpha\)</span>中的每个属性<span
-class="math inline">\(A\)</span>都包含于<span
-class="math inline">\(R\)</span>的一个候选码中。</li>
+<li><span class="math inline">\(\beta - \alpha\)</span>中的每个属性<span class="math inline">\(A\)</span>都包含于<span class="math inline">\(R\)</span>的一个候选码中。</li>
 </ul>
 <div class="note note-success">
-            <p>第三个条件并没有说单个候选码必须包含<span class="math inline">\(\beta- \alpha\)</span>中的所有属性；<span class="math inline">\(\beta -\alpha\)</span>中的每个属性A可能包含于不同的候选码中。</p>
+            <p>第三个条件并没有说单个候选码必须包含<span class="math inline">\(\beta
+- \alpha\)</span>中的所有属性；<span class="math inline">\(\beta -
+\alpha\)</span>中的每个属性A可能包含于不同的候选码中。</p>
           </div>
 <h2 id="函数依赖理论">6.函数依赖理论</h2>
 <h3 id="函数依赖的闭包">函数依赖的闭包</h3>
-<p><strong>逻辑蕴含</strong>：给定关系模式<span
-class="math inline">\(r(R)\)</span>，如果<span
-class="math inline">\(r(R)\)</span>的每一个满足<span
-class="math inline">\(F\)</span>的实例也满足<span
-class="math inline">\(f\)</span>，则<span
-class="math inline">\(R\)</span>上的函数依赖<span
-class="math inline">\(f\)</span><strong>被</strong><span
-class="math inline">\(r\)</span>上的函数依赖集<strong><span
-class="math inline">\(F\)</span>逻辑蕴含</strong></p>
+<p><strong>逻辑蕴含</strong>：给定关系模式<span class="math inline">\(r(R)\)</span>，如果<span class="math inline">\(r(R)\)</span>的每一个满足<span class="math inline">\(F\)</span>的实例也满足<span class="math inline">\(f\)</span>，则<span class="math inline">\(R\)</span>上的函数依赖<span class="math inline">\(f\)</span><strong>被</strong><span class="math inline">\(r\)</span>上的函数依赖集<strong><span class="math inline">\(F\)</span>逻辑蕴含</strong></p>
 <p><strong>Amstrong公理</strong>：</p>
 <ul>
-<li>自反律：若<span
-class="math inline">\(\alpha\)</span>为一属性集且<span
-class="math inline">\(\beta \subseteq \alpha\)</span>，则<span
-class="math inline">\(\alpha \rightarrow \beta\)</span>成立</li>
+<li>自反律：若<span class="math inline">\(\alpha\)</span>为一属性集且<span class="math inline">\(\beta \subseteq \alpha\)</span>，则<span class="math inline">\(\alpha \rightarrow \beta\)</span>成立</li>
 <li>增补律：若<span class="math inline">\(\alpha \rightarrow
-\beta\)</span>成立且<span
-class="math inline">\(\gamma\)</span>为一属性集，则<span
-class="math inline">\(\gamma \alpha \rightarrow \gamma
+\beta\)</span>成立且<span class="math inline">\(\gamma\)</span>为一属性集，则<span class="math inline">\(\gamma \alpha \rightarrow \gamma
 \beta\)</span>成立</li>
 <li>传递律：若<span class="math inline">\(\alpha \rightarrow
 \beta\)</span>和<span class="math inline">\(\beta \rightarrow
@@ -492,87 +453,56 @@ class="math inline">\(\gamma \alpha \rightarrow \gamma
 \rightarrow \delta\)</span></li>
 </ul>
 <figure>
-<img
-src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011925216.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211101192511783" />
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011925216.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101192511783">
 <figcaption aria-hidden="true">image-20211101192511783</figcaption>
 </figure>
 <h3 id="属性集的闭包">属性集的闭包</h3>
 <p><strong>函数确定</strong>：如果<span class="math inline">\(\alpha
-\rightarrow B\)</span>，我们称属性B被<span
-class="math inline">\(\alpha\)</span>函数确定。</p>
+\rightarrow B\)</span>，我们称属性B被<span class="math inline">\(\alpha\)</span>函数确定。</p>
 <figure>
-<img
-src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101192922519.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211101192922519" />
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101192922519.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101192922519">
 <figcaption aria-hidden="true">image-20211101192922519</figcaption>
 </figure>
 <p>属性闭包算法的用途：</p>
 <ul>
-<li><p>判断<span
-class="math inline">\(\alpha\)</span>是否为超码，计算<span
-class="math inline">\(\alpha^{+}\)</span>，检查是否包含R中所有属性</p></li>
+<li><p>判断<span class="math inline">\(\alpha\)</span>是否为超码，计算<span class="math inline">\(\alpha^{+}\)</span>，检查是否包含R中所有属性</p></li>
 <li><p>通过检查是否<span class="math inline">\(\beta \subseteq
 \alpha^{+}\)</span>，可以检查函数依赖是否成立</p></li>
 <li><p>另一种计算<span class="math inline">\(F^{+}\)</span>的办法：</p>
 <p>对任意<span class="math inline">\(\gamma \subseteq
-R\)</span>，我们找出闭包<span
-class="math inline">\(\gamma^{+}\)</span>；对于任意的<span
-class="math inline">\(S\subseteq
-\gamma^{+}\)</span>，我们输出一个函数依赖<span
-class="math inline">\(\gamma \rightarrow S\)</span></p></li>
+R\)</span>，我们找出闭包<span class="math inline">\(\gamma^{+}\)</span>；对于任意的<span class="math inline">\(S\subseteq
+\gamma^{+}\)</span>，我们输出一个函数依赖<span class="math inline">\(\gamma \rightarrow S\)</span></p></li>
 </ul>
 <h3 id="正则覆盖">正则覆盖</h3>
 <p><strong>无关属性</strong>(extraneous
 attribute)：如果去除函数依赖中的一个属性不改变该函数依赖集的闭包，则称该属性是无关的。形式化如下：</p>
 <ul>
-<li>如果<span class="math inline">\(A \in \alpha\)</span>并且<span
-class="math inline">\(F\)</span>逻辑蕴含<span class="math inline">\((F -
+<li>如果<span class="math inline">\(A \in \alpha\)</span>并且<span class="math inline">\(F\)</span>逻辑蕴含<span class="math inline">\((F -
 \{\alpha \rightarrow \beta\}) \cup \{(\alpha - A) \rightarrow
-\beta\}\)</span>,则属性A在<span
-class="math inline">\(\alpha\)</span>是无关的</li>
+\beta\}\)</span>,则属性A在<span class="math inline">\(\alpha\)</span>是无关的</li>
 <li>如果<span class="math inline">\(A \in
 \beta\)</span>并且函数依赖集<span class="math inline">\((F - \{\alpha
 \rightarrow \beta\}) \cup \{\alpha \rightarrow
-(\beta-A)\}\)</span>逻辑蕴含<span
-class="math inline">\(F\)</span>,则属性A在<span
-class="math inline">\(\beta\)</span>是无关的</li>
+(\beta-A)\}\)</span>逻辑蕴含<span class="math inline">\(F\)</span>,则属性A在<span class="math inline">\(\beta\)</span>是无关的</li>
 </ul>
 <figure>
-<img
-src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111012049726.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211101204947282" />
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111012049726.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101204947282">
 <figcaption aria-hidden="true">image-20211101204947282</figcaption>
 </figure>
-<p><span
-class="math inline">\(F\)</span>的<strong>正则覆盖</strong><span
-class="math inline">\(F_c\)</span>是一个依赖集，使得<span
-class="math inline">\(F\)</span>逻辑蕴含<span
-class="math inline">\(F_c\)</span>中的所有依赖，并且<span
-class="math inline">\(F_c\)</span>逻辑蕴含F中的所有依赖。此外，<span
-class="math inline">\(F_c\)</span>必须具有如下性质：</p>
+<p><span class="math inline">\(F\)</span>的<strong>正则覆盖</strong><span class="math inline">\(F_c\)</span>是一个依赖集，使得<span class="math inline">\(F\)</span>逻辑蕴含<span class="math inline">\(F_c\)</span>中的所有依赖，并且<span class="math inline">\(F_c\)</span>逻辑蕴含F中的所有依赖。此外，<span class="math inline">\(F_c\)</span>必须具有如下性质：</p>
 <ul>
-<li><span
-class="math inline">\(F_c\)</span>中任何函数依赖都不含无关属性</li>
-<li><span
-class="math inline">\(F_c\)</span>中函数依赖的左半部都是唯一的</li>
+<li><span class="math inline">\(F_c\)</span>中任何函数依赖都不含无关属性</li>
+<li><span class="math inline">\(F_c\)</span>中函数依赖的左半部都是唯一的</li>
 </ul>
 <figure>
-<img
-src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101205454801.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211101205454801" />
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101205454801.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101205454801">
 <figcaption aria-hidden="true">image-20211101205454801</figcaption>
 </figure>
 <h3 id="无损分解">无损分解</h3>
-<p>令<span class="math inline">\(R_1\)</span>和<span
-class="math inline">\(R_2\)</span>为<span
-class="math inline">\(R\)</span>的分解。如果用两个关系模式<span
-class="math inline">\(r_1(R_1)\)</span>和<span
-class="math inline">\(r_2(R_2)\)</span>替代<span
-class="math inline">\(r(R)\)</span>时，没有信息损失，则我们称该分解为<strong>无损分解</strong>。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> R1 <span class="hljs-keyword">from</span> r)<br>    <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span><br>    (<span class="hljs-keyword">select</span> R2 <span class="hljs-keyword">from</span> r)<br></code></pre></td></tr></table></figure>
+<p>令<span class="math inline">\(R_1\)</span>和<span class="math inline">\(R_2\)</span>为<span class="math inline">\(R\)</span>的分解。如果用两个关系模式<span class="math inline">\(r_1(R_1)\)</span>和<span class="math inline">\(r_2(R_2)\)</span>替代<span class="math inline">\(r(R)\)</span>时，没有信息损失，则我们称该分解为<strong>无损分解</strong>。</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> R1 <span class="hljs-keyword">from</span> r)<br>    <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span><br>    (<span class="hljs-keyword">select</span> R2 <span class="hljs-keyword">from</span> r)<br></code></pre></td></tr></tbody></table></figure>
 <p>应该与</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> r<br></code></pre></td></tr></table></figure>
+<figure class="highlight axapta"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> r<br></code></pre></td></tr></tbody></table></figure>
 <p>的查询结果相同。</p>
 <p>用关系代数表示为：<span class="math inline">\(\Pi _ {R_1}(r) \bowtie
 \Pi _ {R_2}(r) = r\)</span></p>

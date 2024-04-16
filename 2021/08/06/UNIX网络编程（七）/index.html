@@ -27,10 +27,10 @@
 <meta property="article:published_time" content="2021-08-06T01:12:55.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.491Z">
 <meta property="article:author" content="Wuhlan3">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/unix.jpg">
   
@@ -120,7 +120,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -312,7 +314,7 @@
               <div class="markdown-body">
                 
                 <h2 id="getsockopt和setsockopt">getsockopt和setsockopt</h2>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span>   </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> *optlen)</span></span>;  <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">setsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> optlen)</span></span>; <br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span>   </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> *optlen)</span></span>;  <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">setsockopt</span><span class="hljs-params">(<span class="hljs-type">int</span> sock, <span class="hljs-type">int</span> level, <span class="hljs-type">int</span> optname, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *optval, <span class="hljs-type">socklen_t</span> optlen)</span></span>; <br></code></pre></td></tr></tbody></table></figure>
 <p>参数按顺序分别为：</p>
 <ol type="1">
 <li>套接字描述符</li>
@@ -322,7 +324,7 @@
 <li>对于getsockopt()，作为入口参数时，选项值的最大长度。作为出口参数时，选项值的实际长度。对于setsockopt()，现选项的长度。</li>
 </ol>
 <h2 id="fcntl函数">fcntl函数</h2>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">int</span> cmd)</span></span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">int</span> cmd, <span class="hljs-type">long</span> arg)</span></span>;         <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">int</span> cmd, <span class="hljs-keyword">struct</span> flock *lock)</span></span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">int</span> cmd)</span></span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">int</span> cmd, <span class="hljs-type">long</span> arg)</span></span>;         <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fcntl</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">int</span> cmd, <span class="hljs-keyword">struct</span> flock *lock)</span></span>;<br></code></pre></td></tr></tbody></table></figure>
 <p>fcntl函数提供了与网络编程相关的如下特性：</p>
 <ul>
 <li>非阻塞式IO。通过使用F_SETFL命令设置O_NONBLOCK文件状态标志，我们可以把一个套接字设置为非阻塞型。</li>
@@ -361,13 +363,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   

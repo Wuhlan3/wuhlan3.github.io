@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例：">
+    <meta name="description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例： 123456T:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念14">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/12/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B514/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例：">
+<meta property="og:description" content="14 事务 14.1 事务的特性 ACID特性，缩写来自四个特性的第一个英文字母：  原子性：事务的所有操作要么全部正确反映出来，要么完全不反应 一致性：隔离执行事务时（没有其他事务并发执行情况下），保持数据库一致性。 隔离性：尽管多个事务可能并发执行。但每个事务都感觉不到系统中有其他事务在并发执行。 持久性：一个事务成功完成后，数据库的改变是永久的，即使出现系统故障。  实例： 123456T:">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-12-13T02:10:34.000Z">
@@ -119,7 +119,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -320,7 +322,7 @@
 <li><strong>持久性</strong>：一个事务成功完成后，数据库的改变是<strong>永久的</strong>，即使出现系统故障。</li>
 </ul>
 <p>实例：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">T:     <span class="hljs-built_in">read</span>(A);<br>    <span class="hljs-selector-tag">A</span> := A - <span class="hljs-number">50</span>;<br>    write(<span class="hljs-selector-tag">A</span>);<br>    read(<span class="hljs-selector-tag">B</span>);<br>    <span class="hljs-selector-tag">B</span> := B + <span class="hljs-number">50</span>;<br>    write(<span class="hljs-selector-tag">B</span>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">T:     <span class="hljs-built_in">read</span>(A);<br>    <span class="hljs-selector-tag">A</span> := A - <span class="hljs-number">50</span>;<br>    write(<span class="hljs-selector-tag">A</span>);<br>    read(<span class="hljs-selector-tag">B</span>);<br>    <span class="hljs-selector-tag">B</span> := B + <span class="hljs-number">50</span>;<br>    write(<span class="hljs-selector-tag">B</span>);<br></code></pre></td></tr></tbody></table></figure>
 <ul>
 <li><p>一致性：要求事务的执行不改变A、B之和。</p></li>
 <li><p>原子性：不能说因为故障，某个操作中断，导致金额的丢失。因为<strong>不一致状态</strong>必然会在某一个时刻存在，所以这就是原子性的必要性。某个事物的所有动作要么全部反映出来，要么全部不反映。</p>
@@ -338,7 +340,7 @@ commited：最后一条语句执行后。需要特别强调一下：当事务完
 <li>aborted：事务回滚并且数据库已恢复到事务开始执行前的状态后。进入这个状态后，系统有两种选择：<strong>重启事务</strong>；<strong>杀死事务</strong></li>
 <li>committed：成功完成后。</li>
 </ul>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211213152147883.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211213152147883" style="zoom:50%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211213152147883.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211213152147883" style="zoom:50%;"></p>
 <h2 id="事物的隔离性">14.3 事物的隔离性</h2>
 <p>事务处理系统通常允许多个事务并发地执行，因为有这样的好处。</p>
 <ul>
@@ -361,19 +363,12 @@ commited：最后一条语句执行后。需要特别强调一下：当事务完
 </ul></li>
 </ul>
 <p><strong>冲突</strong>：所以，当I与J是不同事务在相同数据项上的操作时，并且其中至少一个是write时，我们说I与J是<strong>冲突的</strong>。</p>
-<p><strong>冲突等价</strong>：如果调度<span
-class="math inline">\(S\)</span>可以经过一系列<strong>非冲突指令交换</strong>转换成<span
-class="math inline">\(S&#39;\)</span>，我们称<span
-class="math inline">\(S\)</span>与<span
-class="math inline">\(S&#39;\)</span>是冲突等价的。</p>
-<p><strong>冲突可串行化</strong>：如果一个调度<span
-class="math inline">\(S\)</span>与一个串行调度冲突等价，则称调度S是冲突可串行化的。</p>
+<p><strong>冲突等价</strong>：如果调度<span class="math inline">\(S\)</span>可以经过一系列<strong>非冲突指令交换</strong>转换成<span class="math inline">\(S'\)</span>，我们称<span class="math inline">\(S\)</span>与<span class="math inline">\(S'\)</span>是冲突等价的。</p>
+<p><strong>冲突可串行化</strong>：如果一个调度<span class="math inline">\(S\)</span>与一个串行调度冲突等价，则称调度S是冲突可串行化的。</p>
 <p>比如下图，schedule 3 可以经过交换得到 schedule 6，则schedule
 3是冲突可串行化的。</p>
 <figure>
-<img
-src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211213155333733.png" srcset="/wuhlan3/img/loading.gif" lazyload
-alt="image-20211213155333733" />
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211213155333733.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211213155333733">
 <figcaption aria-hidden="true">image-20211213155333733</figcaption>
 </figure>
 <p><strong>串行化顺序</strong>：可通过<strong>拓扑排序</strong>得到</p>
@@ -389,21 +384,9 @@ schedule 也要在最后进行同样的写操作。</li>
 </ol>
 <p><strong>视图可串行化</strong>：判断调度是否视图可串行化，已被证明是NP-完全问题。</p>
 <h2 id="事务隔离性和原子性">14.5 事务隔离性和原子性</h2>
-<p><strong>一个可恢复调度</strong>：对于每个事务<span
-class="math inline">\(T_i\)</span>和<span
-class="math inline">\(T_j\)</span>，如果<span
-class="math inline">\(T_j\)</span>读取了之前由<span
-class="math inline">\(T_i\)</span>所写的数据项，则<span
-class="math inline">\(T_i\)</span>先于<span
-class="math inline">\(T_j\)</span>提交。</p>
+<p><strong>一个可恢复调度</strong>：对于每个事务<span class="math inline">\(T_i\)</span>和<span class="math inline">\(T_j\)</span>，如果<span class="math inline">\(T_j\)</span>读取了之前由<span class="math inline">\(T_i\)</span>所写的数据项，则<span class="math inline">\(T_i\)</span>先于<span class="math inline">\(T_j\)</span>提交。</p>
 <p><strong>级联回滚</strong>：因单个事务故障导致一系列事务回滚，称为级联回滚</p>
-<p><strong>无级联调度</strong>：对于每对事务<span
-class="math inline">\(T_j\)</span>和<span
-class="math inline">\(T_i\)</span>，如果<span
-class="math inline">\(T_i\)</span>读取了先前由<span
-class="math inline">\(T_i\)</span>所写的数据项，则<span
-class="math inline">\(T_i\)</span>必须在<span
-class="math inline">\(T_j\)</span>这一读操作前提交。</p>
+<p><strong>无级联调度</strong>：对于每对事务<span class="math inline">\(T_j\)</span>和<span class="math inline">\(T_i\)</span>，如果<span class="math inline">\(T_i\)</span>读取了先前由<span class="math inline">\(T_i\)</span>所写的数据项，则<span class="math inline">\(T_i\)</span>必须在<span class="math inline">\(T_j\)</span>这一读操作前提交。</p>
 <h2 id="事务隔离性级别">14.6 事务隔离性级别</h2>
 <p>1.<strong>可串行化</strong>(serializable)：最高级别，事务不能并发，只能串行</p>
 <p>2.<strong>可重复读</strong>(repeatable

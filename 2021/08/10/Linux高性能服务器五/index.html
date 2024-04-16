@@ -27,11 +27,11 @@
 <meta property="article:published_time" content="2021-08-10T09:45:34.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.445Z">
 <meta property="article:author" content="Wuhlan3">
-<meta property="article:tag" content="Web">
-<meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://wuhlan3.gitee.io/wuhlan3/img/linuxweb.jpg">
   
@@ -121,7 +121,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -259,7 +261,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          251 words
+          241 words
         
       </span>
     
@@ -321,7 +323,7 @@
 <li>I/O复用系统调用的超时参数</li>
 </ul>
 <p>下面实现：对connect设置超时时间</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">timeout_connect</span><span class="hljs-params">( <span class="hljs-type">const</span> <span class="hljs-type">char</span>* ip, <span class="hljs-type">int</span> port, <span class="hljs-type">int</span> time )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> ret = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> address;<br>    <span class="hljs-built_in">bzero</span>( &amp;address, <span class="hljs-built_in">sizeof</span>( address ) );<br>    address.sin_family = AF_INET;<br>    <span class="hljs-built_in">inet_pton</span>( AF_INET, ip, &amp;address.sin_addr );<br>    address.sin_port = <span class="hljs-built_in">htons</span>( port );<br><br>    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );<br>    <span class="hljs-built_in">assert</span>( sockfd &gt;= <span class="hljs-number">0</span> );<br>    <span class="hljs-comment">//这两个选项设置的超时时间类型是timeval，与select的超时参数类似</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">timeval</span> timeout;<br>    timeout.tv_sec = time;<br>    timeout.tv_usec = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">socklen_t</span> len = <span class="hljs-built_in">sizeof</span>( timeout );<br>    ret = <span class="hljs-built_in">setsockopt</span>( sockfd, SOL_SOCKET, SO_SNDTIMEO, &amp;timeout, len );<span class="hljs-comment">//设置选项</span><br>    <span class="hljs-built_in">assert</span>( ret != <span class="hljs-number">-1</span> );<br><br>    ret = <span class="hljs-built_in">connect</span>( sockfd, ( <span class="hljs-keyword">struct</span> sockaddr* )&amp;address, <span class="hljs-built_in">sizeof</span>( address ) );<br>    <span class="hljs-keyword">if</span> ( ret == <span class="hljs-number">-1</span> )<br>    &#123;<br>        <span class="hljs-comment">/*超时对应的错误号EINPROGRESS.条件成立就可以处理定时任务*/</span><br>        <span class="hljs-keyword">if</span>( errno == EINPROGRESS )<br>        &#123;<br>            <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;connecting timeout\n&quot;</span> );<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;error occur when connecting to server\n&quot;</span> );<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> sockfd;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">timeout_connect</span><span class="hljs-params">( <span class="hljs-type">const</span> <span class="hljs-type">char</span>* ip, <span class="hljs-type">int</span> port, <span class="hljs-type">int</span> time )</span></span><br><span class="hljs-function"></span>{<br>    <span class="hljs-type">int</span> ret = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> address;<br>    <span class="hljs-built_in">bzero</span>( &amp;address, <span class="hljs-built_in">sizeof</span>( address ) );<br>    address.sin_family = AF_INET;<br>    <span class="hljs-built_in">inet_pton</span>( AF_INET, ip, &amp;address.sin_addr );<br>    address.sin_port = <span class="hljs-built_in">htons</span>( port );<br><br>    <span class="hljs-type">int</span> sockfd = <span class="hljs-built_in">socket</span>( PF_INET, SOCK_STREAM, <span class="hljs-number">0</span> );<br>    <span class="hljs-built_in">assert</span>( sockfd &gt;= <span class="hljs-number">0</span> );<br>    <span class="hljs-comment">//这两个选项设置的超时时间类型是timeval，与select的超时参数类似</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">timeval</span> timeout;<br>    timeout.tv_sec = time;<br>    timeout.tv_usec = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">socklen_t</span> len = <span class="hljs-built_in">sizeof</span>( timeout );<br>    ret = <span class="hljs-built_in">setsockopt</span>( sockfd, SOL_SOCKET, SO_SNDTIMEO, &amp;timeout, len );<span class="hljs-comment">//设置选项</span><br>    <span class="hljs-built_in">assert</span>( ret != <span class="hljs-number">-1</span> );<br><br>    ret = <span class="hljs-built_in">connect</span>( sockfd, ( <span class="hljs-keyword">struct</span> sockaddr* )&amp;address, <span class="hljs-built_in">sizeof</span>( address ) );<br>    <span class="hljs-keyword">if</span> ( ret == <span class="hljs-number">-1</span> )<br>    {<br>        <span class="hljs-comment">/*超时对应的错误号EINPROGRESS.条件成立就可以处理定时任务*/</span><br>        <span class="hljs-keyword">if</span>( errno == EINPROGRESS )<br>        {<br>            <span class="hljs-built_in">printf</span>( <span class="hljs-string">"connecting timeout\n"</span> );<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        }<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">"error occur when connecting to server\n"</span> );<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    }<br><br>    <span class="hljs-keyword">return</span> sockfd;<br>}<br></code></pre></td></tr></tbody></table></figure>
 <h2 id="sigalrm信号">SIGALRM信号</h2>
 <h2 id="section"></h2>
 
@@ -336,15 +338,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
-      
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
-      
         <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
         <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
       
         <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/wuhlan3/tags/Web/" class="print-no-link">#Web</a>
+      
+        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   

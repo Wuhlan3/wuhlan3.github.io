@@ -16,12 +16,12 @@
   <meta name="author" content="Wuhlan3">
   <meta name="keywords" content="">
   
-    <meta name="description" content="恢复系统 恢复机制：负责将数据库恢复到故障发生前的一致的状态。 高可用性：它必须将数据库崩溃后不能使用的时间缩短到最短。 16.1 故障分类 系统发生故障有很多种，我们只考虑以下几种：  事务故障。可能有两种错误：  逻辑错误。由于某些内部条件无法正常执行，如非法输入、找不到数据、溢出或超出资源限制 系统错误。系统进入一种不良状态（如死锁），事务无法继续正常执行。但可以再以后的某">
+    <meta name="description" content="恢复系统 恢复机制：负责将数据库恢复到故障发生前的一致的状态。 高可用性：它必须将数据库崩溃后不能使用的时间缩短到最短。 16.1 故障分类 系统发生故障有很多种，我们只考虑以下几种：  事务故障。可能有两种错误：  逻辑错误。由于某些内部条件无法正常执行，如非法输入、找不到数据、溢出或超出资源限制 系统错误。系统进入一种不良状态（如死锁），事务无法继续正常执行。但可以再以后的某个时间重新执行。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念16">
 <meta property="og:url" content="https://wuhlan3.gitee.io/2021/12/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B516/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
-<meta property="og:description" content="恢复系统 恢复机制：负责将数据库恢复到故障发生前的一致的状态。 高可用性：它必须将数据库崩溃后不能使用的时间缩短到最短。 16.1 故障分类 系统发生故障有很多种，我们只考虑以下几种：  事务故障。可能有两种错误：  逻辑错误。由于某些内部条件无法正常执行，如非法输入、找不到数据、溢出或超出资源限制 系统错误。系统进入一种不良状态（如死锁），事务无法继续正常执行。但可以再以后的某">
+<meta property="og:description" content="恢复系统 恢复机制：负责将数据库恢复到故障发生前的一致的状态。 高可用性：它必须将数据库崩溃后不能使用的时间缩短到最短。 16.1 故障分类 系统发生故障有很多种，我们只考虑以下几种：  事务故障。可能有两种错误：  逻辑错误。由于某些内部条件无法正常执行，如非法输入、找不到数据、溢出或超出资源限制 系统错误。系统进入一种不良状态（如死锁），事务无法继续正常执行。但可以再以后的某个时间重新执行。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wuhlan3.gitee.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-12-29T06:32:24.000Z">
@@ -119,7 +119,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -364,7 +366,7 @@
 <p>不管方法如何，恢复过程要保证，要么更新所有拷贝，要么没有任何变化。</p>
 <h3 id="数据访问">数据访问</h3>
 <p>事务由磁盘向主存输入信息，再将信息输出回磁盘。以块为单位完成。位于磁盘上的块称为<strong>物理块</strong>，临时位于主存的块称为<strong>缓冲块</strong>。内存中用于临时存放块的区域称为<strong>磁盘缓冲区</strong></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211229153631284.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211229153631284" style="zoom: 80%;" /></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211229153631284.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211229153631284" style="zoom: 80%;"></p>
 <p>传送数据的过程：</p>
 <ol type="1">
 <li><p>read(X)将数据项X的值赋予局部变量x。操作过程如下：</p>
