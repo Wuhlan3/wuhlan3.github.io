@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
-  <link rel="icon" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
+  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,22 +19,22 @@
     <meta name="description" content="SYSU LYB 操作系统实验4">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实验4：具有中断处理的内核">
-<meta property="og:url" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/index.html">
+<meta property="og:url" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="SYSU LYB 操作系统实验4">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/6.png">
-<meta property="og:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/1.png">
-<meta property="og:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/2.png">
-<meta property="og:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/3.png">
-<meta property="og:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/4.png">
-<meta property="og:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/5.png">
+<meta property="og:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/6.png">
+<meta property="og:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/1.png">
+<meta property="og:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/2.png">
+<meta property="og:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/3.png">
+<meta property="og:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/4.png">
+<meta property="og:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/5.png">
 <meta property="article:published_time" content="2021-04-16T11:14:52.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.698Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://github.com/Wuhlan3/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/6.png">
+<meta name="twitter:image" content="https://wuhlan3.github.io/2021/04/16/%E5%AE%9E%E9%AA%8C4%EF%BC%9A%E5%85%B7%E6%9C%89%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E5%86%85%E6%A0%B8/6.png">
   
   
   
@@ -62,33 +62,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/Wuhlan3_hexo_blog/css/main.css" />
+<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/Wuhlan3_hexo_blog/css/custom.css">
+<link rel="stylesheet" href="/wuhlan3/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/Wuhlan3_hexo_blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3_hexo_blog/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/Wuhlan3_hexo_blog/js/utils.js" ></script>
-  <script  src="/Wuhlan3_hexo_blog/js/color-schema.js" ></script>
+  <script  src="/wuhlan3/js/utils.js" ></script>
+  <script  src="/wuhlan3/js/color-schema.js" ></script>
   
 
   
@@ -136,7 +136,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/Wuhlan3_hexo_blog/">
+    <a class="navbar-brand" href="/wuhlan3/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -155,7 +155,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/" target="_self">
+              <a class="nav-link" href="/wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -167,7 +167,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/archives/" target="_self">
+              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -179,7 +179,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/tags/" target="_self">
+              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -191,7 +191,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/links/" target="_self">
+              <a class="nav-link" href="/wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -203,7 +203,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/about/" target="_self">
+              <a class="nav-link" href="/wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -233,7 +233,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/Wuhlan3_hexo_blog/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/wuhlan3/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -332,7 +332,7 @@
 扩展实验三的的内核程序，但不修改原有的用户程序，实现在用户程序执行期间，若触碰键盘，屏幕某个位置会显示“OUCH!OUCH!”。
 (5)编写实验报告，描述实验工作的过程和必要的细节，如截屏或录屏，以证实实验工作的真实性</p>
 <figure>
-<img src="6.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="1618293085038">
+<img src="6.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="1618293085038">
 <figcaption aria-hidden="true">1618293085038</figcaption>
 </figure>
 <h3 id="实验环境">实验环境</h3>
@@ -360,9 +360,9 @@
 <h3 id="实验前置知识">实验前置知识</h3>
 <p>x86计算机在启动时会自动进入<strong>实模式状态</strong>，在内存的低位区（地址为0~1023[3FFH]，1KB）创建含256个中断向量的表IVT
 （每个向量[地址]占4个字节，<mark>格式为：16位段值:16位偏移值</mark>）。</p>
-<p><img src="1.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210413145103907" style="zoom:50%;"></p>
+<p><img src="1.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210413145103907" style="zoom:50%;"></p>
 <p>下图是中断向量表，我们可以看到这次实验用到的中断向量主要包括8号中断向量（时钟中断）和9号中断向量（键盘中断）</p>
-<p><img src="2.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="2" style="zoom:70%;"></p>
+<p><img src="2.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="2" style="zoom:70%;"></p>
 <h3 id="实验过程">实验过程</h3>
 <h4 id="例程分析">1.例程分析</h4>
 <p>该代码实现的是，在窗口坐标为（12，39）的位置，显示字符。从'!'开始，按照ASCII的顺序，依次显示之后的所有字符。每隔一段时间字符就会变化一次。</p>
@@ -411,15 +411,15 @@ OUCH!"键盘中断程序。基本过程为：</p>
 <p>通过观察，我们可以发现，无论是开机程序还是用户程序都可以成功显示"OUCH!
 OUCH!"，同时可以看到，无敌风火轮一直在右下角旋转。</p>
 <figure>
-<img src="3.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210416111142520">
+<img src="3.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210416111142520">
 <figcaption aria-hidden="true">image-20210416111142520</figcaption>
 </figure>
 <figure>
-<img src="4.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210416111029567">
+<img src="4.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210416111029567">
 <figcaption aria-hidden="true">image-20210416111029567</figcaption>
 </figure>
 <figure>
-<img src="5.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210416111057382">
+<img src="5.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210416111057382">
 <figcaption aria-hidden="true">image-20210416111057382</figcaption>
 </figure>
 <h3 id="问题与解决方式">问题与解决方式</h3>
@@ -455,7 +455,7 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/Wuhlan3_hexo_blog/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="print-no-link">#操作系统</a>
+        <a href="/wuhlan3/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="print-no-link">#操作系统</a>
       
     </div>
   
@@ -468,7 +468,7 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
   <div class="license-box my-3">
     <div class="license-title">
       <div>实验4：具有中断处理的内核</div>
-      <div>https://github.com/Wuhlan3/2021/04/16/实验4：具有中断处理的内核/</div>
+      <div>https://wuhlan3.github.io/2021/04/16/实验4：具有中断处理的内核/</div>
     </div>
     <div class="license-meta">
       
@@ -512,7 +512,7 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2021/05/16/%E5%AE%9E%E9%AA%8C5%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" title="实验5：实现系统调用">
+                      <a href="/wuhlan3/2021/05/16/%E5%AE%9E%E9%AA%8C5%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" title="实验5：实现系统调用">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">实验5：实现系统调用</span>
                         <span class="visible-mobile">Previous</span>
@@ -522,7 +522,7 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2021/04/14/%E5%89%8D%E7%BC%80%E6%A0%91Trie/" title="前缀树Trie">
+                      <a href="/wuhlan3/2021/04/14/%E5%89%8D%E7%BC%80%E6%A0%91Trie/" title="前缀树Trie">
                         <span class="hidden-mobile">前缀树Trie</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -708,8 +708,8 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/events.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/plugins.js" ></script>
+<script  src="/wuhlan3/js/events.js" ></script>
+<script  src="/wuhlan3/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -731,7 +731,7 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
 
 
   
-    <script  src="/Wuhlan3_hexo_blog/js/img-lazyload.js" ></script>
+    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
   
 
 
@@ -830,21 +830,21 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script defer src="/Wuhlan3_hexo_blog/js/leancloud.js" ></script>
+  <script defer src="/wuhlan3/js/leancloud.js" ></script>
 
-  <script  src="/Wuhlan3_hexo_blog/js/local-search.js" ></script>
+  <script  src="/wuhlan3/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/Wuhlan3_hexo_blog/js/dongtaicaidai.js"></script>
+<script src="/wuhlan3/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/Wuhlan3_hexo_blog/js/boot.js" ></script>
+<script  src="/wuhlan3/js/boot.js" ></script>
 
 
   
@@ -852,5 +852,5 @@ OUCH!"出现之后，过一小段时间，会自动清空。给用户以警告�
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/Wuhlan3_hexo_blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3_hexo_blog/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

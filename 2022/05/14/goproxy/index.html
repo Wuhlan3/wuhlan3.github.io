@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
-  <link rel="icon" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
+  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,7 +19,7 @@
     <meta name="description" content="介绍SOCKS5的基本原理与go的实现过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言基础-Proxy实现">
-<meta property="og:url" content="https://github.com/Wuhlan3/2022/05/14/goproxy/index.html">
+<meta property="og:url" content="https://wuhlan3.github.io/2022/05/14/goproxy/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="介绍SOCKS5的基本原理与go的实现过程">
 <meta property="og:locale" content="en_US">
@@ -58,33 +58,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/Wuhlan3_hexo_blog/css/main.css" />
+<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/Wuhlan3_hexo_blog/css/custom.css">
+<link rel="stylesheet" href="/wuhlan3/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/Wuhlan3_hexo_blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3_hexo_blog/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/Wuhlan3_hexo_blog/js/utils.js" ></script>
-  <script  src="/Wuhlan3_hexo_blog/js/color-schema.js" ></script>
+  <script  src="/wuhlan3/js/utils.js" ></script>
+  <script  src="/wuhlan3/js/color-schema.js" ></script>
   
 
   
@@ -132,7 +132,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/Wuhlan3_hexo_blog/">
+    <a class="navbar-brand" href="/wuhlan3/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -151,7 +151,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/" target="_self">
+              <a class="nav-link" href="/wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -163,7 +163,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/archives/" target="_self">
+              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -175,7 +175,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/tags/" target="_self">
+              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -187,7 +187,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/links/" target="_self">
+              <a class="nav-link" href="/wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -199,7 +199,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/about/" target="_self">
+              <a class="nav-link" href="/wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -229,7 +229,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/Wuhlan3_hexo_blog/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/wuhlan3/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -320,7 +320,7 @@ Secure”的缩写。</p>
 </blockquote>
 <p>防火墙内的客户端想要访问外部的服务器时，会跟SOCKS代理服务器进行连接。客户端的请求会通过代理服务器发送到外部的服务器，最终响应也会通过代理服务器发送回客户端。</p>
 <h3 id="基本模型">基本模型</h3>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220424129.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514220424129" style="zoom: 50%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220424129.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220424129" style="zoom: 50%;"></p>
 <h3 id="协商过程认证">协商过程（认证）</h3>
 <p>SOCKS5比SOCKS4a多了验证、IPv6、UDP支持。</p>
 <p>建立与SOCKS5服务器的TCP连接后客户端需要先发送请求来确认协议版本及认证方式，格式为（以字节为单位）：</p>
@@ -478,7 +478,7 @@ Secure”的缩写。</p>
 <figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">//process部分就不放出了，就是一个简单的数据读取和输出的过程</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {<br>   server, err := net.Listen(<span class="hljs-string">"tcp"</span>, <span class="hljs-string">"127.0.0.1:1080"</span>)<br>   <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {<br>      <span class="hljs-built_in">panic</span>(err)<br>   }<br>   <span class="hljs-keyword">for</span> {<br>      client, err := server.Accept()<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {<br>         log.Printf(<span class="hljs-string">"Accept failed %v"</span>, err)<br>         <span class="hljs-keyword">continue</span><br>      }<br>      <span class="hljs-keyword">go</span> process(client)<br>   }<br>}<br></code></pre></td></tr></tbody></table></figure>
 <p>nc安装教程如下：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/linyufeng/p/13206252.html">https://www.cnblogs.com/linyufeng/p/13206252.html</a></p>
 <p>使用nc命令可以直接和一个ip端口建立tcp连接。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514214450225.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514214450225" style="zoom:100%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514214450225.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514214450225" style="zoom:100%;"></p>
 <h3 id="v2协商阶段">2. v2：协商阶段</h3>
 <p>main函数不需要修改，在process函数中新增鉴权的部分：</p>
 <figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">//新增的鉴权过程</span><br>err := auth(reader, conn)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {<br>   log.Printf(<span class="hljs-string">"client %v auth failed:%v"</span>, conn.RemoteAddr(), err)<br>   <span class="hljs-keyword">return</span><br>}<br></code></pre></td></tr></tbody></table></figure>
@@ -490,7 +490,7 @@ Secure”的缩写。</p>
 <li>往连接中写入版本号和方法<code>conn.Write([]byte{socks5Ver, 0x00})</code></li>
 </ol>
 <p>运行程序后，在终端执行<code>curl --socks5 127.0.0.1:1080 -v http://www.qq.com</code>，可以显示出版本号、method和认证成功。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220635063.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514220635063" style="zoom: 80%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220635063.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220635063" style="zoom: 80%;"></p>
 <h3 id="v3请求阶段">3. v3：请求阶段</h3>
 <p>我们在auth下面再实现一个connect函数，该函数用于读取客户端发送的数据，然后与服务器进行tcp连接；之后将连接的信息发送回给客户端。</p>
 <figure class="highlight perl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Perl">err = <span class="hljs-keyword">connect</span>(reader, conn)<br><span class="hljs-keyword">if</span> err != nil {<br>   log.Printf(<span class="hljs-string">"client %v auth failed:%v"</span>, conn.RemoteAddr(), err)<br>   <span class="hljs-keyword">return</span><br>}<br></code></pre></td></tr></tbody></table></figure>
@@ -498,20 +498,20 @@ Secure”的缩写。</p>
 一个可变长度的值、DST.PORT 目标端口。</p>
 <p>写回给客户端的过程属性类似，略。</p>
 <p>运行程序后，可以正确返回ip地址和端口号：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220524235.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514220524235" style="zoom:80%;"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220512876.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514220512876" style="zoom:80%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220524235.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220524235" style="zoom:80%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220512876.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220512876" style="zoom:80%;"></p>
 <h3 id="v4relay阶段">4. v4：relay阶段</h3>
 <p>将客户端的请求发送到服务器，将服务器的响应发送回给客户端。</p>
 <figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//使用ctx机制来进行同步</span><br>ctx, cancel := context.WithCancel(context.Background())<br><span class="hljs-keyword">defer</span> cancel()<br><br><span class="hljs-comment">//使用io.Copy——死循环将src中的数据读取到dest中</span><br><span class="hljs-comment">//两个goroutine的方向不一样，一个是从浏览器拷贝到服务器，一个是从服务器拷贝到浏览器</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {<br>    _, _ = io.Copy(dest, reader)<br>    cancel()<br>}()<br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {<br>    _, _ = io.Copy(conn, dest)<br>    cancel()<br>}()<br><br><span class="hljs-comment">//使用ctx的机制，来进行同步一下</span><br>    &lt;-ctx.Done()<br></code></pre></td></tr></tbody></table></figure>
 <p>运行程序如下所示：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215014797.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514215014797" style="zoom: 80%;"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220556547.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514220556547" style="zoom:50%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215014797.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215014797" style="zoom: 80%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514220556547.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514220556547" style="zoom:50%;"></p>
 <h3 id="使用插件进行测试">5.使用插件进行测试</h3>
 <p>可以使用Proxy SwitchyOmega插件。</p>
 <p>该软件本身不提供给代理服务器，需要连接我们自己的代理服务器。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215111141.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514215111141" style="zoom: 33%;"><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215047480.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514215047480" style="zoom:67%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215111141.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215111141" style="zoom: 33%;"><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215047480.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215047480" style="zoom:67%;"></p>
 <p>在启动右上角的小圈圈后，浏览器访问的网页都会经过我们的代理服务器。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215030250.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20220514215030250" style="zoom:50%;"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20220514215030250.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20220514215030250" style="zoom:50%;"></p>
 <h2 id="参考资料">参考资料</h2>
 <p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129781512">https://zhuanlan.zhihu.com/p/129781512</a></p>
 <p>[2] <a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-hans/SOCKS">https://zh.m.wikipedia.org/zh-hans/SOCKS</a></p>
@@ -528,9 +528,9 @@ Secure”的缩写。</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/Wuhlan3_hexo_blog/tags/Go/" class="print-no-link">#Go</a>
+        <a href="/wuhlan3/tags/Go/" class="print-no-link">#Go</a>
       
-        <a href="/Wuhlan3_hexo_blog/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/" class="print-no-link">#青训营</a>
+        <a href="/wuhlan3/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/" class="print-no-link">#青训营</a>
       
     </div>
   
@@ -543,7 +543,7 @@ Secure”的缩写。</p>
   <div class="license-box my-3">
     <div class="license-title">
       <div>Go语言基础-Proxy实现</div>
-      <div>https://github.com/Wuhlan3/2022/05/14/goproxy/</div>
+      <div>https://wuhlan3.github.io/2022/05/14/goproxy/</div>
     </div>
     <div class="license-meta">
       
@@ -587,7 +587,7 @@ Secure”的缩写。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2022/07/31/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" title="pprof性能分析">
+                      <a href="/wuhlan3/2022/07/31/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" title="pprof性能分析">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">pprof性能分析</span>
                         <span class="visible-mobile">Previous</span>
@@ -597,7 +597,7 @@ Secure”的缩写。</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2022/05/09/Go%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" title="Go依赖管理">
+                      <a href="/wuhlan3/2022/05/09/Go%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" title="Go依赖管理">
                         <span class="hidden-mobile">Go依赖管理</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -783,8 +783,8 @@ Secure”的缩写。</p>
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/events.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/plugins.js" ></script>
+<script  src="/wuhlan3/js/events.js" ></script>
+<script  src="/wuhlan3/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -806,7 +806,7 @@ Secure”的缩写。</p>
 
 
   
-    <script  src="/Wuhlan3_hexo_blog/js/img-lazyload.js" ></script>
+    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
   
 
 
@@ -905,21 +905,21 @@ Secure”的缩写。</p>
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script defer src="/Wuhlan3_hexo_blog/js/leancloud.js" ></script>
+  <script defer src="/wuhlan3/js/leancloud.js" ></script>
 
-  <script  src="/Wuhlan3_hexo_blog/js/local-search.js" ></script>
+  <script  src="/wuhlan3/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/Wuhlan3_hexo_blog/js/dongtaicaidai.js"></script>
+<script src="/wuhlan3/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/Wuhlan3_hexo_blog/js/boot.js" ></script>
+<script  src="/wuhlan3/js/boot.js" ></script>
 
 
   
@@ -927,5 +927,5 @@ Secure”的缩写。</p>
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/Wuhlan3_hexo_blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3_hexo_blog/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

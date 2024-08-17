@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
-  <link rel="icon" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
+  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,7 +19,7 @@
     <meta name="description" content="力扣的一道0-1 trie问题，感觉对自己启发蛮大的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="0-1字典树解决[不含连续1的非负整数]">
-<meta property="og:url" content="https://github.com/Wuhlan3/2021/09/11/0-1%E5%AD%97%E5%85%B8%E6%A0%91/index.html">
+<meta property="og:url" content="https://wuhlan3.github.io/2021/09/11/0-1%E5%AD%97%E5%85%B8%E6%A0%91/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="力扣的一道0-1 trie问题，感觉对自己启发蛮大的">
 <meta property="og:locale" content="en_US">
@@ -57,33 +57,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/Wuhlan3_hexo_blog/css/main.css" />
+<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/Wuhlan3_hexo_blog/css/custom.css">
+<link rel="stylesheet" href="/wuhlan3/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/Wuhlan3_hexo_blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3_hexo_blog/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/Wuhlan3_hexo_blog/js/utils.js" ></script>
-  <script  src="/Wuhlan3_hexo_blog/js/color-schema.js" ></script>
+  <script  src="/wuhlan3/js/utils.js" ></script>
+  <script  src="/wuhlan3/js/color-schema.js" ></script>
   
 
   
@@ -131,7 +131,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/Wuhlan3_hexo_blog/">
+    <a class="navbar-brand" href="/wuhlan3/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -150,7 +150,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/" target="_self">
+              <a class="nav-link" href="/wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -162,7 +162,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/archives/" target="_self">
+              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -174,7 +174,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/tags/" target="_self">
+              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -186,7 +186,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/links/" target="_self">
+              <a class="nav-link" href="/wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -198,7 +198,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/about/" target="_self">
+              <a class="nav-link" href="/wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -313,7 +313,7 @@
                 <h2 id="不含连续1的非负整数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/">不含连续1的非负整数</a></h2>
 <p>在该链接的基础上添加自己的理解<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/">https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/suan-fa-xiao-ai-wo-lai-gei-ni-jie-shi-qi-4nh4/</a></p>
 <figure>
-<img src="image-20210911231521950.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210911231521950">
+<img src="image-20210911231521950.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210911231521950">
 <figcaption aria-hidden="true">image-20210911231521950</figcaption>
 </figure>
 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findIntegers</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>{<br>        <span class="hljs-comment">//初始化一棵树，直接使用动态规划计算每一层的 所求整数</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-number">31</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>] = dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; <span class="hljs-number">31</span>; ++i) {<br>            dp[i] = dp[i - <span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">2</span>];<br>        }<br>        <span class="hljs-comment">//pre用于记录上一层的值:0或1</span><br>        <span class="hljs-comment">//res用于返回</span><br>        <span class="hljs-type">int</span> pre = <span class="hljs-number">0</span>, res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">29</span>; i &gt;= <span class="hljs-number">0</span>; --i) {<br>            <span class="hljs-type">int</span> val = <span class="hljs-number">1</span> &lt;&lt; i;    <span class="hljs-comment">//取某一位</span><br>            <span class="hljs-keyword">if</span> ((n &amp; val) != <span class="hljs-number">0</span>) {    <span class="hljs-comment">//判断是否与这一位有关，即该层是否有右子树</span><br>                <br>                n -= val;    <span class="hljs-comment">//清除这一位</span><br>                res += dp[i + <span class="hljs-number">1</span>];    <span class="hljs-comment">//有右子树的时候，把左子树的相关值添加到res</span><br>                <br>                <span class="hljs-comment">//如果上一层为1且该层为1，则直接结束遍历</span><br>                <span class="hljs-keyword">if</span> (pre == <span class="hljs-number">1</span>) {<br>                    <span class="hljs-keyword">break</span>;<br>                }<br>                pre = <span class="hljs-number">1</span>;<br>            } <span class="hljs-keyword">else</span> {        <span class="hljs-comment">//若无右子树，则进入左子树，到下一层继续判断</span><br>                pre = <span class="hljs-number">0</span>;<br>            }<br><br>            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>) {<br>                ++res;<br>            }<br>        }<br><br>        <span class="hljs-keyword">return</span> res;<br>    }<br>};<br></code></pre></td></tr></tbody></table></figure>
@@ -330,7 +330,7 @@
 <figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">dot -Tpng -o <span class="hljs-built_in">tree</span>.png test.dot<br></code></pre></td></tr></tbody></table></figure>
 <h3 id="生成效果">生成效果</h3>
 <figure>
-<img src="tree.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="tree">
+<img src="tree.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="tree">
 <figcaption aria-hidden="true">tree</figcaption>
 </figure>
 <h2 id="参考资料">参考资料</h2>
@@ -348,7 +348,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/Wuhlan3_hexo_blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="print-no-link">#数据结构与算法</a>
+        <a href="/wuhlan3/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="print-no-link">#数据结构与算法</a>
       
     </div>
   
@@ -361,7 +361,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>0-1字典树解决[不含连续1的非负整数]</div>
-      <div>https://github.com/Wuhlan3/2021/09/11/0-1字典树/</div>
+      <div>https://wuhlan3.github.io/2021/09/11/0-1字典树/</div>
     </div>
     <div class="license-meta">
       
@@ -405,7 +405,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2021/09/17/%E6%AD%BB%E6%B0%B4/" title="死水">
+                      <a href="/wuhlan3/2021/09/17/%E6%AD%BB%E6%B0%B4/" title="死水">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">死水</span>
                         <span class="visible-mobile">Previous</span>
@@ -415,7 +415,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2021/09/09/Hexo%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="【置顶】Hexo更新日志">
+                      <a href="/wuhlan3/2021/09/09/Hexo%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="【置顶】Hexo更新日志">
                         <span class="hidden-mobile">【置顶】Hexo更新日志</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -601,8 +601,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/events.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/plugins.js" ></script>
+<script  src="/wuhlan3/js/events.js" ></script>
+<script  src="/wuhlan3/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -624,7 +624,7 @@
 
 
   
-    <script  src="/Wuhlan3_hexo_blog/js/img-lazyload.js" ></script>
+    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
   
 
 
@@ -723,21 +723,21 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script defer src="/Wuhlan3_hexo_blog/js/leancloud.js" ></script>
+  <script defer src="/wuhlan3/js/leancloud.js" ></script>
 
-  <script  src="/Wuhlan3_hexo_blog/js/local-search.js" ></script>
+  <script  src="/wuhlan3/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/Wuhlan3_hexo_blog/js/dongtaicaidai.js"></script>
+<script src="/wuhlan3/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/Wuhlan3_hexo_blog/js/boot.js" ></script>
+<script  src="/wuhlan3/js/boot.js" ></script>
 
 
   
@@ -745,5 +745,5 @@
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/Wuhlan3_hexo_blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3_hexo_blog/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

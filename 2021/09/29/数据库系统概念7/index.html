@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
-  <link rel="icon" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
+  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,11 +19,11 @@
     <meta name="description" content="E-R模型 设计的时候需要避免两个主要的缺陷：  冗余：不好的设计可能会重复信息 不完整：不好的设计可能导致某些方面难于甚至无法建模  实体集联系集 实体：现实世界中可区别于所有其他对象的一个“事务”或“对象”。每个实体都有一组性质，其中一些性质可以唯一标识某一个实体，比如person_id、course_id。 实体集：相同类型（具有相同性质）的一个实体集合。 联系：指多个实体间的相互关联。 联">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库系统概念7">
-<meta property="og:url" content="https://github.com/Wuhlan3/2021/09/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B57/index.html">
+<meta property="og:url" content="https://wuhlan3.github.io/2021/09/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B57/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="E-R模型 设计的时候需要避免两个主要的缺陷：  冗余：不好的设计可能会重复信息 不完整：不好的设计可能导致某些方面难于甚至无法建模  实体集联系集 实体：现实世界中可区别于所有其他对象的一个“事务”或“对象”。每个实体都有一组性质，其中一些性质可以唯一标识某一个实体，比如person_id、course_id。 实体集：相同类型（具有相同性质）的一个实体集合。 联系：指多个实体间的相互关联。 联">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/Wuhlan3_hexo_blog/img/db.jpg">
+<meta property="og:image" content="https://wuhlan3.github.io/wuhlan3/img/db.jpg">
 <meta property="article:published_time" content="2021-09-29T07:21:25.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.790Z">
 <meta property="article:author" content="Wuhlan3">
@@ -31,7 +31,7 @@
 <meta property="article:tag" content="数据库">
 <meta property="article:tag" content="SQL Server">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://github.com/Wuhlan3_hexo_blog/img/db.jpg">
+<meta name="twitter:image" content="https://wuhlan3.github.io/wuhlan3/img/db.jpg">
   
   
   
@@ -59,33 +59,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/Wuhlan3_hexo_blog/css/main.css" />
+<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/Wuhlan3_hexo_blog/css/custom.css">
+<link rel="stylesheet" href="/wuhlan3/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/Wuhlan3_hexo_blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3_hexo_blog/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/Wuhlan3_hexo_blog/js/utils.js" ></script>
-  <script  src="/Wuhlan3_hexo_blog/js/color-schema.js" ></script>
+  <script  src="/wuhlan3/js/utils.js" ></script>
+  <script  src="/wuhlan3/js/color-schema.js" ></script>
   
 
   
@@ -133,7 +133,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/Wuhlan3_hexo_blog/">
+    <a class="navbar-brand" href="/wuhlan3/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -152,7 +152,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/" target="_self">
+              <a class="nav-link" href="/wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -164,7 +164,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/archives/" target="_self">
+              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -176,7 +176,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/tags/" target="_self">
+              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -188,7 +188,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/links/" target="_self">
+              <a class="nav-link" href="/wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -200,7 +200,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/about/" target="_self">
+              <a class="nav-link" href="/wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -230,7 +230,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/Wuhlan3_hexo_blog/img/db.jp') no-repeat center center; background-size: cover;">
+     style="background: url('/wuhlan3/img/db.jp') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -337,7 +337,7 @@
 <p><strong>映射基数</strong>：表示一个实体通过一个<strong>联系集</strong>能关联的实体的个数。</p>
 <p>映射基数必然是以下情况之一：一对一、一对多、多对一、多对多</p>
 <figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211011231316999.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20211011231316999">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/image-20211011231316999.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211011231316999">
 <figcaption aria-hidden="true">image-20211011231316999</figcaption>
 </figure>
 <p>参与约束：分为部分参与与全部参与</p>
@@ -356,11 +356,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/Wuhlan3_hexo_blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
+        <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/Wuhlan3_hexo_blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+        <a href="/wuhlan3/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
       
-        <a href="/Wuhlan3_hexo_blog/tags/SQL-Server/" class="print-no-link">#SQL Server</a>
+        <a href="/wuhlan3/tags/SQL-Server/" class="print-no-link">#SQL Server</a>
       
     </div>
   
@@ -373,7 +373,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>数据库系统概念7</div>
-      <div>https://github.com/Wuhlan3/2021/09/29/数据库系统概念7/</div>
+      <div>https://wuhlan3.github.io/2021/09/29/数据库系统概念7/</div>
     </div>
     <div class="license-meta">
       
@@ -596,8 +596,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/events.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/plugins.js" ></script>
+<script  src="/wuhlan3/js/events.js" ></script>
+<script  src="/wuhlan3/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -619,7 +619,7 @@
 
 
   
-    <script  src="/Wuhlan3_hexo_blog/js/img-lazyload.js" ></script>
+    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
   
 
 
@@ -761,21 +761,21 @@
 
   <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
-  <script defer src="/Wuhlan3_hexo_blog/js/leancloud.js" ></script>
+  <script defer src="/wuhlan3/js/leancloud.js" ></script>
 
-  <script  src="/Wuhlan3_hexo_blog/js/local-search.js" ></script>
+  <script  src="/wuhlan3/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/Wuhlan3_hexo_blog/js/dongtaicaidai.js"></script>
+<script src="/wuhlan3/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/Wuhlan3_hexo_blog/js/boot.js" ></script>
+<script  src="/wuhlan3/js/boot.js" ></script>
 
 
   
@@ -783,5 +783,5 @@
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/Wuhlan3_hexo_blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3_hexo_blog/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
-  <link rel="icon" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
+  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,7 +19,7 @@
     <meta name="description" content="nlp的简介、句子划分与python实现的小作业">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(一)Introduction and Tokenization">
-<meta property="og:url" content="https://github.com/Wuhlan3/2021/09/20/tokenization/index.html">
+<meta property="og:url" content="https://wuhlan3.github.io/2021/09/20/tokenization/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="nlp的简介、句子划分与python实现的小作业">
 <meta property="og:locale" content="en_US">
@@ -58,33 +58,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/Wuhlan3_hexo_blog/css/main.css" />
+<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/Wuhlan3_hexo_blog/css/custom.css">
+<link rel="stylesheet" href="/wuhlan3/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/Wuhlan3_hexo_blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3_hexo_blog/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/Wuhlan3_hexo_blog/js/utils.js" ></script>
-  <script  src="/Wuhlan3_hexo_blog/js/color-schema.js" ></script>
+  <script  src="/wuhlan3/js/utils.js" ></script>
+  <script  src="/wuhlan3/js/color-schema.js" ></script>
   
 
   
@@ -132,7 +132,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/Wuhlan3_hexo_blog/">
+    <a class="navbar-brand" href="/wuhlan3/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -151,7 +151,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/" target="_self">
+              <a class="nav-link" href="/wuhlan3/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -163,7 +163,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/archives/" target="_self">
+              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -175,7 +175,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/tags/" target="_self">
+              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -187,7 +187,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/links/" target="_self">
+              <a class="nav-link" href="/wuhlan3/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -199,7 +199,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/Wuhlan3_hexo_blog/about/" target="_self">
+              <a class="nav-link" href="/wuhlan3/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -316,7 +316,7 @@
 processing，NLP）是<strong>语言学</strong>、<strong>计算机科学</strong>和<strong>人工智能</strong>的一个分支领域，研究计算机与人类语言之间的关系、相互作用，特别是如何编程计算机来<strong>处理</strong>和<strong>分析自然语言数据</strong>。</p>
 <p>目标：使计算机能够理解文本的内容，包括上下文之间的细微差别(contextual
 nuances)</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261720623.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926171930451" style="zoom:80%;box-shadow: none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261720623.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926171930451" style="zoom:80%;box-shadow: none"></p>
 <h2 id="nlp的一些难题">NLP的一些难题</h2>
 <p>Difficulty 1: Ambiguty</p>
 <ul>
@@ -369,11 +369,11 @@ nuances)</p>
 <ol start="2" type="1">
 <li>当然，不能仅仅依靠标点符号来划分</li>
 </ol>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261826405.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926182526049" style="zoom:80%;box-shadow: none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261826405.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926182526049" style="zoom:80%;box-shadow: none"></p>
 <ol start="3" type="1">
 <li>还有很多语言，比如说中文和日文是不使用空格来分隔单词的，那么又该如何划分呢？</li>
 </ol>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261845190.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926184536649" style="zoom:80%;box-shadow: none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261845190.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926184536649" style="zoom:80%;box-shadow: none"></p>
 <ol start="4" type="1">
 <li>使用数据来进行划分</li>
 </ol>
@@ -402,10 +402,10 @@ nuances)</p>
 </ol>
 <p>由于大部分subword算法都是基于空格的划分，所以我们常常先向词汇表加入一个符号'_'</p>
 <h3 id="例子">例子</h3>
-<p><img src="image-20210926185638796.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926185638796" style="zoom:80%;box-shadow: none"></p>
-<p><img src="image-20210926185728642.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload style="zoom:80%;box-shadow: none"></p>
-<p><img src="image-20210926185744391.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload style="zoom:80%;box-shadow: none"></p>
-<p><img src="image-20210926185803240.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload style="zoom:80%;box-shadow: none;"></p>
+<p><img src="image-20210926185638796.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926185638796" style="zoom:80%;box-shadow: none"></p>
+<p><img src="image-20210926185728642.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none"></p>
+<p><img src="image-20210926185744391.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none"></p>
+<p><img src="image-20210926185803240.png" srcset="/wuhlan3/img/loading.gif" lazyload style="zoom:80%;box-shadow: none;"></p>
 <h3 id="normalizing-word-formats">Normalizing word formats</h3>
 <ul>
 <li>U.S.A. or USA</li>
@@ -418,12 +418,12 @@ nuances)</p>
 <h2 id="小项目">小项目</h2>
 <p>使用python进行网页的爬取、分词、写入excel表格。 URL: <a target="_blank" rel="noopener" href="https://news.ifeng.com/c/89TNORdIths">https://news.ifeng.com/c/89TNORdIths</a>
 Crawler: <a href="www.topcoder.com/thrive/articles/web">www.topcoder.com/thrive/articles/web</a>
-crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/jieba">https://github.com/fxsjy/jieba</a></p>
+crawler in python Chinese word tokenization: <a target="_blank" rel="noopener" href="https://github.com/fxsjy/jieba">https://github.com/fxsjy/jieba</a></p>
 <p>总体来说不算难，根据爬虫和结巴两个包的示范代码，进行稍微的修改就可以实现了。</p>
 <h3 id="代码">代码：</h3>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> lxml<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><span class="hljs-keyword">from</span> xlwt <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> jieba<br>workbook = Workbook(encoding = <span class="hljs-string">'utf-8'</span>)<br>table = workbook.add_sheet(<span class="hljs-string">'data'</span>)<br>table.write(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">'URL'</span>)<br>table.write(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'Title'</span>)<br>table.write(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'Content'</span>)<br>url = <span class="hljs-string">"https://news.ifeng.com/c/89TNORdIths"</span><br>headers = {<br>  <span class="hljs-string">'User-Agent'</span>: <span class="hljs-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'</span><br>}<br>f = requests.get(url, headers = headers)<br><span class="hljs-comment">#开始获取html</span><br>soup = BeautifulSoup(f.content, <span class="hljs-string">'lxml'</span>)<br><span class="hljs-comment">#往excel写入URL</span><br>table.write(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, url)<br><span class="hljs-comment">#获取标题</span><br>heading = soup.find(<span class="hljs-string">'h1'</span>, {<br>    <span class="hljs-string">'class'</span>: <span class="hljs-string">'topic-2Eq5D0Zm'</span><br>  })<br>head_list = jieba.cut(heading.string.strip(<span class="hljs-string">'&lt;h1&gt;'</span>), cut_all=<span class="hljs-literal">False</span>)<br>token_heading = <span class="hljs-string">"/ "</span>.join(head_list)<br><span class="hljs-built_in">print</span>(token_heading)  <br>table.write(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, token_heading)<br><span class="hljs-comment">#获取文章</span><br>article = <span class="hljs-string">""</span> <br>paragraphs = soup.find(<span class="hljs-string">'div'</span>, {<br>    <span class="hljs-string">'class'</span>: <span class="hljs-string">'main_content-28C-Fj2p'</span><br>  }).find_all(<span class="hljs-string">'p'</span>)<br>num = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> paragraph <span class="hljs-keyword">in</span> paragraphs:<br>  article = article + paragraph.string.strip(<span class="hljs-string">'&lt;p&gt;'</span>)<br>seg_list = jieba.cut(article, cut_all=<span class="hljs-literal">False</span>)<br>token_article = <span class="hljs-string">"/ "</span>.join(seg_list)<br><span class="hljs-built_in">print</span>(token_article) <br>table.write(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, token_article)<br>workbook.save(<span class="hljs-string">'text_token.xls'</span>)<br></code></pre></td></tr></tbody></table></figure>
 <h3 id="运行结果">运行结果：</h3>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261914148.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926191356508" style="zoom:80%;box-shadow: none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109261914148.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926191356508" style="zoom:80%;box-shadow: none"></p>
 
                 
               </div>
@@ -436,9 +436,9 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/Wuhlan3_hexo_blog/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
+        <a href="/wuhlan3/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
       
-        <a href="/Wuhlan3_hexo_blog/tags/python/" class="print-no-link">#python</a>
+        <a href="/wuhlan3/tags/python/" class="print-no-link">#python</a>
       
     </div>
   
@@ -451,7 +451,7 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
   <div class="license-box my-3">
     <div class="license-title">
       <div>(一)Introduction and Tokenization</div>
-      <div>https://github.com/Wuhlan3/2021/09/20/tokenization/</div>
+      <div>https://wuhlan3.github.io/2021/09/20/tokenization/</div>
     </div>
     <div class="license-meta">
       
@@ -495,7 +495,7 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2021/09/22/n-gram%E6%A8%A1%E5%9E%8B/" title="(二)N-gram模型">
+                      <a href="/wuhlan3/2021/09/22/n-gram%E6%A8%A1%E5%9E%8B/" title="(二)N-gram模型">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">(二)N-gram模型</span>
                         <span class="visible-mobile">Previous</span>
@@ -505,7 +505,7 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Wuhlan3_hexo_blog/2021/09/17/%E6%AD%BB%E6%B0%B4/" title="死水">
+                      <a href="/wuhlan3/2021/09/17/%E6%AD%BB%E6%B0%B4/" title="死水">
                         <span class="hidden-mobile">死水</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -697,8 +697,8 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/events.js" ></script>
-<script  src="/Wuhlan3_hexo_blog/js/plugins.js" ></script>
+<script  src="/wuhlan3/js/events.js" ></script>
+<script  src="/wuhlan3/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -720,7 +720,7 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
 
 
   
-    <script  src="/Wuhlan3_hexo_blog/js/img-lazyload.js" ></script>
+    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
   
 
 
@@ -862,21 +862,21 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
 
   <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
-  <script defer src="/Wuhlan3_hexo_blog/js/leancloud.js" ></script>
+  <script defer src="/wuhlan3/js/leancloud.js" ></script>
 
-  <script  src="/Wuhlan3_hexo_blog/js/local-search.js" ></script>
+  <script  src="/wuhlan3/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/Wuhlan3_hexo_blog/js/dongtaicaidai.js"></script>
+<script src="/wuhlan3/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/Wuhlan3_hexo_blog/js/boot.js" ></script>
+<script  src="/wuhlan3/js/boot.js" ></script>
 
 
   
@@ -884,5 +884,5 @@ crawler in python Chinese word tokenization: <a href="https://github.com/fxsjy/j
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/Wuhlan3_hexo_blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3_hexo_blog/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>
