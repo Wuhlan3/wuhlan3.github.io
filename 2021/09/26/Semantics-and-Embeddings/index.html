@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
-  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
+  <link rel="icon" href="/Wuhlan3_hexo_blog/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,7 +19,7 @@
     <meta name="description" content="词意和词向量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(四)Semantics_and_Embeddings">
-<meta property="og:url" content="https://wuhlan3.gitee.io/2021/09/26/Semantics-and-Embeddings/index.html">
+<meta property="og:url" content="https://github.com/Wuhlan3/2021/09/26/Semantics-and-Embeddings/index.html">
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="词意和词向量">
 <meta property="og:locale" content="en_US">
@@ -57,33 +57,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
+<link  rel="stylesheet" href="/Wuhlan3_hexo_blog/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/Wuhlan3_hexo_blog/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/wuhlan3/css/custom.css">
+<link rel="stylesheet" href="/Wuhlan3_hexo_blog/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wuhlan3.gitee.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"github.com","root":"/Wuhlan3_hexo_blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/Wuhlan3_hexo_blog/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/wuhlan3/js/utils.js" ></script>
-  <script  src="/wuhlan3/js/color-schema.js" ></script>
+  <script  src="/Wuhlan3_hexo_blog/js/utils.js" ></script>
+  <script  src="/Wuhlan3_hexo_blog/js/color-schema.js" ></script>
   
 
   
@@ -131,7 +131,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/wuhlan3/">
+    <a class="navbar-brand" href="/Wuhlan3_hexo_blog/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -150,7 +150,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/" target="_self">
+              <a class="nav-link" href="/Wuhlan3_hexo_blog/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -162,7 +162,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
+              <a class="nav-link" href="/Wuhlan3_hexo_blog/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -174,7 +174,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
+              <a class="nav-link" href="/Wuhlan3_hexo_blog/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -186,7 +186,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/links/" target="_self">
+              <a class="nav-link" href="/Wuhlan3_hexo_blog/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -198,7 +198,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/about/" target="_self">
+              <a class="nav-link" href="/Wuhlan3_hexo_blog/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -338,7 +338,7 @@ stimulus</li>
 <li>Dominance（支配度）：the degree of control exerted by the
 stimulus</li>
 </ol>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262248476.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926224807705" style="zoom:100%;box-shadow: none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262248476.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926224807705" style="zoom:100%;box-shadow: none"></p>
 <h2 id="vector-semantics">Vector Semantics</h2>
 <p>我们是否可以建立一种方法来表达词义呢？接下来就介绍一种常用的模型vector
 semantics。</p>
@@ -351,7 +351,7 @@ semantics。</p>
 </ol>
 <p>我们使用一个向量来表示每一个词语。相似的词语在<strong>语义空间</strong>(<strong>semantic
 space</strong>)上是<strong>邻近</strong>的。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262305164.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926230518609" style="zoom:100%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262305164.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926230518609" style="zoom:100%;box-shadow:none"></p>
 <p>对于情绪分析，如果<strong>基于单词本身</strong>：</p>
 <ul>
 <li>单词特征就是用单词来标识的</li>
@@ -379,13 +379,13 @@ embeddings）</li>
 <h2 id="words-and-vectors">Words and Vectors</h2>
 <h3 id="文本间的关系">文本间的关系</h3>
 <p>每个文本都可以表示成一个单词的向量。比如说下面莎士比亚的文章就分别记录了相关单词的出现次数：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347161.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234152207" style="zoom:80%;box-shadow:none"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347863.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234200465" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347161.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926234152207" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347863.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926234200465" style="zoom:80%;box-shadow:none"></p>
 <p>可以看到，《亨利五世》和《裘力斯·凯撒》的相关性更强，《皆大欢喜》和《第十二夜》更加相似。</p>
 <h3 id="单词间的关系">单词间的关系</h3>
 <p>两个单词如果它们的上下文相似，这两个单词也是相似的。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347232.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234555455" style="zoom:80%;box-shadow:none"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347994.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210926234638018" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347232.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926234555455" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109262347994.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210926234638018" style="zoom:80%;box-shadow:none"></p>
 <h2 id="cos计算单词相似性">cos计算单词相似性</h2>
 <p>对两个向量进行点乘： <span class="math display">\[
 dot\ product(v,w) = v·w=\sum^{N}_{i=1}v_iw_i = v_1w_1+v_2w_2...
@@ -400,8 +400,8 @@ cosine(\hat v , \hat w) = \frac{\hat v · \hat w}{|\hat v||\hat w|}=
 \frac{\sum ^ N_{i=1}v_i w_i}{\sqrt{\sum ^ N_{i=1}v_i ^ 2}\sqrt{\sum ^
 N_{i=1}w_i ^ 2}}
 \]</span> 样例：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270000427.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927000014433" style="zoom:80%;box-shadow:none"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270001875.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927000051712" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270000427.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927000014433" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109270001875.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927000051712" style="zoom:80%;box-shadow:none"></p>
 <h2 id="tf-idf">TF-IDF</h2>
 <p>TF-IDF（term frequency–inverse document
 frequency）是一种用于信息检索与数据挖掘的常用<strong>加权</strong>技术。TF是<strong>词频</strong>(Term
@@ -420,12 +420,12 @@ tf_{t,d}=log_{10}({count(t,d)+1})
 <h3 id="idf的计算方法">idf的计算方法</h3>
 <p>注意df不是指该单词在所有文档中出现的总次数(collection
 Frequency)，而是指该单词出现在了多少个文档中(Document Frequency)</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272204110.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927220135195" style="zoom:100%;box-shadow:none">
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272204110.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927220135195" style="zoom:100%;box-shadow:none">
 <span class="math display">\[
 idf_t = log_{10}(\frac{N}{df_t})其中N是总的文本数
 \]</span>
 可以注意到，加入一个单词在所有训练的文本中都有出现，那么它的idf就会是0。而出现的频率越低，它的idf就越大。</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272212407.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927221238680" style="zoom:90%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272212407.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927221238680" style="zoom:90%;box-shadow:none"></p>
 <h2 id="pmi">PMI</h2>
 <p>经常会用到PMI（Pointwise Mutual
 Information，逐点互信息）这个指标来衡量两个事物之间的相关性（比如两个词）：
@@ -436,10 +436,10 @@ PMI(w_1,w_2) = log\frac{p(w_1,w_2)}{p(w_1)p(w_2)}
 PPMI(w_1,w_2) = max(log\frac{p(w_1,w_2)}{p(w_1)p(w_2)},0)
 \]</span></p>
 <h3 id="举例计算过程">举例，计算过程</h3>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228918.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222604844" style="zoom:80%;box-shadow:none"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228966.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222523541" style="zoom:80%;box-shadow:none"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228347.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222536175" style="zoom:80%;box-shadow:none"></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228752.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927222704853" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228918.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927222604844" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228966.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927222523541" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228347.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927222536175" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109272228752.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927222704853" style="zoom:80%;box-shadow:none"></p>
 <h2 id="word2vec">Word2vec</h2>
 <h3 id="稠密向量">稠密向量</h3>
 <p>相比于tf-idf更加稠密，且大部分元素不为零。</p>
@@ -452,7 +452,7 @@ PPMI(w_1,w_2) = max(log\frac{p(w_1,w_2)}{p(w_1)p(w_2)},0)
 <li>实践证明，Word2vec可以做的更好</li>
 </ul>
 <p>获取稠密向量的方法：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282237909.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927164801858" style="zoom:100%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282237909.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927164801858" style="zoom:100%;box-shadow:none"></p>
 <h3 id="基本思路">基本思路</h3>
 <ul>
 <li><p>基于<strong>二进制预测任务</strong>来训练一个<strong>分类器</strong>：w会喜欢出现在c的附近吗？(true/false)</p></li>
@@ -473,7 +473,7 @@ PPMI(w_1,w_2) = max(log\frac{p(w_1,w_2)}{p(w_1)p(w_2)},0)
 <li>训练<strong>逻辑回归分类器</strong>来区分这两种情况</li>
 <li>学习到的权重，最终作为词向量。</li>
 </ol>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282239534.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210927165913777" style="zoom:100%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282239534.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210927165913777" style="zoom:100%;box-shadow:none"></p>
 <p>预测出<span class="math inline">\(P(+|w,c)\)</span>的概率。</p>
 <p>如果两个向量是相似的，那么它们的点积是会非常大的。cosine只是一种标准化的点积。所以我们可以直接使用点积来表示相似性：
 <span class="math display">\[
@@ -492,14 +492,14 @@ P(+|w,c_{1:L})=\Pi_{i=1}^ {L} \sigma(c_i · w)
 <p><span class="math display">\[
 log P(+|w,c_{1:L})=\sum_{i=1}^ {L} log\sigma(c_i · w)
 \]</span></p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282336861.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928233333561" style="zoom:100%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282336861.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210928233333561" style="zoom:100%;box-shadow:none"></p>
 <p>学习的目标是：</p>
 <ul>
 <li>最大化正例中的target word和context word之间的相似性</li>
 <li>最小化反例中的target word和non-neighbor word之间的相似性</li>
 </ul>
 <p>可得到损失函数如下：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282337596.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210928233633250" style="zoom:100%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202109282337596.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20210928233633250" style="zoom:100%;box-shadow:none"></p>
 <p>如何学习？</p>
 <p>使用随机梯度下降法(Stochastic gradient
 descent)；针对整个训练集，使正例的可能性更大，使反例的可能性更小。</p>
@@ -514,9 +514,9 @@ rate <span class="math inline">\(\eta\)</span></li>
 w^{t+1} = w^{t}-\eta \frac{d}{dw}L(f(x;w),y)
 \]</span></p>
 <p>转过头来看看，损失函数要怎么求导：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071634380.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007163357969" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071634380.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20211007163357969" style="zoom:80%;box-shadow:none"></p>
 <p>所以我们可以先随机地初始化<span class="math inline">\(c\)</span>和<span class="math inline">\(w\)</span>矩阵，然后根据刚刚提到的<strong>梯度下降法</strong>来进行不断地更新：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071636297.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007163616109" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071636297.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20211007163616109" style="zoom:80%;box-shadow:none"></p>
 <h3 id="总结流程">总结流程</h3>
 <ul>
 <li>以一个随机d维地向量V作为初始词向量</li>
@@ -538,9 +538,9 @@ embeddings)</li>
 <h4 id="类比关系analogical-relations">2. 类比关系(analogical
 relations)</h4>
 <p>使用向量的平行关系来进行类比推理</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854110.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007184623878" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854110.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20211007184623878" style="zoom:80%;box-shadow:none"></p>
 <p>对于稀疏的词向量或稠密的词向量都可以使用这种方法：</p>
-<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854906.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211007184835881" style="zoom:80%;box-shadow:none"></p>
+<p><img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202110071854906.png" srcset="/Wuhlan3_hexo_blog/img/loading.gif" lazyload alt="image-20211007184835881" style="zoom:80%;box-shadow:none"></p>
 <div class="note note-success">
             <p>平行四边形法则需要注意的事项：</p>
 <ul>
@@ -560,7 +560,7 @@ relations)</h4>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
+        <a href="/Wuhlan3_hexo_blog/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
       
     </div>
   
@@ -573,7 +573,7 @@ relations)</h4>
   <div class="license-box my-3">
     <div class="license-title">
       <div>(四)Semantics_and_Embeddings</div>
-      <div>https://wuhlan3.gitee.io/2021/09/26/Semantics-and-Embeddings/</div>
+      <div>https://github.com/Wuhlan3/2021/09/26/Semantics-and-Embeddings/</div>
     </div>
     <div class="license-meta">
       
@@ -617,7 +617,7 @@ relations)</h4>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/wuhlan3/2021/09/27/%E6%83%8A%E6%95%A3%E6%A5%BC%E5%A4%B4%E9%A3%9E%E9%9B%AA/" title="惊散楼头飞雪">
+                      <a href="/Wuhlan3_hexo_blog/2021/09/27/%E6%83%8A%E6%95%A3%E6%A5%BC%E5%A4%B4%E9%A3%9E%E9%9B%AA/" title="惊散楼头飞雪">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">惊散楼头飞雪</span>
                         <span class="visible-mobile">Previous</span>
@@ -627,7 +627,7 @@ relations)</h4>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/wuhlan3/2021/09/24/Text-Classification/" title="(三)Text Classification">
+                      <a href="/Wuhlan3_hexo_blog/2021/09/24/Text-Classification/" title="(三)Text Classification">
                         <span class="hidden-mobile">(三)Text Classification</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -819,8 +819,8 @@ relations)</h4>
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/wuhlan3/js/events.js" ></script>
-<script  src="/wuhlan3/js/plugins.js" ></script>
+<script  src="/Wuhlan3_hexo_blog/js/events.js" ></script>
+<script  src="/Wuhlan3_hexo_blog/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -842,7 +842,7 @@ relations)</h4>
 
 
   
-    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
+    <script  src="/Wuhlan3_hexo_blog/js/img-lazyload.js" ></script>
   
 
 
@@ -984,21 +984,21 @@ relations)</h4>
 
   <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
-  <script defer src="/wuhlan3/js/leancloud.js" ></script>
+  <script defer src="/Wuhlan3_hexo_blog/js/leancloud.js" ></script>
 
-  <script  src="/wuhlan3/js/local-search.js" ></script>
+  <script  src="/Wuhlan3_hexo_blog/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/wuhlan3/js/dongtaicaidai.js"></script>
+<script src="/Wuhlan3_hexo_blog/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/wuhlan3/js/boot.js" ></script>
+<script  src="/Wuhlan3_hexo_blog/js/boot.js" ></script>
 
 
   
@@ -1006,5 +1006,5 @@ relations)</h4>
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/Wuhlan3_hexo_blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/Wuhlan3_hexo_blog/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>
