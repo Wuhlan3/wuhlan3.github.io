@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
-  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myfavicon.png">
+  <link rel="icon" href="/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="1.查询全部课程的详细记录; 1select * from COURSES;  2.查询所有有选修课的学生的编号; 1select distinct sid from choices;  3.查询课时&lt;88(小时)的课程的编号; 1select cid from COURSES where hour &lt; 88;  4.请找出总分超过400分的学生; 123select sid from">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://wuhlan3.github.io/wuhlan3/img/db.jpg">
+<meta property="og:image" content="https://wuhlan3.github.io/img/db.jpg">
 <meta property="article:published_time" content="2021-09-13T08:40:35.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.568Z">
 <meta property="article:author" content="Wuhlan3">
 <meta property="article:tag" content="数据库">
 <meta property="article:tag" content="学习笔记，SQL Server">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wuhlan3.github.io/wuhlan3/img/db.jpg">
+<meta name="twitter:image" content="https://wuhlan3.github.io/img/db.jpg">
   
   
   
@@ -58,33 +58,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/wuhlan3/css/custom.css">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/wuhlan3/js/utils.js" ></script>
-  <script  src="/wuhlan3/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
   
@@ -132,7 +132,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/wuhlan3/">
+    <a class="navbar-brand" href="/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -151,7 +151,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -163,7 +163,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -175,7 +175,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -187,7 +187,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/links/" target="_self">
+              <a class="nav-link" href="/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -199,7 +199,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -229,7 +229,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/wuhlan3/img/db.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/db.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -313,37 +313,37 @@
                 
                 <h3 id="查询全部课程的详细记录">1.查询全部课程的详细记录;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> COURSES;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913154224368.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154224368" style="zoom:50%;"></p>
+<p><img src="image-20210913154224368.png" srcset="/img/loading.gif" lazyload alt="image-20210913154224368" style="zoom:50%;"></p>
 <h3 id="查询所有有选修课的学生的编号">2.查询所有有选修课的学生的编号;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> sid <span class="hljs-keyword">from</span> choices;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913154237512.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154237512" style="zoom:50%;"></p>
+<p><img src="image-20210913154237512.png" srcset="/img/loading.gif" lazyload alt="image-20210913154237512" style="zoom:50%;"></p>
 <h3 id="查询课时88小时的课程的编号">3.查询课时&lt;88(小时)的课程的编号;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cid <span class="hljs-keyword">from</span> COURSES <span class="hljs-keyword">where</span> <span class="hljs-keyword">hour</span> <span class="hljs-operator">&lt;</span> <span class="hljs-number">88</span>;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913154302007.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913154302007" style="zoom:50%;"></p>
+<p><img src="image-20210913154302007.png" srcset="/img/loading.gif" lazyload alt="image-20210913154302007" style="zoom:50%;"></p>
 <h3 id="请找出总分超过400分的学生">4.请找出总分超过400分的学生;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> sid <span class="hljs-keyword">from</span> CHOICES<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> sid<br><span class="hljs-keyword">having</span> <span class="hljs-built_in">SUM</span>(isnull(score,<span class="hljs-number">0</span>)) <span class="hljs-operator">&gt;</span> <span class="hljs-number">400</span>;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913155332086.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913155332086" style="zoom:50%;"></p>
+<p><img src="image-20210913155332086.png" srcset="/img/loading.gif" lazyload alt="image-20210913155332086" style="zoom:50%;"></p>
 <h3 id="查询课程的总数">5.查询课程的总数;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">COUNT</span>(cid) <span class="hljs-keyword">from</span> COURSES;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913143709063.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913143709063" style="zoom:50%;"></p>
+<p><img src="image-20210913143709063.png" srcset="/img/loading.gif" lazyload alt="image-20210913143709063" style="zoom:50%;"></p>
 <h3 id="查询所有课程和选修该课程的学生总数">6.查询所有课程和选修该课程的学生总数;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  cname,<span class="hljs-built_in">count</span>(sid) <span class="hljs-keyword">as</span> student_cnt<br><span class="hljs-keyword">from</span> COURSES c ,choices ch<br><span class="hljs-keyword">where</span> c.cid <span class="hljs-operator">=</span> ch.cid<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cname;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913144731761.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913144731761" style="zoom:50%;"></p>
+<p><img src="image-20210913144731761.png" srcset="/img/loading.gif" lazyload alt="image-20210913144731761" style="zoom:50%;"></p>
 <h3 id="查询选修成绩超过60的课程超过两门的学生编号">7.查询选修成绩超过60的课程超过两门的学生编号;</h3>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">select sid <br>from CHOICES<br>where score &gt; <span class="hljs-number">60</span><br>group by sid<br>having <span class="hljs-title function_">COUNT</span><span class="hljs-params">(cid)</span>&gt;2;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913145328293.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913145328293" style="zoom:50%;"></p>
+<p><img src="image-20210913145328293.png" srcset="/img/loading.gif" lazyload alt="image-20210913145328293" style="zoom:50%;"></p>
 <h3 id="统计各个学生的选修课程数目和平均成绩">8.统计各个学生的选修课程数目和平均成绩;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  sid, <span class="hljs-built_in">COUNT</span>(cid) <span class="hljs-keyword">as</span> coursesnum, <span class="hljs-built_in">AVG</span>(isnull(score,<span class="hljs-number">0</span>)) <span class="hljs-keyword">as</span> avg_score <br><span class="hljs-keyword">from</span> CHOICES<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> sid;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913155200818.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913155200818" style="zoom:50%;"></p>
+<p><img src="image-20210913155200818.png" srcset="/img/loading.gif" lazyload alt="image-20210913155200818" style="zoom:50%;"></p>
 <h3 id="查询选修java的所有学生的编号及姓名">9.查询选修Java的所有学生的编号及姓名;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  <span class="hljs-keyword">distinct</span> s.sid <span class="hljs-keyword">as</span> studetn_id, snamefrom students s ,COURSES c ,choices chwhere s.sid <span class="hljs-operator">=</span> ch.sid <span class="hljs-keyword">and</span> c.cid <span class="hljs-operator">=</span> ch.cid <span class="hljs-keyword">and</span> cname <span class="hljs-operator">=</span> <span class="hljs-string">'java'</span>;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913153301386.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913153301386" style="zoom:50%;"></p>
+<p><img src="image-20210913153301386.png" srcset="/img/loading.gif" lazyload alt="image-20210913153301386" style="zoom:50%;"></p>
 <h3 id="查询姓名为sssht的学生所选的课程的编号和成绩">10.查询姓名为sssht的学生所选的课程的编号和成绩;</h3>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cid">select  cid,scorefrom students s ,choices chwhere sname = 'sssht' and s.sid = ch.sid  ;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913150654296.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913150654296" style="zoom:50%;"></p>
+<p><img src="image-20210913150654296.png" srcset="/img/loading.gif" lazyload alt="image-20210913150654296" style="zoom:50%;"></p>
 <h3 id="查询其他课时比课程c多的课程的名称">11.查询其他课时比课程C++多的课程的名称;</h3>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  c2.cnamefrom COURSES c1, COURSES c2where c1.cname <span class="hljs-operator">=</span> <span class="hljs-string">'c++'</span> <span class="hljs-keyword">and</span> c2.hour <span class="hljs-operator">&gt;</span> c1.hour;<br></code></pre></td></tr></tbody></table></figure>
-<p><img src="image-20210913151619265.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210913151619265" style="zoom:50%;"></p>
+<p><img src="image-20210913151619265.png" srcset="/img/loading.gif" lazyload alt="image-20210913151619265" style="zoom:50%;"></p>
 
                 
               </div>
@@ -356,9 +356,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
       
-        <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8CSQL-Server/" class="print-no-link">#学习笔记，SQL Server</a>
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%8CSQL-Server/" class="print-no-link">#学习笔记，SQL Server</a>
       
     </div>
   
@@ -588,8 +588,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/wuhlan3/js/events.js" ></script>
-<script  src="/wuhlan3/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -611,7 +611,7 @@
 
 
   
-    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -710,21 +710,21 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script defer src="/wuhlan3/js/leancloud.js" ></script>
+  <script defer src="/js/leancloud.js" ></script>
 
-  <script  src="/wuhlan3/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/wuhlan3/js/dongtaicaidai.js"></script>
+<script src="/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/wuhlan3/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
@@ -732,5 +732,5 @@
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

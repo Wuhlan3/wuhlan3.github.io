@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
-  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myfavicon.png">
+  <link rel="icon" href="/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="关系数据库设计 范式是符合某一种级别的关系模式的集合。关系数据库中的关系必须满足一定的要求，满足不同程度要求的为不同范式。 本章介绍基于函数依赖概念的关系数据库设计的规范方法。然后根据函数依赖及其其他类型的数据依赖来定义范式。 1.好的关系设计 更大的模式  冗余，可能会导致数据的重复。 其他问题，比如创建一个新的系，但是因为还没有教师，所以无法表示新成立的系的信息。（如果使用空值，可能会造成更多">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://wuhlan3.github.io/wuhlan3/img/db.jpg">
+<meta property="og:image" content="https://wuhlan3.github.io/img/db.jpg">
 <meta property="article:published_time" content="2021-10-18T02:13:12.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.791Z">
 <meta property="article:author" content="Wuhlan3">
@@ -31,7 +31,7 @@
 <meta property="article:tag" content="数据库">
 <meta property="article:tag" content="SQL Server">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wuhlan3.github.io/wuhlan3/img/db.jpg">
+<meta name="twitter:image" content="https://wuhlan3.github.io/img/db.jpg">
   
   
   
@@ -59,33 +59,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/wuhlan3/css/custom.css">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/wuhlan3/js/utils.js" ></script>
-  <script  src="/wuhlan3/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
   
@@ -133,7 +133,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/wuhlan3/">
+    <a class="navbar-brand" href="/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -152,7 +152,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -164,7 +164,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -176,7 +176,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -188,7 +188,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/links/" target="_self">
+              <a class="nav-link" href="/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -200,7 +200,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -230,7 +230,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/wuhlan3/img/db.jp') no-repeat center center; background-size: cover;">
+     style="background: url('/img/db.jp') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -331,7 +331,7 @@ dept\_name \rightarrow budget
 <p>比如下图中，分解之后，就无法区分哪个Kim是哪个Kim：</p>
 </blockquote>
 <figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011900897.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211018102824040">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011900897.png" srcset="/img/loading.gif" lazyload alt="image-20211018102824040">
 <figcaption aria-hidden="true">image-20211018102824040</figcaption>
 </figure>
 <h2 id="原子域和第一范式">2.原子域和第一范式</h2>
@@ -395,7 +395,7 @@ R\)</span>,下面至少有一项成立：</p>
 <li><span class="math inline">\((R-(\beta - \alpha))\)</span></li>
 </ul>
 <figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011859366.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101184820414">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011859366.png" srcset="/img/loading.gif" lazyload alt="image-20211101184820414">
 <figcaption aria-hidden="true">image-20211101184820414</figcaption>
 </figure>
 <div class="note note-success">
@@ -453,14 +453,14 @@ R\)</span>,下面至少有一项成立：</p>
 \rightarrow \delta\)</span></li>
 </ul>
 <figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011925216.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101192511783">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111011925216.png" srcset="/img/loading.gif" lazyload alt="image-20211101192511783">
 <figcaption aria-hidden="true">image-20211101192511783</figcaption>
 </figure>
 <h3 id="属性集的闭包">属性集的闭包</h3>
 <p><strong>函数确定</strong>：如果<span class="math inline">\(\alpha
 \rightarrow B\)</span>，我们称属性B被<span class="math inline">\(\alpha\)</span>函数确定。</p>
 <figure>
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101192922519.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101192922519">
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101192922519.png" srcset="/img/loading.gif" lazyload alt="image-20211101192922519">
 <figcaption aria-hidden="true">image-20211101192922519</figcaption>
 </figure>
 <p>属性闭包算法的用途：</p>
@@ -486,7 +486,7 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
 (\beta-A)\}\)</span>逻辑蕴含<span class="math inline">\(F\)</span>,则属性A在<span class="math inline">\(\beta\)</span>是无关的</li>
 </ul>
 <figure>
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111012049726.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101204947282">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/202111012049726.png" srcset="/img/loading.gif" lazyload alt="image-20211101204947282">
 <figcaption aria-hidden="true">image-20211101204947282</figcaption>
 </figure>
 <p><span class="math inline">\(F\)</span>的<strong>正则覆盖</strong><span class="math inline">\(F_c\)</span>是一个依赖集，使得<span class="math inline">\(F\)</span>逻辑蕴含<span class="math inline">\(F_c\)</span>中的所有依赖，并且<span class="math inline">\(F_c\)</span>逻辑蕴含F中的所有依赖。此外，<span class="math inline">\(F_c\)</span>必须具有如下性质：</p>
@@ -495,7 +495,7 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
 <li><span class="math inline">\(F_c\)</span>中函数依赖的左半部都是唯一的</li>
 </ul>
 <figure>
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101205454801.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20211101205454801">
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211101205454801.png" srcset="/img/loading.gif" lazyload alt="image-20211101205454801">
 <figcaption aria-hidden="true">image-20211101205454801</figcaption>
 </figure>
 <h3 id="无损分解">无损分解</h3>
@@ -519,11 +519,11 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
       
-        <a href="/wuhlan3/tags/SQL-Server/" class="print-no-link">#SQL Server</a>
+        <a href="/tags/SQL-Server/" class="print-no-link">#SQL Server</a>
       
     </div>
   
@@ -759,8 +759,8 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/wuhlan3/js/events.js" ></script>
-<script  src="/wuhlan3/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -782,7 +782,7 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
 
 
   
-    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -924,21 +924,21 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
 
   <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
-  <script defer src="/wuhlan3/js/leancloud.js" ></script>
+  <script defer src="/js/leancloud.js" ></script>
 
-  <script  src="/wuhlan3/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/wuhlan3/js/dongtaicaidai.js"></script>
+<script src="/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/wuhlan3/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
@@ -946,5 +946,5 @@ attribute)：如果去除函数依赖中的一个属性不改变该函数依赖�
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>

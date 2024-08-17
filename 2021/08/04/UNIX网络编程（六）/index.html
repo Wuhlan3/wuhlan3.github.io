@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/wuhlan3/img/myfavicon.png">
-  <link rel="icon" href="/wuhlan3/img/myfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myfavicon.png">
+  <link rel="icon" href="/img/myfavicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="whl&#39;s blog">
 <meta property="og:description" content="《UNIX网络编程_卷1_套接字联网API》，IO复用，select和poll函数">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://wuhlan3.github.io/wuhlan3/img/unix.jpg">
+<meta property="og:image" content="https://wuhlan3.github.io/img/unix.jpg">
 <meta property="article:published_time" content="2021-08-04T02:00:15.000Z">
 <meta property="article:modified_time" content="2024-03-22T15:55:27.516Z">
 <meta property="article:author" content="Wuhlan3">
@@ -32,7 +32,7 @@
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wuhlan3.github.io/wuhlan3/img/unix.jpg">
+<meta name="twitter:image" content="https://wuhlan3.github.io/img/unix.jpg">
   
   
   
@@ -60,33 +60,33 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/wuhlan3/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/wuhlan3/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/wuhlan3/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
   
-<link rel="stylesheet" href="/wuhlan3/css/custom.css">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/wuhlan3/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/wuhlan3/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"wuhlan3.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"axCnS3N1SdDpQJXUqoj3cAOx-gzGzoHsz","app_key":"xM5uBUb3rHXweg6vxqQBs0YV","server_url":"https://axcns3n1.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/wuhlan3/js/utils.js" ></script>
-  <script  src="/wuhlan3/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
   
@@ -134,7 +134,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/wuhlan3/">
+    <a class="navbar-brand" href="/">
       <strong>Wuhlan3</strong>
     </a>
 
@@ -153,7 +153,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>主页</span>
               </a>
@@ -165,7 +165,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>历史</span>
               </a>
@@ -177,7 +177,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -189,7 +189,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/links/" target="_self">
+              <a class="nav-link" href="/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -201,7 +201,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/wuhlan3/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -231,7 +231,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/wuhlan3/img/unix.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/unix.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -322,21 +322,21 @@
 <li>异步I/O（POSIX的aio_系列函数）</li>
 </ul>
 <h3 id="阻塞型io">阻塞型I/O</h3>
-<p><img src="image-20210804140524461.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804140524461" style="zoom:80%;"></p>
+<p><img src="image-20210804140524461.png" srcset="/img/loading.gif" lazyload alt="image-20210804140524461" style="zoom:80%;"></p>
 <p>例子：本书把recvfrom当作是系统调用（不同操作系统可能不太一样），因为涉及到内核与应用进程的切换。在调用recvfrom到返回的这一段时间内，是被<strong>阻塞的</strong>。</p>
 <h3 id="非阻塞型io">非阻塞型I/O</h3>
 <p>特点用一句话概括。进程把套接字设置成非阻塞型是在通知内核：当所请求的I/O操作非得把本进程投入睡眠才能完成时，不要投入睡眠而是返回一个错误。</p>
-<p><img src="image-20210804141302991.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804141302991" style="zoom:80%;"></p>
+<p><img src="image-20210804141302991.png" srcset="/img/loading.gif" lazyload alt="image-20210804141302991" style="zoom:80%;"></p>
 <p>如图，当一个应用进程像这样对一个非阻塞描述符循环调用recvfrom，称为<strong>轮询</strong>（polling）。应用进程持续访问内核，查看内核是否就绪。这样会造成大量的CPU时间损耗，值在一小部分系统中会应用到。</p>
 <h3 id="io复用">I/O复用</h3>
-<p><img src="image-20210804141842651.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804141842651" style="zoom:80%;"></p>
+<p><img src="image-20210804141842651.png" srcset="/img/loading.gif" lazyload alt="image-20210804141842651" style="zoom:80%;"></p>
 <p>调用select或poll，阻塞在这两个系统调用的某个之上。</p>
 <p>注意：相比于图6-1，该方法使用了两次系统调用（select，recvfrom）</p>
 <h3 id="信号驱动式io">信号驱动式I/O</h3>
-<p><img src="image-20210804144110660.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804144110660" style="zoom:80%;"></p>
+<p><img src="image-20210804144110660.png" srcset="/img/loading.gif" lazyload alt="image-20210804144110660" style="zoom:80%;"></p>
 <p>其优势在于，等待数据报到达之前，不需要阻塞。</p>
 <h3 id="异步io">异步I/O</h3>
-<p><img src="image-20210804144456504.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210804144456504" style="zoom:80%;"></p>
+<p><img src="image-20210804144456504.png" srcset="/img/loading.gif" lazyload alt="image-20210804144456504" style="zoom:80%;"></p>
 <h2 id="io复用的场合">I/O复用的场合</h2>
 <ol type="1">
 <li>当客户使用多个描述符时（套接字和交互式输入），必须使用I/O复用。</li>
@@ -369,7 +369,7 @@
 <li>根本不等待：检查描述符后里面返回，这就是之前提到的<strong>轮询</strong>。把秒数和微秒数设置为0。</li>
 </ol>
 <h2 id="就绪条件">就绪条件</h2>
-<p><img src="image-20210805093941701.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805093941701" style="zoom: 67%;"></p>
+<p><img src="image-20210805093941701.png" srcset="/img/loading.gif" lazyload alt="image-20210805093941701" style="zoom: 67%;"></p>
 <h2 id="对str_cli进行修改">对str_cli进行修改</h2>
 <p>之前我们遇到的问题是：客户端进程阻塞在fgets，不能及时读取socket描述符的信息。下面来进行改进：</p>
 <ol type="1">
@@ -377,7 +377,7 @@
 <li>如果对端发送一个FIN，那么该套接字变为可读，read返回一个0（EOF）</li>
 <li>如果对端发送一个RST（对端主机崩溃或重新启动），那么该套接字变为可读，read返回一个-1（errno含有错误码）</li>
 </ol>
-<p><img src="image-20210805094459846.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805094459846" style="zoom:80%;"></p>
+<p><img src="image-20210805094459846.png" srcset="/img/loading.gif" lazyload alt="image-20210805094459846" style="zoom:80%;"></p>
 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">"unp.h"</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">str_cli</span><span class="hljs-params">(FILE *fp, <span class="hljs-type">int</span> sockfd)</span></span>{<br>    <span class="hljs-type">int</span> maxfdp1;    <span class="hljs-comment">//最大描述符数</span><br>    fd_set rset;    <span class="hljs-comment">//read set 读入的描述符集</span><br>    <span class="hljs-type">char</span> sendline[MAXLINE], recvline[MAXLINE];<br>    <span class="hljs-built_in">FD_ZERO</span>(&amp;rset);    <span class="hljs-comment">//初始化，清零</span><br>    <br>    <span class="hljs-keyword">for</span>( ; ; ) {<br>        <span class="hljs-built_in">FD_SET</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset);	<span class="hljs-comment">//设置文件描述符。其中fileno可以把文件指针转为描述符</span><br>        <span class="hljs-built_in">FD_SET</span>(sockfd, &amp;rset);		<span class="hljs-comment">//设置套接字描述符</span><br>        maxfdp1 = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">fileno</span>(fp), sockfd)+<span class="hljs-number">1</span>;	<span class="hljs-comment">// +1 +1 +1</span><br>        <span class="hljs-built_in">Select</span>(maxfdp1, &amp;rset, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);<br>        <br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">FD_ISSET</span>(sockfd, &amp;rset)){	<span class="hljs-comment">//若读套接字已就绪</span><br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Readline</span>(sockfd, recvline, MAXLINE) == <span class="hljs-number">0</span> ){		<span class="hljs-comment">//EOF</span><br>            	<span class="hljs-built_in">err_quit</span>(<span class="hljs-string">"str_cli:server terminated prematurely"</span>);<br>            }<br>            <span class="hljs-built_in">Fputs</span>(recvline, stdout);<br>        }<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">FD_ISSET</span>(<span class="hljs-built_in">fileno</span>(fp), &amp;rset)){	<span class="hljs-comment">//若读文件流已就绪</span><br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Fgets</span>(sendline, MAXLINE, fp) == <span class="hljs-literal">NULL</span> ){<br>            	<span class="hljs-keyword">return</span>;<br>            }<br>            <span class="hljs-built_in">Writen</span>(sockfd, sendline,<span class="hljs-built_in">strlen</span>(sendline) );<br>        }<br>    }<br>}<br></code></pre></td></tr></tbody></table></figure>
 <p>我们再来使用netstat、ps、kill等工具进行检测。发现：</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">wuhlan3@ubuntu:~/Desktop/unpv13e-master/my_test$ ./client 127.0.0.1<br>hello<br>hello<br>miomiao<br>miomiao<br>str_cli:server terminated prematurely<br></code></pre></td></tr></tbody></table></figure>
@@ -392,7 +392,7 @@
 <li>close吧描述符的counter-1，只有counter为0时才关闭套机字</li>
 <li>close终止读和写两个方向上的数据传送</li>
 </ol>
-<p><img src="image-20210805110818646.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805110818646" style="zoom:67%;"></p>
+<p><img src="image-20210805110818646.png" srcset="/img/loading.gif" lazyload alt="image-20210805110818646" style="zoom:67%;"></p>
 <p>这就是另一个需要解决的问题：有的时候客户端发送完数据后，直接就发送FIN了，是要告知服务器我已经发送完数据了。此时客户端仍想要保持套接字打开，继续接收读取服务器发回来的数据。这就要用到shutdown函数</p>
 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">shutdown</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">int</span> howto)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    SHUT_RD:关闭连接读半部</span><br><span class="hljs-comment">    SHUT_WR:关闭连接写半部，对于TCP而言，这就是半关闭状态half-close</span><br><span class="hljs-comment">    SHUT_RDWR:关闭连接读写。等价于调用分别上面两次shutdown</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></tbody></table></figure>
 <h2 id="str_cli的再修改">str_cli的再修改</h2>
@@ -406,7 +406,7 @@
 <li><p>timeout的结构变为秒和纳秒</p></li>
 <li><p>select的timeout是<strong>值-结果参数</strong>，pselect的timeout不会改变</p></li>
 <li><p>多了一个信号掩码参数。</p>
-<p><img src="image-20210805144333226.png" srcset="/wuhlan3/img/loading.gif" lazyload alt="image-20210805144333226" style="zoom: 80%;"></p></li>
+<p><img src="image-20210805144333226.png" srcset="/img/loading.gif" lazyload alt="image-20210805144333226" style="zoom: 80%;"></p></li>
 </ul>
 <h2 id="poll函数">poll函数</h2>
 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;poll.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">poll</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> pollfd fd[], <span class="hljs-type">nfds_t</span> nfds, <span class="hljs-type">int</span> timeout)</span></span>;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">pollfd</span>{<br>　　<span class="hljs-type">int</span> fd;          <span class="hljs-comment">//文件描述符</span><br>　　<span class="hljs-type">short</span> events;    <span class="hljs-comment">//请求的事件</span><br>　　<span class="hljs-type">short</span> revents;   <span class="hljs-comment">//返回的事件</span><br>　　};<br></code></pre></td></tr></tbody></table></figure>
@@ -509,13 +509,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/wuhlan3/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
       
-        <a href="/wuhlan3/tags/linux/" class="print-no-link">#linux</a>
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
-        <a href="/wuhlan3/tags/C-C/" class="print-no-link">#C/C++</a>
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/wuhlan3/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
       
     </div>
   
@@ -745,8 +745,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/wuhlan3/js/events.js" ></script>
-<script  src="/wuhlan3/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -768,7 +768,7 @@
 
 
   
-    <script  src="/wuhlan3/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -867,21 +867,21 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script defer src="/wuhlan3/js/leancloud.js" ></script>
+  <script defer src="/js/leancloud.js" ></script>
 
-  <script  src="/wuhlan3/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
   
-<script src="/wuhlan3/js/dongtaicaidai.js"></script>
+<script src="/js/dongtaicaidai.js"></script>
 
 
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/wuhlan3/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
@@ -889,5 +889,5 @@
   <noscript>
     <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
-<script src="/wuhlan3/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/wuhlan3/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":5,"vOffset":-60},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
 </html>
